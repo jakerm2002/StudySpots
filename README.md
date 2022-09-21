@@ -31,11 +31,8 @@ Describe at least five additional attributes for each model that you could searc
 	Libraries: Phone, Website, Amenities, Distance from me
  
 Describe at least two types of media for each model that you could display on the instance pages:
- 
     Universities: location on map, pictures of university, link to website, nearby coffee shops, libraries on/off campus, description of the area
-    
-    Coffee Shops: display location on map, ratings, pictures of the coffee shop, business hours, pictures of food/coffee, links to social media or menu
-    
+    Coffee Shops: display location on map, ratings, pictures of the coffee shop, business hours, pictures of food/coffee, links to social media or menu    
     Libraries: business hours, pictures of library, ratings, link to website, library description, display location on maps
  
 Data Connections:
