@@ -11,7 +11,9 @@ The proposed project:
 URLs of at least three disparate data sources that you will programmatically scrape using a RESTful API (be very sure about this):
 
 https://www.yelp.com/developers/documentation/v3/get_started
+
 https://collegescorecard.ed.gov/data/
+
 https://developers.google.com/maps/documentation/places/web-service
 
 At least three models: Universites, Libraries, Coffee Shops
