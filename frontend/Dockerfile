@@ -1,13 +1,14 @@
 FROM node:18
 
-WORKDIR /frontend
+WORKDIR ..
 
 COPY package-lock.json .
 COPY package.json .
 
+WORKDIR /frontend
 RUN npm install
 
-COPY ./ /frontend
+COPY . .
 
 EXPOSE 3000
 CMD ["npm", "start"]
