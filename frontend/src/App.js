@@ -15,11 +15,11 @@ function App() {
     <div className="App">
       <Navigation/>
       <Routes>
-        <Route path='/' component={Splash}/>
-        <Route path='/CoffeeShops' component={CoffeeShops}/>
-        <Route path='/Libraries' component={Libraries}/>
-        <Route path='/Universities' component={Universities}/>
-        <Route path='/About' component={About}/>
+        <Route path='/' element={<Splash/>}/>
+        <Route path='/CoffeeShops' element={<CoffeeShops/>}/>
+        <Route path='/Libraries' element={<Libraries/>}/>
+        <Route path='/Universities' element={<Universities/>}/>
+        <Route path='/About' element={<About/>}/>
       </Routes>
     </div>
   )
