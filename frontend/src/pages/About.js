@@ -48,13 +48,29 @@ const Profile = (props) => {
 };
 
 const About = () => {
-    return(
-        <Row xs={4} md={4} className="profiles">
-            {teamMembers.map(teamMember => (
-                <Profile person={teamMember}/>
-            ))}
-        </Row>
-    );
+    return[
+        <div className="info">
+            <h1>StudySpots</h1>
+            <h3>Mission</h3>
+            <p></p>
+            <h3>Discovery</h3>
+        </div>,
+        <div className="teamInfo">
+            <h1>Meet the Team</h1>
+            <h3>Members</h3>
+            <Row xs={4} md={4} className="profiles">
+                {teamMembers.map(teamMember => (
+                    <Profile person={teamMember}/>
+                ))}
+            </Row>
+            <h3>Team Stats</h3>
+        </div>,
+        <div className="techInfo">
+            <h1>Technology Used</h1>
+            <h3>Tools</h3>
+            <h3>APIs Scraped</h3>
+        </div>
+    ];
 }
 
 export default About;
