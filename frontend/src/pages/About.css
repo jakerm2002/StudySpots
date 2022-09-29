@@ -20,3 +20,15 @@
     margin-top: 40px;
     margin-bottom: 40px;
 }
+
+.centerTable {
+    margin-left:auto;
+    margin-right: auto;
+    width: 75%;
+}
+
+table {
+    overflow: auto;
+    display: block;
+    table-layout: auto;
+}

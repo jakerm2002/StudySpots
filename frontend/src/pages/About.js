@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Card, Row, Table } from 'react-bootstrap';
 import './About.css';
-import { Card, Row } from 'react-bootstrap';
 import JoanneChenImg from '../images/joanne_chen.png';
+import AWSImg from '../images/aws.png';
+import DockerImg from '../images/docker.png';
+import GitLabImg from '../images/gitlab_logo.png';
+import ReactBootstrapImg from '../images/react_bootstrap.png';
+import ReactImg from '../images/react_logo.png';
+import ReactRouterImg from '../images/react_router_logo.png';
 
 const teamMembers = [
     {
@@ -56,6 +62,39 @@ const teamMembers = [
     },
 ];
 
+const tools = [
+    {
+        "name": "React",
+        "image": ReactImg,
+        "description": "We used React to create the overall website UI and design. ",
+    },
+    {
+        "name": "React Router",
+        "image": ReactRouterImg,
+        "description": "We used React Router in order to create connections and allow navigation between the different pages.",
+    },
+    {
+        "name": "React Bootstrap",
+        "image": ReactBootstrapImg,
+        "description": "We used React Bootstrap since it already included some basic components that we could use.",
+    },
+    {
+        "name": "AWS Amplify",
+        "image": AWSImg,
+        "description": "We used AWS Amplify to host the website.",
+    },
+    {
+        "name": "Docker",
+        "image": DockerImg,
+        "description": "We used Docker to be able to create the environment and all the installations necessary for development.",
+    },
+    {
+        "name": "GitLab",
+        "image": GitLabImg,
+        "description": "We used GitLab for source control, collaboration, and to keep track of issues.",
+    },
+]
+
 // Make requets 
 async function fetchCommitAndIssuesInfo() {
     let numCommits = 0;
@@ -65,8 +104,8 @@ async function fetchCommitAndIssuesInfo() {
     commitInfo.forEach((commit) => {
         numCommits += 1
         teamMembers.forEach((member) => {
-            if(commit.author_name == member["username"]
-            || commit.author_name == member["name"]) {
+            if(commit.author_name === member["username"]
+            || commit.author_name === member["name"]) {
                 member["commits"] += 1;
             }
         }) 
@@ -80,7 +119,7 @@ async function fetchCommitAndIssuesInfo() {
         numIssues += 1;
         teamMembers.forEach((member) => {
             issue.assignees.forEach((assignee) => {
-                if (assignee.name == member["name"] || assignee.username == member["username"]) {
+                if (assignee.name === member["name"] || assignee.username === member["username"]) {
                     member["issues"] += 1;
                 }
             });
@@ -109,6 +148,18 @@ const Profile = (props) => {
         </Card>
     )
 };
+
+const Tool = (props) => {
+    return (
+        <Card style = {{ width: '15rem'}}>
+            <Card.Body>
+                <Card.Img variant="top" src={props.tool["image"]}/>
+                <Card.Title>{props.tool["name"]}</Card.Title>
+                <Card.Text>{props.tool["description"]}</Card.Text>
+            </Card.Body>
+        </Card>
+    )
+}
 
 const About = () => {
     const [isFetched, setFetched] = useState(false);
@@ -158,6 +209,17 @@ const About = () => {
         <div className="techInfo">
             <h1>Technology Used</h1>
             <h3>Tools</h3>
+            <div className="centerTable">
+                <Table>
+                    <tbody>
+                        <tr>
+                        {tools.map(tool => (
+                            <td><Tool tool={tool}/></td>
+                        ))}
+                        </tr>                    
+                    </tbody>
+                </Table>
+            </div>
             <h3>APIs Scraped</h3>
         </div>
     ];
