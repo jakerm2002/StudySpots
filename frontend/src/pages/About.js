@@ -3,11 +3,14 @@ import { Card, Row, Table } from 'react-bootstrap';
 import './About.css';
 import JoanneChenImg from '../images/joanne_chen.png';
 import AWSImg from '../images/aws.png';
+import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
 import GitLabImg from '../images/gitlab_logo.png';
+import GoogleMapsImg from '../images/google_maps.png';
 import ReactBootstrapImg from '../images/react_bootstrap.png';
 import ReactImg from '../images/react_logo.png';
 import ReactRouterImg from '../images/react_router_logo.png';
+import YelpImg from '../images/yelp_logo.png';
 
 const teamMembers = [
     {
@@ -92,6 +95,29 @@ const tools = [
         "name": "GitLab",
         "image": GitLabImg,
         "description": "We used GitLab for source control, collaboration, and to keep track of issues.",
+    },
+]
+
+const apis = [
+    {
+        "name": "GitLab API",
+        "image": GitLabImg,
+        "description": "We used the GitLab API to fetch information about the number of commits and issues on the repo."
+    },
+    {
+        "name": "Google Maps API",
+        "image": GoogleMapsImg,
+        "description": "We used the Google Maps API to fetch information for each of the library instances.",
+    },
+    {
+        "name": "Yelp API",
+        "image": YelpImg,
+        "description": "We used the Yelp API to display information for each of the coffee shops.",
+    },
+    {
+        "name": "College Score Card API",
+        "image": CollegeImg,
+        "description": "We used the College Score Card API to display information for each of the university instances.",
     },
 ]
 
@@ -221,6 +247,17 @@ const About = () => {
                 </Table>
             </div>
             <h3>APIs Scraped</h3>
+            <div className="centerTable">
+                <Table>
+                    <tbody>
+                        <tr>
+                            {apis.map(api => (
+                                <td><Tool tool={api}/></td>
+                            ))}
+                        </tr>
+                    </tbody>
+                </Table>
+            </div>
         </div>
     ];
 }
