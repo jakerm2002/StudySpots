@@ -159,6 +159,14 @@ async function fetchCommitAndIssuesInfo() {
 
 }
 
+function aggregateTests() {
+    let numTests = 0;
+    teamMembers.forEach((member) => {
+        numTests += member["tests"];
+    })
+    return numTests;
+}
+
 const Profile = (props) => {
 
     return (
@@ -170,6 +178,7 @@ const Profile = (props) => {
                 <Card.Text><b>Responsibility: </b>{props.person["responsibility"]}</Card.Text>
                 <Card.Text><b>Commits: </b>{props.person["commits"]}</Card.Text>
                 <Card.Text><b>Issues: </b>{props.person["issues"]}</Card.Text>
+                <Card.Text><b>Tests: </b>{props.person["tests"]}</Card.Text>
             </Card.Body>
         </Card>
     )
@@ -191,6 +200,7 @@ const About = () => {
     const [isFetched, setFetched] = useState(false);
     const [numCommits, setNumCommits] = useState();
     const [numIssues, setNumIssues] = useState();
+    const numTests = aggregateTests();
 
     useEffect(() => {
         const fetchInfo = async() => {
@@ -229,6 +239,7 @@ const About = () => {
                 <Card.Body>
                     <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
                     <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
+                    <Card.Text><b>Tests: </b>{numTests}</Card.Text>
                 </Card.Body>
             </Card>
         </div>,
