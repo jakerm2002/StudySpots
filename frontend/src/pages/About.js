@@ -69,31 +69,37 @@ const tools = [
     {
         "name": "React",
         "image": ReactImg,
+        "link": "https://reactjs.org/",
         "description": "We used React to create the overall website UI and design. ",
     },
     {
         "name": "React Router",
         "image": ReactRouterImg,
+        "link": "https://reactrouter.com/en/main",
         "description": "We used React Router in order to create connections and allow navigation between the different pages.",
     },
     {
         "name": "React Bootstrap",
         "image": ReactBootstrapImg,
+        "link": "https://react-bootstrap.github.io/",
         "description": "We used React Bootstrap since it already included some basic components that we could use.",
     },
     {
         "name": "AWS Amplify",
         "image": AWSImg,
+        "link": "https://aws.amazon.com/amplify/",
         "description": "We used AWS Amplify to host the website.",
     },
     {
         "name": "Docker",
         "image": DockerImg,
+        "link": "https://www.docker.com/",
         "description": "We used Docker to be able to create the environment and all the installations necessary for development.",
     },
     {
         "name": "GitLab",
         "image": GitLabImg,
+        "link": "https://gitlab.com/",
         "description": "We used GitLab for source control, collaboration, and to keep track of issues.",
     },
 ]
@@ -102,21 +108,25 @@ const apis = [
     {
         "name": "GitLab API",
         "image": GitLabImg,
+        "link": "https://docs.gitlab.com/ee/api/",
         "description": "We used the GitLab API to fetch information about the number of commits and issues on the repo."
     },
     {
         "name": "Google Maps API",
         "image": GoogleMapsImg,
+        "link": "https://developers.google.com/maps",
         "description": "We used the Google Maps API to fetch information for each of the library instances.",
     },
     {
         "name": "Yelp API",
         "image": YelpImg,
+        "link": "https://www.yelp.com/developers",
         "description": "We used the Yelp API to display information for each of the coffee shops.",
     },
     {
         "name": "College Score Card API",
         "image": CollegeImg,
+        "link": "https://collegescorecard.ed.gov/data/",
         "description": "We used the College Score Card API to display information for each of the university instances.",
     },
 ]
@@ -189,7 +199,9 @@ const Tool = (props) => {
         <Card style = {{ width: '15rem'}}>
             <Card.Body>
                 <Card.Img variant="top" src={props.tool["image"]}/>
-                <Card.Title>{props.tool["name"]}</Card.Title>
+                <a href={props.tool["link"]}>
+                    <Card.Title>{props.tool["name"]}</Card.Title>
+                </a>
                 <Card.Text>{props.tool["description"]}</Card.Text>
             </Card.Body>
         </Card>
