@@ -1,3 +1,6 @@
+URL for develop branch: https://develop.studyspots.me/
+URL for main branch: https://main.dpjx39d3wdxsb.amplifyapp.com
+
 Canvas / Discord group number: 11-4
  
 Names of the team members: Jake Medina, Vincent Chen, Ami Iyer, Joanne Chen, Bianca Alvarado
