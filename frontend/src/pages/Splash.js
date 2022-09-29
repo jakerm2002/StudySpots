@@ -1,4 +1,4 @@
-const page_name_here = () => {
+const Splash = () => {
 }
 
-export default page_name_here;
+export default Splash;
