@@ -2,6 +2,11 @@
     justify-content: center;
 }
 
+.team {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .profileCard {
     margin: 25px;
 }

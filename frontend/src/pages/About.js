@@ -35,11 +35,11 @@ const teamMembers = [
         "tests": 0,
     },
     {
-        "name" : "Amritha Iyer",
+        "name" : "Ami Iyer",
         "photo": "",
         "bio" : "",
         "responsibility": "",
-        "username": "",
+        "username": "Amritha Iyer",
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -119,7 +119,7 @@ const About = () => {
         const fetchInfo = async() => {
             if (!isFetched) {
                 let info = await fetchCommitAndIssuesInfo();
-                setNumCommits(info["totalCommits"]);
+                setNumCommits(info["numCommits"]);
                 setNumIssues(info["numIssues"]);
                 setFetched(true);
             }
@@ -148,6 +148,12 @@ const About = () => {
                 ))}
             </Row>
             <h3>Team Stats</h3>
+            <Card style = {{width: '75%'}} className="team">
+                <Card.Body>
+                    <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
+                    <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
+                </Card.Body>
+            </Card>
         </div>,
         <div className="techInfo">
             <h1>Technology Used</h1>
