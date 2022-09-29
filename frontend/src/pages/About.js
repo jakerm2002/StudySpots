@@ -223,8 +223,13 @@ const About = () => {
         <div className="info">
             <h1>StudySpots</h1>
             <h3>Mission</h3>
-            <p></p>
+            <div className="center">
+                <p>StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
+            </div>
             <h3>Discovery</h3>
+            <div className='center'>
+                <p>When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
+            </div>
         </div>,
         <div className="teamInfo">
             <h1>Meet the Team</h1>
@@ -246,7 +251,7 @@ const About = () => {
         <div className="techInfo">
             <h1>Technology Used</h1>
             <h3>Tools</h3>
-            <div className="centerTable">
+            <div className="center">
                 <Table>
                     <tbody>
                         <tr>
@@ -258,7 +263,7 @@ const About = () => {
                 </Table>
             </div>
             <h3>APIs Scraped</h3>
-            <div className="centerTable">
+            <div className="center">
                 <Table>
                     <tbody>
                         <tr>
