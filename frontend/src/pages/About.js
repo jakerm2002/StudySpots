@@ -14,11 +14,11 @@ import YelpImg from '../images/yelp_logo.png';
 
 const teamMembers = [
     {
-        "name" : "Bianca Alavrado",
+        "name" : "Bianca Alvarado",
         "photo": "",
         "bio" : "",
         "responsibility": "",
-        "username": "",
+        "username": "bianca.alvarado",
         "commits": 0,
         "issues": 0,
         "tests": 0,
