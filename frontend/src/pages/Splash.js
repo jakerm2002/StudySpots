@@ -1,14 +1,12 @@
 import React from "react";
-// {useState}
-// import Carousel from 'react-bootstrap/Carousel';
-// import { SliderData } from "../images/SliderData";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Row } from "react-bootstrap";
+import {Link} from 'react-router-dom';
+
 
 const Splash = () => {
-    // const [current,setCurrent] = useState(0)
-    // const length = slides.length
+
     return (
        <div>
             <Row style={{padding: '2rem'}}>
@@ -20,7 +18,11 @@ const Splash = () => {
                             <Card.Text>
                                 Find your university!
                             </Card.Text>
-                            <Button variant="primary">Learn more</Button>
+                            <div>
+                                <Link to='/Universities'>
+                                    <Button variant="primary">Learn more </Button>
+                                </Link>
+                            </div>
                         </Card.Body>
                     </div>
                 </Card>
@@ -32,7 +34,11 @@ const Splash = () => {
                             <Card.Text>
                                 Find coffee shops near you!
                             </Card.Text>
-                            <Button variant="primary">Learn more</Button>
+                            <div>
+                                <Link to='/CoffeeShops'>
+                                    <Button variant="primary">Learn more </Button>
+                                </Link>
+                            </div>
                         </Card.Body>
                     </div>
                 </Card>
@@ -44,7 +50,11 @@ const Splash = () => {
                             <Card.Text>
                                 Find Libraries near you!
                             </Card.Text>
-                            <Button variant="primary">Learn more</Button>
+                            <div>
+                                <Link to='/Libraries'>
+                                    <Button variant="primary">Learn more </Button>
+                                </Link>
+                            </div>
                         </Card.Body>
                     </div>
                 </Card>
@@ -53,15 +63,5 @@ const Splash = () => {
        </div>
     );
 };
-
- // <>
-            
-        //     {/* {SliderData.map((slide, index) => {
-        //         return (
-        //             <img src={slide.image}
-        //             alt="tthis is the alt" />
-        //         )
-        //     })} */}
-        // </>
 
 export default Splash;
