@@ -3,6 +3,7 @@ stages:
 
 build-job:
   stage: build
+  image: joannejc/idb_frontend
   script:
     - cd frontend
     - npm install
