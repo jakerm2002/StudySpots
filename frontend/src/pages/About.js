@@ -19,7 +19,7 @@ const teamMembers = [
         "photo": BiancaAlvImg,
         "bio" : "I'm a senior CS major with a minor in Business! I'm from Houston, TX. In my free time I enjoy playing board games and binge watching shows with friends :)",
         "responsibility": "Frontend - Splash page",
-        "username": "bianca.alvarado",
+        "possible_names": ["Bianca Alvarado", "bianca.alvarado", "Bianca M Alvarado"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -29,7 +29,7 @@ const teamMembers = [
         "photo": JoanneChenImg,
         "bio" : "I'm a junior majoring in CS and minoring in Philosophy and Chinese (hopefully!). I'm from Frisco, TX. I enjoy cooking, random crafts like crochet, and just trying new things in general whether that be traveling or restaurants!",
         "responsibility": "Full-Stack + Phase I Leader",
-        "username": "joannejchen",
+        "possible_names": ["Joanne Chen", "joannejchen", "chen.joanne", "Joanne J Chen"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -39,7 +39,7 @@ const teamMembers = [
         "photo": "",
         "bio" : "",
         "responsibility": "",
-        "username": "",
+        "possible_names": ["Vincent Chen", "vincentchen913"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -49,7 +49,7 @@ const teamMembers = [
         "photo": "",
         "bio" : "",
         "responsibility": "Full-Stack, Instance Template and JSON payload management",
-        "username": "Ami Iyer",
+        "possible_names": ["Ami Iyer", "Amritha Iyer", "amrithaiyer02"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -59,7 +59,7 @@ const teamMembers = [
         "photo": "",
         "bio" : "",
         "responsibility": "",
-        "username": "",
+        "possible_names": ["Jake Medina", "jakem02"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -135,15 +135,20 @@ const apis = [
 // Make requets 
 async function fetchCommitAndIssuesInfo() {
     let numCommits = 0;
-    const commitResponse = await fetch("https://gitlab.com/api/v4/projects/39620976/repository/commits?per_page=100");
-    const commitInfo = await commitResponse.json();
+    const commitResponse = await fetch("https://gitlab.com/api/v4/projects/39620976/repository/contributors");
+    const contributorInfo = await commitResponse.json();
     
-    commitInfo.forEach((commit) => {
-        numCommits += 1
+    contributorInfo.forEach((contributor) => {
+        numCommits += contributor.commits;
         teamMembers.forEach((member) => {
-            if(commit.author_name === member["username"]
-            || commit.author_name === member["name"]) {
-                member["commits"] += 1;
+            let isMember = false;
+            member["possible_names"].forEach((name) => {
+                if(contributor.name === name) {
+                    isMember = true;
+                }
+            })
+            if(isMember) {
+                member["commits"] = contributor.commits;
             }
         }) 
     });
@@ -156,7 +161,13 @@ async function fetchCommitAndIssuesInfo() {
         numIssues += 1;
         teamMembers.forEach((member) => {
             issue.assignees.forEach((assignee) => {
-                if (assignee.name === member["name"] || assignee.username === member["username"]) {
+                let isMember = false;
+                member["possible_names"].forEach((name) => {
+                    if(assignee.name === name || assignee.username === name) {
+                        isMember = true;
+                    }
+                })
+                if(isMember) {
                     member["issues"] += 1;
                 }
             });
