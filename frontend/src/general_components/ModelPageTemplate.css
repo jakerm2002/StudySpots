@@ -18,6 +18,9 @@ td::before {
     visibility: hidden;
 } */
 
+tr {
+    cursor: pointer;
+}
 
 #open {
     color: green;

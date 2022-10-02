@@ -1,18 +1,20 @@
 import Table from 'react-bootstrap/Table';
+import Stack from 'react-bootstrap/Stack';
 import React from 'react'
-import JsonData from '../api_resources/coffeeshops.json'
+import api_results from '../api_resources/coffeeshops.json'
 import './ModelPageTemplate.css'
 
 function ModelPageTemplate(){
-    console.log(JsonData);
-    const Businesses = JsonData.businesses.map(
+    console.log(api_results);
+    
+    const Businesses = api_results.businesses.map(
         (info) => {
             var open = "Open";
             if (info.is_closed) {
                 open = "Closed";
             }
             return(
-                <tr>
+                <tr onClick={() => window.location.href = "CoffeeShops"}>
                     <td title={info.name}>{info.name}</td>
                     <td title={info.location.city}>{info.location.city}</td>
                     <td title={info.price}>{info.price}</td>
@@ -22,52 +24,30 @@ function ModelPageTemplate(){
             )
         }
     )
+    console.log(Businesses.length);
  
     return(
         <div className='list'>
             <Table striped bordered hover>
-                    <thead>
-                        <tr>
+                <thead>
+                    <tr>
                         <th>Name</th>
                         <th>City</th>
                         <th>Price</th>
                         <th>Rating</th>
                         <th>Open/Closed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Businesses}
-                    </tbody>
-                </Table>
-            </div>
-        // <div>
-        //     <table className="table table-striped">
-        //         <thead>
-        //             <tr>
-        //             <th>Name</th>
-        //             <th>City</th>
-        //             <th>Price</th>
-        //             <th>Rating</th>
-        //             <th>Open/Closed</th>
-        //             </tr>
-        //         </thead>
-        //         <tbody>
-        //             {Businesses}
-        //         </tbody>
-        //     </table>
-             
-        // </div>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Businesses}
+                </tbody>
+            </Table>
+            <Stack>
+                <div>{Businesses.length} items</div>
+                <div>Page 1/1</div>
+            </Stack>
+        </div>
     )
- }
+}
  
- export default ModelPageTemplate;
-
-// const ModelPageTemplate = () => {
-// }
-
-// const DataTable = props => {
-//     const 
-// }
-
-
-// export default ModelPageTemplate;
+export default ModelPageTemplate;
