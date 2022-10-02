@@ -33,3 +33,6 @@ table {
     display: block;
     table-layout: auto;
 }
+.project_links {
+    margin-bottom: 50px;
+}

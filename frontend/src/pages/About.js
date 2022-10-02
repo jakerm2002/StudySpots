@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Table } from 'react-bootstrap';
+import { Button, Card, Row, Table } from 'react-bootstrap';
 import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
 import BiancaAlvImg from '../images/bianca_alvarado.png';
@@ -298,7 +298,13 @@ const About = () => {
                     </tbody>
                 </Table>
             </div>
-        </div>
+        </div>,
+        <div className={styles.project_links}>
+            <h3>Project Links</h3>
+            <Button href="https://gitlab.com/jakem02/cs373-idb" variant="dark">GitLab Project Repository</Button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button href="https://documenter.getpostman.com/view/23653833/2s83tGoBu1" variant="dark">Postman API Documentation</Button>
+        </div>,
     ];
 }
 
