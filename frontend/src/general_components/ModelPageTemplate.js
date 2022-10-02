@@ -2,7 +2,7 @@ import Table from 'react-bootstrap/Table';
 import Stack from 'react-bootstrap/Stack';
 import React from 'react'
 import api_results from '../api_resources/coffeeshops.json'
-import './ModelPageTemplate.css'
+import styles from './ModelPageTemplate.module.css'
 
 function ModelPageTemplate(){
     console.log(api_results);
@@ -27,7 +27,7 @@ function ModelPageTemplate(){
     console.log(Businesses.length);
  
     return(
-        <div className='list'>
+        <div className={styles.list}>
             <Table striped bordered hover>
                 <thead>
                     <tr>
