@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Table } from 'react-bootstrap';
 import './About.css';
 import JoanneChenImg from '../images/joanne_chen.png';
+import BiancaAlvImg from '../images/bianca_alvarado.png';
 import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
@@ -15,9 +16,9 @@ import YelpImg from '../images/yelp_logo.png';
 const teamMembers = [
     {
         "name" : "Bianca Alvarado",
-        "photo": "",
-        "bio" : "",
-        "responsibility": "",
+        "photo": BiancaAlvImg,
+        "bio" : "I'm a senior CS major with a minor in Business! I'm from Houston, TX. In my free time I enjoy playing board games and binge watching shows with friends :)",
+        "responsibility": "Frontend - Splash page",
         "username": "bianca.alvarado",
         "commits": 0,
         "issues": 0,
