@@ -1,0 +1,35 @@
+.profiles {
+    justify-content: center;
+}
+
+.team {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profileCard {
+    margin: 25px;
+}
+
+.info {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.techInfo {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.center {
+    margin-left:auto;
+    margin-right: auto;
+    width: 75%;
+    padding: 10px;
+}
+
+table {
+    overflow: auto;
+    display: block;
+    table-layout: auto;
+}

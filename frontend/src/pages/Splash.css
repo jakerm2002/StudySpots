@@ -1,0 +1,13 @@
+.modelCardsContainer {
+    justify-content: center;
+    padding: 16px;
+}
+
+.modelCard {
+    width: 26rem;
+    margin-top: 2rem;
+}
+
+.image {
+    margin-top: 2rem;
+}

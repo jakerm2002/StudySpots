@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import ModelPageTemplate from '../general_components/ModelPageTemplate'
 
 const CoffeeShops = () => {
@@ -7,6 +8,9 @@ const CoffeeShops = () => {
             <ModelPageTemplate/>
         </div>
     )   
+=======
+const CoffeeShops = () => {
+>>>>>>> 87ce49063973570e7951cdc95df6709aa404cb1c
 }
 
 export default CoffeeShops;
