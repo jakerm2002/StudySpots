@@ -1,0 +1,16 @@
+.modelCardContainer {
+    justify-content: right;
+    padding: 16px;
+}
+
+.modelCard {
+    width: 20rem;
+}
+
+.image {
+    margin-top: 2rem;
+}
+
+.map {
+    margin-top: 2rem;
+}
