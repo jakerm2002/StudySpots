@@ -1,0 +1,28 @@
+.list {
+    margin: 20px 50px;
+}
+
+
+/* used for bolding font on hover */
+/* tr:hover {
+    font-weight: bold;
+}
+
+td::before {
+    display: block;
+    content: attr(title);
+    font-weight: bold;
+    
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+} */
+
+
+#open {
+    color: green;
+}
+
+#closed {
+    color: red;
+}
