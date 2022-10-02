@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Table } from 'react-bootstrap';
 import './About.css';
 import JoanneChenImg from '../images/joanne_chen.png';
+import AmiImg from '../images/ami_iyer.jpg';
 import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
@@ -45,10 +46,10 @@ const teamMembers = [
     },
     {
         "name" : "Ami Iyer",
-        "photo": "",
+        "photo": AmiImg,
         "bio" : "",
-        "responsibility": "",
-        "username": "Amritha Iyer",
+        "responsibility": "Full-Stack, Instance Template and JSON payload management",
+        "username": "Ami Iyer",
         "commits": 0,
         "issues": 0,
         "tests": 0,
