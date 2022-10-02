@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
+import { SliderData } from './SliderData';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+// import {FaArrowAltCircleRight,FaArrowAltCircleLeft} from 'react-icons'
 import { Row } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import './Splash.css';
@@ -64,10 +66,45 @@ const ModelCards = () => {
      );
 }
 
+const ImageSlider = () => {
+    const [current,setCurrent] = useState(0);
+    const length = SliderData.length;
+
+    const nextSlide = () => {
+        setCurrent(current === length - 1 ? 0 : current + 1);
+    }
+
+    const prevSlide = () => {
+        setCurrent(current === 0 ? length - 1: current - 1);
+    }
+
+    if(!Array.isArray(SliderData) || length <= 0){
+        return null;
+    }
+
+    return (
+        <section className="slider">
+            {/* <FaArrowAltCircleLeft className="left-arrow" />
+            <FaArrowAltCircleRight className="right-arrow" /> */}
+            {SliderData.map((slide, index) => {
+                return (
+                    <div className={index === current ? 'slide active' : 'slideAnimation'} key={index}>
+                        {index === current && ( <img src={slide.image} alt="this is the alt" className="slideImage" />
+                        )}
+                        
+                    </div>
+                    )
+                })}
+        </section>
+    );
+}
+
 const Splash = () => {
 
     return (
        <div>
+            <h1 className="mainHeader">Welcome to Study Spots!</h1>
+            <ImageSlider/>
             <ModelCards/>
             
        </div>
