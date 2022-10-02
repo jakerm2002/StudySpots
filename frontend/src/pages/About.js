@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Card, Row, Table } from 'react-bootstrap';
 import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
-import AmiIyerImg from '../images/AmiIyer.png';
 import BiancaAlvImg from '../images/bianca_alvarado.png';
 import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
@@ -47,7 +46,7 @@ const teamMembers = [
     },
     {
         "name" : "Ami Iyer",
-        "photo": AmiIyerImg,
+        "photo": "",
         "bio" : "",
         "responsibility": "Full-Stack, Instance Template and JSON payload management",
         "possible_names": ["Ami Iyer", "Amritha Iyer", "amrithaiyer02"],
