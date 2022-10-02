@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Table } from 'react-bootstrap';
-import './About.css';
+import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
 import BiancaAlvImg from '../images/bianca_alvarado.png';
 import AWSImg from '../images/aws.png';
@@ -192,7 +192,7 @@ function aggregateTests() {
 const Profile = (props) => {
 
     return (
-        <Card className="profileCard">
+        <Card className={styles.profileCard}>
             <Card.Body>
                 <Card.Img variant="top" src={props.person["photo"]}/>
                 <Card.Title>{props.person["name"]}</Card.Title>
@@ -244,27 +244,27 @@ const About = () => {
     }
 
     return[
-        <div className="info">
+        <div className={styles.info}>
             <h1>StudySpots</h1>
             <h3>Mission</h3>
-            <div className="center">
+            <div className={styles.center}>
                 <p>StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
             </div>
             <h3>Discovery</h3>
-            <div className='center'>
+            <div className={styles.center}>
                 <p>When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
             </div>
         </div>,
-        <div className="teamInfo">
+        <div className={styles.teamInfo}>
             <h1>Meet the Team</h1>
             <h3>Members</h3>
-            <Row xs={4} md={4} className="profiles">
+            <Row xs={4} md={4} className={styles.profiles}>
                 {teamMembers.map(teamMember => (
                     <Profile person={teamMember}/>
                 ))}
             </Row>
             <h3>Team Stats</h3>
-            <Card style = {{width: '75%'}} className="team">
+            <Card style = {{width: '75%'}} className={styles.team}>
                 <Card.Body>
                     <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
                     <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
@@ -272,10 +272,10 @@ const About = () => {
                 </Card.Body>
             </Card>
         </div>,
-        <div className="techInfo">
+        <div className={styles.techInfo}>
             <h1>Technology Used</h1>
             <h3>Tools</h3>
-            <div className="center">
+            <div className={styles.center}>
                 <Table>
                     <tbody>
                         <tr>
@@ -287,7 +287,7 @@ const About = () => {
                 </Table>
             </div>
             <h3>APIs Scraped</h3>
-            <div className="center">
+            <div className={styles.center}>
                 <Table>
                     <tbody>
                         <tr>
