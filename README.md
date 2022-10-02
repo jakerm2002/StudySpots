@@ -1,5 +1,5 @@
 URL for develop branch: https://develop.studyspots.me/
-URL for main branch: https://main.dpjx39d3wdxsb.amplifyapp.com
+URL for main branch: https://studyspots.me/
 
 Canvas / Discord group number: 11-4
  
