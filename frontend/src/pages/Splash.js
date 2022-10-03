@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 import logo from '../images/StudySpotsCircle.png';
 import { Row } from "react-bootstrap";
 import {Link} from 'react-router-dom';
-import './Splash.css';
+import styles from './Splash.module.css';
 
 const intervalTime = 10000; 
 

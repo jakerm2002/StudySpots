@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Row, Table } from 'react-bootstrap';
-import './About.css';
+import { Button, Card, Row, Table } from 'react-bootstrap';
+import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
+import BiancaAlvImg from '../images/bianca_alvarado.png';
 import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
@@ -14,11 +15,11 @@ import YelpImg from '../images/yelp_logo.png';
 
 const teamMembers = [
     {
-        "name" : "Bianca Alavrado",
-        "photo": "",
-        "bio" : "",
-        "responsibility": "",
-        "username": "",
+        "name" : "Bianca Alvarado",
+        "photo": BiancaAlvImg,
+        "bio" : "I'm a senior CS major with a minor in Business! I'm from Houston, TX. In my free time I enjoy playing board games and binge watching shows with friends :)",
+        "responsibility": "Frontend - Splash page",
+        "possible_names": ["Bianca Alvarado", "bianca.alvarado", "Bianca M Alvarado"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -28,7 +29,7 @@ const teamMembers = [
         "photo": JoanneChenImg,
         "bio" : "I'm a junior majoring in CS and minoring in Philosophy and Chinese (hopefully!). I'm from Frisco, TX. I enjoy cooking, random crafts like crochet, and just trying new things in general whether that be traveling or restaurants!",
         "responsibility": "Full-Stack + Phase I Leader",
-        "username": "joannejchen",
+        "possible_names": ["Joanne Chen", "joannejchen", "chen.joanne", "Joanne J Chen"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -38,7 +39,7 @@ const teamMembers = [
         "photo": "",
         "bio" : "",
         "responsibility": "",
-        "username": "",
+        "possible_names": ["Vincent Chen", "vincentchen913"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -47,8 +48,8 @@ const teamMembers = [
         "name" : "Ami Iyer",
         "photo": "",
         "bio" : "",
-        "responsibility": "",
-        "username": "Amritha Iyer",
+        "responsibility": "Full-Stack, Instance Template and JSON payload management",
+        "possible_names": ["Ami Iyer", "Amritha Iyer", "amrithaiyer02"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -58,7 +59,7 @@ const teamMembers = [
         "photo": "",
         "bio" : "",
         "responsibility": "",
-        "username": "",
+        "possible_names": ["Jake Medina", "jakem02"],
         "commits": 0,
         "issues": 0,
         "tests": 0,
@@ -134,15 +135,20 @@ const apis = [
 // Make requets 
 async function fetchCommitAndIssuesInfo() {
     let numCommits = 0;
-    const commitResponse = await fetch("https://gitlab.com/api/v4/projects/39620976/repository/commits?per_page=100");
-    const commitInfo = await commitResponse.json();
+    const commitResponse = await fetch("https://gitlab.com/api/v4/projects/39620976/repository/contributors");
+    const contributorInfo = await commitResponse.json();
     
-    commitInfo.forEach((commit) => {
-        numCommits += 1
+    contributorInfo.forEach((contributor) => {
+        numCommits += contributor.commits;
         teamMembers.forEach((member) => {
-            if(commit.author_name === member["username"]
-            || commit.author_name === member["name"]) {
-                member["commits"] += 1;
+            let isMember = false;
+            member["possible_names"].forEach((name) => {
+                if(contributor.name === name) {
+                    isMember = true;
+                }
+            })
+            if(isMember) {
+                member["commits"] = contributor.commits;
             }
         }) 
     });
@@ -155,7 +161,13 @@ async function fetchCommitAndIssuesInfo() {
         numIssues += 1;
         teamMembers.forEach((member) => {
             issue.assignees.forEach((assignee) => {
-                if (assignee.name === member["name"] || assignee.username === member["username"]) {
+                let isMember = false;
+                member["possible_names"].forEach((name) => {
+                    if(assignee.name === name || assignee.username === name) {
+                        isMember = true;
+                    }
+                })
+                if(isMember) {
                     member["issues"] += 1;
                 }
             });
@@ -180,7 +192,7 @@ function aggregateTests() {
 const Profile = (props) => {
 
     return (
-        <Card className="profileCard">
+        <Card className={styles.profileCard}>
             <Card.Body>
                 <Card.Img variant="top" src={props.person["photo"]}/>
                 <Card.Title>{props.person["name"]}</Card.Title>
@@ -232,27 +244,27 @@ const About = () => {
     }
 
     return[
-        <div className="info">
+        <div className={styles.info}>
             <h1>StudySpots</h1>
             <h3>Mission</h3>
-            <div className="center">
+            <div className={styles.center}>
                 <p>StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
             </div>
             <h3>Discovery</h3>
-            <div className='center'>
+            <div className={styles.center}>
                 <p>When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
             </div>
         </div>,
-        <div className="teamInfo">
+        <div className={styles.teamInfo}>
             <h1>Meet the Team</h1>
             <h3>Members</h3>
-            <Row xs={4} md={4} className="profiles">
+            <Row xs={4} md={4} className={styles.profiles}>
                 {teamMembers.map(teamMember => (
                     <Profile person={teamMember}/>
                 ))}
             </Row>
             <h3>Team Stats</h3>
-            <Card style = {{width: '75%'}} className="team">
+            <Card style = {{width: '75%'}} className={styles.team}>
                 <Card.Body>
                     <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
                     <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
@@ -260,11 +272,11 @@ const About = () => {
                 </Card.Body>
             </Card>
         </div>,
-        <div className="techInfo">
+        <div className={styles.techInfo}>
             <h1>Technology Used</h1>
             <h3>Tools</h3>
-            <div className="center">
-                <Table>
+            <div className={styles.center}>
+                <Table className={styles.aboutTable}>
                     <tbody>
                         <tr>
                         {tools.map(tool => (
@@ -275,8 +287,8 @@ const About = () => {
                 </Table>
             </div>
             <h3>APIs Scraped</h3>
-            <div className="center">
-                <Table>
+            <div className={styles.center}>
+                <Table className={styles.aboutTable}>
                     <tbody>
                         <tr>
                             {apis.map(api => (
@@ -286,7 +298,13 @@ const About = () => {
                     </tbody>
                 </Table>
             </div>
-        </div>
+        </div>,
+        <div className={styles.project_links}>
+            <h3>Project Links</h3>
+            <Button href="https://gitlab.com/jakem02/cs373-idb" variant="dark">GitLab Project Repository</Button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Button href="https://documenter.getpostman.com/view/23653833/2s83tGoBu1" variant="dark">Postman API Documentation</Button>
+        </div>,
     ];
 }
 

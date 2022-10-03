@@ -1,0 +1,56 @@
+{
+    "businesses": [
+        {
+            "id": "XK3KLVSOq0Hz2i1ECbsx7Q",
+            "alias": "badolina-bakery-and-cafe-houston",
+            "name": "Badolina Bakery & Cafe",
+            "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/oetWxj4KDMAGMakbR82CWw/o.jpg",
+            "is_closed": false,
+            "url": "https://www.yelp.com/biz/badolina-bakery-and-cafe-houston?adjust_creative=cUctKkp_ffNq5iH2T4OV2A&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=cUctKkp_ffNq5iH2T4OV2A",
+            "review_count": 86,
+            "categories": [
+                {
+                    "alias": "cafes",
+                    "title": "Cafes"
+                },
+                {
+                    "alias": "bakeries",
+                    "title": "Bakeries"
+                }
+            ],
+            "rating": 4.5,
+            "coordinates": {
+                "latitude": 29.716201998812792,
+                "longitude": -95.41465479880571
+            },
+            "transactions": [
+                "delivery",
+                "pickup"
+            ],
+            "price": "$$",
+            "location": {
+                "address1": "5555 Morningside Dr",
+                "address2": "",
+                "address3": null,
+                "city": "Houston",
+                "zip_code": "77005",
+                "country": "US",
+                "state": "TX",
+                "display_address": [
+                    "5555 Morningside Dr",
+                    "Houston, TX 77005"
+                ]
+            },
+            "phone": "+18326495909",
+            "display_phone": "(832) 649-5909",
+            "distance": 7431.75847788895
+        }
+    ],
+    "total": 2,
+    "region": {
+        "center": {
+            "longitude": -95.4547119140625,
+            "latitude": 29.773275441610096
+        }
+    }
+}
