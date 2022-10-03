@@ -1,0 +1,33 @@
+.stat {
+	display: flex;
+	justify-content: left;
+	padding: 16px;
+}
+    
+.body {
+	display: flex;
+	justify-content: left;
+	margin: 2rem;
+}
+
+.info {
+	justify-content: left;
+	margin: 4rem;
+}
+
+.header {
+	display: flex;
+	justify-content: left;
+	margin: 2rem;
+	margin-left: 6rem;
+	margin-right: 6rem;
+}
+
+.image {
+	padding-left: 32px;
+	padding-right: 32px;
+	justify-content: center;
+	display: flex;
+	width: fit-content;
+	height: fit-content;	
+}
