@@ -71,25 +71,25 @@ const ModelCards = () => {
 const AboutCard = () => {
     return (
         <div>
-            <div className="modelCardContainer" >
-            <h1>About Us</h1>
-                    <Card className="aboutCard" >
-                        <div className="image">
-                            <Card.Img variant="top" src={logo} />
-                            <Card.Body>
-                                <Card.Title>Meet Our Team</Card.Title>
-                                <Card.Text>
-                                    Find out more about our team and the goal behind StudySpots.
-                                </Card.Text>
-                                <div>
-                                    <Link to='/About'>
-                                        <Button variant="primary">Learn more </Button>
-                                    </Link>
-                                </div>
-                            </Card.Body>
-                        </div>
-                    </Card>
-                </div>
+             <Row className="modelCardsContainer">
+                <h1>About Us</h1>
+                        <Card className="aboutCard" >
+                            <div className="image">
+                                <Card.Img variant="top" src={logo} />
+                                <Card.Body>
+                                    <Card.Title>Meet Our Team</Card.Title>
+                                    <Card.Text>
+                                        Find out more about our team and our mission.
+                                    </Card.Text>
+                                    <div>
+                                        <Link to='/About'>
+                                            <Button variant="primary">Learn more </Button>
+                                        </Link>
+                                    </div>
+                                </Card.Body>
+                            </div>
+                        </Card>
+                </Row>
         </div>
     );
 
