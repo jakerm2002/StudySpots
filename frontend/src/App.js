@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Router} from 'react-router-dom'
 
 import Navigation from './general_components/Navigation'
 
@@ -9,6 +9,7 @@ import CoffeeShops from './pages/CoffeeShops'
 import Libraries from './pages/Libraries'
 import Splash from './pages/Splash'
 import Universities from './pages/Universities'
+import InstanceCoffee from './general_components/InstanceCoffee'
 
 function App() {
   return(
@@ -20,6 +21,7 @@ function App() {
         <Route path='/Libraries' element={<Libraries/>}/>
         <Route path='/Universities' element={<Universities/>}/>
         <Route path='/About' element={<About/>}/>
+        <Route path='/CoffeeShops/:businessID' element={<InstanceCoffee/>}/>
       </Routes>
     </div>
   )
