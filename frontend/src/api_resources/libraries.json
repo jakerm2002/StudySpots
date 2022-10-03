@@ -1,0 +1,154 @@
+{
+    "libraries": [
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "710 W Cesar Chavez St, Austin, TX 78701, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.2657787,
+                    "lng": -97.7519331
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.26726577989272,
+                        "lng": -97.75072162010727
+                    },
+                    "southwest": {
+                        "lat": 30.26456612010728,
+                        "lng": -97.75342127989272
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Austin Central Library, Austin Public Library",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 1441,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/102190458873709295186\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRgZONossaMg5d4xnnegiJ77kpaVQfICb6xoFZ4-66lRKtcK5EM2YQELwEgi3jTjgBE1pl1S8IBzmcY_WMFrLNo1Z1JSZpOIACtAAhmVpDsAY_CUp1EL6uk5etFhQqFdxkRDzKC7wdyz0GOWLfpLG5KziEoj1mJphvA29hZm8WSNzSAw",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJvWCx3A-1RIYRHFJwgQAZH2o",
+            "plus_code": {
+                "compound_code": "768X+86 Austin, Texas",
+                "global_code": "8624768X+86"
+            },
+            "rating": 4.7,
+            "reference": "ChIJvWCx3A-1RIYRHFJwgQAZH2o",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 803
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "6100 South Main Street, Houston, TX 77005, United States",
+            "geometry": {
+                "location": {
+                    "lat": 29.7181209,
+                    "lng": -95.4000944
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 29.71955647989272,
+                        "lng": -95.39862357010728
+                    },
+                    "southwest": {
+                        "lat": 29.71685682010728,
+                        "lng": -95.40132322989271
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+            "name": "Fondren Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 2728,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/106372383581752664125\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRi7bD4z9P3m0vfjAk0DIEmkAFDn3MmxBS6SjgOnj5hVs5GEi8AUdDZTqvpAYvj2Lb1xj3dIYdaMwfTExMUQLi_ACOixqjM5wi_rP7y8660kqLglWXfZTAlSzIrSnP5MV54wnwLdobXhy04_3k8-s1QSIurDWrS6-FdNTUYrn7z_6SdM",
+                    "width": 4030
+                }
+            ],
+            "place_id": "ChIJH47xt2TAQIYR_KMXFghaKZI",
+            "plus_code": {
+                "compound_code": "PH9X+6X University Place, Houston, TX",
+                "global_code": "76X6PH9X+6X"
+            },
+            "rating": 4.8,
+            "reference": "ChIJH47xt2TAQIYR_KMXFghaKZI",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 112
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "1246 Glendon Ave, Los Angeles, CA 90024, United States",
+            "geometry": {
+                "location": {
+                    "lat": 34.0579414,
+                    "lng": -118.441828
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 34.05922212989272,
+                        "lng": -118.4405651201073
+                    },
+                    "southwest": {
+                        "lat": 34.05652247010728,
+                        "lng": -118.4432647798927
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Westwood Branch Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 4032,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/104325532027897399151\">Kai-Yun Katherine Cheng</a>"
+                    ],
+                    "photo_reference": "AcYSjRg9JrqSFDz2vyIl4TEEJKC2-hpGkcweMSb0T_PqC7FZwigdVkm3nHeIuPbxso_HrdmyZP_0V0qxTb-6HMcTkV6gEiCuKwUF8AhnA9qEwzTMcCUbu0jYpvprgOM_hv2H-Dh8mi8MmiDqd3YQ6J07Oe0qrCbByAgFlzNXuE63s54aOiRN",
+                    "width": 3024
+                }
+            ],
+            "place_id": "ChIJK9UruH-7woAReuBTqwMyYVQ",
+            "plus_code": {
+                "compound_code": "3H55+57 Los Angeles, California",
+                "global_code": "85633H55+57"
+            },
+            "rating": 4.4,
+            "reference": "ChIJK9UruH-7woAReuBTqwMyYVQ",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 58
+        }
+    ]
+}
