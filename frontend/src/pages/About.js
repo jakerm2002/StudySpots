@@ -57,9 +57,9 @@ const teamMembers = [
     },
     {
         "name" : "Jake Medina",
-        "photo": "",
-        "bio" : "",
-        "responsibility": "",
+        "photo": "../images/jake_medina.png",
+        "bio" : "Hey! I'm Jake and I'm a junior majoring in CS with a minor in business. I grew up here in Austin and I love hiking, photography, and the gym.",
+        "responsibility": "Frontend - Model Pages",
         "possible_names": ["Jake Medina", "jakem02"],
         "commits": 0,
         "issues": 0,
