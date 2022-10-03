@@ -3,6 +3,7 @@ import { Button, Card, Row, Table } from 'react-bootstrap';
 import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
 import BiancaAlvImg from '../images/bianca_alvarado.png';
+import VincentImg from "../images/vincent.png";
 import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
@@ -36,9 +37,9 @@ const teamMembers = [
     },
     {
         "name" : "Vincent Chen",
-        "photo": "",
-        "bio" : "",
-        "responsibility": "",
+        "photo": VincentImg,
+        "bio" : "My name is Vincent Chen and I'm a junior majoring in computer science and minoring in scientific computation and data sciences. I'm from Allen, Texas, and my free time, I like to watch TV, play video games, or lift weights.",
+        "responsibility": "Frontend",
         "possible_names": ["Vincent Chen", "vincentchen913"],
         "commits": 0,
         "issues": 0,
