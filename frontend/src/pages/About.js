@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Card, Row, Table } from 'react-bootstrap';
 import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
-import AmiIyer from '../images/AmiIyer.png';
+import AmiImg from '../images/AmiIyer.png';
 import BiancaAlvImg from '../images/bianca_alvarado.png';
 import VincentImg from "../images/vincent.png";
 import JakeImg from "../images/jake_medina.png"
