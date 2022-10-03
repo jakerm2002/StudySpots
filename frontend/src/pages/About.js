@@ -49,7 +49,7 @@ const teamMembers = [
     {
         "name" : "Ami Iyer",
         "photo": AmiImg,
-        "bio" : "",
+        "bio" : "Hello! I'm Ami, a junior majoring in CS and Linguistics with a minor in French. I went to school in Plano, TX and I really enjoy cooking, singing, and decorating my apartment in my free time :)",
         "responsibility": "Full-Stack, Instance Template and JSON payload management",
         "possible_names": ["Ami Iyer", "Amritha Iyer", "amrithaiyer02"],
         "commits": 0,
