@@ -2,10 +2,12 @@ import React, {useState} from "react";
 import { SliderData } from './SliderData';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-// import {FaArrowAltCircleRight,FaArrowAltCircleLeft} from 'react-icons'
 import { Row } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import './Splash.css';
+
+const intervalTime = 10000; 
+
 
 const ModelCards = () => {
     return (
@@ -67,29 +69,37 @@ const ModelCards = () => {
 }
 
 const ImageSlider = () => {
-    const [current,setCurrent] = useState(0);
+    const [slideIndex, setIndex] = useState(0);
     const length = SliderData.length;
+    const timeoutRef = React.useRef(null);
 
-    const nextSlide = () => {
-        setCurrent(current === length - 1 ? 0 : current + 1);
-    }
+    function resetTimeout() {
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+        }
+      }
 
-    const prevSlide = () => {
-        setCurrent(current === 0 ? length - 1: current - 1);
-    }
+    React.useEffect(() => {
+        resetTimeout();
+        timeoutRef.current = setTimeout(
+            () => setIndex((prevIndex) =>
+                    prevIndex === length -1 ? 0 : prevIndex + 1),
+                    intervalTime
+        );
 
-    if(!Array.isArray(SliderData) || length <= 0){
-        return null;
-    }
+        return () => {
+            resetTimeout();
+        };
+    }, [slideIndex, length]);
 
     return (
         <section className="slider">
-            {/* <FaArrowAltCircleLeft className="left-arrow" />
-            <FaArrowAltCircleRight className="right-arrow" /> */}
+
+
             {SliderData.map((slide, index) => {
                 return (
-                    <div className={index === current ? 'slide active' : 'slideAnimation'} key={index}>
-                        {index === current && ( <img src={slide.image} alt="this is the alt" className="slideImage" />
+                    <div className={index === slideIndex ? 'slide active' : 'slideAnimation'} key={index}>
+                        {index === slideIndex && ( <img src={slide.image} alt="this is the alt" className="slideImage" />
                         )}
                         
                     </div>
