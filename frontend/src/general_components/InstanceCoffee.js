@@ -97,17 +97,16 @@ const InstanceCoffee = () => {
              				</Figure>
              			</Col>
              			<Col className="stats">
-             			{/* {info_list.map(event => <div className="stat"> {event} </div> )} */}
                             <div className="stat">{data.name}</div>
                             <div className="stat">{data.display_phone}</div>
                             <div className="stat">{data.review_count} reviews</div>
                             <div className="stat">{data.location.address1}</div>
                             <div className="stat">{data.location.city} {data.location.state} {data.location.zip_code}</div>
-                            <div className="stat">{data.name}</div>
-                            <div className="stat">{data.name}</div>
-                            <div className="stat">{data.name}</div>
+                            <div className="stat">Price: {data.price}</div>
+                            <div className="stat">Rating: {data.rating.toFixed(1)}</div>
+                            <div className="stat">Website: <a href={data.url}>{data.url}</a></div>
              			</Col>
-                        <MapComponent latitude={data.coordinates.latitude} longitude={data.coordinates.longitude}/>
+                        <MapComponent name={data.name} address={data.location.address1} latitude={data.coordinates.latitude} longitude={data.coordinates.longitude}/>
              		</Row>
              	</Container>
              	<Accordion className="info">
