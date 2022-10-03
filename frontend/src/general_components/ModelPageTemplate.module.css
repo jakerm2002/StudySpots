@@ -2,6 +2,9 @@
     margin: 20px 50px;
 }
 
+h1.pageName {
+    margin-bottom: 20px;
+}
 
 /* used for bolding font on hover */
 /* tr:hover {

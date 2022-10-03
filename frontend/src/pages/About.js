@@ -276,7 +276,7 @@ const About = () => {
             <h1>Technology Used</h1>
             <h3>Tools</h3>
             <div className={styles.center}>
-                <Table>
+                <Table className={styles.aboutTable}>
                     <tbody>
                         <tr>
                         {tools.map(tool => (
@@ -288,7 +288,7 @@ const About = () => {
             </div>
             <h3>APIs Scraped</h3>
             <div className={styles.center}>
-                <Table>
+                <Table className={styles.aboutTable}>
                     <tbody>
                         <tr>
                             {apis.map(api => (

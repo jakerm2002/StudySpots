@@ -28,7 +28,7 @@
     padding: 10px;
 }
 
-table {
+table .aboutTable{
     overflow: auto;
     display: block;
     table-layout: auto;
