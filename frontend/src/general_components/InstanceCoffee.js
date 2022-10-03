@@ -31,59 +31,9 @@ const InstanceCoffee = () => {
           .then((response) => {
             setData(response);
             setIsLoading(false);
-            //console.log(`https://api.yelp.com/v3/businesses/${businessID}`);
           })
           .catch((error) => console.log(error));
       }, [businessID]);
-
-    //   console.log(data.name);
-    //   return (
-    //     <div>Hello</div>
-    //   );
-
-    //   return(
-    //     <div className="bennu-coffee-austin">
-	// 	<Container className="header" >
-	// 		<Row>
-	// 			<Col className="image">
-	// 				<Figure>
-	// 					<Figure.Image src={data.image_url} />
-	// 				</Figure>
-	// 			</Col>
-	// 			<Col className="stats">
-	// 			{/* {info_list.map(event => <div className="stat"> {event} </div> )} */}
-	// 			</Col>
-	// 		</Row>
-	// 	</Container>
-	// 	<Accordion className="info">
-	// 	<Accordion.Item eventKey="0">
-	// 		<Accordion.Header>Title</Accordion.Header>
-	// 		{/* <Accordion.Body className="body"> {body_text}
-	// 		</Accordion.Body> */}
-	// 	</Accordion.Item>
-	// 	</Accordion>
-	// 	</div>
-    //   )
-
-
-
-    // return (
-    //     <>
-    //       {!isLoading && (
-    //         <>
-    //           <h1>Name: {data.name}</h1>
-    //           <h2>Height: {data.height}</h2>
-    //           <h2>Mass: {data.mass}</h2>
-    //           <h2>Hair Color: {data.hair_color}</h2>
-    //           <h2>Skin Color: {data.skin_color}</h2>
-    //           <h2>Eye Color: {data.eye_color}</h2>
-    //           <h2>Birth Year: {data.birth_year}</h2>
-    //           <h2>Gender: {data.gender}</h2>
-    //           <Link to="/">Back to homepage</Link>
-    //         </>
-    //       )}
-    //     </>
-    // );
 
     return (
         <>
@@ -114,6 +64,7 @@ const InstanceCoffee = () => {
              		<Accordion.Header>Title</Accordion.Header>
              		    {/* <Accordion.Body className="body"> {body_text}
              		</Accordion.Body> */}
+                    {/* supposed to be description here */}
              	</Accordion.Item>
              	</Accordion>
              	</div>
