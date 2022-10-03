@@ -1,7 +1,6 @@
 import React from 'react'
 import api_results from '../api_resources/universities.json'
 import getModel from '../general_components/ModelPageTemplate';
-import styles from '../general_components/ModelPageTemplate.module.css'
 var currencyFormat = '{style: "decimal", minimumFractionDigits: 2}';
 var populationFormat = '{style: "decimal", minimumFractionDigits: 2}';
 
