@@ -63,3 +63,12 @@
     justify-content: center;
     margin-top: 2rem;
 }
+
+.aboutCard {
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 26rem;
+    margin-top: 2rem;
+    padding: 16px;
+}

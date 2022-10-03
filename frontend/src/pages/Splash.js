@@ -63,9 +63,35 @@ const ModelCards = () => {
                      </div>
                  </Card>
              </Row>
-             
         </div>
      );
+}
+
+const AboutCard = () => {
+    return (
+        <div>
+            <div className="modelCardContainer" >
+            <h1>About Us</h1>
+                    <Card className="aboutCard" >
+                        <div className="image">
+                            <Card.Img variant="top" src="https://images.unsplash.com/photo-1531259736756-6caccf485f81?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fHVuaXZlcnNpdHl8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" />
+                            <Card.Body>
+                                <Card.Title>Meet Our Team</Card.Title>
+                                <Card.Text>
+                                    Find out more about our team and the goal behind StudySpots.
+                                </Card.Text>
+                                <div>
+                                    <Link to='/About'>
+                                        <Button variant="primary">Learn more </Button>
+                                    </Link>
+                                </div>
+                            </Card.Body>
+                        </div>
+                    </Card>
+                </div>
+        </div>
+    );
+
 }
 
 const ImageSlider = () => {
@@ -116,6 +142,7 @@ const Splash = () => {
             <h1 className="mainHeader">Welcome to Study Spots!</h1>
             <ImageSlider/>
             <ModelCards/>
+            <AboutCard/>
             
        </div>
     );
