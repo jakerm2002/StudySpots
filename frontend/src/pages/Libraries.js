@@ -1,7 +1,6 @@
 import React from 'react'
 import api_results from '../api_resources/libraries.json'
 import getModel from '../general_components/ModelPageTemplate';
-import styles from '../general_components/ModelPageTemplate.module.css'
 
 const Libraries = () => {
     const Entries = api_results.businesses.map(
