@@ -1,11 +1,13 @@
 import React from "react";
 import Figure from 'react-bootstrap/Figure';
+import {Route, Routes} from 'react-router-dom'
 import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import './InstanceTemplate.css';
+import Splash from '../pages/Splash'
 
 export default function getInstance(instance_info) {
 	return renderPage(instance_info.Image, instance_info.Stats, instance_info.Body)
@@ -13,7 +15,7 @@ export default function getInstance(instance_info) {
 
 function renderPage(main_img, info_list, body_text) {
 	const page =
-		<>
+		<div className="bennu-coffee-austin">
 		<Container className="header" >
 			<Row>
 				<Col className="image">
@@ -33,8 +35,8 @@ function renderPage(main_img, info_list, body_text) {
 			</Accordion.Body>
 		</Accordion.Item>
 		</Accordion>
-		</>
-	console.log("HI")
+		</div>
+	console.log("HI I'm here")
 	return page
 }
 
