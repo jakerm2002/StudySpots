@@ -4,6 +4,7 @@ import styles from './About.module.css';
 import JoanneChenImg from '../images/joanne_chen.png';
 import BiancaAlvImg from '../images/bianca_alvarado.png';
 import VincentImg from "../images/vincent.png";
+import JakeImg from "../images/jake_medina.png"
 import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
@@ -57,7 +58,7 @@ const teamMembers = [
     },
     {
         "name" : "Jake Medina",
-        "photo": "../images/jake_medina.png",
+        "photo": JakeImg,
         "bio" : "Hey! I'm Jake and I'm a junior majoring in CS with a minor in business. I grew up here in Austin and I love hiking, photography, and the gym.",
         "responsibility": "Frontend - Model Pages",
         "possible_names": ["Jake Medina", "jakem02"],
