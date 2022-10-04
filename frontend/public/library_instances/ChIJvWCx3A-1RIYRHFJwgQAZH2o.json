@@ -1,0 +1,409 @@
+{
+    "html_attributions": [],
+    "results": [
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "710 W Cesar Chavez St, Austin, TX 78701, United States",
+            "img": "https://library.austintexas.gov/library/ncl_location_page_large%5B1%5D_0.jpg",
+            "geometry": {
+                "location": {
+                    "lat": 30.2657787,
+                    "lng": -97.7519331
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.26726577989272,
+                        "lng": -97.75072162010727
+                    },
+                    "southwest": {
+                        "lat": 30.26456612010728,
+                        "lng": -97.75342127989272
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Austin Central Library, Austin Public Library",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 1441,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/102190458873709295186\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRgZONossaMg5d4xnnegiJ77kpaVQfICb6xoFZ4-66lRKtcK5EM2YQELwEgi3jTjgBE1pl1S8IBzmcY_WMFrLNo1Z1JSZpOIACtAAhmVpDsAY_CUp1EL6uk5etFhQqFdxkRDzKC7wdyz0GOWLfpLG5KziEoj1mJphvA29hZm8WSNzSAw",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJvWCx3A-1RIYRHFJwgQAZH2o",
+            "plus_code": {
+                "compound_code": "768X+86 Austin, Texas",
+                "global_code": "8624768X+86"
+            },
+            "rating": 4.7,
+            "reference": "ChIJvWCx3A-1RIYRHFJwgQAZH2o",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 803
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "810 Guadalupe St, Austin, TX 78701, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.2717133,
+                    "lng": -97.74588709999999
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.27312297989273,
+                        "lng": -97.74427162010727
+                    },
+                    "southwest": {
+                        "lat": 30.27042332010728,
+                        "lng": -97.74697127989272
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/museum-71.png",
+            "icon_background_color": "#13B5C7",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/museum_pinlet",
+            "name": "Austin History Center, Austin Public Library",
+            "opening_hours": {
+                "open_now": true
+            },
+            "photos": [
+                {
+                    "height": 500,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/116067088824448267205\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRgOi8rjPbjGU1OPnp90e2UmWzVAQLblva2thSUYMjbx0dUktzqWE5tk9-YHeAPvbI6LU-uzRYYjJ4-5zmMASN3xTACDi4vwl7NdMoWXpv7JTlVU5i1q5QwL7dnaVOVdhGYIIIBnEfaKBSnrez-G4JC9E2KgoJx2aVnZuADsiOJmpo9I",
+                    "width": 800
+                }
+            ],
+            "place_id": "ChIJw9M0wgu1RIYRfsZS44mRyCo",
+            "plus_code": {
+                "compound_code": "77C3+MJ Austin, Texas",
+                "global_code": "862477C3+MJ"
+            },
+            "rating": 4.5,
+            "reference": "ChIJw9M0wgu1RIYRfsZS44mRyCo",
+            "types": [
+                "library",
+                "museum",
+                "tourist_attraction",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 207
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "1105 E Cesar Chavez St, Austin, TX 78702, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.259907,
+                    "lng": -97.73344
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.26135392989272,
+                        "lng": -97.73220097010727
+                    },
+                    "southwest": {
+                        "lat": 30.25865427010727,
+                        "lng": -97.7349006298927
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Terrazas Branch, Austin Public Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 2517,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/116784703271311748178\">Thomas Mitchell</a>"
+                    ],
+                    "photo_reference": "AcYSjRgdYHsTxveCedBEk3a8VjaMCw4UZYUjjnT-sOpNLdj5vO1uws-SYbnuISezlQCJ331bhFPtfQMu-7nzrJx5FLbyduv3xw0XQbJmcE6uTDtYUmywrrDLFEluSp-FlbVlhtTdbAiUVyEt_HLZXv_w6Pkp4lCVldTmaM3C_VmRB9Q5KtSD",
+                    "width": 3357
+                }
+            ],
+            "place_id": "ChIJk_xHfa61RIYRVZcOIAyxbz0",
+            "plus_code": {
+                "compound_code": "7758+XJ Austin, Texas",
+                "global_code": "86247758+XJ"
+            },
+            "rating": 4.2,
+            "reference": "ChIJk_xHfa61RIYRVZcOIAyxbz0",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 23
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "1161 Angelina St, Austin, TX 78702, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.269573,
+                    "lng": -97.724218
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.27090972989272,
+                        "lng": -97.72297472010727
+                    },
+                    "southwest": {
+                        "lat": 30.26821007010728,
+                        "lng": -97.72567437989272
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Carver Branch, Austin Public Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 1536,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/112970735646297864219\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRgsjB7c3_Sz0lRbHwNL49xSXyPsl5nVX7zCz8Dx1L62l8V9yg4_gEcZyZQNuy_3X9P-9pGQs-9hojp1ozZ6k4xoP9GQtPQ8eTjw2vL2IwxxiU4W-6C6AQG9eOw2VCFajQn40Vo6ky4sUSafNFVMYvrHOU804h4FEUTCZetcf-m0YkgB",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJ9WY2a7m1RIYRq7T_ma8TRg8",
+            "plus_code": {
+                "compound_code": "779G+R8 Austin, Texas",
+                "global_code": "8624779G+R8"
+            },
+            "rating": 4.6,
+            "reference": "ChIJ9WY2a7m1RIYRq7T_ma8TRg8",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 54
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "2200 Hancock Dr, Austin, TX 78756, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.3234702,
+                    "lng": -97.7407241
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.32481027989272,
+                        "lng": -97.73955832010728
+                    },
+                    "southwest": {
+                        "lat": 30.32211062010728,
+                        "lng": -97.74225797989273
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Yarborough Branch, Austin Public Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 600,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/101864562286148662508\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRjs0AlibkPqACd4H4HHTUeKAsWu_ukJbqd87Ss6LDa04NKN0MzRCiR7qIyhRcmXV-Q_ZdT8mZYG5WMZp-w0dybYPwpyXSmzK9HRPHW2l-BCA2-7Ayk6k98RU5aKCG9kkXTNSqtMRys3-UFMIo3ph9L4uFRUHwViQ7lbO-GGgtDhkZWP",
+                    "width": 900
+                }
+            ],
+            "place_id": "ChIJ_TExjV_KRIYRHvcARP8tguM",
+            "plus_code": {
+                "compound_code": "87F5+9P Austin, Texas",
+                "global_code": "862487F5+9P"
+            },
+            "rating": 4.7,
+            "reference": "ChIJ_TExjV_KRIYRHvcARP8tguM",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 71
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "7051 Village Center Dr, Austin, TX 78731, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.353089,
+                    "lng": -97.7553123
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.35446117989273,
+                        "lng": -97.75403197010728
+                    },
+                    "southwest": {
+                        "lat": 30.35176152010728,
+                        "lng": -97.75673162989273
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Old Quarry Branch, Austin Public Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 1360,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/110149431106420279754\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRhZEwYhj9wjPBTtyMv4rrWp-i0ydzBzp-WuuUTQxGZ8_GZe7ETEiXQjX0UWCBGzX4eXz0ayjGEhz6U7H53wKd2H7NIDHffc0ja3nN9VmyJsCeNcNgT-UKv0W6vXWBbHMHreRDfdWbbOX_K_PourIF0ZkdmzalRHfU7slNKaUNwsmaxY",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJc6bFVxrLRIYRu89JMpCN7zY",
+            "plus_code": {
+                "compound_code": "963V+6V Austin, Texas",
+                "global_code": "8624963V+6V"
+            },
+            "rating": 4.2,
+            "reference": "ChIJc6bFVxrLRIYRu89JMpCN7zY",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 33
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "5833 Westminster Dr, Austin, TX 78723, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.3115207,
+                    "lng": -97.6903512
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.31282317989272,
+                        "lng": -97.68908312010728
+                    },
+                    "southwest": {
+                        "lat": 30.31012352010727,
+                        "lng": -97.69178277989272
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Windsor Park Branch, Austin Public Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 598,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/106950733308320467086\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRhx9CYrbJreFtRlDh3xImnwMZHL9a1QXtTn5Z2QjjYuLYpyk3reFrxvhhlPKdkxEPwcscgirThYzA2tBWBog8Xz80iK4265zJ7koduOuWirLxwxGk8SEZ1Oqz4wzv9tJNymN0P_-BVp9VWA_VEO3jtb1klGwC3TAyznO8BUSULy1QYv",
+                    "width": 900
+                }
+            ],
+            "place_id": "ChIJPbU6WPrJRIYRNfreoeQMcEg",
+            "plus_code": {
+                "compound_code": "8865+JV Austin, Texas",
+                "global_code": "86248865+JV"
+            },
+            "rating": 4.6,
+            "reference": "ChIJPbU6WPrJRIYRNfreoeQMcEg",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 65
+        },
+        {
+            "business_status": "OPERATIONAL",
+            "formatted_address": "2500 Exposition Blvd, Austin, TX 78703, United States",
+            "geometry": {
+                "location": {
+                    "lat": 30.298241,
+                    "lng": -97.7675161
+                },
+                "viewport": {
+                    "northeast": {
+                        "lat": 30.29952522989272,
+                        "lng": -97.76626067010727
+                    },
+                    "southwest": {
+                        "lat": 30.29682557010727,
+                        "lng": -97.7689603298927
+                    }
+                }
+            },
+            "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+            "icon_background_color": "#7B9EB0",
+            "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+            "name": "Howson Branch, Austin Public Library",
+            "opening_hours": {
+                "open_now": false
+            },
+            "photos": [
+                {
+                    "height": 1360,
+                    "html_attributions": [
+                        "<a href=\"https://maps.google.com/maps/contrib/111323722495310467289\">A Google User</a>"
+                    ],
+                    "photo_reference": "AcYSjRiZLJmbIVdeFxi7Uqcnh3tmfFS0jV5p6ZhXCfKN00jrhHuSJG9wHj3wxFFPmSrQpf1v5WPci4UecsNi83CfW6FPM7oyxvK5Vmxq2Z1yyeIpSiU20-0q_z6tBB5o6Wx_7V61G6Okda55NvohceZyRzC3ZMWVH1qklHloxSnvMniPAam9",
+                    "width": 2048
+                }
+            ],
+            "place_id": "ChIJN2J6mKDKRIYREulyGs1QaFw",
+            "plus_code": {
+                "compound_code": "76XJ+7X Austin, Texas",
+                "global_code": "862476XJ+7X"
+            },
+            "rating": 4.7,
+            "reference": "ChIJN2J6mKDKRIYREulyGs1QaFw",
+            "types": [
+                "library",
+                "point_of_interest",
+                "establishment"
+            ],
+            "user_ratings_total": 29
+        }
+    ],
+    "status": "OK"
+}
