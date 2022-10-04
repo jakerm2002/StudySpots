@@ -6,13 +6,13 @@
     - Bianca Alvarado (bma2335) - bianca.alvarado
 
 - Git SHA:
-    - Phase 1:
+    - Phase 1: 23c9ba97666ba4f6fb69548ce5b46e73723ba88e
 
 - Project Leaders:
     - Phase 1: Joanne Chen
 
 - GitLab Pipelines:
-    - Phase 1: 
+    - https://gitlab.com/jakem02/cs373-idb/-/pipelines
 
 - Link to Website
     - Main branch: https://studyspots.me/
