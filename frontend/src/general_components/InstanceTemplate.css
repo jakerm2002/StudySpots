@@ -1,3 +1,9 @@
+.stats {
+	display: flex;
+	border: none;
+	padding-top: 50px;
+	justify-content: left;
+}
 .stat {
 	display: flex;
 	justify-content: left;
@@ -5,14 +11,23 @@
 }
     
 .body {
+	display: fit-content;
+	margin: 6rem;
+	justify-content: center;
+}
+
+.col {
 	display: flex;
-	justify-content: left;
-	margin: 2rem;
+	justify-content: center;
 }
 
 .info {
+	width: 500px;
+}
+
+.text {
+	display: flex;
 	justify-content: left;
-	margin: 4rem;
 }
 
 .header {
@@ -24,10 +39,12 @@
 }
 
 .image {
-	padding-left: 32px;
-	padding-right: 32px;
+	padding: 32px;
 	justify-content: center;
 	display: flex;
-	width: fit-content;
-	height: fit-content;	
+}
+
+.picture {
+	width: auto; /* you can use % */
+	height: 400px;
 }

@@ -11,6 +11,7 @@ import Splash from './pages/Splash'
 import Universities from './pages/Universities'
 import InstanceCoffee from './general_components/InstanceCoffee'
 import InstanceUniversity from './general_components/InstanceUniversity'
+import InstanceLibrary from "./general_components/InstanceLibrary"
 
 function App() {
   return(
@@ -24,6 +25,7 @@ function App() {
         <Route path='/About' element={<About/>}/>
         <Route path='/CoffeeShops/:businessID' element={<InstanceCoffee/>}/>
         <Route path='/Universities/:universityID' element={<InstanceUniversity/>}/>
+        <Route path='/Libraries/:businessID' element={<InstanceLibrary/>}/>
       </Routes>
     </div>
   )

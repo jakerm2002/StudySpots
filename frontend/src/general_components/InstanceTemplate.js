@@ -34,7 +34,6 @@ function renderPage(main_img, info_list, body_text) {
 		</Accordion.Item>
 		</Accordion>
 		</>
-	console.log("HI")
 	return page
 }
 
