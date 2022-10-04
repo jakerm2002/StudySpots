@@ -3,7 +3,7 @@
     - Vincent Chen  
     - Ami Iyer  
     - Joanne Chen (jjc4985) - chen.joanne  
-    - Bianca Alvarado  
+    - Bianca Alvarado  (bma2335) - bianca.alvarado
 
 - Git SHA:
     - Phase 1:
@@ -24,7 +24,7 @@
         - Vincent Chen: 15
         - Ami Iyer: 15
         - Joanne Chen: 15
-        - Bianca Alvarado: 15
+        - Bianca Alvarado: 10
 
 - Actual Completion Time
     - Phase 1:
@@ -32,4 +32,4 @@
         - Vincent Chen: 25
         - Ami Iyer: 25
         - Joanne Chen: 25
-        - Bianca Alvarado: 25
+        - Bianca Alvarado: 15
