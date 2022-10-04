@@ -1,12 +1,11 @@
 import React from 'react'
 import api_results from '../api_resources/libraries.json'
 import getModel from '../general_components/ModelPageTemplate';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom'
 
 const Libraries = () => {
     const Entries = api_results.businesses.map(
         (info) => {
-
             return(
                 <tr>
                     <td title={info.name}>{info.name}</td>

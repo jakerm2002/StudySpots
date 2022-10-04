@@ -10,7 +10,7 @@ import Libraries from './pages/Libraries'
 import Splash from './pages/Splash'
 import Universities from './pages/Universities'
 import InstanceCoffee from './general_components/InstanceCoffee'
-import InstanceLibrary from './general_components/InstanceLibrary';
+import InstanceLibrary from "./general_components/InstanceLibrary"
 
 function App() {
   return(
@@ -23,7 +23,7 @@ function App() {
         <Route path='/Universities' element={<Universities/>}/>
         <Route path='/About' element={<About/>}/>
         <Route path='/CoffeeShops/:businessID' element={<InstanceCoffee/>}/>
-        <Route path='/Libraries/:businessID' element={<InstanceLibrary/>}/> 
+        <Route path='/Libraries/:businessID' element={<InstanceLibrary/>}/>
       </Routes>
     </div>
   )
