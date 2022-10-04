@@ -1,36 +1,44 @@
-.stats {
+.instance_temp_stats {
 	display: flex;
 	border: none;
 	padding-top: 50px;
 	justify-content: left;
 }
-.stat {
+.instance_temp_stat {
 	display: flex;
 	justify-content: left;
 	padding: 16px;
 }
+
+.instance_temp_title {
+	display: flex;
+	justify-content: center;
+	font-size: xxx-large;
+	font-weight: bold;
+	padding: 16px;
+}
     
-.body {
+.instance_temp_body {
 	display: fit-content;
 	margin: 6rem;
 	justify-content: center;
 }
 
-.col {
+.instance_temp_col {
 	display: flex;
 	justify-content: center;
 }
 
-.info {
+.instance_temp_info {
 	width: 500px;
 }
 
-.text {
+.instance_temp_text {
 	display: flex;
 	justify-content: left;
 }
 
-.header {
+.instance_temp_header {
 	display: flex;
 	justify-content: left;
 	margin: 2rem;
@@ -38,13 +46,13 @@
 	margin-right: 6rem;
 }
 
-.image {
+.instance_temp_image {
 	padding: 32px;
 	justify-content: center;
 	display: flex;
 }
 
-.picture {
+.instance_temp_picture {
 	width: auto; /* you can use % */
 	height: 400px;
 }

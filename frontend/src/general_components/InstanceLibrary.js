@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
-import './InstanceTemplate.css';
+import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
 
 
@@ -33,36 +33,35 @@ const InstanceLibrary = () => {
         <>
           {!isLoading && (
             <div>
-             	<Container className="header" >
+		<div className={styles.instance_temp_title}>{data.name}</div>
+             	<Container className={styles.instance_temp_header} >
              		<Row>
-             			<Col className="image">
+             			<Col className={styles.instance_temp_image}>
          				<Figure>
              					<Figure.Image src={data.img} />
              				</Figure>
              			</Col>
 				<Col>
-				<Container className="stats">
-					<Row className="stat">{data.name}</Row>
-					<Row className="stat">Currently {data.opening_hours.open_now ? "open" : "closed"}</Row>
-					<Row className="stat">Address: {data.formatted_address}</Row>
-					<Row className="stat">Rating: {data.rating}</Row>
-					<Row className="stat">Telephone: {data.telephone}</Row>
+				<Container className={styles.instance_temp_stats}>
+					<Row className={styles.instance_temp_stat}>Currently {data.opening_hours.open_now ? "open" : "closed"}</Row>
+					<Row className={styles.instance_temp_stat}>{data.formatted_address}</Row>
+					<Row className={styles.instance_temp_stat}>Rating: {data.rating}</Row>
 				</Container>
              			</Col>
              		</Row>
              	</Container>
-		<div className="body">
+		<div className={styles.instance_temp_body}>
 			<Row>
-				<Col className="col">
-				<Accordion className = "info">
+				<Col className={styles.instance_temp_col}>
+				<Accordion className={styles.instance_temp_info}>
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>{"About " + data.name}</Accordion.Header>
-					<Accordion.Body className="text"> {"body_text"}
+					<Accordion.Body className={styles.instance_temp_text}> {"body_text"}
 					</Accordion.Body> 
 				</Accordion.Item>
 				</Accordion>
 				</Col>
-				<Col className = "col">
+				<Col className={styles.instance_temp_col}>
 					<MapComponent name={data.name} address={data.formatted_address} latitude={data.geometry.location.lat} longitude={data.geometry.location.lng}/>
 				</Col>
 			</Row>
