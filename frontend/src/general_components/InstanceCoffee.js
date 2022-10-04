@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
-import './InstanceTemplate.css';
+import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
 
 
@@ -33,39 +33,37 @@ const InstanceCoffee = () => {
         <>
           {!isLoading && (
             <div>
-             	<Container className="header" >
+             	<Container className={styles.instance_temp_header} >
              		<Row>
-             			<Col className="image">
-                    <Figure>
-                          <Figure.Image className="picture" src={data.image_url} />
-                    </Figure>
+             			<Col className={styles.instance_temp_image}>
+                            <Figure>
+                                <Figure.Image className={styles.instance_temp_picture} src={data.image_url} />
+                            </Figure>
              			</Col>
              			<Col>
-                  <Container className="stats">
-                            <Row className="stat">{data.name}</Row>
-                            <Row className="stat">{data.review_count} reviews</Row>
-                            <Row className="stat">{data.location.address1}</Row>
-                            <Row className="stat">{data.location.city} {data.location.state} {data.location.zip_code}</Row>
-                            <Row className="stat">Price: {data.price}</Row>
-                            <Row className="stat">Rating: {data.rating.toFixed(1)}</Row>
-                  </Container>
-
-                            {/* <div className="stat">Website: <a href={data.url}>{data.url}</a></div> */}
+                            <Container className={styles.instance_temp_stats}>
+                                <Row className={styles.instance_temp_stat}>{data.name}</Row>
+                                <Row className={styles.instance_temp_stat}>{data.review_count} reviews</Row>
+                                <Row className={styles.instance_temp_stat}>{data.location.address1}</Row>
+                                <Row className={styles.instance_temp_stat}>{data.location.city} {data.location.state} {data.location.zip_code}</Row>
+                                <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
+                                <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
+                            </Container>
              			</Col>
              		</Row>
              	</Container>
-              <div className="body">
+              <div className={styles.instance_temp_body}>
                 <Row>
-                  <Col className="col">
-                  <Accordion className = "info">
+                  <Col className={styles.instance_temp_col}>
+                  <Accordion className={styles.instance_temp_info}>
                   <Accordion.Item eventKey="0">
                     <Accordion.Header>{"About " + data.name}</Accordion.Header>
-                    <Accordion.Body className="text"> {"body_text"}
+                    <Accordion.Body className={styles.instance_temp_text}> {"body_text"}
                     </Accordion.Body> 
                   </Accordion.Item>
                   </Accordion>
                   </Col>
-                  <Col className = "col">
+                  <Col className={styles.instance_temp_col}>
                   <MapComponent name={data.name} address={data.location.address1} latitude={data.coordinates.latitude} longitude={data.coordinates.longitude}/>
                   </Col>
                 </Row>

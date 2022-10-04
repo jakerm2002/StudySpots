@@ -5,7 +5,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import './InstanceTemplate.css';
+import styles from './InstanceTemplate.module.css';
 
 export default function getInstance(instance_info) {
 	return renderPage(instance_info.Image, instance_info.Stats, instance_info.Body)
@@ -14,22 +14,22 @@ export default function getInstance(instance_info) {
 function renderPage(main_img, info_list, body_text) {
 	const page =
 		<>
-		<Container className="header" >
+		<Container className={styles.instance_temp_header} >
 			<Row>
-				<Col className="image">
+				<Col className={styles.instance_temp_image}>
 					<Figure>
 						<Figure.Image src={main_img} />
 					</Figure>
 				</Col>
-				<Col className="stats">
-				{info_list.map(event => <div className="stat"> {event} </div> )}
+				<Col className={styles.instance_temp_stats}>
+				{info_list.map(event => <div className={styles.instance_temp_stat}> {event} </div> )}
 				</Col>
 			</Row>
 		</Container>
-		<Accordion className="info">
+		<Accordion className={styles.instance_temp_info}>
 		<Accordion.Item eventKey="0">
 			<Accordion.Header>Title</Accordion.Header>
-			<Accordion.Body className="body"> {body_text}
+			<Accordion.Body className={styles.instance_temp_body}> {body_text}
 			</Accordion.Body>
 		</Accordion.Item>
 		</Accordion>
