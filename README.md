@@ -2,7 +2,7 @@ Project Members:
     Jake Medina
     Vincent Chen
     Ami Iyer
-    Joanne Chen
+    Joanne Chen (jjc4985) - chen.joanne
     Bianca Alvarado
 
 Git SHA:
