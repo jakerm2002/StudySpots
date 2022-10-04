@@ -1,9 +1,9 @@
 - Project Members:  
     - Jake Medina (jrm7784) - jakem02  
-    - Vincent Chen  
-    - Ami Iyer  
+    - Vincent Chen (vc22466) - vincentchen913
+    - Ami Iyer (ai6259) - amrithaiyer02
     - Joanne Chen (jjc4985) - chen.joanne  
-    - Bianca Alvarado  (bma2335) - bianca.alvarado
+    - Bianca Alvarado (bma2335) - bianca.alvarado
 
 - Git SHA:
     - Phase 1:
@@ -20,7 +20,7 @@
 
 - Estimated Completion Time
     - Phase 1:
-        - Jake Medina: 15
+        - Jake Medina: 16
         - Vincent Chen: 15
         - Ami Iyer: 15
         - Joanne Chen: 15
