@@ -48,8 +48,8 @@ const InstanceCoffee = () => {
                                 <Row className={styles.instance_temp_stat}>{data.location.city} {data.location.state} {data.location.zip_code}</Row>
                                 <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
                                 <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
-                                <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`} className="stretched-link">{data.nearby_places[0].name}</a>}</Row>
-                                <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`} className="stretched-link">{data.nearby_places[1].name}</a>}</Row>
+                                <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
+                                <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row>
                             </Container>
              			</Col>
              		</Row>

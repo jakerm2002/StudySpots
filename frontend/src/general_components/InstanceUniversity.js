@@ -62,8 +62,8 @@ const InstanceUniversity = () => {
                             <div className={styles.entry}><div className={styles.fieldName}>Undergraduate Population: </div>{data.results[0].latest.student.size.toLocaleString("en-US", populationFormat)}</div>
                             <div className={styles.entry}><div className={styles.fieldName}>Cost of attendance: </div>{data.results[0].latest.cost.tuition.in_state.toLocaleString("en-US", currencyFormat)} (In-state)      {data.results[0].latest.cost.tuition.out_of_state.toLocaleString("en-US", currencyFormat)} (Out-of-state)</div>
                             <div className={styles.entry}><div className={styles.fieldName}>Acceptance rate: </div>{(data.results[0].latest.admissions.admission_rate.overall * 100).toFixed(1)+'%'}</div>
-                            <div className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.results[0].nearby_places[1].href}`} className="stretched-link">{data.results[0].nearby_places[1].name}</a>}</div>
-                            <div className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.results[0].nearby_places[0].href}`} className="stretched-link">{data.results[0].nearby_places[0].name}</a>}</div>
+                            <div className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.results[0].nearby_places[1].href}`}>{data.results[0].nearby_places[1].name}</a>}</div>
+                            <div className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.results[0].nearby_places[0].href}`}>{data.results[0].nearby_places[0].name}</a>}</div>
 
                         </Col>
                         <Col sm>
