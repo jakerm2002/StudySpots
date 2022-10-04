@@ -1,0 +1,122 @@
+import React, { useState, useEffect } from "react";
+import { useParams, Link, BrowserRouter as Router, Route } from "react-router-dom";
+
+
+import Figure from 'react-bootstrap/Figure';
+import Container from 'react-bootstrap/Card';
+import Accordion from 'react-bootstrap/Accordion';
+import { Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+// import './InstanceTemplate.css';
+// import './InstanceUniversity.css'
+import styles from './InstanceUniversity.module.css'
+import Splash from '../pages/Splash'
+import MapComponent from "./MapComponent";
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+
+var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
+var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
+
+
+const InstanceUniversity = () => {
+    console.log("SUPPPPP");
+
+    const { universityID } = useParams();
+      console.log(universityID);
+      const [isLoading, setIsLoading] = useState(true);
+      const [data, setData] = useState();
+    
+      useEffect(() => {
+        fetch(`../instance_apis/${universityID}.json`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+        })
+          .then((res) => res.json())
+          .then((response) => {
+            setData(response);
+            setIsLoading(false);
+          })
+          .catch((error) => console.log(error));
+      }, [universityID]);
+      console.log(data);
+      console.log("heyoheyo");
+    //   console.log(data.results.latest);
+    return (
+        
+        <>
+          {!isLoading && (
+            <div>
+                
+                {/* <a class="twitter-timeline" href="https://twitter.com/UTAustin?ref_src=twsrc%5Etfw">Tweets by UTAustin</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> */}
+             	<Container className={styles.instance_container}>
+                    <Row>
+                        <div className={styles.instance_header}>{data.results[0].latest.school.name}</div>
+                    </Row>
+                    <Row className={styles.fields}>
+                        <Col>
+                            <div className={styles.entry}>{data.results.id}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.alias}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.city}, {data.results[0].latest.school.state}</div>
+                            
+                            <div className={styles.entry}>{data.results[0].latest.school.school_url}</div>
+                            <div className={styles.entry}>Undergraduate Population: {data.results[0].latest.student.size.toLocaleString("en-US", populationFormat)}</div>
+                            <div className={styles.entry}>Cost of attendance: {data.results[0].latest.cost.tuition.in_state.toLocaleString("en-US", currencyFormat)} (In-state)      {data.results[0].latest.cost.tuition.out_of_state.toLocaleString("en-US", currencyFormat)} (Out-of-state)</div>
+
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.entry}>{data.results[0].latest.school.name}</div>
+                        </Col>
+                        <Col md="auto">Variable width content</Col>
+                        <Col xs lg="2">
+                        3 of 3
+                        </Col>
+                    </Row>
+                     <Figure>
+                        <TwitterTimelineEmbed sourceType="profile" screenName={data.results[0].latest.school.twitter} options={{height:400, width: 400}}/>
+                    </Figure>
+             		<Row>
+                        
+             			<Col className="image">
+                                   
+             			</Col>
+             			<Col className="stats">
+                            <div className={styles.instance_container}>{data.results.id}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.alias}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.city}, {data.results[0].latest.school.state}</div>
+                            
+                            <div className={styles.instance_container}>{data.results[0].latest.school.school_url}</div>
+                            <div className={styles.instance_container}>Undergraduate Population: {data.results[0].latest.student.size.toLocaleString("en-US", populationFormat)}</div>
+                            <div className={styles.instance_container}>Cost of attendance: {data.results[0].latest.cost.tuition.in_state.toLocaleString("en-US", currencyFormat)} (In-state)      {data.results[0].latest.cost.tuition.out_of_state.toLocaleString("en-US", currencyFormat)} (Out-of-state)</div>
+
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+                            <div className={styles.instance_container}>{data.results[0].latest.school.name}</div>
+             			</Col>
+                        <MapComponent name={data.results[0].latest.school.name} address={data.results[0].latest.school.city}/>
+             		</Row>
+             	</Container>
+             	<Accordion className={styles.info}>
+             	<Accordion.Item eventKey="0">
+             		<Accordion.Header>{data.results[0].latest.school.name}</Accordion.Header>
+             		    {/* <Accordion.Body className="body"> {body_text}
+             		</Accordion.Body> */}
+                    {/* supposed to be description here */}
+             	</Accordion.Item>
+             	</Accordion>
+             	</div>
+          )}
+        </>
+    );
+}
+
+export default InstanceUniversity;

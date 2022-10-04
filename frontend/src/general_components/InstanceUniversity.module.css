@@ -1,0 +1,33 @@
+.instance_container{
+    margin: 25px 50px;
+}
+
+.entry {
+    text-align: initial;
+}
+
+.fieldName {
+    text-align: initial;
+    font-weight: bold;
+}
+
+.fieldNameInline {
+    display: inline;
+}
+
+
+.instance_header{
+    font-size: xxx-large;
+    font-weight: bold;
+    display: flex;
+    margin: 25px 25px;
+}
+
+.stat {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.fields {
+    margin: 25px 25px;
+}
