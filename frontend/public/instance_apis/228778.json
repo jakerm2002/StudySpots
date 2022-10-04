@@ -73807,6 +73807,7 @@
                 "lon": -97.738273
             },
             "id": 228778,
+            "nearby_places": [{"name": "Bennu Coffee", "href": "gXip--EE80jF-sqdk5Aghw"}, {"name": "Austin Central Library", "href": "ChIJvWCx3A-1RIYRHFJwgQAZH2o"}],
             "ope6_id": "003658",
             "ope8_id": "00365800",
             "fed_sch_cd": "003658"

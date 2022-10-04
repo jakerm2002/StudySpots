@@ -46,6 +46,9 @@ const InstanceLibrary = () => {
 					<Row className={styles.instance_temp_stat}>Currently {data.opening_hours.open_now ? "open" : "closed"}</Row>
 					<Row className={styles.instance_temp_stat}>{data.formatted_address}</Row>
 					<Row className={styles.instance_temp_stat}>Rating: {data.rating}</Row>
+					<Row className={styles.instance_temp_stat}>Telephone: {data.telephone}</Row>
+					<Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`} className="stretched-link">{data.nearby_places[0].name}</a>}</Row>
+                                	<Row className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.nearby_places[1].href}`} className="stretched-link">{data.nearby_places[1].name}</a>}</Row>
 				</Container>
              			</Col>
              		</Row>

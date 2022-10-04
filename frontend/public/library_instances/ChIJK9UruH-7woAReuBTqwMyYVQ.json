@@ -6,6 +6,7 @@
             "img": "https://storage.googleapis.com/sinanian-com/uploads/WestwoodBranchLibrary15.JPG",
             "telephone": "(310) 474-1739",
             "formatted_address": "1246 Glendon Ave, Los Angeles, CA 90024, United States",
+            "nearby_places": [{"name": "UCLA", "href": "110662"}, {"name": "Espresso Profeta", "href": "7MtJs6pZ4uQ4ZdVh4sJMsQ"}],
             "geometry": {
                 "location": {
                     "lat": 34.0579414,

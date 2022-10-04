@@ -58420,6 +58420,7 @@
                 "lon": -118.442179
             },
             "id": 110662,
+            "nearby_places": [{"name": "Espresso Profeta", "href": "7MtJs6pZ4uQ4ZdVh4sJMsQ"}, {"name": "Westwood Branch Library", "href": "ChIJK9UruH-7woAReuBTqwMyYVQ"}],
             "ope6_id": "001315",
             "ope8_id": "00131500",
             "fed_sch_cd": "001315"

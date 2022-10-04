@@ -7,6 +7,7 @@
     "is_closed": false,
     "url": "https://www.yelp.com/biz/bennu-coffee-austin?adjust_creative=cUctKkp_ffNq5iH2T4OV2A&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=cUctKkp_ffNq5iH2T4OV2A",
     "phone": "+15124784700",
+    "nearby_places": [{"name": "UT Austin", "href": "228778"}, {"name": "Austin Central Library", "href": "ChIJvWCx3A-1RIYRHFJwgQAZH2o"}],
     "display_phone": "(512) 478-4700",
     "review_count": 759,
     "categories": [

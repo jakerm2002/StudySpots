@@ -6,6 +6,7 @@
             "formatted_address": "710 W Cesar Chavez St, Austin, TX 78701, United States",
             "img": "https://library.austintexas.gov/library/ncl_location_page_large%5B1%5D_0.jpg",
             "telephone": "(512) 974-7400",
+            "nearby_places": [{"name": "UT Austin", "href": "228778"}, {"name": "Bennu Coffee", "href": "gXip--EE80jF-sqdk5Aghw"}],
             "geometry": {
                 "location": {
                     "lat": 30.2657787,

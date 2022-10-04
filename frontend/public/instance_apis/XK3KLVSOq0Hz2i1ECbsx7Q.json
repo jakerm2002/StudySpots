@@ -7,6 +7,7 @@
     "is_closed": false,
     "url": "https://www.yelp.com/biz/badolina-bakery-and-cafe-houston?adjust_creative=cUctKkp_ffNq5iH2T4OV2A&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_lookup&utm_source=cUctKkp_ffNq5iH2T4OV2A",
     "phone": "+18326495909",
+    "nearby_places": [{"name": "Rice University", "href": "227757"}, {"name": "Fondren Library", "href": "ChIJH47xt2TAQIYR_KMXFghaKZI"}],
     "display_phone": "(832) 649-5909",
     "review_count": 87,
     "categories": [

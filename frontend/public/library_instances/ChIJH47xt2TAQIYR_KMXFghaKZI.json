@@ -6,6 +6,7 @@
             "img": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Fondren_Library%2C_Rice_University.JPG",
             "telephone": "(713) 348-5698",
             "formatted_address": "6100 South Main Street, Houston, TX 77005, United States",
+            "nearby_places": [{"name": "Rice University", "href": "227757"}, {"name": "Badolina Bakery & Cafe", "href": "XK3KLVSOq0Hz2i1ECbsx7Q"}],
             "geometry": {
                 "location": {
                     "lat": 29.7181209,

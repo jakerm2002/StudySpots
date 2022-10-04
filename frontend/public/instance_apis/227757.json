@@ -31437,6 +31437,7 @@
                 "lon": -95.402035
             },
             "id": 227757,
+            "nearby_places": [{"name": "Badolina Bakery & Cafe", "href": "XK3KLVSOq0Hz2i1ECbsx7Q"}, {"name": "Fondren Library", "href": "ChIJH47xt2TAQIYR_KMXFghaKZI"}],
             "ope6_id": "003604",
             "ope8_id": "00360400",
             "fed_sch_cd": "003604"

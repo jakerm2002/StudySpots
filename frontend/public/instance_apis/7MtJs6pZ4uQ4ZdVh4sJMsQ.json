@@ -2,6 +2,7 @@
     "id": "7MtJs6pZ4uQ4ZdVh4sJMsQ",
     "alias": "espresso-profeta-los-angeles",
     "name": "Espresso Profeta",
+    "nearby_places": [{"name": "UCLA", "href": "110662"}, {"name": "Westwood Branch Library", "href": "ChIJK9UruH-7woAReuBTqwMyYVQ"}],
     "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/fjsB0ZkY-lbVdGVMzF3uMQ/o.jpg",
     "is_claimed": true,
     "is_closed": false,
