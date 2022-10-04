@@ -19,7 +19,7 @@ function App() {
       <Navigation/>
       <Routes>
         <Route path='/' element={<Splash/>}/>
-        <Route path='/CoffeeShops' element={<CoffeeShops/>}/>
+        <Route path='/CoffeeShops/*' element={<CoffeeShops/>}/>
         <Route path='/Libraries' element={<Libraries/>}/>
         <Route path='/Universities' element={<Universities/>}/>
         <Route path='/About' element={<About/>}/>

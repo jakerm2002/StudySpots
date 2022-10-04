@@ -1,5 +1,6 @@
 import React from "react";
 import Figure from 'react-bootstrap/Figure';
+import {Route, Routes} from 'react-router-dom'
 import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { Row } from "react-bootstrap";
