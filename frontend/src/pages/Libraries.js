@@ -21,7 +21,7 @@ const Libraries = () => {
     var payload = {
         entries : Entries,
         pageName : "Libraries",
-        fields : ["Name", "Location", "Rating", "Status"]
+        fields : ["Name", "Location", "Rating", "Telephone", "Status"]
     }
     return getModel(payload);
 }

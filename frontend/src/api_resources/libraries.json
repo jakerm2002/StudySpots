@@ -3,6 +3,7 @@
         {
             "business_status": "OPERATIONAL",
             "formatted_address": "710 W Cesar Chavez St, Austin, TX 78701, United States",
+            "telephone": "(310) 474-1739",
             "geometry": {
                 "location": {
                     "lat": 30.2657787,
@@ -53,6 +54,7 @@
         {
             "business_status": "OPERATIONAL",
             "formatted_address": "6100 South Main Street, Houston, TX 77005, United States",
+            "telephone": "(713) 348-5698",
             "geometry": {
                 "location": {
                     "lat": 29.7181209,
@@ -103,6 +105,7 @@
         {
             "business_status": "OPERATIONAL",
             "formatted_address": "1246 Glendon Ave, Los Angeles, CA 90024, United States",
+            "telephone": "(310) 474-1739",
             "geometry": {
                 "location": {
                     "lat": 34.0579414,
