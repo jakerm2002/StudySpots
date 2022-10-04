@@ -3,7 +3,8 @@
     "results": [
         {
             "business_status": "OPERATIONAL",
-            "img": "https://library.austintexas.gov/library/ncl_location_page_large%5B1%5D_0.jpg",
+            "img": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Fondren_Library%2C_Rice_University.JPG",
+            "telephone": "(713) 348-5698",
             "formatted_address": "6100 South Main Street, Houston, TX 77005, United States",
             "geometry": {
                 "location": {

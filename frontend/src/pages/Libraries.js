@@ -7,12 +7,12 @@ const Libraries = () => {
     const Entries = api_results.businesses.map(
         (info) => {
             return(
-                <tr>
+                <tr onClick={() => window.location.href = `/Libraries/${info.reference}`}>
                     <td title={info.name}>{info.name}</td>
                     <td title={info.formatted_address}>{info.formatted_address}</td>
                     <td title={info.rating}>{info.rating}</td>
+                    <td title={info.telephone}>{info.telephone}</td>
                     <td title={info.businesses_status}> ({info.business_status})</td>
-                    <Link to={`/Libraries/${info.reference}`}>Link</Link>
                 </tr>
             )
         }

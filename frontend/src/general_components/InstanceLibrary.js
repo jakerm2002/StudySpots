@@ -44,8 +44,9 @@ const InstanceLibrary = () => {
 				<Container className="stats">
 					<Row className="stat">{data.name}</Row>
 					<Row className="stat">Currently {data.opening_hours.open_now ? "open" : "closed"}</Row>
-					<Row className="stat">{data.formatted_address}</Row>
+					<Row className="stat">Address: {data.formatted_address}</Row>
 					<Row className="stat">Rating: {data.rating}</Row>
+					<Row className="stat">Telephone: {data.telephone}</Row>
 				</Container>
              			</Col>
              		</Row>
