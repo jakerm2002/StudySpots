@@ -13,12 +13,12 @@ fe_docker:
 
 # Build the backend docker image from scratch
 be_docker_build:
-	docker build -t idb/backend ./frontend/src/api_resources
+	docker build -t idb/backend ./backend
 
 # Update backend docker image if changes were made to Dockerfile
 be_docker_update:
 	docker image rm idb/backend
-	docker build-t idb/backend ./frontend/src/api_resources
+	docker build-t idb/backend ./backend
 
 be_docker:
-	docker run --rm -it -v $(PWD)/frontend/src/api_resources:/usr/backend -w /usr/backend idb/backend
+	docker run --rm -it -v $(PWD)/backend:/usr/backend -w /usr/backend idb/backend
