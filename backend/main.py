@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, Column, String, Integer
 import json
 import coffeeShop
 import universities
+import libraries
 
 import requests
 
@@ -18,10 +19,12 @@ db = SQLAlchemy(app)
 
 coffeeshop_list = coffeeShop.coffeshop_list_maker(db)
 university_list = universities.university_list_maker(db)
+libraries_list = libraries.libraries_list_maker(db)
 
 
 
 # # commit the list to the db
 db.session.add_all(coffeeshop_list)
 db.session.add_all(university_list)
+db.session.add_all(libraries_list)
 db.session.commit()
