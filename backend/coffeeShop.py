@@ -65,14 +65,14 @@ def coffeshop_list_maker(db) :
     coffeeshop_list = []
     for item in data['businesses']:
         new_coffeeshop = CoffeeShop(
-                        coffeeshop_id=item["id"],
-                        coffeeshop_name=item["name"],
-                        coffeeshop_zipcode=item['location']["zip_code"],
+                        coffeeshop_id=item['id'],
+                        coffeeshop_name=item['name'],
+                        coffeeshop_zipcode=item['location']['zip_code'],
                         coffeeshop_city=item['location']['city'],
-                        coffeeshop_lat=item['coordinates']["latitude"],
-                        coffeeshop_long=item['coordinates']["longitude"],
+                        coffeeshop_lat=item['coordinates']['latitude'],
+                        coffeeshop_long=item['coordinates']['longitude'],
                         coffeeshop_rating=item['rating'],
-                        coffeeshop_price=item["price"] if 'price' in item else "N/A",
+                        coffeeshop_price=item['price'] if 'price' in item else 'N/A',
                         coffeeshop_phone=item['phone']
                         )
         coffeeshop_list.append(new_coffeeshop)

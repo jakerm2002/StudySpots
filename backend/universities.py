@@ -73,12 +73,12 @@ def university_list_maker(db) :
     for item in data['results']:
         new_university = Universities(
                         university_id=item['id'],
-                        university_name=item['latest']['school']["name"],
-                        university_zipcode=item['latest']['school']["zip"],
-                        university_city=item['latest']['school']["city"],
+                        university_name=item['latest']['school']['name'],
+                        university_zipcode=item['latest']['school']['zip'],
+                        university_city=item['latest']['school']['city'],
                         university_lat=item['location']['lat'],
                         university_long=item['location']['lon'],
-                        university_population=item['latest']['student']["size"],
+                        university_population=item['latest']['student']['size'],
                         university_instate_tuition = item['latest']['cost']['tuition']['in_state'],
                         university_outstate_tuition = item['latest']['cost']['tuition']['out_of_state'],
                         university_acceptance_rate = item['latest']['admissions']['admission_rate']['overall'],
