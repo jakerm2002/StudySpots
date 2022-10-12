@@ -10,14 +10,13 @@ def initialize_db(db):
     class library(db.Model):
         library_id = db.Column(db.String(), primary_key=True)
         library_name = db.Column(db.String())
-        library_address = db.Column(db.Integer)
+        library_address = db.Column(db.String())
         library_city = db.Column(db.String())
         library_lat = db.Column(db.Float)
         library_long = db.Column(db.Float)
         library_rating = db.Column(db.Float)
-        library_phone = db.Column(db.String())
         
-    def __init__(self, library_id="NaN", library_name="NaN", library_address="NaN", library_lat=0.0, library_long=0.0, library_rating=0.0, library_city="NaN", library_phone="NaN"):
+    def __init__(self, library_id="NaN", library_name="NaN", library_address="NaN", library_lat=0.0, library_long=0.0, library_rating=0.0, library_city="NaN"):
         self.library_id = library_id
         self.library_name = library_name
         self.library_address = library_address
@@ -25,7 +24,6 @@ def initialize_db(db):
         self.library_lat = library_lat
         self.library_long = library_long
         self.library_rating = library_rating
-        self.library_phone = library_phone
 
     # creates the table
     db.create_all()
@@ -37,7 +35,7 @@ def initialize_db(db):
 
     # customize search parameters for Yelp GET call
     params={
-        "query": "library"
+        "query": "library",
         "key": api_key
     }
 
@@ -67,8 +65,7 @@ def libraries_list_maker(db) :
                         library_address=item['formatted_address'],
                         library_lat=item['geometry']['location']['lat'],
                         library_long=item['geometry']['location']['lng'],
-                        library_rating=item['rating'],
-                        library_phone=item['phone']
+                        library_rating=item['rating']
                         )
         library_list.append(new_library)
 

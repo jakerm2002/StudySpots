@@ -17,6 +17,8 @@ db = SQLAlchemy(app)
 
 
 
+db.drop_all()
+
 coffeeshop_list = coffeeShop.coffeshop_list_maker(db)
 university_list = universities.university_list_maker(db)
 libraries_list = libraries.libraries_list_maker(db)
