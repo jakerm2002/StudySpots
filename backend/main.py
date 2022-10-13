@@ -16,13 +16,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgre:rephrase-
 db = SQLAlchemy(app)
 
 
-
-db.drop_all()
+db.create_all()
 
 coffeeshop_list = coffeeShop.coffeshop_list_maker(db)
 university_list = universities.university_list_maker(db)
 libraries_list = libraries.libraries_list_maker(db)
-
 
 
 # # commit the list to the db
