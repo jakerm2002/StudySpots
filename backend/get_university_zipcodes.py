@@ -14,8 +14,6 @@ def get_university_zipcodes():
         zipcodes.add(current_zip[:5]) # cut every zipcode to five digits
 
     sorted_zipcodes = sorted(zipcodes)
-    print(sorted_zipcodes)
-    print(len(sorted_zipcodes), 'zipcodes')
     with open('zipcodes.txt', 'w') as f:
         for zipcode in sorted_zipcodes:
             f.write(f"{zipcode}\n")

@@ -41,7 +41,7 @@ def initialize_db(db):
     # prints reponse to json
     # with open('response.json', 'w') as f:
     #     json.dump(response.json(), f, indent = 4)    
-    get_coffee_shops_from_zipcode()
+    make_coffee_shops_json()
     data = response.json()
     return (data, CoffeeShop)
 
@@ -52,7 +52,7 @@ def get_coffee_shops_from_zipcode() :
     search_url = "https://api.yelp.com/v3/businesses/search"
     headers = {'Authorization': 'Bearer {}'.format(api_key)}
     coffee_shops = {}
-    for zipcode in zipcodes :
+    for zipcode in zipcodes[:10] :
         # customize search parameters for Yelp GET call
         params = {
         'term' : 'coffee shops',
@@ -69,6 +69,19 @@ def get_coffee_shops_from_zipcode() :
     print(len(coffee_shops.keys()))
     return coffee_shops
         
+
+def make_coffee_shops_json() :
+    coffee_shop_dict = get_coffee_shops_from_zipcode()
+    api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
+    
+    headers = {'Authorization': 'Bearer {}'.format(api_key)}
+    for shop_id in coffee_shop_dict:
+        id = str(shop_id)
+        search_url = "https://api.yelp.com/v3/businesses/" + id
+        response = requests.get(search_url, headers = headers)
+        
+        assert False
+
 
 
 # List of coffeeshop instances to be added to db
