@@ -33,3 +33,6 @@
         - Ami Iyer: 25
         - Joanne Chen: 25
         - Bianca Alvarado: 15
+
+- Comments:
+    - Inspiration on database structure from: https://gitlab.com/giveandlive/giveandlive/
