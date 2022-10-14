@@ -1,0 +1,952 @@
+[
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "John F Fitzgerald Surface Rd &, North St, Boston, MA 02109, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3619105,
+                "lng": -71.0553965
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.36308432989272,
+                    "lng": -71.05394222010729
+                },
+                "southwest": {
+                    "lat": 42.36038467010728,
+                    "lng": -71.05664187989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "Little Free Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 4048,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/113895832128498046197\">Stephen Priest</a>"
+                ],
+                "photo_reference": "AcYSjRiDHxQ2cfB6VKaVtkQbFMgvq8KsXaYUpS35E-1fafE1muEeJgDyPpszeKaJMOB1TkHSw9Dy9owapp1Kix5Z__Btjj2JPU3jpXp0XABSg2VRup-i_vVnuaJuMTBkAZTCDA1vLN5kiIBtFOX2k_DQ6YwKJooklsKxo-JQeUFfl1qqLfoK",
+                "width": 3036
+            }
+        ],
+        "place_id": "ChIJ3Wj3rYhw44kR1sF3KTHMdtw",
+        "plus_code": {
+            "compound_code": "9W6V+QR Boston, Massachusetts",
+            "global_code": "87JC9W6V+QR"
+        },
+        "rating": 3,
+        "reference": "ChIJ3Wj3rYhw44kR1sF3KTHMdtw",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 2
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "19 Staniford St, Boston, MA 02114, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3620373,
+                "lng": -71.0635527
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.36338012989272,
+                    "lng": -71.06235342010727
+                },
+                "southwest": {
+                    "lat": 42.36068047010728,
+                    "lng": -71.06505307989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Research Library",
+        "opening_hours": {
+            "open_now": false
+        },
+        "place_id": "ChIJd3koC5Bw44kRauZEuXCgMSw",
+        "plus_code": {
+            "compound_code": "9W6P+RH Boston, Massachusetts",
+            "global_code": "87JC9W6P+RH"
+        },
+        "rating": 0,
+        "reference": "ChIJd3koC5Bw44kRauZEuXCgMSw",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 0
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "126 Newbury St, Boston, MA 02116, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.351002,
+                "lng": -71.0763936
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.35246047989273,
+                    "lng": -71.07509797010728
+                },
+                "southwest": {
+                    "lat": 42.34976082010729,
+                    "lng": -71.07779762989271
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "Katharine Gibbs School Library",
+        "place_id": "ChIJL_uPeAt644kRHVdCSYRySW8",
+        "plus_code": {
+            "compound_code": "9W2F+CC Boston, Massachusetts",
+            "global_code": "87JC9W2F+CC"
+        },
+        "rating": 0,
+        "reference": "ChIJL_uPeAt644kRHVdCSYRySW8",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 0
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "700 Boylston St, Boston, MA 02116, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3493136,
+                "lng": -71.0781875
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.35083112989272,
+                    "lng": -71.0761855
+                },
+                "southwest": {
+                    "lat": 42.34813147010728,
+                    "lng": -71.07989230000001
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Boston Public Library - Central Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 3000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/106416248199999190893\">Tony D&#39;Antonio</a>"
+                ],
+                "photo_reference": "AcYSjRimr817SpFztU5aasHoRuKuNCd2UuiT1COPOp6e-llMQrnVmccxJNcwlgPurgdl3V5o3sS9cvTxgFCuQSzRIo3umAdBApTMFdl_5UVTgc5uhySzpYkNXhjI45OqJCD4ao6gAz1x5FTZU7OiZFcHaTP2qqbbIBEzuF8ITWCoH1nfcbT4",
+                "width": 4000
+            }
+        ],
+        "place_id": "ChIJU_ibQgx644kRc6zBW_5d1Lk",
+        "plus_code": {
+            "compound_code": "8WXC+PP Boston, Massachusetts",
+            "global_code": "87JC8WXC+PP"
+        },
+        "rating": 4.8,
+        "reference": "ChIJU_ibQgx644kRc6zBW_5d1Lk",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 1764
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "2 Avenue Louis Pasteur, Boston, MA 02115, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3397377,
+                "lng": -71.1010494
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.34113152989273,
+                    "lng": -71.09981422010726
+                },
+                "southwest": {
+                    "lat": 42.33843187010728,
+                    "lng": -71.10251387989271
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "Beatley Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 4000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/115661843667740582499\">A Google User</a>"
+                ],
+                "photo_reference": "AcYSjRgRLZ-XXVwiuqmofmRdVPlGwRoJ2ICxvi0uUEYu_lXtAVQBs-M6wFRFEX5hNEW9eLYcD2mngp7oMZxBf3c3J8aysMRNrTu5FUN3wqnFR68SSEF1h0T95cXYhWpNoDsGolVERDIBGA09qgIeP4fY25AI9u6EqHg7ima07CP-XS2aWcJR",
+                "width": 6000
+            }
+        ],
+        "place_id": "ChIJOUJ53op544kRXROAveJ0fYs",
+        "plus_code": {
+            "compound_code": "8VQX+VH Boston, Massachusetts",
+            "global_code": "87JC8VQX+VH"
+        },
+        "rating": 5,
+        "reference": "ChIJOUJ53op544kRXROAveJ0fYs",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 3
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "1350 Blue Hill Avenue, Mattapan, MA 02126, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.2774361,
+                "lng": -71.0932076
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.27875802989272,
+                    "lng": -71.09182722010726
+                },
+                "southwest": {
+                    "lat": 42.27605837010728,
+                    "lng": -71.09452687989271
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Mattapan Branch of the Boston Public Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 3456,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/110132534984013080601\">Soshana Passley</a>"
+                ],
+                "photo_reference": "AcYSjRjioajQcYflbVBjq7jg-v-kS-IyE3Cwgg5I4a0R7246TfcW_0s3juhAZmJYX7ZBG4VF5yQ7vSBWCY69fPc4HdGn8heCO1OBIP_2bEJc5kwRG9YFujnCWv8vGEe9shrZnKHzu2Ts_O0mz3_J0b34oeDre9bbfHu3J6LuiWPvcEZHbrc",
+                "width": 4608
+            }
+        ],
+        "place_id": "ChIJ8ZEM2QN844kRpuAXGiX-noM",
+        "plus_code": {
+            "compound_code": "7WG4+WR Mattapan, Boston, MA",
+            "global_code": "87JC7WG4+WR"
+        },
+        "rating": 4.5,
+        "reference": "ChIJ8ZEM2QN844kRpuAXGiX-noM",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 58
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "133 Federal St #802, Boston, MA 02110, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3542684,
+                "lng": -71.0566114
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.35563347989272,
+                    "lng": -71.05510937010729
+                },
+                "southwest": {
+                    "lat": 42.35293382010727,
+                    "lng": -71.05780902989274
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+        "name": "Philanthropy Massachusetts (Formerly Associated Grant Makers)",
+        "opening_hours": {
+            "open_now": false
+        },
+        "place_id": "ChIJS14b_IRw44kRgq_fw1L4KlY",
+        "plus_code": {
+            "compound_code": "9W3V+P9 Boston, Massachusetts",
+            "global_code": "87JC9W3V+P9"
+        },
+        "rating": 0,
+        "reference": "ChIJS14b_IRw44kRgq_fw1L4KlY",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 0
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "530 Washington St, Wellesley, MA 02482, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.296874,
+                "lng": -71.2906689
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.29821442989272,
+                    "lng": -71.28941067010727
+                },
+                "southwest": {
+                    "lat": 42.29551477010728,
+                    "lng": -71.29211032989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Wellesley Free Library -- Main Branch",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 3024,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/118403591620509071722\">Norris Boyd</a>"
+                ],
+                "photo_reference": "AcYSjRiAxpe5_sTeIUlsatu2QxNdUl6pxWaPmQtGS_9pYuAlh5lJaYdRDjDnmtYzdtdtXUQ_8kGlMXderHoVBuPE-siBAo47hGgZIhfrZS8bdabP56RYDxnAj15z17LtNH1C3QGown9Ah3ZKmF4gunHu2_HOfNCb2S62xazVoeb_AKJMpvui",
+                "width": 4032
+            }
+        ],
+        "place_id": "ChIJfU5IhLWG44kRaypOw7wUuaA",
+        "plus_code": {
+            "compound_code": "7PW5+PP Wellesley, Massachusetts",
+            "global_code": "87JC7PW5+PP"
+        },
+        "rating": 4.7,
+        "reference": "ChIJfU5IhLWG44kRaypOw7wUuaA",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 66
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "210 Washington St, Wellesley, MA 02482, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.314764,
+                "lng": -71.2709606
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.31618992989272,
+                    "lng": -71.26969997010727
+                },
+                "southwest": {
+                    "lat": 42.31349027010727,
+                    "lng": -71.27239962989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Wellesley Free Library -- Hills Branch",
+        "opening_hours": {
+            "open_now": false
+        },
+        "photos": [
+            {
+                "height": 3456,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101780610652631531891\">John Mackinnon</a>"
+                ],
+                "photo_reference": "AcYSjRjibs5CQg4yuq2lD-QrFbeu3fvSxj_aoe-aHJRw1Dq9bij7iUBf9dkKnf3VIyEYim5D8u34M-xrWx50yYO8q3RbD4UzooMsIdnMvJGaKaouxRzhHLPbmin_z0rpu5z8drGJVcyMEz7ilupEVCFRlQdcqMtUw7CMWEKRMDuberDPv4fa",
+                "width": 5184
+            }
+        ],
+        "place_id": "ChIJUd_SNOKD44kRSA2EaR1nVsA",
+        "plus_code": {
+            "compound_code": "8P7H+WJ Wellesley, Massachusetts",
+            "global_code": "87JC8P7H+WJ"
+        },
+        "rating": 4.3,
+        "reference": "ChIJUd_SNOKD44kRSA2EaR1nVsA",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 10
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "34 Kirkland St, Cambridge, MA 02138, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3766328,
+                "lng": -71.1130421
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.37798267989272,
+                    "lng": -71.11167492010728
+                },
+                "southwest": {
+                    "lat": 42.37528302010728,
+                    "lng": -71.11437457989273
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "Ukrainian Research Library",
+        "photos": [
+            {
+                "height": 3120,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/110594684917241224823\">\u0410\u043d\u0434\u0440\u0456\u0439 \u0420\u0435\u0431\u0440\u0438\u043a</a>"
+                ],
+                "photo_reference": "AcYSjRj9oSYsDO63uz2qW9wjdVgNcjlfc3UcA6FQrRpexdmIJTTYwb7ks7-S0qJcstsotgQzxowSvNOMVJRez3zApEdCRosHHTFbkcSPSuWh8tiSYgz_vC3NbCB4kHEhBufwkoQnCt2QQt8YQNKXDfAaCEFaziZncUWPA_ANwmU3DnTQc8tT",
+                "width": 4160
+            }
+        ],
+        "place_id": "ChIJJWmAmkZ344kRloIQc0LwU6w",
+        "plus_code": {
+            "compound_code": "9VGP+MQ Cambridge, Massachusetts",
+            "global_code": "87JC9VGP+MQ"
+        },
+        "rating": 5,
+        "reference": "ChIJJWmAmkZ344kRloIQc0LwU6w",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 1
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "175 Forest St, Waltham, MA 02452, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3879956,
+                "lng": -71.21985699999999
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.38955787989273,
+                    "lng": -71.21817122010728
+                },
+                "southwest": {
+                    "lat": 42.38685822010728,
+                    "lng": -71.22087087989271
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "Bentley University Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 1480,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/116200731708710276392\">A Google User</a>"
+                ],
+                "photo_reference": "AcYSjRgbNVM6fXdffHIBISUmHM51CDl8XQMThv-4qnLOOvadhjEqtFE6D3D11vpDVd8BK5v6CRVfPeAEP9BWw2iKxKZomtX4JYkHzhfUuyfDqfCWIx52FY3jHq2MgqMEv0Fr6UBlibN9JILFh8GYkyaDU6RbRHw109tLVyipWmvjNAVc47Pv",
+                "width": 2084
+            }
+        ],
+        "place_id": "ChIJAVnXXDed44kR0YMd5ohKO1I",
+        "plus_code": {
+            "compound_code": "9QQJ+53 Waltham, Massachusetts",
+            "global_code": "87JC9QQJ+53"
+        },
+        "rating": 4.9,
+        "reference": "ChIJAVnXXDed44kR0YMd5ohKO1I",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 23
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "45 Center St, Fairhaven, MA 02719, United States",
+        "geometry": {
+            "location": {
+                "lat": 41.6356847,
+                "lng": -70.9033985
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 41.63717727989272,
+                    "lng": -70.90207042010728
+                },
+                "southwest": {
+                    "lat": 41.63447762010728,
+                    "lng": -70.90477007989271
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "Millicent Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 2688,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/105149922997075836067\">Tom Galligan</a>"
+                ],
+                "photo_reference": "AcYSjRg4FZ0938RnD7chVArqq2Yxgbzqbjww1ZJF1OvprVoi7eGZFvtah5pcLwDCvq2CUQLotxfZjcmsybXu090cvLEaYZfDnKkymjoUje_irMwZlc-CztN5uLjS0PVUBjYTAtSKLhCiaoSNWqhvtxI-Soz1mzSmWukHK5khdPNEu6LpT-rZ",
+                "width": 1512
+            }
+        ],
+        "place_id": "ChIJqULCwVTh5IkRwTnmJttJMfI",
+        "plus_code": {
+            "compound_code": "J3PW+7J Fairhaven, Massachusetts",
+            "global_code": "87HFJ3PW+7J"
+        },
+        "rating": 4.8,
+        "reference": "ChIJqULCwVTh5IkRwTnmJttJMfI",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 45
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "64 Middlesex Ave, Reading, MA 01867, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.52601689999999,
+                "lng": -71.1102422
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.52737607989273,
+                    "lng": -71.10881297010728
+                },
+                "southwest": {
+                    "lat": 42.52467642010728,
+                    "lng": -71.11151262989273
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Reading Public Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 667,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/111483232569093907190\">A Google User</a>"
+                ],
+                "photo_reference": "AcYSjRjy4xIAkU-pTodxVAdWmt7xO4XB6CDdFxUuy5OFVotnPWpPeTh_FsmneyMQ-HBBTqyv4QoaQtlS88xM80qBXEX6fT3QxUlYU0hUG-a7Flq3cncirjDABK_7etM5Rmt752EWOVilT_CAS8ZvWQyznq7YSKQYQ1H5lgSlScmSSG7q3-6c",
+                "width": 1000
+            }
+        ],
+        "place_id": "ChIJP3Y5v0QL44kRVaKKAXUH2RA",
+        "plus_code": {
+            "compound_code": "GVGQ+CV Reading, Massachusetts",
+            "global_code": "87JCGVGQ+CV"
+        },
+        "rating": 4.8,
+        "reference": "ChIJP3Y5v0QL44kRVaKKAXUH2RA",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 49
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "132 Maquan St, Hanson, MA 02341, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.062996,
+                "lng": -70.855903
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.06452102989272,
+                    "lng": -70.85498722010728
+                },
+                "southwest": {
+                    "lat": 42.06182137010728,
+                    "lng": -70.85768687989273
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Hanson Public Library",
+        "opening_hours": {
+            "open_now": false
+        },
+        "photos": [
+            {
+                "height": 3264,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/102976116990191028064\">A Google User</a>"
+                ],
+                "photo_reference": "AcYSjRh7aTLMDdIRnZrDHR42VKJZ7qE4J4DQK86g2CogD1D0RtX4yMRLDt4OIzbm6Ja77wd1JFjB50FEaGwIjX4fbkdWrp_5NdN90jEgjke-3Izr0W6Y-Bw3CDnBkuKrL7MvJKfrMCE8tyC67-rWfmjPd9n0yOyYJ7qH4_0y_GRk8YjJXyC8",
+                "width": 2448
+            }
+        ],
+        "place_id": "ChIJDWFCAO2Y5IkRchSWtqlfQUs",
+        "plus_code": {
+            "compound_code": "347V+5J Hanson, Massachusetts",
+            "global_code": "87JF347V+5J"
+        },
+        "rating": 4.6,
+        "reference": "ChIJDWFCAO2Y5IkRchSWtqlfQUs",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 16
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "Tremont St, North Dighton, MA 02764, United States",
+        "geometry": {
+            "location": {
+                "lat": 41.8537855,
+                "lng": -71.1185216
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 41.85507622989272,
+                    "lng": -71.11718657010728
+                },
+                "southwest": {
+                    "lat": 41.85237657010728,
+                    "lng": -71.11988622989271
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/civic_building-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/civic-bldg_pinlet",
+        "name": "little free library",
+        "place_id": "ChIJD26CxI315IkRO2n-9y3Ki8g",
+        "plus_code": {
+            "compound_code": "VV3J+GH North Dighton, Dighton, MA",
+            "global_code": "87HCVV3J+GH"
+        },
+        "rating": 5,
+        "reference": "ChIJD26CxI315IkRO2n-9y3Ki8g",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 1
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "One Federal St, Boston, MA 02110, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.35627179999999,
+                "lng": -71.0569481
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.35774312989272,
+                    "lng": -71.05547832010727
+                },
+                "southwest": {
+                    "lat": 42.35504347010728,
+                    "lng": -71.05817797989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+        "name": "Iron Mountain",
+        "opening_hours": {
+            "open_now": false
+        },
+        "photos": [
+            {
+                "height": 1057,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/108241510437835399539\">Iron Mountain Boston, MA</a>"
+                ],
+                "photo_reference": "AcYSjRjwPK7Ibmn1rO0ioe8XRsLMASsbBd6fOdhFTU2lJ1tN_3nkTlIBeqUp-h0cCCNoEaxr7GANIqBmVvntZdtrZSkNe4MnNy67g_lSh6huzLnAwfnQs6si9pQw_STb4RiAS1R0gXoJQbAoJoBL113HBHBN7ZtpVXQZZXsF904IdIxgJHBH",
+                "width": 1500
+            }
+        ],
+        "place_id": "ChIJbanY6YNw44kRL2KoOTGHoVw",
+        "plus_code": {
+            "compound_code": "9W4V+G6 Boston, Massachusetts",
+            "global_code": "87JC9W4V+G6"
+        },
+        "rating": 1.7,
+        "reference": "ChIJbanY6YNw44kRL2KoOTGHoVw",
+        "types": [
+            "storage",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 12
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "13 Summer St, Pawtucket, RI 02860, United States",
+        "geometry": {
+            "location": {
+                "lat": 41.8786693,
+                "lng": -71.38435179999999
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 41.87994792989273,
+                    "lng": -71.38305437010729
+                },
+                "southwest": {
+                    "lat": 41.87724827010729,
+                    "lng": -71.38575402989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/school-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/school_pinlet",
+        "name": "Pawtucket Public Library",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 4032,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101790538495098134731\">Benjamin Santos</a>"
+                ],
+                "photo_reference": "AcYSjRjBBd4ROYUBmDeRop6JWG-AdX46B-nXlD1nFOdwTW8Z9yhKhqk76qwqvENArn38-fdrQppuj1SsZqp-y_fkwZwAnuf-ZUqXX-lxpS-3u1JDuKGc_RYj0FxacJZmRQG1TITnIjNzMfbntWvU4-KZB89wttJ9QWbFXUdKKBphdxf_dGVu",
+                "width": 3024
+            }
+        ],
+        "place_id": "ChIJfW0Xa1ND5IkRf3CohuYaPGw",
+        "plus_code": {
+            "compound_code": "VJH8+F7 Pawtucket, Rhode Island",
+            "global_code": "87HCVJH8+F7"
+        },
+        "rating": 4.7,
+        "reference": "ChIJfW0Xa1ND5IkRf3CohuYaPGw",
+        "types": [
+            "library",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 96
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "112 Congress St, Boston, MA 02110, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3564186,
+                "lng": -71.0560747
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.35775797989272,
+                    "lng": -71.05478467010728
+                },
+                "southwest": {
+                    "lat": 42.35505832010728,
+                    "lng": -71.05748432989273
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/parking-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/parking_pinlet",
+        "name": "Garage at Post Office Square",
+        "opening_hours": {
+            "open_now": true
+        },
+        "photos": [
+            {
+                "height": 1280,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/112343960964782271541\">Xin Z</a>"
+                ],
+                "photo_reference": "AcYSjRhOE4DE1zwhLmexoBaZK8X_JDhh6YyV24SBL_E0UPBeGdkII_8JI6pgBB9s-MIHfEJaB9JUPszCwBjnPGYavGLr_FRf32wemBacq9rHLJ1Dy8AKOyJllQ6gI8BhalxtdgcileD_M8LZk6n4PaCEoLXeQnQ0MQa8sPHD34dYyHSpnFJl",
+                "width": 1700
+            }
+        ],
+        "place_id": "ChIJD6hsBa9x44kR9fsWKud6vzg",
+        "plus_code": {
+            "compound_code": "9W4V+HH Boston, Massachusetts",
+            "global_code": "87JC9W4V+HH"
+        },
+        "rating": 4.6,
+        "reference": "ChIJD6hsBa9x44kR9fsWKud6vzg",
+        "types": [
+            "parking",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 68
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "1 Central Wharf, Boston, MA 02110, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3592478,
+                "lng": -71.0491475
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.36047162989272,
+                    "lng": -71.04837765000002
+                },
+                "southwest": {
+                    "lat": 42.35777197010728,
+                    "lng": -71.05145705
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+        "icon_background_color": "#13B5C7",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+        "name": "New England Aquarium",
+        "opening_hours": {
+            "open_now": false
+        },
+        "photos": [
+            {
+                "height": 3072,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/107214488622981352934\">Ethan Tang</a>"
+                ],
+                "photo_reference": "AcYSjRiE9ULCbkIXXFAppTUC4GpJt-cjRhKVxlp7naOpwl7brlOs_hs-N4dGrwnkJeVfayryEFzXamot95jcXT5gft7036xqdluvJT5u2_MrF3kTMluMGlYKf3CwHZt9McsCX-iNmRh9ZwA4tAbEz4HuOb3U9oYo6810gywin4rXInU1HnY",
+                "width": 4080
+            }
+        ],
+        "place_id": "ChIJhdC_YH1w44kRSX0V1oo9pt0",
+        "plus_code": {
+            "compound_code": "9X52+M8 Boston, Massachusetts",
+            "global_code": "87JC9X52+M8"
+        },
+        "price_level": 2,
+        "rating": 4.4,
+        "reference": "ChIJhdC_YH1w44kRSX0V1oo9pt0",
+        "types": [
+            "aquarium",
+            "tourist_attraction",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 19119
+    },
+    {
+        "business_status": "OPERATIONAL",
+        "formatted_address": "89 Broad St, Boston, MA 02110, United States",
+        "geometry": {
+            "location": {
+                "lat": 42.3574115,
+                "lng": -71.0530807
+            },
+            "viewport": {
+                "northeast": {
+                    "lat": 42.35875197989272,
+                    "lng": -71.05193807010727
+                },
+                "southwest": {
+                    "lat": 42.35605232010727,
+                    "lng": -71.05463772989272
+                }
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
+        "icon_background_color": "#909CE1",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/hotel_pinlet",
+        "name": "Hilton Boston Downtown/Faneuil Hall",
+        "photos": [
+            {
+                "height": 1367,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/111953948282239658889\">A Google User</a>"
+                ],
+                "photo_reference": "AcYSjRiIj6ymuIodffJqae58a-NAX8vy3O6DSriQlfoqYnV34-Cl1Gw8QBzr-Md1KpfIosTpJd6AdGX_j0f4HVbCJj36pLOek3XK3pwLhNoO4Id40ZyNjLM2KmYDDPj5DxHjo6vh3nwA0PWcnUCCHUQ27NHYrbHQmwhInn2HByFXp45c20PZ",
+                "width": 2048
+            }
+        ],
+        "place_id": "ChIJGRLW4IZw44kR7B1vW8Z2KR0",
+        "plus_code": {
+            "compound_code": "9W4W+XQ Boston, Massachusetts",
+            "global_code": "87JC9W4W+XQ"
+        },
+        "rating": 4.3,
+        "reference": "ChIJGRLW4IZw44kR7B1vW8Z2KR0",
+        "types": [
+            "lodging",
+            "point_of_interest",
+            "establishment"
+        ],
+        "user_ratings_total": 1984
+    }
+]
