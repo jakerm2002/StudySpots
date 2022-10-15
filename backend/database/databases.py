@@ -1,7 +1,9 @@
 from flask import Flask
+from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, Column, String, Integer
 import json
+import os
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -10,8 +12,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Schema: "postgres+psycopg2://<USERNAME>:<PASSWORD>@<IP_ADDRESS>:<PORT>/<DATABASE_NAME>"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgre:rephrase-struggle-sulk@studyspots-db.cz5in1adcwq7.us-east-2.rds.amazonaws.com:5432/postgres'
 db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
-class Universities(db.Model):
+class University(db.Model):
     id = db.Column(db.String(), primary_key=True)
     name = db.Column(db.String())
     zipcode = db.Column(db.String())
@@ -44,14 +47,34 @@ class Universities(db.Model):
         self.outstate_tuition = outstate_tuition
         self.acceptance_rate = acceptance_rate
 
+class UniversitySchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        fields = (
+            "id",
+            "name",
+            "zipcode",
+            "city",
+            "latitude",
+            "longitude",
+            "population",
+            "instate_tuition",
+            "outstate_tuition",
+            "acceptance_rate"
+        )
+
+university_schema = UniversitySchema()
+universities_schema = UniversitySchema(many=True)
+
 def populate_universities():
-    file = open('api_information/all_universities.json', 'r')
+    file_path = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
+    file = open(file_path, 'r')
     db.create_all()
     universities_json = json.load(file)
 
     universities_list = []
     for university in universities_json:
-        new_university = Universities(
+        new_university = University(
             id=university["id"],
             name=university["latest.school.name"],
             zipcode=university["latest.school.zip"],
@@ -94,7 +117,8 @@ class CoffeeShop(db.Model):
 
 #TODO: change based on how the format of the json files turn out
 def populate_coffee_shops():
-    file = open('api_information/coffee_shops.json', 'r')
+    file_path = os.path.join(os.getcwd(), 'database/api_information/coffee_shops.json')
+    file = open(file_path, 'r')
     db.create_all()
     coffeeshops_json = json.load(file)
 
@@ -138,7 +162,8 @@ class Library(db.Model):
 
 #TODO: change based on how the format of the json files turn out
 def populate_libraries():
-    file = open('api_information/libraries.json', 'r')
+    file_path = os.path.join(os.getcwd(), 'database/api_information/libraries.json')
+    file = open(file_path, 'r')
     db.create_all()
     libraries_json = json.load(file)
 
@@ -170,5 +195,5 @@ if __name__ == "__main__":
     clear_databases()
     populate_universities()
     # populate_coffee_shops()
-    populate_libraries()
+    # populate_libraries()
 

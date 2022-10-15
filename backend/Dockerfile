@@ -24,6 +24,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ENV PORT 8080
 
+EXPOSE 5000
+
 CMD bash
 
 # Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
