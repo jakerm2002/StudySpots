@@ -12,6 +12,15 @@ def universities_by_id(id):
     university = University.query.filter_by(id=id).first()
     return university_schema.dumps(university)
 
+@app.route('/coffeeshops')
+def coffeeshops():
+    all_coffee_shops = CoffeeShop.query.all()
+    return coffeeshops_schema.dumps(all_coffee_shops)
+
+@app.route('/coffeeshops/<string:id>')
+def coffeeshops_by_id(id):
+    coffeeshop = CoffeeShop.query.filter_by(id=id).first()
+    return coffeeshop_schema.dumps(coffeeshop)
 
 @app.route('/')
 def home():

@@ -115,7 +115,26 @@ class CoffeeShop(db.Model):
         self.longitude = longitude
         self.rating = rating
         self.price = price
-        self.coffeshop_phone = phone
+        self.phone = phone
+
+class CoffeeShopSchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        fields = (
+            "id",
+            "name",
+            "image_url",
+            "zipcode",
+            "city",
+            "latitude",
+            "longitude",
+            "rating",
+            "price",
+            "phone"
+        )
+
+coffeeshop_schema = CoffeeShopSchema()
+coffeeshops_schema = CoffeeShopSchema(many=True)
 
 def populate_coffee_shops():
     file_path = os.path.join(os.getcwd(), 'database/api_information/all_coffee_shops.json')
