@@ -94,28 +94,29 @@ def populate_universities():
     file.close()
 
 class CoffeeShop(db.Model):
-    coffeeshop_id = db.Column(db.String(), primary_key=True)
-    coffeeshop_name = db.Column(db.String())
-    coffeeshop_zipcode = db.Column(db.Integer)
-    coffeeshop_city = db.Column(db.String())
-    coffeeshop_lat = db.Column(db.Float)
-    coffeeshop_long = db.Column(db.Float)
-    coffeeshop_rating = db.Column(db.Float)
-    coffeeshop_price = db.Column(db.String())
-    coffeeshop_phone = db.Column(db.String())
+    id = db.Column(db.String(), primary_key=True)
+    name = db.Column(db.String())
+    image_url = db.Column(db.String())
+    zipcode = db.Column(db.String())
+    city = db.Column(db.String())
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    rating = db.Column(db.Float)
+    price = db.Column(db.String())
+    phone = db.Column(db.String())
         
-    def __init__(self, coffeeshop_id="NaN", coffeeshop_name="NaN", coffeeshop_zipcode="NaN", city="NaN", coffeeshop_lat=0.0, coffeeshop_long=0.0, coffeeshop_rating=0, coffeeshop_price="NaN", coffeeshop_phone="NaN"):
-        self.coffeeshop_id = coffeeshop_id
-        self.coffeeshop_name = coffeeshop_name
-        self.coffeeshop_zipcode = coffeeshop_zipcode
-        self.coffeeshop_city = city
-        self.coffeeshop_lat = coffeeshop_lat
-        self.coffeeshop_long = coffeeshop_long
-        self.coffeeshop_rating = coffeeshop_rating
-        self.coffeeshop_price = coffeeshop_price
-        self.coffeshop_phone = coffeeshop_phone
+    def __init__(self, id="NaN", name="NaN", image_url="", zipcode="NaN", city="NaN", latitude=0.0, longitude=0.0, rating=0, price="NaN", phone="NaN"):
+        self.id = id
+        self.name = name
+        self.image_url=image_url
+        self.zipcode = zipcode
+        self.city = city
+        self.latitude = latitude
+        self.longitude = longitude
+        self.rating = rating
+        self.price = price
+        self.coffeshop_phone = phone
 
-#TODO: change based on how the format of the json files turn out
 def populate_coffee_shops():
     file_path = os.path.join(os.getcwd(), 'database/api_information/all_coffee_shops.json')
     file = open(file_path, 'r')
@@ -125,15 +126,16 @@ def populate_coffee_shops():
     coffeeshops_list = []
     for coffee_shop in coffeeshops_json:
         new_coffeeshop = CoffeeShop(
-            coffeeshop_id=library['id'],
-            coffeeshop_name=library['name'],
-            coffeeshop_zipcode=library['location']['zip_code'],
-            coffeeshop_city=library['location']['city'],
-            coffeeshop_lat=library['coordinates']['latitude'],
-            coffeeshop_long=library['coordinates']['longitude'],
-            coffeeshop_rating=library['rating'],
-            coffeeshop_price=library['price'] if 'price' in library else 'N/A',
-            coffeeshop_phone=library['phone']
+            id=coffee_shop['id'],
+            name=coffee_shop['name'],
+            image_url=coffee_shop['image_url'],
+            zipcode=coffee_shop['location']['zip_code'],
+            city=coffee_shop['location']['city'],
+            latitude=coffee_shop['coordinates']['latitude'],
+            longitude=coffee_shop['coordinates']['longitude'],
+            rating=coffee_shop['rating'],
+            price=coffee_shop['price'] if 'price' in coffee_shop else 'N/A',
+            phone=coffee_shop['phone']
         )
         coffeeshops_list.append(new_coffeeshop)
 
@@ -193,7 +195,10 @@ def clear_databases():
 if __name__ == "__main__":
     print("Creating the databases")
     clear_databases()
+    print("Creating University database")
     populate_universities()
-    # populate_coffee_shops()
+    print("Finished University databse. Creating Coffee Shop database")
+    populate_coffee_shops()
+    print("Finished Coffee Shop database")
     # populate_libraries()
 
