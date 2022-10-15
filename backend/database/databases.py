@@ -117,7 +117,7 @@ class CoffeeShop(db.Model):
 
 #TODO: change based on how the format of the json files turn out
 def populate_coffee_shops():
-    file_path = os.path.join(os.getcwd(), 'database/api_information/coffee_shops.json')
+    file_path = os.path.join(os.getcwd(), 'database/api_information/all_coffee_shops.json')
     file = open(file_path, 'r')
     db.create_all()
     coffeeshops_json = json.load(file)

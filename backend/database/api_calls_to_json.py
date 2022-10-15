@@ -1,5 +1,6 @@
 import json
 import math
+import os
 import requests
 
 def api_call_for_universities():
@@ -65,11 +66,12 @@ def api_call_for_universities():
     
     final = get_all_pages()
 
-    with open('api_information/all_universities.json', 'w') as f:
+    file_name = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
+    with open(file_name, 'w') as f:
         json.dump(final, f, indent = 4)
 
 def get_university_zipcodes():
-    JSON_FILENAME = 'all_universities.json'
+    JSON_FILENAME = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
 
     with open(JSON_FILENAME) as f:
         universities = json.load(f)
@@ -82,12 +84,12 @@ def get_university_zipcodes():
         zipcodes.add(current_zip[:5]) # cut every zipcode to five digits
 
     sorted_zipcodes = sorted(zipcodes)
-    with open('zipcodes.txt', 'w') as f:
+    file_name = os.path.join(os.getcwd(), 'database/api_information/zipcodes.txt')
+    with open(file_name, 'w') as f:
         for zipcode in sorted_zipcodes:
             f.write(f"{zipcode}\n")
     return sorted_zipcodes
 
-# TODO
 def api_call_for_coffeeshops():
     def get_coffee_shops_from_zipcode() :
         zipcodes = get_university_zipcodes()
@@ -96,6 +98,7 @@ def api_call_for_coffeeshops():
         search_url = "https://api.yelp.com/v3/businesses/search"
         headers = {'Authorization': 'Bearer {}'.format(api_key)}
         coffee_shops = {}
+        print("Searching " + str(len(zipcodes)) + " zipcodes for coffee shops.")
         for zipcode in zipcodes[:10] :
             # customize search parameters for Yelp GET call
             params = {
@@ -109,22 +112,31 @@ def api_call_for_coffeeshops():
             try:
                 coffee_shops.update({item['id']:item for item in response.json()['businesses']})
             except:
-                print(response.json())
-        print(len(coffee_shops.keys()))
+                print("Error retrieving coffee shops for zipcode " + str(zipcode) + " " + str(response.json()))
+        print("Finished getting initial list of all coffee shops.")
         return coffee_shops
             
 
-    def make_coffee_shops_json() :
-        coffee_shop_dict = get_coffee_shops_from_zipcode()
+    def get_all_coffee_shops_detailed() :
+        all_coffee_shops = []
+        coffee_shop_ids = get_coffee_shops_from_zipcode()
         api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
-        
         headers = {'Authorization': 'Bearer {}'.format(api_key)}
-        for shop_id in coffee_shop_dict:
+
+        print("Getting detailed information for each of the " + str(len(coffee_shop_ids)) + " coffee shops")
+        for shop_id in coffee_shop_ids:
             id = str(shop_id)
             search_url = "https://api.yelp.com/v3/businesses/" + id
             response = requests.get(search_url, headers = headers)
+            all_coffee_shops.append(response.json())
+        print("Finished querying each individual coffee shop.")
+        return all_coffee_shops
             
-            assert False
+    final = get_all_coffee_shops_detailed()
+
+    file_name = os.path.join(os.getcwd(), 'database/api_information/all_coffee_shops.json')
+    with open(file_name, 'w') as f:
+        json.dump(final, f, indent = 4)
 
 # TODO
 def api_call_for_libraries():
@@ -149,5 +161,5 @@ def api_call_for_libraries():
     data = response.json()
 
 if __name__ == "__main__":
-    api_call_for_universities()
-    get_university_zipcodes()
+    # api_call_for_universities()
+    api_call_for_coffeeshops()

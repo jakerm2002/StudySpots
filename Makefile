@@ -21,4 +21,4 @@ be_docker_update:
 	docker build-t idb/backend ./backend
 
 be_docker:
-	docker run --rm -it -v $(PWD)/backend:/usr/backend -w /usr/backend idb/backend
+	docker run -p 5000:5000 --rm -it -v $(PWD)/backend:/usr/backend -w /usr/backend idb/backend
