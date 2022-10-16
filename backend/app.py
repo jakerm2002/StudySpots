@@ -4,8 +4,12 @@ import os
 
 @app.route('/universities')
 def universities():
-    all_universities = University.query.all()
-    return universities_schema.dumps(all_universities)
+    # Possible arguments that can be added to request
+    page = int(request.args.get('page')) if request.args.get('page') else 1
+    per_page = int(request.args.get('per_page')) if request.args.get('per_page') else 10
+
+    all_universities = db.session.query(University).paginate(page=page, per_page=per_page)
+    return universities_schema.dumps(all_universities.items)
 
 @app.route('/universities/<string:id>')
 def universities_by_id(id):
@@ -14,8 +18,12 @@ def universities_by_id(id):
 
 @app.route('/coffeeshops')
 def coffeeshops():
-    all_coffee_shops = CoffeeShop.query.all()
-    return coffeeshops_schema.dumps(all_coffee_shops)
+    # Possible arguments that can be added to request
+    page = int(request.args.get('page')) if request.args.get('page') else 1
+    per_page = int(request.args.get('per_page')) if request.args.get('per_page') else 10
+
+    all_coffee_shops = db.session.query(CoffeeShop).paginate(page=page, per_page=per_page)
+    return coffeeshops_schema.dumps(all_coffee_shops.items)
 
 @app.route('/coffeeshops/<string:id>')
 def coffeeshops_by_id(id):
