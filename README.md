@@ -36,3 +36,4 @@
 
 - Comments:
     - Inspiration on database structure from: https://gitlab.com/giveandlive/giveandlive/
+    - Used https://gitlab.com/giveandlive/giveandlive/-/tree/260215fb5f072e5af9e076c5f296f2cf01db9476/back-end to be able to deploy on aws elastic beanstalk

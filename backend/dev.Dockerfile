@@ -13,22 +13,21 @@ RUN apt-get update -y
 RUN apt-get install -y python3
 RUN apt-get install -y python3-pip python3-dev build-essential vim
 RUN apt-get install -y libmysqlclient-dev libpq-dev postgresql
-RUN apt-get -y install nginx
 
 # Copy local code to the container image.
-COPY . usr/src/backend
-COPY requirements.txt usr/src/backend/requirements.txt
-WORKDIR /usr/src/backend
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
 
 # Install production dependencies.
-RUN pip3 install --upgrade pip
-RUN pip3 install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-EXPOSE 80
+ENV PORT 8080
 
-COPY nginx.conf /etc/nginx
-RUN chmod +x ./start.sh
-CMD ["./start.sh"]
+EXPOSE 5000
+
+CMD bash
 
 # Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
 #CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
+

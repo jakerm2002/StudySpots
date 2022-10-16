@@ -13,7 +13,7 @@ fe_docker:
 
 # Build the backend docker image from scratch
 be_docker_build:
-	docker build -t idb/backend ./backend
+	docker build -f ./backend/dev.Dockerfile -t idb/backend ./backend
 
 # Update backend docker image if changes were made to Dockerfile
 be_docker_update:
