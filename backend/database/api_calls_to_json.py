@@ -75,8 +75,13 @@ def api_call_for_universities():
             for result in json_response['results']:
                 state = result["latest.school.state"]
                 locale = result["latest.school.locale"] if result["latest.school.locale"] else 41
+                size = result["latest.student.size"] if result["latest.student.size"] else 0
                 # Only store colleges in the US states and not in rural areas
-                if state in us_states and (locale != "null" and locale != 41 and locale != 42 and locale != 43):
+                if (
+                    state in us_states 
+                    and (locale != "null" and locale != 41 and locale != 42 and locale != 43)
+                    and size > 500
+                ):
                     all_results.append(result)
             # all_results.extend(json_response['results'])
         print('Finished.')
@@ -179,5 +184,5 @@ def api_call_for_libraries():
     data = response.json()
 
 if __name__ == "__main__":
-    api_call_for_universities()
-    # api_call_for_coffeeshops()
+    # api_call_for_universities()
+    api_call_for_coffeeshops()
