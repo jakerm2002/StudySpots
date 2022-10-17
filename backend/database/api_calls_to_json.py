@@ -163,26 +163,76 @@ def api_call_for_coffeeshops():
 
 # TODO
 def api_call_for_libraries():
-    # Get API request
     api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
-    api_url = "https://maps.googleapis.com/maps/api/place/textsearch/json"
-    #headers = {'Authorization': 'Bearer {}'.format(api_key)}
+    
+    def get_university_coordinates():
+        nonlocal api_key
+        api_url = "https://maps.googleapis.com/maps/api/geocode/json?"
+        JSON_FILENAME = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
 
-    # customize search parameters for Yelp GET call
-    params={
-        "query": "library",
-        "key": api_key
-    }
+        with open(JSON_FILENAME) as f:
+            universities = json.load(f)
 
-    # response.content will give you raw json
-    response = requests.get(api_url, params = params)
+        coordinates = set()
+        for university in universities:
+            coordinates.add(
+                (university["location.lat"], university["location.lon"])
+            )
 
-    # prints reponse to json
-    # with open('response.json', 'w') as f:
-    #     json.dump(response.json(), f, indent = 4)    
+        file_name = os.path.join(os.getcwd(), 'database/api_information/coordinates.txt')
+        sorted_coordinates = sorted(coordinates)
+        with open(file_name, 'w') as f:
+            for coordinate in sorted_coordinates:
+                f.write(f"{coordinate}\n")            
+        return sorted_coordinates
+
+    def get_all_libraries(coordinates):
+        api_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+        library_ids = set()
+        for lat, lng in coordinates[:10]:
+            response = requests.get(
+                api_url +
+                "location=" + str(lat) + "%2C" + str(lng) +
+                "&radius=2000" +
+                "&keyword=library" +
+                "&key=" + api_key
+            )
+
+            for library in response.json()["results"]:
+                try:
+                    library_ids.add(library["place_id"])
+                except:
+                    print("error with getting place id from library: " + str(library))
+        return library_ids
+
+    def get_library_detailed_info(library_ids):
+        api_url = "https://maps.googleapis.com/maps/api/place/details/json?"
+        all_libraries = []
+        for library_id in library_ids:
+            response = requests.get(
+                api_url +
+                "place_id=" + library_id +
+                "&key=" + api_key
+            )
+            all_libraries.append(response.json()["result"])
         
-    data = response.json()
+        return(all_libraries)
+
+    print("Get coordinates from universities")
+    coordinates = get_university_coordinates()
+    print("Got the coordinates needed!")
+    print("Getting libraries around each area.")
+    library_ids = get_all_libraries(coordinates)
+    print("Got all the library place ids!")
+    print("Getting detailed information about each place")
+    all_libraries = get_library_detailed_info(library_ids)
+    print("Got all of the detailed information and writing to a file!")
+    file_name = os.path.join(os.getcwd(), 'database/api_information/all_libraries.json')
+    with open(file_name, 'w') as f:
+        json.dump(all_libraries, f, indent = 4)
+
 
 if __name__ == "__main__":
     # api_call_for_universities()
-    api_call_for_coffeeshops()
+    # api_call_for_coffeeshops()
+    api_call_for_libraries()
