@@ -19,6 +19,7 @@ def api_call_for_universities():
         'latest.school.city',
         'latest.school.state',
         'latest.school.school_url',
+        'latest.school.locale',
         'location.lat',
         'location.lon',
         'latest.student.size',                                  # Enrollment of undergraduate certificate/degree-seeking students
@@ -55,12 +56,29 @@ def api_call_for_universities():
 
     def get_all_pages():
         all_results = []
+        us_states = {'AL', 'AK', 'AZ', 'AR', 'CA',
+                     'CO', 'CT', 'DE', 'FL', 'GA',
+                     'HI', 'ID', 'IL', 'IN', 'IA',
+                     'KS', 'KY', 'LA', 'ME', 'MD',
+                     'MA', 'MI', 'MN', 'MS', 'MO',
+                     'MT', 'NE', 'NV', 'NH', 'NJ',
+                     'NM', 'NY', 'NC', 'ND', 'OH',
+                     'OK', 'OR', 'PA', 'RI', 'SC',
+                     'SD', 'TN', 'TX', 'UT', 'VT',
+                     'VA', 'WA', 'WV', 'WI', 'WY',
+                    }
         requests_needed = math.ceil(TOTAL_NUM_UNIVERSITIES / RESULTS_PER_PAGE)
         print(requests_needed, 'API requests needed. Starting now...')
         for page_num in range(requests_needed):
             response = get_page(page_num, FIELDS_STRING)
             json_response = response.json() # response in python dict format
-            all_results.extend(json_response['results'])
+            for result in json_response['results']:
+                state = result["latest.school.state"]
+                locale = result["latest.school.locale"] if result["latest.school.locale"] else 41
+                # Only store colleges in the US states and not in rural areas
+                if state in us_states and (locale != "null" and locale != 41 and locale != 42 and locale != 43):
+                    all_results.append(result)
+            # all_results.extend(json_response['results'])
         print('Finished.')
         return all_results
     
@@ -161,5 +179,5 @@ def api_call_for_libraries():
     data = response.json()
 
 if __name__ == "__main__":
-    # api_call_for_universities()
-    api_call_for_coffeeshops()
+    api_call_for_universities()
+    # api_call_for_coffeeshops()
