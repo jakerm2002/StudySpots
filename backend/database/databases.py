@@ -164,26 +164,28 @@ def populate_coffee_shops():
     file.close()
 
 class Library(db.Model):
-    library_id = db.Column(db.String(), primary_key=True)
-    library_name = db.Column(db.String())
-    library_address = db.Column(db.String())
-    library_city = db.Column(db.String())
-    library_lat = db.Column(db.Float)
-    library_long = db.Column(db.Float)
-    library_rating = db.Column(db.Float)
+    id = db.Column(db.String(), primary_key=True)
+    name = db.Column(db.String())
+    address = db.Column(db.String())
+    city = db.Column(db.String())
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+    rating = db.Column(db.Float)
+    phone = db.Column(db.String)
         
-    def __init__(self, library_id="NaN", library_name="NaN", library_address="NaN", library_lat=0.0, library_long=0.0, library_rating=0.0, library_city="NaN"):
-        self.library_id = library_id
-        self.library_name = library_name
-        self.library_address = library_address
-        self.library_city = library_city
-        self.library_lat = library_lat
-        self.library_long = library_long
-        self.library_rating = library_rating
+    def __init__(self, id="NaN", name="NaN", address="NaN", latitude=0.0, longitude=0.0, rating=0.0, city="NaN", phone=""):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.city = city
+        self.latitude = latitude
+        self.longitude = longitude
+        self.rating = rating
+        self.phone = phone
 
 #TODO: change based on how the format of the json files turn out
 def populate_libraries():
-    file_path = os.path.join(os.getcwd(), 'database/api_information/libraries.json')
+    file_path = os.path.join(os.getcwd(), 'database/api_information/all_libraries.json')
     file = open(file_path, 'r')
     db.create_all()
     libraries_json = json.load(file)
@@ -191,12 +193,13 @@ def populate_libraries():
     libraries_list = []
     for library in libraries_json:
         new_library = Library(
-            library_id=library['place_id'],
-            library_name=library['name'],
-            library_address=library['formatted_address'],
-            library_lat=library['geometry']['location']['lat'],
-            library_long=library['geometry']['location']['lng'],
-            library_rating=library['rating']
+            id=library['place_id'],
+            name=library['name'],
+            address=library['formatted_address'],
+            latitude=library['geometry']['location']['lat'],
+            longitude=library['geometry']['location']['lng'],
+            rating=library['rating'] if "rating" in library else 0,
+            phone=library["formatted_phone_number"] if "formatted_phone_number" in library else ""
         )
         libraries_list.append(new_library)
 
@@ -216,8 +219,9 @@ if __name__ == "__main__":
     clear_databases()
     print("Creating University database")
     populate_universities()
-    print("Finished University databse. Creating Coffee Shop database")
+    print("Finished University database. Creating Coffee Shop database")
     populate_coffee_shops()
-    print("Finished Coffee Shop database")
-    # populate_libraries()
+    print("Finished Coffee Shop database. Creating Library database")
+    populate_libraries()
+    print("Finished Library database.")
 
