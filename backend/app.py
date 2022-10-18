@@ -30,6 +30,20 @@ def coffeeshops_by_id(id):
     coffeeshop = CoffeeShop.query.filter_by(id=id).first()
     return coffeeshop_schema.dumps(coffeeshop)
 
+@app.route('/libraries')
+def libraries():
+    # Possible arguments that can be added to request
+    page = int(request.args.get('page')) if request.args.get('page') else 1
+    per_page = int(request.args.get('per_page')) if request.args.get('per_page') else 10
+
+    all_libraries = db.session.query(Library).paginate(page=page, per_page=per_page)
+    return libraries_schema.dumps(all_libraries.items)
+
+@app.route('/libraries/<string:id>')
+def libraries_by_id(id):
+    library = Library.query.filter_by(id=id).first()
+    return library_schema.dumps(library)
+
 @app.route('/')
 def home():
     return "Welcome to the Study Spots API!"

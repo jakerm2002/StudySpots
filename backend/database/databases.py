@@ -257,7 +257,23 @@ class Library(db.Model):
         self.rating = rating
         self.phone = phone
 
-#TODO: change based on how the format of the json files turn out
+class LibrarySchema(ma.Schema):
+    class Meta:
+        # Fields to expose
+        fields = (
+            "id",
+            "name",
+            "address",
+            "city",
+            "latitude",
+            "longitude",
+            "rating",
+            "phone"
+        )
+
+library_schema = LibrarySchema()
+libraries_schema = LibrarySchema(many=True)
+
 def populate_libraries():
     file_path = os.path.join(os.getcwd(), 'database/api_information/all_libraries.json')
     file = open(file_path, 'r')
