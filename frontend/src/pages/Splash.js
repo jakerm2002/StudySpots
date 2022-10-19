@@ -1,13 +1,10 @@
-import React, {useState} from "react";
-import { SliderData } from './SliderData';
+import React from "react";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import logo from '../images/StudySpotsCircle.png';
-import { Row } from "react-bootstrap";
+import { Carousel, Row, Image } from "react-bootstrap";
 import {Link} from 'react-router-dom';
 import './Splash.css';
-
-const intervalTime = 10000; 
 
 
 const ModelCards = () => {
@@ -95,53 +92,60 @@ const AboutCard = () => {
 
 }
 
-const ImageSlider = () => {
-    const [slideIndex, setIndex] = useState(0);
-    const length = SliderData.length;
-    const timeoutRef = React.useRef(null);
+const SlideShow = () => {
+   return (
+    <div className="slider">
+        <Carousel interval={8000}>
+            <Carousel.Item>
+                <Image
+                    className="d-block w-100 h-100"
+                    src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80"
+                    alt="First slide"
+                />
+                <Carousel.Caption>
+                    <h1>Welcome to StudySpots!</h1>
+                    <p> Connect with your community by discovering new coffee shops and libraries near your university</p>
+                </Carousel.Caption>
+            </Carousel.Item>
 
-    function resetTimeout() {
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-        }
-      }
+            <Carousel.Item>
+                <Image
+                    className="d-block w-100 h-100"
+                    src="https://images.unsplash.com/photo-1623771702313-39dc4f71d275?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+                    alt="Second slide"
+                />
+                <Carousel.Caption>
+                    <h1>Welcome to StudySpots!</h1>
+                    <p> Connect with your community by discovering new coffee shops and libraries near your university</p>
+                </Carousel.Caption>
 
-    React.useEffect(() => {
-        resetTimeout();
-        timeoutRef.current = setTimeout(
-            () => setIndex((prevIndex) =>
-                    prevIndex === length -1 ? 0 : prevIndex + 1),
-                    intervalTime
-        );
+            </Carousel.Item>
 
-        return () => {
-            resetTimeout();
-        };
-    }, [slideIndex, length]);
+            <Carousel.Item>
+                <Image
+                    className="d-block w-100 h-100"
+                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbGxlZ2V8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60"
+                    alt="Third slide"
+                />
+                <Carousel.Caption>
+                    <h1>Welcome to StudySpots!</h1>
+                    <p> Connect with your community by discovering new coffee shops and libraries near your university</p>
+                </Carousel.Caption>
 
-    return (
-        <section className="slider">
+            </Carousel.Item>
 
 
-            {SliderData.map((slide, index) => {
-                return (
-                    <div className={index === slideIndex ? 'slide active' : 'slideAnimation'} key={index}>
-                        {index === slideIndex && ( <img src={slide.image} alt="this is the alt" className="slideImage" />
-                        )}
-                        
-                    </div>
-                    )
-                })}
-        </section>
-    );
+        </Carousel>
+    </div>
+   );
 }
 
 const Splash = () => {
 
     return (
        <div>
-            <h1 className="mainHeader">Welcome to Study Spots!</h1>
-            <ImageSlider/>
+            {/* <ImageSlider/> */}
+            <SlideShow/>
             <ModelCards/>
             <AboutCard/>
             
