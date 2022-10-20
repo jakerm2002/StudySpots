@@ -127,7 +127,7 @@ university_schema = UniversitySchema()
 universities_schema = UniversitySchema(many=True)
 
 def populate_universities():
-    file_path = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
+    file_path = os.path.join(os.getcwd(), 'api_information/all_universities.json')
     file = open(file_path, 'r')
     db.create_all()
     universities_json = json.load(file)
@@ -178,7 +178,17 @@ class CoffeeShop(db.Model):
     rating = db.Column(db.Float)
     price = db.Column(db.String())
     phone = db.Column(db.String())
+
+    review_count = db.Column(db.Integer)
+    address1 = db.Column(db.String())
+    state = db.Column(db.String())
+    display_address = db.Column(db.String())
+    photo = db.Column(db.String())
+
+    # figure out how to store hours in the DB?
+    
         
+    '''
     def __init__(self, id="NaN", name="NaN", image_url="", zipcode="NaN", city="NaN", latitude=0.0, longitude=0.0, rating=0, price="NaN", phone="NaN"):
         self.id = id
         self.name = name
@@ -190,6 +200,7 @@ class CoffeeShop(db.Model):
         self.rating = rating
         self.price = price
         self.phone = phone
+    '''
 
 class CoffeeShopSchema(ma.Schema):
     class Meta:
@@ -204,14 +215,20 @@ class CoffeeShopSchema(ma.Schema):
             "longitude",
             "rating",
             "price",
-            "phone"
+            "phone",
+
+            "review_count",
+            "address1",
+            "state",
+            "display_address",
+            "photo"
         )
 
 coffeeshop_schema = CoffeeShopSchema()
 coffeeshops_schema = CoffeeShopSchema(many=True)
 
 def populate_coffee_shops():
-    file_path = os.path.join(os.getcwd(), 'database/api_information/all_coffee_shops.json')
+    file_path = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
     file = open(file_path, 'r')
     db.create_all()
     coffeeshops_json = json.load(file)
@@ -228,7 +245,13 @@ def populate_coffee_shops():
             longitude=coffee_shop['coordinates']['longitude'],
             rating=coffee_shop['rating'],
             price=coffee_shop['price'] if 'price' in coffee_shop else 'N/A',
-            phone=coffee_shop['phone']
+            phone=coffee_shop['phone'] if coffee_shop['phone']!='' else 'N/A',
+
+            review_count=coffee_shop['review_count'],
+            address1=coffee_shop['location']['address1'],
+            state=coffee_shop['location']['state'],
+            display_address=coffee_shop['location']['display_address'],
+            photo=coffee_shop['photos'][0] if coffee_shop['photos'] else ''
         )
         coffeeshops_list.append(new_coffeeshop)
 
@@ -275,7 +298,7 @@ library_schema = LibrarySchema()
 libraries_schema = LibrarySchema(many=True)
 
 def populate_libraries():
-    file_path = os.path.join(os.getcwd(), 'database/api_information/all_libraries.json')
+    file_path = os.path.join(os.getcwd(), 'api_information/all_libraries.json')
     file = open(file_path, 'r')
     db.create_all()
     libraries_json = json.load(file)

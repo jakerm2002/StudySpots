@@ -2,6 +2,7 @@ import json
 import math
 import os
 import requests
+import sys
 
 def api_call_for_universities():
     # Get API request
@@ -33,9 +34,9 @@ def api_call_for_universities():
         'latest.school.ownership',                              # 1-public, 2-private nonprofit, 3-private forprofit
         'latest.school.institutional_characteristics.level',    # 1: 4-year, 2: 2-year, 3-less than 2-year
         'latest.admissions.sat_scores.average.overall',         # Average SAT equivalent score of students admitted
-        'latest.admissions.sat_scores.midpoint.math',           # Midpoint of the ACT math score
-        'latest.admissions.sat_scores.midpoint.writing',        # Midpoint of the ACT writing score
-        'latest.admissions.sat_scores.midpoint.critical_reading' # Midpoint of the ACT English score
+        'latest.admissions.sat_scores.midpoint.math',           # Midpoint of the SAT math score
+        'latest.admissions.sat_scores.midpoint.writing',        # Midpoint of the SAT writing score
+        'latest.admissions.sat_scores.midpoint.critical_reading' # Midpoint of the SAT English score
         ]
 
     FIELDS_STRING = ','.join(fields) # puts the fields into one string and comma-separates them
@@ -75,26 +76,34 @@ def api_call_for_universities():
             for result in json_response['results']:
                 state = result["latest.school.state"]
                 locale = result["latest.school.locale"] if result["latest.school.locale"] else 41
+                carnegie_basic = result['latest.school.carnegie_basic']
                 size = result["latest.student.size"] if result["latest.student.size"] else 0
+                sat_average = result['latest.admissions.sat_scores.average.overall']
+                sat_median_math = result['latest.admissions.sat_scores.midpoint.math']
+                sat_median_reading = result['latest.admissions.sat_scores.midpoint.critical_reading']
+                acceptance_rate = result['latest.admissions.admission_rate.overall']
                 # Only store colleges in the US states and not in rural areas
                 if (
-                    state in us_states 
-                    and (locale != "null" and locale != 41 and locale != 42 and locale != 43)
+                    state in us_states
+                    and (locale == 11 or locale == 12 or locale == 13 or locale == 21 or locale == 22 or locale == 23)
+                    and (carnegie_basic == 15 or carnegie_basic == 16 or carnegie_basic == 17)
+                    and (sat_average != None and sat_median_math != None and sat_median_reading != None)
+                    and acceptance_rate != None
                     and size > 500
                 ):
                     all_results.append(result)
             # all_results.extend(json_response['results'])
-        print('Finished.')
+        print('Finished. Gathered', len(all_results), 'results.')
         return all_results
     
     final = get_all_pages()
 
-    file_name = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
+    file_name = os.path.join(os.getcwd(), 'api_information/all_universities.json')
     with open(file_name, 'w') as f:
         json.dump(final, f, indent = 4)
 
 def get_university_zipcodes():
-    JSON_FILENAME = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
+    JSON_FILENAME = os.path.join(os.getcwd(), 'api_information/all_universities.json')
 
     with open(JSON_FILENAME) as f:
         universities = json.load(f)
@@ -107,13 +116,67 @@ def get_university_zipcodes():
         zipcodes.add(current_zip[:5]) # cut every zipcode to five digits
 
     sorted_zipcodes = sorted(zipcodes)
-    file_name = os.path.join(os.getcwd(), 'database/api_information/zipcodes.txt')
+    file_name = os.path.join(os.getcwd(), 'api_information/zipcodes.txt')
     with open(file_name, 'w') as f:
         for zipcode in sorted_zipcodes:
             f.write(f"{zipcode}\n")
     return sorted_zipcodes
 
+def get_university_coordinates():
+        # nonlocal api_key
+        #api_url = "https://maps.googleapis.com/maps/api/geocode/json?"
+        JSON_FILENAME = os.path.join(os.getcwd(), 'api_information/all_universities.json')
+
+        with open(JSON_FILENAME) as f:
+            universities = json.load(f)
+
+        coordinates = set()
+        for university in universities:
+            coordinates.add(
+                (university["location.lat"], university["location.lon"])
+            )
+
+        file_name = os.path.join(os.getcwd(), 'api_information/coordinates.txt')
+        sorted_coordinates = sorted(coordinates)
+        with open(file_name, 'w') as f:
+            for coordinate in sorted_coordinates:
+                f.write(f"{coordinate}\n")            
+        return sorted_coordinates
+
 def api_call_for_coffeeshops():
+    api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
+
+    def get_coffee_shops_from_coordinates(coordinates):
+        search_url = "https://api.yelp.com/v3/businesses/search"
+        headers = {'Authorization': 'Bearer {}'.format(api_key)}
+        coffee_shop_ids = set()
+        #selecting the first 10 coordinate pairs in the set
+        # for lat, lng in coordinates[:10]:
+        for lat, lng in coordinates:
+            # customize search parameters for Yelp GET call
+            params = {
+            'term' : 'coffee shops',
+            'latitude' : str(lat),
+            'longitude' : str(lng),
+            'limit' : 4 # limits number of results returned
+            }
+
+            response = requests.get(search_url, headers = headers, params = params)
+            for shop in response.json()['businesses']:
+                try:
+                    coffee_shop_ids.add(shop["id"])
+                except:
+                    print("error with getting place id from coffee shop: " + str(shop))
+                    
+        # output all coffee shop ids to a file
+        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
+        with open(file_name, 'w') as sys.stdout:
+            for identifier in coffee_shop_ids:
+                print(identifier)
+        sys.stdout = sys.__stdout__ #reset stdout to the console
+
+        return coffee_shop_ids
+
     def get_coffee_shops_from_zipcode() :
         zipcodes = get_university_zipcodes()
         # Get API request
@@ -140,9 +203,8 @@ def api_call_for_coffeeshops():
         return coffee_shops
             
 
-    def get_all_coffee_shops_detailed() :
+    def get_all_coffee_shops_detailed(coffee_shop_ids) :
         all_coffee_shops = []
-        coffee_shop_ids = get_coffee_shops_from_zipcode()
         api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
         headers = {'Authorization': 'Bearer {}'.format(api_key)}
 
@@ -154,37 +216,49 @@ def api_call_for_coffeeshops():
             all_coffee_shops.append(response.json())
         print("Finished querying each individual coffee shop.")
         return all_coffee_shops
-            
-    final = get_all_coffee_shops_detailed()
 
-    file_name = os.path.join(os.getcwd(), 'database/api_information/all_coffee_shops.json')
+    def get_all_coffee_shops_detailed_from_file() :
+        #  = set()
+        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
+        # with open(file_name, 'r') as f:
+        coffee_shop_ids = set(line.strip() for line in open(file_name))
+        all_coffee_shops = []
+        api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
+        headers = {'Authorization': 'Bearer {}'.format(api_key)}
+
+        print("Getting detailed information for each of the " + str(len(coffee_shop_ids)) + " coffee shops")
+        for shop_id in coffee_shop_ids:
+            id = str(shop_id)
+            search_url = "https://api.yelp.com/v3/businesses/" + id
+            response = requests.get(search_url, headers = headers)
+            all_coffee_shops.append(response.json())
+        print("Finished querying each individual coffee shop.")
+        return all_coffee_shops
+
+
+    print("Get coordinates from universities")
+    # coordinates = get_university_coordinates()
+    print("Got the coordinates needed!")
+    print("Getting coffee shops around each area.")
+    # coffee_shop_ids = get_coffee_shops_from_coordinates(coordinates)
+    print("Got all the coffee shop place ids!")
+    print("Getting detailed information about each place")
+    # all_coffee_shops = get_all_coffee_shops_detailed(coffee_shop_ids)
+    all_coffee_shops = get_all_coffee_shops_detailed_from_file()
+    print("Got all of the detailed information and writing to a file! items:", len(all_coffee_shops))
+    file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
     with open(file_name, 'w') as f:
-        json.dump(final, f, indent = 4)
+        json.dump(all_coffee_shops, f, indent = 4)
+            
+    # final = get_all_coffee_shops_detailed()
+
+    # file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
+    # with open(file_name, 'w') as f:
+    #     json.dump(final, f, indent = 4)
 
 # TODO
 def api_call_for_libraries():
     api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
-    
-    def get_university_coordinates():
-        nonlocal api_key
-        api_url = "https://maps.googleapis.com/maps/api/geocode/json?"
-        JSON_FILENAME = os.path.join(os.getcwd(), 'database/api_information/all_universities.json')
-
-        with open(JSON_FILENAME) as f:
-            universities = json.load(f)
-
-        coordinates = set()
-        for university in universities:
-            coordinates.add(
-                (university["location.lat"], university["location.lon"])
-            )
-
-        file_name = os.path.join(os.getcwd(), 'database/api_information/coordinates.txt')
-        sorted_coordinates = sorted(coordinates)
-        with open(file_name, 'w') as f:
-            for coordinate in sorted_coordinates:
-                f.write(f"{coordinate}\n")            
-        return sorted_coordinates
 
     def get_all_libraries(coordinates):
         api_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
@@ -226,13 +300,13 @@ def api_call_for_libraries():
     print("Got all the library place ids!")
     print("Getting detailed information about each place")
     all_libraries = get_library_detailed_info(library_ids)
-    print("Got all of the detailed information and writing to a file!")
-    file_name = os.path.join(os.getcwd(), 'database/api_information/all_libraries.json')
+    print("Got all of the detailed information and writing to a file! items:", len(all_libraries))
+    file_name = os.path.join(os.getcwd(), 'api_information/all_libraries.json')
     with open(file_name, 'w') as f:
         json.dump(all_libraries, f, indent = 4)
 
 
 if __name__ == "__main__":
     # api_call_for_universities()
-    # api_call_for_coffeeshops()
-    api_call_for_libraries()
+    api_call_for_coffeeshops()
+    # api_call_for_libraries()
