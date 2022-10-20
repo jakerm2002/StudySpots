@@ -98,7 +98,7 @@ const SlideShow = () => {
         <Carousel interval={8000}>
             <Carousel.Item>
                 <Image
-                    className="d-block w-100 h-100"
+                    className="slideImage"
                     src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80"
                     alt="First slide"
                 />
@@ -110,7 +110,7 @@ const SlideShow = () => {
 
             <Carousel.Item>
                 <Image
-                    className="d-block w-100 h-100"
+                    className="slideImage"
                     src="https://images.unsplash.com/photo-1623771702313-39dc4f71d275?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
                     alt="Second slide"
                 />
@@ -123,8 +123,8 @@ const SlideShow = () => {
 
             <Carousel.Item>
                 <Image
-                    className="d-block w-100 h-100"
-                    src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGNvbGxlZ2V8ZW58MHx8MHx8&auto=format&fit=crop&w=700&q=60"
+                    className="slideImage"
+                    src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
                     alt="Third slide"
                 />
                 <Carousel.Caption>
@@ -144,7 +144,6 @@ const Splash = () => {
 
     return (
        <div>
-            {/* <ImageSlider/> */}
             <SlideShow/>
             <ModelCards/>
             <AboutCard/>
