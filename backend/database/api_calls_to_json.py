@@ -263,7 +263,7 @@ def api_call_for_libraries():
     def get_all_libraries(coordinates):
         api_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?"
         library_ids = set()
-        for lat, lng in coordinates[:10]:
+        for lat, lng in coordinates:
             response = requests.get(
                 api_url +
                 "location=" + str(lat) + "%2C" + str(lng) +
@@ -277,17 +277,44 @@ def api_call_for_libraries():
                     library_ids.add(library["place_id"])
                 except:
                     print("error with getting place id from library: " + str(library))
+
+        # output all library place ids to a file
+        file_name = os.path.join(os.getcwd(), 'api_information/all_library_ids.txt')
+        with open(file_name, 'w') as sys.stdout:
+            for identifier in library_ids:
+                print(identifier)
+        sys.stdout = sys.__stdout__ #reset stdout to the console
+
         return library_ids
 
     def get_library_detailed_info(library_ids):
+        fields = [
+            'address_components',
+            'formatted_address',
+            'formatted_phone_number',
+            'geometry',
+            'name',
+            'opening_hours',
+            'photos',
+            'place_id',
+            'rating',
+            'reviews',
+            'url',
+            'utc_offset',
+            'website'
+        ]
+
+        FIELDS_STRING = ','.join(fields) # puts the fields into one string and comma-separates them
+
         api_url = "https://maps.googleapis.com/maps/api/place/details/json?"
         all_libraries = []
         for library_id in library_ids:
-            response = requests.get(
-                api_url +
-                "place_id=" + library_id +
-                "&key=" + api_key
-            )
+            params = {
+                'place_id' : library_id, # maximum number of results the API can return per page
+                'key' : api_key,
+                'fields' : FIELDS_STRING 
+            }
+            response = requests.get(api_url, params = params)
             all_libraries.append(response.json()["result"])
         
         return(all_libraries)
@@ -308,5 +335,5 @@ def api_call_for_libraries():
 
 if __name__ == "__main__":
     # api_call_for_universities()
-    api_call_for_coffeeshops()
-    # api_call_for_libraries()
+    # api_call_for_coffeeshops()
+    api_call_for_libraries()

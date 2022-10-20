@@ -269,7 +269,16 @@ class Library(db.Model):
     longitude = db.Column(db.Float)
     rating = db.Column(db.Float)
     phone = db.Column(db.String)
+
+    maps_url = db.Column(db.String())
+    utc_offset = db.Column(db.Integer)
+    formatted_hours = db.Column(db.String())
+    photo_reference = db.Column(db.String())
+    rating = db.Column(db.Float)
+    review = db.Column(db.String())
+    website = db.Column(db.String())
         
+    '''
     def __init__(self, id="NaN", name="NaN", address="NaN", latitude=0.0, longitude=0.0, rating=0.0, city="NaN", phone=""):
         self.id = id
         self.name = name
@@ -279,6 +288,7 @@ class Library(db.Model):
         self.longitude = longitude
         self.rating = rating
         self.phone = phone
+    '''
 
 class LibrarySchema(ma.Schema):
     class Meta:
@@ -291,7 +301,15 @@ class LibrarySchema(ma.Schema):
             "latitude",
             "longitude",
             "rating",
-            "phone"
+            "phone",
+
+            "maps_url",
+            "utc_offset",
+            "formatted_hours",
+            "photo_reference",
+            "rating",
+            "review",
+            "website"
         )
 
 library_schema = LibrarySchema()
@@ -311,8 +329,15 @@ def populate_libraries():
             address=library['formatted_address'],
             latitude=library['geometry']['location']['lat'],
             longitude=library['geometry']['location']['lng'],
-            rating=library['rating'] if "rating" in library else 0,
-            phone=library["formatted_phone_number"] if "formatted_phone_number" in library else ""
+            rating=library['rating'] if "rating" in library else -1,
+            phone=library["formatted_phone_number"] if "formatted_phone_number" in library else "",
+
+            maps_url = library['url'],
+            utc_offset = library['utc_offset'],
+            formatted_hours = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
+            photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
+            review = library['reviews'][0]['text'] if 'reviews' in library else 'N/A',
+            website = library['website'] if 'website' in library else 'N/A'
         )
         libraries_list.append(new_library)
 
