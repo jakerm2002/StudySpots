@@ -40,7 +40,7 @@ class University(db.Model):
     sat_median_reading = db.Column(db.Integer)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
-    
+    description = db.Column(db.String)
 
     def __init__(self,
                     id="NaN", 
@@ -66,7 +66,8 @@ class University(db.Model):
                     sat_median_writing = 0 ,
                     sat_median_reading = 0 ,
                     latitude=0.0,
-                    longitude=0.0):
+                    longitude=0.0,
+                    description=""):
         self.id = id
         self.name = name
         self.alias = alias
@@ -91,6 +92,7 @@ class University(db.Model):
         self.sat_median_reading = sat_median_reading
         self.latitude = latitude
         self.longitude = longitude
+        self.description = description
 
         
 
@@ -121,7 +123,8 @@ class UniversitySchema(ma.Schema):
             "sat_median_writing",
             "sat_median_reading",
             "latitude",
-            "longitude"
+            "longitude",
+            "description"
         )
 
 university_schema = UniversitySchema()
@@ -160,6 +163,7 @@ def populate_universities():
             sat_median_reading=university["latest.admissions.sat_scores.midpoint.critical_reading"],
             latitude=university["location.lat"],
             longitude=university["location.lon"],
+            description=university["description"]
         )
         universities_list.append(new_university)
 
