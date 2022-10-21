@@ -304,6 +304,7 @@ class Library(db.Model):
     utc_offset = db.Column(db.Integer)
     formatted_hours = db.Column(db.String())
     photo_reference = db.Column(db.String())
+    photo_link = db.Column(db.String())
     rating = db.Column(db.Float)
     website = db.Column(db.String())
 
@@ -338,6 +339,7 @@ class LibrarySchema(ma.Schema):
             "utc_offset",
             "formatted_hours",
             "photo_reference",
+            "photo_link",
             "rating",
             "website",
 
@@ -362,6 +364,10 @@ def populate_libraries():
     file = open(file_path, 'r')
     db.create_all()
     libraries_json = json.load(file)
+
+    # info for getting photos from photo_reference field
+    api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
+    photos_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photo_reference="
 
     libraries_list = []
     for library in libraries_json:
@@ -394,6 +400,7 @@ def populate_libraries():
             utc_offset = library['utc_offset'],
             formatted_hours = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
             photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
+            photo_link = photos_url + library['photos'][0]['photo_reference'] + '&key=' + api_key if 'photos' in library else 'N/A',
             website = library['website'] if 'website' in library else 'N/A',
 
             city = library['address_components'][index_of_city]['long_name'],
