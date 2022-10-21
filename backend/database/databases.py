@@ -305,8 +305,19 @@ class Library(db.Model):
     formatted_hours = db.Column(db.String())
     photo_reference = db.Column(db.String())
     rating = db.Column(db.Float)
-    review = db.Column(db.String())
     website = db.Column(db.String())
+
+    review_1_text = db.Column(db.String())
+    review_2_text = db.Column(db.String())
+    review_3_text = db.Column(db.String())
+
+    review_1_author = db.Column(db.String())
+    review_2_author = db.Column(db.String())
+    review_3_author = db.Column(db.String())
+
+    review_1_rating = db.Column(db.Integer)
+    review_2_rating = db.Column(db.Integer)
+    review_3_rating = db.Column(db.Integer)
         
 
 class LibrarySchema(ma.Schema):
@@ -328,8 +339,19 @@ class LibrarySchema(ma.Schema):
             "formatted_hours",
             "photo_reference",
             "rating",
-            "review",
-            "website"
+            "website",
+
+            "review_1_text",
+            "review_2_text",
+            "review_3_text",
+
+            "review_1_author",
+            "review_2_author",
+            "review_3_author",
+
+            "review_1_rating",
+            "review_2_rating",
+            "review_3_rating"
         )
 
 library_schema = LibrarySchema()
@@ -372,11 +394,22 @@ def populate_libraries():
             utc_offset = library['utc_offset'],
             formatted_hours = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
             photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
-            review = library['reviews'][0]['text'] if 'reviews' in library and library['reviews'][0]['text'] != '' else 'N/A',
             website = library['website'] if 'website' in library else 'N/A',
 
             city = library['address_components'][index_of_city]['long_name'],
-            zipcode = library['address_components'][index_of_zip_code]['long_name']
+            zipcode = library['address_components'][index_of_zip_code]['long_name'],
+
+            review_1_text = library['reviews'][0]['text'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
+            review_2_text = library['reviews'][1]['text'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
+            review_3_text = library['reviews'][2]['text'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
+
+            review_1_author = library['reviews'][0]['author_name'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
+            review_2_author = library['reviews'][1]['author_name'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
+            review_3_author = library['reviews'][2]['author_name'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
+
+            review_1_rating = library['reviews'][0]['rating'] if 'reviews' in library and 0 < len(library['reviews']) else -1,
+            review_2_rating = library['reviews'][1]['rating'] if 'reviews' in library and 1 < len(library['reviews']) else -1,
+            review_3_rating = library['reviews'][2]['rating'] if 'reviews' in library and 2 < len(library['reviews']) else -1,
         )
         libraries_list.append(new_library)
 
