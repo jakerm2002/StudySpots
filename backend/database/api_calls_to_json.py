@@ -43,7 +43,7 @@ def api_call_for_universities():
     TOTAL_NUM_UNIVERSITIES = 6681
     RESULTS_PER_PAGE = 100
     # retrns a requests.Response object of the results of the current page call
-    def get_page(page_num, fields_string):
+    def get_page(page_num):
         params = {
             '_per_page' : RESULTS_PER_PAGE, # maximum number of results the API can return per page
             '_page' : page_num,
@@ -71,7 +71,7 @@ def api_call_for_universities():
         requests_needed = math.ceil(TOTAL_NUM_UNIVERSITIES / RESULTS_PER_PAGE)
         print(requests_needed, 'API requests needed. Starting now...')
         for page_num in range(requests_needed):
-            response = get_page(page_num, FIELDS_STRING)
+            response = get_page(page_num)
             json_response = response.json() # response in python dict format
             for result in json_response['results']:
                 state = result["latest.school.state"]
@@ -92,7 +92,6 @@ def api_call_for_universities():
                     and size > 500
                 ):
                     all_results.append(result)
-            # all_results.extend(json_response['results'])
         print('Finished. Gathered', len(all_results), 'results.')
         return all_results
     
@@ -112,7 +111,7 @@ def get_university_zipcodes():
 
     for university in universities:
         current_zip = university['latest.school.zip']
-        # we need to remove the postal code
+        # we need to remove the postal code extension
         zipcodes.add(current_zip[:5]) # cut every zipcode to five digits
 
     sorted_zipcodes = sorted(zipcodes)
@@ -123,8 +122,6 @@ def get_university_zipcodes():
     return sorted_zipcodes
 
 def get_university_coordinates():
-        # nonlocal api_key
-        #api_url = "https://maps.googleapis.com/maps/api/geocode/json?"
         JSON_FILENAME = os.path.join(os.getcwd(), 'api_information/all_universities.json')
 
         with open(JSON_FILENAME) as f:
@@ -150,7 +147,8 @@ def api_call_for_coffeeshops():
         search_url = "https://api.yelp.com/v3/businesses/search"
         headers = {'Authorization': 'Bearer {}'.format(api_key)}
         coffee_shop_ids = set()
-        #selecting the first 10 coordinate pairs in the set
+        # for testing, you can select the first 10 coordinate pairs in the set
+        # by replacing the current for loop definition with:
         # for lat, lng in coordinates[:10]:
         for lat, lng in coordinates:
             # customize search parameters for Yelp GET call
@@ -218,9 +216,7 @@ def api_call_for_coffeeshops():
         return all_coffee_shops
 
     def get_all_coffee_shops_detailed_from_file() :
-        #  = set()
         file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
-        # with open(file_name, 'r') as f:
         coffee_shop_ids = set(line.strip() for line in open(file_name))
         all_coffee_shops = []
         api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
@@ -234,24 +230,6 @@ def api_call_for_coffeeshops():
             all_coffee_shops.append(response.json())
         print("Finished querying each individual coffee shop.")
         return all_coffee_shops
-    
-    '''
-    def get_all_coffee_shop_reviews_from_file():
-        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
-        coffee_shop_ids = set(line.strip() for line in open(file_name))
-        all_coffee_shop_reviews = []
-        api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
-        headers = {'Authorization': 'Bearer {}'.format(api_key)}
-
-        print("Getting reviews for each of the " + str(len(coffee_shop_ids)) + " coffee shops")
-        for shop_id in coffee_shop_ids:
-            id = str(shop_id)
-            search_url = "https://api.yelp.com/v3/businesses/" + id + "/reviews"
-            response = requests.get(search_url, headers = headers)
-            all_coffee_shop_reviews.append(response.json())
-        print("Done getting reviews for each coffee shop.")
-        return all_coffee_shop_reviews
-    '''
 
     # takes a list of coffee shop reviews and appends them
     # to the json containing the detailed information of coffee shops
@@ -276,30 +254,30 @@ def api_call_for_coffeeshops():
             if "reviews" in reviews:
                 shop["reviews"] = reviews["reviews"]
 
-        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops_with_reviews.json')
-        with open(file_name, 'w') as f:
-            json.dump(all_shops, f, indent = 4)
+        return all_shops
 
-    '''
+    
     print("Get coordinates from universities")
-    # coordinates = get_university_coordinates()
+    coordinates = get_university_coordinates()
     print("Got the coordinates needed!")
     print("Getting coffee shops around each area.")
-    # coffee_shop_ids = get_coffee_shops_from_coordinates(coordinates)
+    coffee_shop_ids = get_coffee_shops_from_coordinates(coordinates)
     print("Got all the coffee shop place ids!")
     print("Getting detailed information about each place")
-    # all_coffee_shops = get_all_coffee_shops_detailed(coffee_shop_ids)
+    all_coffee_shops = get_all_coffee_shops_detailed(coffee_shop_ids)
     all_coffee_shops = get_all_coffee_shops_detailed_from_file()
     print("Got all of the detailed information and writing to a file! items:", len(all_coffee_shops))
     file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
     with open(file_name, 'w') as f:
         json.dump(all_coffee_shops, f, indent = 4)
-    '''
-    
-    #all_coffee_shop_reviews = get_all_coffee_shop_reviews_from_file()
-    append_reviews_to_json()
+    print("Getting user reviews for each business...:", len(all_coffee_shops))
+    all_coffee_shops_with_reviews = append_reviews_to_json()
+    file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops_with_reviews.json')
+    with open(file_name, 'w') as f:
+        json.dump(all_coffee_shops_with_reviews, f, indent = 4)
+    print("Finished writing reviews to file with path:", file_name)
 
-# TODO
+
 def api_call_for_libraries():
     api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
 
@@ -378,5 +356,5 @@ def api_call_for_libraries():
 
 if __name__ == "__main__":
     # api_call_for_universities()
-    api_call_for_coffeeshops()
+    # api_call_for_coffeeshops()
     # api_call_for_libraries()
