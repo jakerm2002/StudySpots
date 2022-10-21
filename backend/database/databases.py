@@ -68,7 +68,7 @@ class University(db.Model):
                     sat_median_reading = 0 ,
                     latitude=0.0,
                     longitude=0.0,
-                    description=""
+                    description="",
                     photo=""):
         self.id = id
         self.name = name
