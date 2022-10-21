@@ -193,6 +193,18 @@ class CoffeeShop(db.Model):
     display_address = db.Column(db.String())
     photo = db.Column(db.String())
 
+    review_1_text = db.Column(db.String())
+    review_2_text = db.Column(db.String())
+    review_3_text = db.Column(db.String())
+
+    review_1_author = db.Column(db.String())
+    review_2_author = db.Column(db.String())
+    review_3_author = db.Column(db.String())
+
+    review_1_rating = db.Column(db.Integer)
+    review_2_rating = db.Column(db.Integer)
+    review_3_rating = db.Column(db.Integer)
+
     # figure out how to store hours in the DB?
     
         
@@ -229,14 +241,26 @@ class CoffeeShopSchema(ma.Schema):
             "address1",
             "state",
             "display_address",
-            "photo"
+            "photo",
+
+            "review_1_text",
+            "review_2_text",
+            "review_3_text",
+
+            "review_1_author",
+            "review_2_author",
+            "review_3_author",
+
+            "review_1_rating",
+            "review_2_rating",
+            "review_3_rating"
         )
 
 coffeeshop_schema = CoffeeShopSchema()
 coffeeshops_schema = CoffeeShopSchema(many=True)
 
 def populate_coffee_shops():
-    file_path = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
+    file_path = os.path.join(os.getcwd(), 'api_information/all_coffee_shops_with_reviews.json')
     file = open(file_path, 'r')
     db.create_all()
     coffeeshops_json = json.load(file)
@@ -259,7 +283,19 @@ def populate_coffee_shops():
             address1=coffee_shop['location']['address1'],
             state=coffee_shop['location']['state'],
             display_address=coffee_shop['location']['display_address'],
-            photo=coffee_shop['photos'][0] if coffee_shop['photos'] else ''
+            photo=coffee_shop['photos'][0] if coffee_shop['photos'] else '',
+
+            review_1_text=coffee_shop['reviews'][0]['text'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
+            review_2_text=coffee_shop['reviews'][1]['text'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
+            review_3_text=coffee_shop['reviews'][2]['text'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
+
+            review_1_author=coffee_shop['reviews'][0]['user']['name'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
+            review_2_author=coffee_shop['reviews'][1]['user']['name'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
+            review_3_author=coffee_shop['reviews'][2]['user']['name'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
+
+            review_1_rating=coffee_shop['reviews'][0]['rating'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else -1,
+            review_2_rating=coffee_shop['reviews'][1]['rating'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else -1,
+            review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1
         )
         coffeeshops_list.append(new_coffeeshop)
 
