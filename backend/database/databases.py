@@ -206,21 +206,6 @@ class CoffeeShop(db.Model):
     review_3_rating = db.Column(db.Integer)
 
     # figure out how to store hours in the DB?
-    
-        
-    '''
-    def __init__(self, id="NaN", name="NaN", image_url="", zipcode="NaN", city="NaN", latitude=0.0, longitude=0.0, rating=0, price="NaN", phone="NaN"):
-        self.id = id
-        self.name = name
-        self.image_url=image_url
-        self.zipcode = zipcode
-        self.city = city
-        self.latitude = latitude
-        self.longitude = longitude
-        self.rating = rating
-        self.price = price
-        self.phone = phone
-    '''
 
 class CoffeeShopSchema(ma.Schema):
     class Meta:
@@ -323,17 +308,6 @@ class Library(db.Model):
     review = db.Column(db.String())
     website = db.Column(db.String())
         
-    '''
-    def __init__(self, id="NaN", name="NaN", address="NaN", latitude=0.0, longitude=0.0, rating=0.0, city="NaN", phone=""):
-        self.id = id
-        self.name = name
-        self.address = address
-        self.city = city
-        self.latitude = latitude
-        self.longitude = longitude
-        self.rating = rating
-        self.phone = phone
-    '''
 
 class LibrarySchema(ma.Schema):
     class Meta:
