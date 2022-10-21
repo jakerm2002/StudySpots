@@ -41,7 +41,7 @@ class University(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     description = db.Column(db.String)
-    phot = db.Column(db.String)
+    photo = db.Column(db.String)
 
     def __init__(self,
                     id="NaN", 
@@ -165,7 +165,8 @@ def populate_universities():
             sat_median_reading=university["latest.admissions.sat_scores.midpoint.critical_reading"],
             latitude=university["location.lat"],
             longitude=university["location.lon"],
-            description=university["description"]
+            description=university["description"],
+            photo=university["photo"]
         )
         universities_list.append(new_university)
 
