@@ -3,6 +3,7 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, Column, String, Integer
+from flask_cors import CORS
 import json
 import os
 
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgre:rephrase-struggle-sulk@studyspots-db.cz5in1adcwq7.us-east-2.rds.amazonaws.com:5432/postgres'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+CORS(app)
 
 class University(db.Model):
     id = db.Column(db.String(), primary_key=True)
