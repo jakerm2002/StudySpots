@@ -96,7 +96,49 @@ def api_call_for_universities():
         print('Finished. Gathered', len(all_results), 'results.')
         return all_results
     
+    def get_extra_media(all_universities):
+        all_modified_results = []
+        wikipedia_api = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
+        for uni in all_universities:
+            uni_name = uni["latest.school.name"]
+            uni_name = uni_name.replace(" ", "%20")
+            uni_name = uni_name.replace("&", "%26")
+            uni_name = uni_name.replace("/", "|")
+            uni_name = uni_name.replace(".", "")
+            request = requests.get(wikipedia_api + uni_name)
+            # Try to strip away any extra information if the wikipedia search didn't provide anything
+            if "-1" in request.json()["query"]["pages"]:
+                uni_name = uni_name[:uni_name.find("-")] if uni_name.find("-") != -1 else uni_name
+                uni_name = uni_name[:uni_name.find("%20at%20")] if uni_name.find("%20at%20") != -1 else uni_name
+                uni_name = uni_name[:uni_name.find("Main%20Campus")] if uni_name.find("Main%20Campus") != -1 else uni_name
+                if uni_name:
+                    request = requests.get(wikipedia_api + uni_name)
+            # Try to search by the school's alias instead if wikipedia search still didn't provide anything
+            if "-1" in request.json()["query"]["pages"] and uni["latest.school.alias"]:
+                uni_name = uni["latest.school.alias"]
+                uni_name = uni_name.replace(" ", "%20")
+                uni_name = uni_name.replace("&", "%26")
+                uni_name = uni_name.replace("/", "|")
+                uni_name = uni_name.replace(",", "|")
+                uni_name = uni_name.replace(".", "")
+                request = requests.get(wikipedia_api + uni_name)
+            # Get the description from the first page
+            for page in request.json()["query"]["pages"]:
+                try:
+                    uni["description"] = request.json()["query"]["pages"][page]["extract"]
+                    break
+                except:
+                    print("Unable to find a description for school " + uni["latest.school.name"] + " from searching via " + uni_name)
+                    uni["description"] = ""
+                    pass
+            
+            all_modified_results.append(uni)
+
+        return all_modified_results;
+    
+
     final = get_all_pages()
+    final = get_extra_media(final)
 
     file_name = os.path.join(os.getcwd(), 'api_information/all_universities.json')
     with open(file_name, 'w') as f:
@@ -334,6 +376,6 @@ def api_call_for_libraries():
 
 
 if __name__ == "__main__":
-    # api_call_for_universities()
+    api_call_for_universities()
     # api_call_for_coffeeshops()
-    api_call_for_libraries()
+    # api_call_for_libraries()
