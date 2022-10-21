@@ -41,6 +41,7 @@ class University(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     description = db.Column(db.String)
+    phot = db.Column(db.String)
 
     def __init__(self,
                     id="NaN", 
@@ -67,7 +68,8 @@ class University(db.Model):
                     sat_median_reading = 0 ,
                     latitude=0.0,
                     longitude=0.0,
-                    description=""):
+                    description=""
+                    photo=""):
         self.id = id
         self.name = name
         self.alias = alias
@@ -93,8 +95,7 @@ class University(db.Model):
         self.latitude = latitude
         self.longitude = longitude
         self.description = description
-
-        
+        self.photo = photo
 
 class UniversitySchema(ma.Schema):
     class Meta: # for flask_marshmallow
@@ -124,7 +125,8 @@ class UniversitySchema(ma.Schema):
             "sat_median_reading",
             "latitude",
             "longitude",
-            "description"
+            "description",
+            "photo"
         )
 
 university_schema = UniversitySchema()

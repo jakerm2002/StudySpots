@@ -21,6 +21,7 @@ COPY . ./
 
 # Install production dependencies.
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install google-search-results
 
 ENV PORT 8080
 

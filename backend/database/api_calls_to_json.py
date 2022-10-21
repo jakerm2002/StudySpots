@@ -1,3 +1,4 @@
+from serpapi import GoogleSearch
 import json
 import math
 import os
@@ -96,10 +97,12 @@ def api_call_for_universities():
         print('Finished. Gathered', len(all_results), 'results.')
         return all_results
     
-    def get_extra_media(all_universities):
+    def get_descriptions(all_universities):
         all_modified_results = []
         wikipedia_api = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles="
+        images_api = "https://serpapi.com/playground?tbm=isch&device=desktop&q="
         for uni in all_universities:
+            # Query Wikipedia for more in-depth descriptions for the colleges
             uni_name = uni["latest.school.name"]
             uni_name = uni_name.replace(" ", "%20")
             uni_name = uni_name.replace("&", "%26")
@@ -128,24 +131,52 @@ def api_call_for_universities():
                     uni["description"] = request.json()["query"]["pages"][page]["extract"]
                     break
                 except:
-                    print("Unable to find a description for school " + uni["latest.school.name"] + " from searching via " + uni_name)
+                    print("Unable to find a description for school " + uni["latest.school.name"] + " from querying with " + uni_name)
                     uni["description"] = ""
                     pass
             
             all_modified_results.append(uni)
 
         return all_modified_results;
-    
 
-    final = get_all_pages()
-    final = get_extra_media(final)
+    def get_images(all_universities):
+        all_modified_results = []
+        # Query ____ for pictures of the colleges
+        for i in range(len(all_universities)):
+            uni = all_universities[i]
+            if i < 200:
+                all_modified_results.append(uni)
+                continue
+            params = {
+                "device": "desktop",
+                "engine": "google",
+                "q": uni["latest.school.name"],
+                "google_domain": "google.com",
+                "tbm": "isch",
+                "api_key": "80a7060b228602de007ffe4d8e560fd0c8588ce11488c88f70a50428ebd3ef17"
+            }
+            image_response = GoogleSearch(params).get_dict()
+            for image in image_response["images_results"]:
+                try:
+                    uni["photo"] = image["original"]
+                    break
+                except:
+                    print("Unable to find an image for " + uni["latest.school.name"])
+                    pass
+        
+            all_modified_results.append(uni)
+
+        return all_modified_results
 
     file_name = os.path.join(os.getcwd(), 'api_information/all_universities.json')
+    all_universities_file = open(file_name)
+    final = get_images(json.load(all_universities_file))
+
     with open(file_name, 'w') as f:
         json.dump(final, f, indent = 4)
 
 def get_university_zipcodes():
-    JSON_FILENAME = os.path.join(os.getcwd(), 'api_information/all_universities.json')
+    JSON_FILENAME = os.path.join(os.getcwd(), '/api_information/all_universities.json')
 
     with open(JSON_FILENAME) as f:
         universities = json.load(f)
@@ -158,7 +189,7 @@ def get_university_zipcodes():
         zipcodes.add(current_zip[:5]) # cut every zipcode to five digits
 
     sorted_zipcodes = sorted(zipcodes)
-    file_name = os.path.join(os.getcwd(), 'api_information/zipcodes.txt')
+    file_name = os.path.join(os.getcwd(), '/api_information/zipcodes.txt')
     with open(file_name, 'w') as f:
         for zipcode in sorted_zipcodes:
             f.write(f"{zipcode}\n")
@@ -167,7 +198,7 @@ def get_university_zipcodes():
 def get_university_coordinates():
         # nonlocal api_key
         #api_url = "https://maps.googleapis.com/maps/api/geocode/json?"
-        JSON_FILENAME = os.path.join(os.getcwd(), 'api_information/all_universities.json')
+        JSON_FILENAME = os.path.join(os.getcwd(), '/api_information/all_universities.json')
 
         with open(JSON_FILENAME) as f:
             universities = json.load(f)
@@ -178,7 +209,7 @@ def get_university_coordinates():
                 (university["location.lat"], university["location.lon"])
             )
 
-        file_name = os.path.join(os.getcwd(), 'api_information/coordinates.txt')
+        file_name = os.path.join(os.getcwd(), '/api_information/coordinates.txt')
         sorted_coordinates = sorted(coordinates)
         with open(file_name, 'w') as f:
             for coordinate in sorted_coordinates:
@@ -211,7 +242,7 @@ def api_call_for_coffeeshops():
                     print("error with getting place id from coffee shop: " + str(shop))
                     
         # output all coffee shop ids to a file
-        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
+        file_name = os.path.join(os.getcwd(), '/api_information/all_coffee_shop_ids.txt')
         with open(file_name, 'w') as sys.stdout:
             for identifier in coffee_shop_ids:
                 print(identifier)
@@ -261,7 +292,7 @@ def api_call_for_coffeeshops():
 
     def get_all_coffee_shops_detailed_from_file() :
         #  = set()
-        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
+        file_name = os.path.join(os.getcwd(), '/api_information/all_coffee_shop_ids.txt')
         # with open(file_name, 'r') as f:
         coffee_shop_ids = set(line.strip() for line in open(file_name))
         all_coffee_shops = []
@@ -288,17 +319,11 @@ def api_call_for_coffeeshops():
     # all_coffee_shops = get_all_coffee_shops_detailed(coffee_shop_ids)
     all_coffee_shops = get_all_coffee_shops_detailed_from_file()
     print("Got all of the detailed information and writing to a file! items:", len(all_coffee_shops))
-    file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
+    file_name = os.path.join(os.getcwd(), '/api_information/all_coffee_shops.json')
     with open(file_name, 'w') as f:
         json.dump(all_coffee_shops, f, indent = 4)
             
-    # final = get_all_coffee_shops_detailed()
 
-    # file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
-    # with open(file_name, 'w') as f:
-    #     json.dump(final, f, indent = 4)
-
-# TODO
 def api_call_for_libraries():
     api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
 
@@ -321,7 +346,7 @@ def api_call_for_libraries():
                     print("error with getting place id from library: " + str(library))
 
         # output all library place ids to a file
-        file_name = os.path.join(os.getcwd(), 'api_information/all_library_ids.txt')
+        file_name = os.path.join(os.getcwd(), '/api_information/all_library_ids.txt')
         with open(file_name, 'w') as sys.stdout:
             for identifier in library_ids:
                 print(identifier)
@@ -370,7 +395,7 @@ def api_call_for_libraries():
     print("Getting detailed information about each place")
     all_libraries = get_library_detailed_info(library_ids)
     print("Got all of the detailed information and writing to a file! items:", len(all_libraries))
-    file_name = os.path.join(os.getcwd(), 'api_information/all_libraries.json')
+    file_name = os.path.join(os.getcwd(), '/api_information/all_libraries.json')
     with open(file_name, 'w') as f:
         json.dump(all_libraries, f, indent = 4)
 
