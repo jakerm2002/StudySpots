@@ -401,6 +401,6 @@ def api_call_for_libraries():
 
 
 if __name__ == "__main__":
-    api_call_for_universities()
+    # api_call_for_universities()
     # api_call_for_coffeeshops()
     # api_call_for_libraries()
