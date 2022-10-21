@@ -307,8 +307,53 @@ def api_call_for_coffeeshops():
             all_coffee_shops.append(response.json())
         print("Finished querying each individual coffee shop.")
         return all_coffee_shops
+    
+    '''
+    def get_all_coffee_shop_reviews_from_file():
+        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shop_ids.txt')
+        coffee_shop_ids = set(line.strip() for line in open(file_name))
+        all_coffee_shop_reviews = []
+        api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
+        headers = {'Authorization': 'Bearer {}'.format(api_key)}
 
+        print("Getting reviews for each of the " + str(len(coffee_shop_ids)) + " coffee shops")
+        for shop_id in coffee_shop_ids:
+            id = str(shop_id)
+            search_url = "https://api.yelp.com/v3/businesses/" + id + "/reviews"
+            response = requests.get(search_url, headers = headers)
+            all_coffee_shop_reviews.append(response.json())
+        print("Done getting reviews for each coffee shop.")
+        return all_coffee_shop_reviews
+    '''
 
+    # takes a list of coffee shop reviews and appends them
+    # to the json containing the detailed information of coffee shops
+    # then writes the json to a new file
+    def append_reviews_to_json():
+        # api parameters
+        api_key = "wnDyPi75MaLBd8T2WNc3wF14RINVWWxvVbL504fNQFN7AVQ41NIOhv5Sf2FBm1hI2AhZa3_nPI_edrv2GGZOTTD663sWT7jpc6poba4C2jI13L-o9Zl08ZGazvg0Y3Yx"
+        headers = {'Authorization': 'Bearer {}'.format(api_key)}
+
+        JSON_FILENAME = os.path.join(os.getcwd(), 'api_information/all_coffee_shops.json')
+
+        with open(JSON_FILENAME) as f:
+            all_shops = json.load(f) # this will get us a list where each element contains a dict
+
+        # go through each coffee shop and call the review endpoint and give it the business id
+        for shop in all_shops:
+            id = shop["id"]
+            search_url = "https://api.yelp.com/v3/businesses/" + id + "/reviews"
+            response = requests.get(search_url, headers = headers)
+            reviews = response.json() # reviews in a python dict
+
+            if "reviews" in reviews:
+                shop["reviews"] = reviews["reviews"]
+
+        file_name = os.path.join(os.getcwd(), 'api_information/all_coffee_shops_with_reviews.json')
+        with open(file_name, 'w') as f:
+            json.dump(all_shops, f, indent = 4)
+
+    '''
     print("Get coordinates from universities")
     # coordinates = get_university_coordinates()
     print("Got the coordinates needed!")
@@ -322,7 +367,10 @@ def api_call_for_coffeeshops():
     file_name = os.path.join(os.getcwd(), '/api_information/all_coffee_shops.json')
     with open(file_name, 'w') as f:
         json.dump(all_coffee_shops, f, indent = 4)
-            
+    '''
+    
+    #all_coffee_shop_reviews = get_all_coffee_shop_reviews_from_file()
+    append_reviews_to_json()
 
 def api_call_for_libraries():
     api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
@@ -402,5 +450,5 @@ def api_call_for_libraries():
 
 if __name__ == "__main__":
     # api_call_for_universities()
-    # api_call_for_coffeeshops()
+    api_call_for_coffeeshops()
     # api_call_for_libraries()
