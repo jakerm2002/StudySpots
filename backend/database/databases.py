@@ -1,3 +1,4 @@
+from operator import index
 from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
@@ -265,6 +266,7 @@ class Library(db.Model):
     name = db.Column(db.String())
     address = db.Column(db.String())
     city = db.Column(db.String())
+    zipcode = db.Column(db.String())
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
     rating = db.Column(db.Float)
@@ -298,6 +300,7 @@ class LibrarySchema(ma.Schema):
             "name",
             "address",
             "city",
+            "zipcode",
             "latitude",
             "longitude",
             "rating",
@@ -323,6 +326,22 @@ def populate_libraries():
 
     libraries_list = []
     for library in libraries_json:
+        index_of_city = -1
+        index_of_zip_code = -1
+
+        count = 0
+        # search through address_components array to find
+        # the indices of the city, zip code, and state fields in that array
+        for component in library['address_components']:
+            # the 'types' field of each component denotes which part of the address this is
+            if 'locality' in component['types']:
+                index_of_city = count
+            if 'sublocality' in component['types'] and index_of_city == -1:
+                index_of_city = count
+            if 'postal_code' in component['types']:
+                index_of_zip_code = count
+            count+=1
+
         new_library = Library(
             id=library['place_id'],
             name=library['name'],
@@ -336,8 +355,11 @@ def populate_libraries():
             utc_offset = library['utc_offset'],
             formatted_hours = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
             photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
-            review = library['reviews'][0]['text'] if 'reviews' in library else 'N/A',
-            website = library['website'] if 'website' in library else 'N/A'
+            review = library['reviews'][0]['text'] if 'reviews' in library and library['reviews'][0]['text'] != '' else 'N/A',
+            website = library['website'] if 'website' in library else 'N/A',
+
+            city = library['address_components'][index_of_city]['long_name'],
+            zipcode = library['address_components'][index_of_zip_code]['long_name']
         )
         libraries_list.append(new_library)
 
