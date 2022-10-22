@@ -6,16 +6,6 @@ import { Link } from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
 
-
-// const CoffeeShopsData = () => {
-    
-
-//     console.log("shops",coffeeShops);
-//     console.log("type:",typeof(coffeeShops));
-
-//     return coffeeShops;
-// }
-
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState([]);
@@ -34,12 +24,21 @@ const CoffeeShops = () => {
     const Entries = coffeeShops.map(
         (info) => {
             var name = info.name;
+            var open = "Open";
+            if(info.is_closed){
+                open = "Closed";
+            }
             if(name === ""){
                 console.log("name empty")
             }
             return(
                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
                     <td title={info.name}>{info.name}</td>
+                    <td title={info.city}>{info.city}</td>
+                    <td title={info.price}>{info.price}</td>
+                    <td title={info.rating}>{info.rating}</td>
+                    <td title={!info.is_closed ? "open" : "closed"} id={!info.is_closed ? styles.open : styles.closed}>{open}</td>
+
                 </tr>
             )
         }
@@ -52,33 +51,5 @@ const CoffeeShops = () => {
     }
     return getModel(payload);
 }
-
-// const CoffeeShops = () => {
-//     const Entries = api_results.businesses.map(
-//         (info) => {
-//             var open = "Open";
-//             if (info.is_closed) {
-//                 open = "Closed";
-//             }
-//             return(
-//                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
-//                     <td title={info.name}>{info.name}</td>
-//                     <td title={info.location.city}>{info.location.city}</td>
-//                     <td title={info.price}>{info.price}</td>
-//                     <td title={info.rating}>{info.rating} ({info.review_count})</td>
-//                     <td title={!info.is_closed ? "open" : "closed"} id={!info.is_closed ? styles.open : styles.closed}>{open}</td>
-//                     {/* <Link to={`/CoffeeShops/${info.id}`}>Link</Link> */}
-//                 </tr>
-//             )
-//         }
-//     );
-//     console.log(Entries);
-//     var payload = {
-//         entries : Entries,
-//         pageName : "Coffee Shops",
-//         fields : ["Name", "City", "Price", "Rating", "Open/Closed"]
-//     }
-//     return getModel(payload);
-// }
 
 export default CoffeeShops;
