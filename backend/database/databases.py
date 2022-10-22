@@ -300,8 +300,8 @@ def populate_coffee_shops():
     db.create_all()
     coffeeshops_json = json.load(file)
     coffeeshops_list = []
-            
-    for coffee_shop in coffeeshops_json:
+
+    def generate_hours(coffee_shop):
         hours = [None for x in range(7)]
         if 'hours' in coffee_shop and 'open' in coffee_shop['hours'][0]:
             day_count = 0
@@ -339,7 +339,9 @@ def populate_coffee_shops():
                             "day": day_count
                         }
                     day_count+=1
-
+        return hours
+    
+    def generate_formatted_hours(coffee_shop):
         formatted_hours = [None for x in range(7)]
 
         index = 0
@@ -359,7 +361,10 @@ def populate_coffee_shops():
                 day["formatted"] = hours_string
             formatted_hours[index] = hours_string
             index+=1
-
+            
+    for coffee_shop in coffeeshops_json:
+        hours = generate_hours(coffee_shop)
+        formatted_hours = generate_formatted_hours(coffee_shop)
 
         new_coffeeshop = CoffeeShop(
             id=coffee_shop['id'],
