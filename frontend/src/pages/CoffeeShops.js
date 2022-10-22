@@ -6,8 +6,19 @@ import { Link } from 'react-router-dom';
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
 
-const CoffeeShopsData = () => {
-    const [coffeeShops, setCoffeeShops] = useState<String[""]>([]);
+
+// const CoffeeShopsData = () => {
+    
+
+//     console.log("shops",coffeeShops);
+//     console.log("type:",typeof(coffeeShops));
+
+//     return coffeeShops;
+// }
+
+const CoffeeShops = () => {
+
+    const [coffeeShops, setCoffeeShops] = useState([]);
 
     useEffect(() => {
         axios.get('http://api.studyspots.me/coffeeshops').then(response => {
@@ -20,22 +31,17 @@ const CoffeeShopsData = () => {
         });
     }, []);
 
-    console.log("shops",coffeeShops);
-    console.log("type:",typeof(coffeeShops));
-
-    return coffeeShops;
-}
-
-const CoffeeShops = () => {
-    var shops = CoffeeShopsData();
-    console.log("this is a shop",shops);
-    const Entries = CoffeeShopsData.map(
+    const Entries = coffeeShops.map(
         (info) => {
             var name = info.name;
             if(name === ""){
                 console.log("name empty")
             }
-            return name;
+            return(
+                <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
+                    <td title={info.name}>{info.name}</td>
+                </tr>
+            )
         }
     );
     console.log(Entries);
