@@ -3,6 +3,7 @@ from flask import Flask
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, Column, String, Integer
+import time
 import json
 import os
 
@@ -14,6 +15,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgre:rephrase-struggle-sulk@studyspots-db.cz5in1adcwq7.us-east-2.rds.amazonaws.com:5432/postgres'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+
+days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 
 class University(db.Model):
     id = db.Column(db.String(), primary_key=True)
@@ -205,6 +209,29 @@ class CoffeeShop(db.Model):
     review_2_rating = db.Column(db.Integer)
     review_3_rating = db.Column(db.Integer)
 
+    hours_day_0_open = db.Column(db.String())
+    hours_day_0_closed = db.Column(db.String())
+
+    hours_day_1_open = db.Column(db.String())
+    hours_day_1_closed = db.Column(db.String())
+
+    hours_day_2_open = db.Column(db.String())
+    hours_day_2_closed = db.Column(db.String())
+
+    hours_day_3_open = db.Column(db.String())
+    hours_day_3_closed = db.Column(db.String())
+
+    hours_day_4_open = db.Column(db.String())
+    hours_day_4_closed = db.Column(db.String())
+
+    hours_day_5_open = db.Column(db.String())
+    hours_day_5_closed = db.Column(db.String())
+
+    hours_day_6_open = db.Column(db.String())
+    hours_day_6_closed = db.Column(db.String())
+
+    formatted_hours = db.Column(db.String())
+
     # figure out how to store hours in the DB?
 
 class CoffeeShopSchema(ma.Schema):
@@ -238,7 +265,30 @@ class CoffeeShopSchema(ma.Schema):
 
             "review_1_rating",
             "review_2_rating",
-            "review_3_rating"
+            "review_3_rating",
+
+            "hours_day_0_open",
+            "hours_day_0_closed",
+
+            "hours_day_1_open",
+            "hours_day_1_closed",
+
+            "hours_day_2_open",
+            "hours_day_2_closed",
+
+            "hours_day_3_open",
+            "hours_day_3_closed",
+
+            "hours_day_4_open",
+            "hours_day_4_closed",
+
+            "hours_day_5_open",
+            "hours_day_5_closed",
+
+            "hours_day_6_open",
+            "hours_day_6_closed",
+
+            "formatted_hours"
         )
 
 coffeeshop_schema = CoffeeShopSchema()
@@ -249,9 +299,68 @@ def populate_coffee_shops():
     file = open(file_path, 'r')
     db.create_all()
     coffeeshops_json = json.load(file)
-
     coffeeshops_list = []
+            
     for coffee_shop in coffeeshops_json:
+        hours = [None for x in range(7)]
+        if 'hours' in coffee_shop and 'open' in coffee_shop['hours'][0]:
+            day_count = 0
+            index = 0
+            while day_count<7:
+                if index < len(coffee_shop['hours'][0]['open']):
+                    day = coffee_shop['hours'][0]['open'][index]
+                    day_number = day['day']
+                    if day_count == day_number:
+                        hours[day_count] = day
+                        day_count+=1
+                        index+=1
+                    # handles the case where a day has more than
+                    # one set of hours (for example 7-11am then 6-8pm).
+                    # in this case, we'll take only the first set of hours from that day
+                    # this is an extremely rare case that only happens like once in the database
+                    elif day_count > day_number:
+                        index+=1
+                    # this day does not have hours, which means it's closed.
+                    # create a new entry with hours as '-1', signifying closed
+                    else:
+                        hours[day_count] = {
+                            "is_overnight": False,
+                            "start": "-1",
+                            "end": "-1",
+                            "day": day_count
+                        }
+                        day_count+=1
+                # set any remaining days without an entry to 'closed'
+                else:
+                    hours[day_count] = {
+                            "is_overnight": False,
+                            "start": "-1",
+                            "end": "-1",
+                            "day": day_count
+                        }
+                    day_count+=1
+
+        formatted_hours = [None for x in range(7)]
+
+        index = 0
+        for day in hours:
+            if day is None:
+                hours_string = days[index] + ": Not available"
+            elif day['start'] == '-1':
+                hours_string = days[index] + ": Closed"
+                day["formatted"] = hours_string
+            else:
+                start_time_obj = time.strptime(day['start'], "%H%M")
+                start_time = time.strftime("%I:%M %p", start_time_obj)
+
+                end_time_obj = time.strptime(day['end'], "%H%M")
+                end_time = time.strftime("%I:%M %p", end_time_obj)
+                hours_string = days[index] + ": " + start_time + " - " + end_time
+                day["formatted"] = hours_string
+            formatted_hours[index] = hours_string
+            index+=1
+
+
         new_coffeeshop = CoffeeShop(
             id=coffee_shop['id'],
             name=coffee_shop['name'],
@@ -280,7 +389,31 @@ def populate_coffee_shops():
 
             review_1_rating=coffee_shop['reviews'][0]['rating'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else -1,
             review_2_rating=coffee_shop['reviews'][1]['rating'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else -1,
-            review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1
+            review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1,
+
+            # -1 means closed on that day, N/A means hours not available
+            hours_day_0_open=hours[0]['start'] if hours[0] else 'N/A',
+            hours_day_0_closed=hours[0]['end'] if hours[0] else 'N/A',
+
+            hours_day_1_open=hours[1]['start'] if hours[1] else 'N/A',
+            hours_day_1_closed=hours[1]['end'] if hours[1] else 'N/A',
+
+            hours_day_2_open=hours[2]['start'] if hours[2] else 'N/A',
+            hours_day_2_closed=hours[2]['end'] if hours[2] else 'N/A',
+
+            hours_day_3_open=hours[3]['start'] if hours[3] else 'N/A',
+            hours_day_3_closed=hours[3]['end'] if hours[3] else 'N/A',
+
+            hours_day_4_open=hours[4]['start'] if hours[4] else 'N/A',
+            hours_day_4_closed=hours[4]['end'] if hours[4] else 'N/A',
+
+            hours_day_5_open=hours[5]['start'] if hours[5] else 'N/A',
+            hours_day_5_closed=hours[5]['end'] if hours[5] else 'N/A',
+
+            hours_day_6_open=hours[6]['start'] if hours[6] else 'N/A',
+            hours_day_6_closed=hours[6]['end'] if hours[6] else 'N/A',
+
+            formatted_hours=formatted_hours if formatted_hours else 'N/A'
         )
         coffeeshops_list.append(new_coffeeshop)
 
