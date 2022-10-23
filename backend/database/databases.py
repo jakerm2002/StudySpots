@@ -1,8 +1,10 @@
+from dataclasses import replace
 from operator import index
 from flask import Flask
-from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from sqlalchemy import create_engine, Column, String, Integer
+from flask_cors import CORS
 import time
 import json
 import os
@@ -15,12 +17,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgre:rephrase-struggle-sulk@studyspots-db.cz5in1adcwq7.us-east-2.rds.amazonaws.com:5432/postgres'
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
+CORS(app)
 
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
 
 class University(db.Model):
-    id = db.Column(db.String(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     alias = db.Column(db.String())
     zipcode = db.Column(db.String())
@@ -141,11 +144,14 @@ def populate_universities():
     file = open(file_path, 'r')
     db.create_all()
     universities_json = json.load(file)
+    dynamic_id_university=0
 
     universities_list = []
     for university in universities_json:
+        replace_id = dynamic_id_university
+        dynamic_id_university+=1
         new_university = University(
-            id=university["id"],
+            id=replace_id,
             name=university["latest.school.name"],
             alias=university["latest.school.alias"],
             zipcode=university["latest.school.zip"],
@@ -180,7 +186,7 @@ def populate_universities():
     file.close()
 
 class CoffeeShop(db.Model):
-    id = db.Column(db.String(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     image_url = db.Column(db.String())
     zipcode = db.Column(db.String())
@@ -196,6 +202,8 @@ class CoffeeShop(db.Model):
     state = db.Column(db.String())
     display_address = db.Column(db.String())
     photo = db.Column(db.String())
+
+    rating_string = db.Column(db.String())
 
     review_1_text = db.Column(db.String())
     review_2_text = db.Column(db.String())
@@ -230,11 +238,13 @@ class CoffeeShop(db.Model):
     hours_day_6_open = db.Column(db.String())
     hours_day_6_closed = db.Column(db.String())
 
+    hours_arr = db.Column(db.String())
     formatted_hours = db.Column(db.String())
 
     # figure out how to store hours in the DB?
 
 class CoffeeShopSchema(ma.Schema):
+
     class Meta:
         # Fields to expose
         fields = (
@@ -254,6 +264,8 @@ class CoffeeShopSchema(ma.Schema):
             "state",
             "display_address",
             "photo",
+
+            "rating_string",
 
             "review_1_text",
             "review_2_text",
@@ -288,6 +300,7 @@ class CoffeeShopSchema(ma.Schema):
             "hours_day_6_open",
             "hours_day_6_closed",
 
+            "hours_arr",
             "formatted_hours"
         )
 
@@ -341,8 +354,8 @@ def populate_coffee_shops():
                     day_count+=1
         return hours
     
-    def generate_formatted_hours(coffee_shop):
-        formatted_hours = [None for x in range(7)]
+    def generate_hours_arr(hours):
+        hours_arr = [None for x in range(7)]
 
         index = 0
         for day in hours:
@@ -359,15 +372,34 @@ def populate_coffee_shops():
                 end_time = time.strftime("%I:%M %p", end_time_obj)
                 hours_string = days[index] + ": " + start_time + " - " + end_time
                 day["formatted"] = hours_string
-            formatted_hours[index] = hours_string
+            hours_arr[index] = hours_string
             index+=1
+        return hours_arr
+
+    def generate_formatted_hours(hours_arr):
+            if not hours_arr:
+                return 'N/A'
             
+            chars_to_replace_with_blank = "{[']}"
+            orig_str = str(hours_arr)
+            for c in chars_to_replace_with_blank:
+                if c in orig_str:
+                    orig_str = orig_str.replace(c, '')
+            formatted_hours = orig_str.replace(',','\n')
+            return formatted_hours
+            
+
+    dynamic_id_coffeeshop=0
     for coffee_shop in coffeeshops_json:
         hours = generate_hours(coffee_shop)
-        formatted_hours = generate_formatted_hours(coffee_shop)
+        hours_arr = generate_hours_arr(hours)
+        formatted_hours = generate_formatted_hours(hours_arr)
 
+        replace_id = dynamic_id_coffeeshop
+        dynamic_id_coffeeshop+=1
+        
         new_coffeeshop = CoffeeShop(
-            id=coffee_shop['id'],
+            id=replace_id,
             name=coffee_shop['name'],
             image_url=coffee_shop['image_url'],
             zipcode=coffee_shop['location']['zip_code'],
@@ -383,6 +415,8 @@ def populate_coffee_shops():
             state=coffee_shop['location']['state'],
             display_address=coffee_shop['location']['display_address'],
             photo=coffee_shop['photos'][0] if coffee_shop['photos'] else '',
+            rating_string = str(coffee_shop['rating']) if 'rating' in coffee_shop else 'N/A',
+            
 
             review_1_text=coffee_shop['reviews'][0]['text'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
             review_2_text=coffee_shop['reviews'][1]['text'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
@@ -418,7 +452,8 @@ def populate_coffee_shops():
             hours_day_6_open=hours[6]['start'] if hours[6] else 'N/A',
             hours_day_6_closed=hours[6]['end'] if hours[6] else 'N/A',
 
-            formatted_hours=formatted_hours if formatted_hours else 'N/A'
+            hours_arr=hours_arr if hours_arr else 'N/A',
+            formatted_hours = formatted_hours
         )
         coffeeshops_list.append(new_coffeeshop)
 
@@ -428,7 +463,7 @@ def populate_coffee_shops():
     file.close()
 
 class Library(db.Model):
-    id = db.Column(db.String(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     address = db.Column(db.String())
     city = db.Column(db.String())
@@ -440,11 +475,13 @@ class Library(db.Model):
 
     maps_url = db.Column(db.String())
     utc_offset = db.Column(db.Integer)
+    hours_arr = db.Column(db.String())
     formatted_hours = db.Column(db.String())
     photo_reference = db.Column(db.String())
     photo_link = db.Column(db.String())
     rating = db.Column(db.Float)
     website = db.Column(db.String())
+    rating_string = db.Column(db.String())
 
     review_1_text = db.Column(db.String())
     review_2_text = db.Column(db.String())
@@ -475,11 +512,13 @@ class LibrarySchema(ma.Schema):
 
             "maps_url",
             "utc_offset",
+            "hours_arr",
             "formatted_hours",
             "photo_reference",
             "photo_link",
             "rating",
             "website",
+            "rating_string",
 
             "review_1_text",
             "review_2_text",
@@ -508,9 +547,29 @@ def populate_libraries():
     photos_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photo_reference="
 
     libraries_list = []
+    dynamic_id_library=0
+
     for library in libraries_json:
+        replace_id = dynamic_id_library
+        dynamic_id_library+=1
+        
         index_of_city = -1
         index_of_zip_code = -1
+
+        def generate_formatted_hours():
+            if 'opening_hours' not in library:
+                return 'N/A'
+            
+            chars_to_replace_with_blank = "{[']}"
+            orig_str = str(library['opening_hours']['weekday_text'])
+            for c in chars_to_replace_with_blank:
+                if c in orig_str:
+                    orig_str = orig_str.replace(c, '')
+            formatted_hours = orig_str.replace(',','\n')
+            return formatted_hours
+
+
+        formatted_hours = generate_formatted_hours()
 
         count = 0
         # search through address_components array to find
@@ -526,7 +585,7 @@ def populate_libraries():
             count+=1
 
         new_library = Library(
-            id=library['place_id'],
+            id=replace_id,
             name=library['name'],
             address=library['formatted_address'],
             latitude=library['geometry']['location']['lat'],
@@ -536,10 +595,13 @@ def populate_libraries():
 
             maps_url = library['url'],
             utc_offset = library['utc_offset'],
-            formatted_hours = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
+            hours_arr = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
+            formatted_hours = formatted_hours,
             photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
             photo_link = photos_url + library['photos'][0]['photo_reference'] + '&key=' + api_key if 'photos' in library else 'N/A',
             website = library['website'] if 'website' in library else 'N/A',
+
+            rating_string = str(library['rating']) if "rating" in library else 'N/A',
 
             city = library['address_components'][index_of_city]['long_name'],
             zipcode = library['address_components'][index_of_zip_code]['long_name'],
