@@ -20,7 +20,7 @@ const Libraries = () => {
     const Entries = libraries.map(
         (info) => {
             return(
-                <tr onClick={() => window.location.href = `/Libraries/${info.reference}`}>
+                <tr onClick={() => window.location.href = `/Libraries/${info.id}`}>
                     <td title={info.name}>{info.name}</td>
                     <td title={info.address}>{info.address}</td>
                     <td title={info.rating}>{info.rating}</td>
