@@ -205,6 +205,10 @@ class CoffeeShop(db.Model):
 
     rating_string = db.Column(db.String())
 
+    review_1_available = db.Column(db.Boolean)
+    review_2_available = db.Column(db.Boolean)
+    review_3_available = db.Column(db.Boolean)
+
     review_1_text = db.Column(db.String())
     review_2_text = db.Column(db.String())
     review_3_text = db.Column(db.String())
@@ -216,6 +220,10 @@ class CoffeeShop(db.Model):
     review_1_rating = db.Column(db.Integer)
     review_2_rating = db.Column(db.Integer)
     review_3_rating = db.Column(db.Integer)
+
+    review_1_rating_string = db.Column(db.String())
+    review_2_rating_string = db.Column(db.String())
+    review_3_rating_string = db.Column(db.String())
 
     hours_day_0_open = db.Column(db.String())
     hours_day_0_closed = db.Column(db.String())
@@ -267,6 +275,10 @@ class CoffeeShopSchema(ma.Schema):
 
             "rating_string",
 
+            "review_1_available",
+            "review_2_available",
+            "review_3_available",
+
             "review_1_text",
             "review_2_text",
             "review_3_text",
@@ -278,6 +290,10 @@ class CoffeeShopSchema(ma.Schema):
             "review_1_rating",
             "review_2_rating",
             "review_3_rating",
+
+            "review_1_rating_string",
+            "review_2_rating_string",
+            "review_3_rating_string",
 
             "hours_day_0_open",
             "hours_day_0_closed",
@@ -417,6 +433,9 @@ def populate_coffee_shops():
             photo=coffee_shop['photos'][0] if coffee_shop['photos'] else '',
             rating_string = str(coffee_shop['rating']) if 'rating' in coffee_shop else 'N/A',
             
+            review_1_available=True if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else False,
+            review_2_available=True if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else False,
+            review_3_available=True if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else False,
 
             review_1_text=coffee_shop['reviews'][0]['text'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
             review_2_text=coffee_shop['reviews'][1]['text'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
@@ -429,6 +448,10 @@ def populate_coffee_shops():
             review_1_rating=coffee_shop['reviews'][0]['rating'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else -1,
             review_2_rating=coffee_shop['reviews'][1]['rating'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else -1,
             review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1,
+
+            review_1_rating_string=str(coffee_shop['reviews'][0]['rating']) if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
+            review_2_rating_string=str(coffee_shop['reviews'][1]['rating']) if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
+            review_3_rating_string=str(coffee_shop['reviews'][2]['rating']) if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
 
             # -1 means closed on that day, N/A means hours not available
             hours_day_0_open=hours[0]['start'] if hours[0] else 'N/A',
@@ -483,6 +506,10 @@ class Library(db.Model):
     website = db.Column(db.String())
     rating_string = db.Column(db.String())
 
+    review_1_available = db.Column(db.Boolean)
+    review_2_available = db.Column(db.Boolean)
+    review_3_available = db.Column(db.Boolean)
+
     review_1_text = db.Column(db.String())
     review_2_text = db.Column(db.String())
     review_3_text = db.Column(db.String())
@@ -494,6 +521,10 @@ class Library(db.Model):
     review_1_rating = db.Column(db.Integer)
     review_2_rating = db.Column(db.Integer)
     review_3_rating = db.Column(db.Integer)
+
+    review_1_rating_string = db.Column(db.String())
+    review_2_rating_string = db.Column(db.String())
+    review_3_rating_string = db.Column(db.String())
         
 
 class LibrarySchema(ma.Schema):
@@ -520,6 +551,10 @@ class LibrarySchema(ma.Schema):
             "website",
             "rating_string",
 
+            "review_1_available",
+            "review_2_available",
+            "review_3_available",
+
             "review_1_text",
             "review_2_text",
             "review_3_text",
@@ -530,7 +565,11 @@ class LibrarySchema(ma.Schema):
 
             "review_1_rating",
             "review_2_rating",
-            "review_3_rating"
+            "review_3_rating",
+
+            "review_1_rating_string",
+            "review_2_rating_string",
+            "review_3_rating_string"
         )
 
 library_schema = LibrarySchema()
@@ -606,6 +645,10 @@ def populate_libraries():
             city = library['address_components'][index_of_city]['long_name'],
             zipcode = library['address_components'][index_of_zip_code]['long_name'],
 
+            review_1_available = True if 'reviews' in library and 0 < len(library['reviews']) else False,
+            review_2_available = True if 'reviews' in library and 1 < len(library['reviews']) else False,
+            review_3_available = True if 'reviews' in library and 2 < len(library['reviews']) else False,
+
             review_1_text = library['reviews'][0]['text'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
             review_2_text = library['reviews'][1]['text'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
             review_3_text = library['reviews'][2]['text'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
@@ -617,6 +660,10 @@ def populate_libraries():
             review_1_rating = library['reviews'][0]['rating'] if 'reviews' in library and 0 < len(library['reviews']) else -1,
             review_2_rating = library['reviews'][1]['rating'] if 'reviews' in library and 1 < len(library['reviews']) else -1,
             review_3_rating = library['reviews'][2]['rating'] if 'reviews' in library and 2 < len(library['reviews']) else -1,
+
+            review_1_rating_string = str(library['reviews'][0]['rating']) if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
+            review_2_rating_string = str(library['reviews'][1]['rating']) if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
+            review_3_rating_string = str(library['reviews'][2]['rating']) if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
         )
         libraries_list.append(new_library)
 
