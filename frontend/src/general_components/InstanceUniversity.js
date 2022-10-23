@@ -8,7 +8,6 @@ import Accordion from 'react-bootstrap/Accordion';
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import styles from './InstanceUniversity.module.css'
-import Splash from '../pages/Splash'
 import MapComponent from "./MapComponent";
 import axios from "axios";
 
@@ -45,6 +44,12 @@ const InstanceUniversity = () => {
                         <div className={styles.instance_header}>{data.name}</div>
                     </Row>
                     <Row className={styles.fields}>
+                      <Col className={styles.instance_temp_image}>
+         				            <Figure>
+             					        <Figure.Image src={data.photo} />
+             				        </Figure>
+             			        </Col>
+
                         <Col sm>
                             {/* <div className={styles.fieldName}>{data.results.id}</div> */}
                             <div className={styles.fieldName}>{data.alias}</div>
@@ -58,14 +63,12 @@ const InstanceUniversity = () => {
                             <div className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.results[0].nearby_places[0].href}`}>{data.results[0].nearby_places[0].name}</a>}</div> */}
 
                         </Col>
-                        <Col sm>
-                          <Col className={styles.instance_temp_image}>
-         				            <Figure>
-             					        <Figure.Image src={data.photo} />
-             				        </Figure>
-             			        </Col>
-                        </Col>
-                        <Col className={styles.instance_temp_col}>
+
+
+                          
+                     </Row>
+                     <Row>
+                        <Col>
                             <Accordion className={styles.instance_temp_info}>
                               <Accordion.Item eventKey="0">
                                   <Accordion.Header>{"About " + data.name}</Accordion.Header>
@@ -73,11 +76,14 @@ const InstanceUniversity = () => {
                                   </Accordion.Body> 
                               </Accordion.Item>
                             </Accordion>
-                        </Col>
-                        <Col sm>
+                            </Col>
+                          <Col>
                             <MapComponent name={data.name} address={data.city}/>
-                        </Col>
-                    </Row>
+                          </Col>
+                        {/* <Row className={styles.instance_temp_col}> */}
+                        
+                        {/* </Row> */}
+                     </Row>
              	</Container>
             </div>
           )}
