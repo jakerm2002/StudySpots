@@ -25,7 +25,7 @@ const Libraries = () => {
                     <td title={info.address}>{info.address}</td>
                     <td title={info.rating}>{info.rating}</td>
                     <td title={info.phone}>{info.phone}</td>
-                    <td title={info.formatted_hours}> ({info.formatted_hours})</td>
+                    <td title={info.formatted_hours}> {info.formatted_hours}</td>
                 </tr>
             )
         }
