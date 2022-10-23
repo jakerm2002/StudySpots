@@ -57,9 +57,10 @@ const InstanceLibrary = () => {
 				<Col className={styles.instance_temp_col}>
 				<Accordion className={styles.instance_temp_info}>
 				<Accordion.Item eventKey="0">
-					<Accordion.Header>{"About " + data.name}</Accordion.Header>
-					<Accordion.Body className={styles.instance_temp_text}> {"body_text"}
-					</Accordion.Body> 
+				<Accordion.Header>{"Reviews and Ratings for " + data.name}</Accordion.Header>
+					{data.review_1_author != "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_1_author + " : " + data.review_1_rating}</Accordion.Body>  : <Accordion.Body className={styles.instance_temp_text}>{"No Ratings Available"}</Accordion.Body> }
+					{data.review_2_author != "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_2_author + " : " + data.review_2_rating}</Accordion.Body>  : ""}
+					{data.review_3_author != "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_3_author + " : " + data.review_3_rating}</Accordion.Body>  : ""}
 				</Accordion.Item>
 				</Accordion>
 				</Col>
