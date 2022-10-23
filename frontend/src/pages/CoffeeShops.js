@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import api_results from '../api_resources/coffeeshops.json'
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
-import { Link } from 'react-router-dom';
-import {useHistory} from 'react-router-dom';
 import axios from "axios";
 
 const CoffeeShops = () => {
