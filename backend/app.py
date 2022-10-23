@@ -1,5 +1,5 @@
 from database.databases import *
-from flask import Flask, request, jsonify
+from flask import Flask, request
 import os
 
 @app.route('/universities')
@@ -8,19 +8,31 @@ def universities():
     page = int(request.args.get('page')) if request.args.get('page') else 1
     per_page = int(request.args.get('per_page')) if request.args.get('per_page') else 10
 
+    # zip code parameter means you can give the endpoint a zipcode
+    # and it will return all universities in that zipcode
+    zipcode = request.args.get('zipcode') if request.args.get('zipcode') else None
+    if (zipcode):
+        universities_matching_zipcodes = University.query.filter_by(zipcode=zipcode)
+        return universities_schema.dumps(universities_matching_zipcodes)
+
     all_universities = db.session.query(University).paginate(page=page, per_page=per_page)
     return universities_schema.dumps(all_universities.items)
 
 @app.route('/universities/<string:id>')
 def universities_by_id(id):
     university = University.query.filter_by(id=id).first()
-    return university_schema.dumps(university)
+    return universities_schema.dumps(university)
 
 @app.route('/coffeeshops')
 def coffeeshops():
     # Possible arguments that can be added to request
     page = int(request.args.get('page')) if request.args.get('page') else 1
     per_page = int(request.args.get('per_page')) if request.args.get('per_page') else 10
+
+    zipcode = request.args.get('zipcode') if request.args.get('zipcode') else None
+    if (zipcode):
+        coffeeshops_matching_zipcodes = CoffeeShop.query.filter_by(zipcode=zipcode)
+        return coffeeshops_schema.dumps(coffeeshops_matching_zipcodes)
 
     all_coffee_shops = db.session.query(CoffeeShop).paginate(page=page, per_page=per_page)
     return coffeeshops_schema.dumps(all_coffee_shops.items)
@@ -36,6 +48,11 @@ def libraries():
     page = int(request.args.get('page')) if request.args.get('page') else 1
     per_page = int(request.args.get('per_page')) if request.args.get('per_page') else 10
 
+    zipcode = request.args.get('zipcode') if request.args.get('zipcode') else None
+    if (zipcode):
+        libraries_matching_zipcodes = Library.query.filter_by(zipcode=zipcode)
+        return libraries_schema.dumps(libraries_matching_zipcodes)
+
     all_libraries = db.session.query(Library).paginate(page=page, per_page=per_page)
     return libraries_schema.dumps(all_libraries.items)
 
@@ -50,4 +67,4 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
-    # app.run()
+    #app.run()

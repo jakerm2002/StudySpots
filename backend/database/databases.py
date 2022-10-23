@@ -156,7 +156,7 @@ def populate_universities():
             id=replace_id,
             name=university["latest.school.name"],
             alias=university["latest.school.alias"],
-            zipcode=university["latest.school.zip"],
+            zipcode=university["latest.school.zip"][:5],
             city=university["latest.school.city"],
             state=university["latest.school.state"],
             url=university["latest.school.school_url"],
