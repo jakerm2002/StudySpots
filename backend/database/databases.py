@@ -6,6 +6,7 @@ from flask_marshmallow import Marshmallow
 from sqlalchemy import create_engine, Column, String, Integer
 from flask_cors import CORS
 import time
+from flask_cors import CORS
 import json
 import os
 
@@ -21,6 +22,7 @@ CORS(app)
 
 days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
+CORS(app)
 
 class University(db.Model):
     id = db.Column(db.Integer, primary_key=True)
