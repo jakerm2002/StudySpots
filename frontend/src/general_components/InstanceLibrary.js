@@ -8,6 +8,7 @@ import { Col } from "react-bootstrap";
 import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
 import axios from "axios";
+import NearbyUniversity from './NearbyUniversity.js';
 
 const InstanceLibrary = () => {
     const { businessID } = useParams();
@@ -46,6 +47,7 @@ const InstanceLibrary = () => {
 					<Row className={styles.instance_temp_stat}>{data.address}</Row>
 					<Row className={styles.instance_temp_stat}>Rating: {data.rating}</Row>
 					<Row className={styles.instance_temp_stat}>Telephone: {data.phone}</Row>
+					<NearbyUniversity zipcode={data.zipcode} />
 					{/* <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
                                 	<Row className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row> */}
 				</Container>
