@@ -27,10 +27,10 @@ const Universities = () => {
                 <tr onClick={() => window.location.href = `/Universities/${info.id}`}>
                     <td title={info.name}>{info.name}</td>
                     <td title={info.city}>{info.city}</td>
-                    <td title={info.zip}>{info.zip}</td>
+                    <td title={info.zipcode}>{info.zipcode}</td>
                     <td title={info.size}>{info.size.toLocaleString("en-US", populationFormat)}</td>
-                   {/* <td title={info.size}>{info.cost.tuition.in_state.toLocaleString("en-US", currencyFormat)}</td>
-                    <td title={info.size}>{info.tuition.out_of_state.toLocaleString("en-US", currencyFormat)}</td>  */}
+                    <td title={info.instate_tuition}>{info.instate_tuition.toLocaleString("en-US", currencyFormat)}</td>
+                    <td title={info.outstate_tuition}>{info.outstate_tuition.toLocaleString("en-US", currencyFormat)}</td> 
                 </tr>
             )
         }

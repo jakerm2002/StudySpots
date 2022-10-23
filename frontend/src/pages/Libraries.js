@@ -22,10 +22,10 @@ const Libraries = () => {
             return(
                 <tr onClick={() => window.location.href = `/Libraries/${info.reference}`}>
                     <td title={info.name}>{info.name}</td>
-                    <td title={info.formatted_address}>{info.formatted_address}</td>
+                    <td title={info.address}>{info.address}</td>
                     <td title={info.rating}>{info.rating}</td>
-                    <td title={info.telephone}>{info.telephone}</td>
-                    <td title={info.businesses_status}> ({info.business_status})</td>
+                    <td title={info.phone}>{info.phone}</td>
+                    <td title={info.formatted_hours}> ({info.formatted_hours})</td>
                 </tr>
             )
         }
