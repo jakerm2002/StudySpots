@@ -40,7 +40,7 @@ const InstanceUniversity = () => {
           {!isLoading && (
             <div>
              	<Container className={styles.instance_container}>
-                    <Row>
+               <Row>
                         <div className={styles.instance_header}>{data.name}</div>
                     </Row>
                     <Row className={styles.fields}>
@@ -62,13 +62,13 @@ const InstanceUniversity = () => {
                             {/* <div className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.results[0].nearby_places[1].href}`}>{data.results[0].nearby_places[1].name}</a>}</div>
                             <div className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.results[0].nearby_places[0].href}`}>{data.results[0].nearby_places[0].name}</a>}</div> */}
 
-                        </Col>
-
-
-                          
+                        </Col>  
                      </Row>
-                     <Row>
-                        <Col>
+
+              </Container>
+              <div className={styles.instance_temp_body}>
+                    <Row>
+                        <Col className={styles.instance_temp_col}>
                             <Accordion className={styles.instance_temp_info}>
                               <Accordion.Item eventKey="0">
                                   <Accordion.Header>{"About " + data.name}</Accordion.Header>
@@ -76,15 +76,15 @@ const InstanceUniversity = () => {
                                   </Accordion.Body> 
                               </Accordion.Item>
                             </Accordion>
-                            </Col>
-                          <Col>
+                          </Col>
+                          <Col className={styles.instance_temp_col}>
                             <MapComponent name={data.name} address={data.city}/>
                           </Col>
                         {/* <Row className={styles.instance_temp_col}> */}
                         
                         {/* </Row> */}
                      </Row>
-             	</Container>
+              </div>
             </div>
           )}
         </>
