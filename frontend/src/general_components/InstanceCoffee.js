@@ -7,27 +7,26 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
+import axios from "axios";
 
 
 const InstanceCoffee = () => {
     const { businessID } = useParams();
       const [isLoading, setIsLoading] = useState(true);
-      const [data, setData] = useState();
+      const [data, setData] = useState([]);
     
       useEffect(() => {
-        fetch(`../instance_apis/${businessID}.json`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-          .then((res) => res.json())
-          .then((response) => {
-            setData(response);
+        axios.get('http://api.studyspots.me/coffeeshops/' + businessID).then(response => {
+            console.log("response",response.data);
+            setData(response.data);
+            console.log(data)
             setIsLoading(false);
-          })
-          .catch((error) => console.log(error));
-      }, [businessID]);
+            
+        },
+        reject => {
+            console.log("REJECT");
+        });
+      }, [])
 
     return (
         <>
@@ -44,12 +43,12 @@ const InstanceCoffee = () => {
              			<Col>
                             <Container className={styles.instance_temp_stats}>
                                 <Row className={styles.instance_temp_stat}>{data.review_count} reviews</Row>
-                                <Row className={styles.instance_temp_stat}>{data.location.address1}</Row>
-                                <Row className={styles.instance_temp_stat}>{data.location.city} {data.location.state} {data.location.zip_code}</Row>
+                                <Row className={styles.instance_temp_stat}>{data.address1}</Row>
+                                <Row className={styles.instance_temp_stat}>{data.city} {data.state} {data.zipcode}</Row>
                                 <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
                                 <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
-                                <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
-                                <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row>
+                                {/* <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
+                                <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row> */}
                             </Container>
              			</Col>
              		</Row>
@@ -66,7 +65,7 @@ const InstanceCoffee = () => {
                   </Accordion>
                   </Col>
                   <Col className={styles.instance_temp_col}>
-                  <MapComponent name={data.name} address={data.location.address1} latitude={data.coordinates.latitude} longitude={data.coordinates.longitude}/>
+                  <MapComponent name={data.name} address={data.address1} latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
                 </Row>
 
