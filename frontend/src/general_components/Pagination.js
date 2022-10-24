@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Pagination from 'react-bootstrap/Pagination'
 
-const Paginate = ({postsPerPage, totalPosts, paginate}) => {
+const Paginate = ({num_items_per_page, postsPerPage, totalPosts, paginate}) => {
 
     const [currentPage, setCurrentPage] = useState(1)
 
@@ -21,10 +21,12 @@ const Paginate = ({postsPerPage, totalPosts, paginate}) => {
     // }
 
 
-    for(let i = 1; i <= Math.ceil(totalPosts / 10); i++) {
+    // if(!is_loading) {
+    for(let i = 1; i <= Math.ceil(totalPosts / num_items_per_page); i++) {
         pageNums.push(i);
         console.log('hey')
     }
+    // }
 
     // console.log("page nums: ", pageNums);
     // console.log("page nums length: ", pageNums.length)
@@ -33,7 +35,7 @@ const Paginate = ({postsPerPage, totalPosts, paginate}) => {
         <div>
             <Pagination>
                     <Pagination.Prev onClick={() => changePage(currentPage - 1)} />
-                    {Array.from({ length: pageNums.length <= 20 ? pageNums.length : 20 }).map((_, idx) => (
+                    {Array.from({ length: pageNums.length <= 40 ? pageNums.length : 40 }).map((_, idx) => (
                         <Pagination.Item key={pageNums[idx]} active={pageNums[idx] === currentPage} onClick={() => changePage(pageNums[idx])}>
                             {pageNums[idx]}
                         </Pagination.Item>

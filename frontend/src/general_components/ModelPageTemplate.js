@@ -5,10 +5,10 @@ import Pagination from './Pagination';
 import styles from './ModelPageTemplate.module.css'
 
 export default function getModel(model_info) {
-	return RenderPage(model_info.entries, model_info.pageName, model_info.fields, model_info.num_total_items, model_info.set_new_page)
+	return RenderPage(model_info.entries, model_info.pageName, model_info.fields, model_info.num_items_per_page, model_info.num_total_items, model_info.set_new_page, model_info.is_loading)
 }
 
-const RenderPage = (entries, page_name, fields, num_total_items, set_new_page) => {
+const RenderPage = (entries, page_name, fields, num_items_per_page, num_total_items, set_new_page, is_loading) => {
 
     console.log("mkMASKDASD", num_total_items)
     // const [currentPage, setCurrentPage] = useState(1);
@@ -41,7 +41,7 @@ const RenderPage = (entries, page_name, fields, num_total_items, set_new_page) =
                 </Table>
                 <Stack>
                     <div>Showing {entries.length} items</div>
-                   <div className={styles.model_page_pagination}><Pagination postsPerPage={entries.length} totalPosts={num_total_items} paginate={set_new_page}/></div>
+                   <div className={styles.model_page_pagination}><Pagination num_items_per_page={num_items_per_page} postsPerPage={entries.length} totalPosts={num_total_items} paginate={set_new_page}/></div>
                    {/* <div>Page 1/1</div> */}
                 </Stack>
         </div>

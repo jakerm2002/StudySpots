@@ -75,9 +75,10 @@ const CoffeeShops = () => {
         entries : Entries,
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
-        num_total_items : 286,
-        set_new_page: set_page
-        // is_loading: loading
+        num_items_per_page : 10,
+        num_total_items : 1082,
+        set_new_page: set_page, 
+        is_loading: loading
     }
     return getModel(payload);
 }
