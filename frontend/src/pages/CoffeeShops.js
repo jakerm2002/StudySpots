@@ -8,13 +8,13 @@ const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    // const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://api.studyspots.me/coffeeshops').then(response => {
             console.log("response",response.data);
             setCoffeeShops(response.data);
-            // setLoading(false);
+            setLoading(false);
         },
         reject => {
             console.log("REJECT");
@@ -28,11 +28,11 @@ const CoffeeShops = () => {
     }
     
     const get_data = async(page, query, ignore) => {
-        // setLoading(true);
+        setLoading(true);
         const url = getQuery(page, query, ignore);
         const response = await axios.get(url);
         setCoffeeShops(response.data);
-        // setLoading(false);
+        setLoading(false);
     }    
 
     const set_page = (pageNumber) => {
@@ -77,6 +77,7 @@ const CoffeeShops = () => {
         fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
         num_total_items : 286,
         set_new_page: set_page
+        // is_loading: loading
     }
     return getModel(payload);
 }

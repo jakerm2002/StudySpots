@@ -4,23 +4,30 @@ import Pagination from 'react-bootstrap/Pagination'
 const Paginate = ({postsPerPage, totalPosts, paginate}) => {
 
     const [currentPage, setCurrentPage] = useState(1)
+
+
+    // console.log("num total items", totalPosts)
+
+
+    const pageNums = [];
     const changePage = (num) => {
         if (num <= pageNums.length) {
             setCurrentPage(num)
             paginate(num)
         }
     }
+    // for(let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    //     pageNums.push(i);
+    // }
 
-    console.log("num total items", totalPosts)
 
-
-    const pageNums = [];
-    for(let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    for(let i = 1; i <= Math.ceil(totalPosts / 10); i++) {
         pageNums.push(i);
+        console.log('hey')
     }
 
-    console.log("page nums: ", pageNums);
-    console.log("page nums length: ", pageNums.length)
+    // console.log("page nums: ", pageNums);
+    // console.log("page nums length: ", pageNums.length)
 
     return (
         <div>
