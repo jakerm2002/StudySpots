@@ -15,7 +15,6 @@ from collections import Counter
 from itertools import chain
 
 
-
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.debug = True
@@ -160,7 +159,7 @@ def populate_universities():
     file = open(file_path, "r")
     db.create_all()
     universities_json = json.load(file)
-    dynamic_id_university=0
+    dynamic_id_university = 0
     universities_list = []
 
     for university in universities_json:
@@ -205,32 +204,32 @@ def populate_universities():
         universities_list.append(new_university)
 
     def sort_by_num_null_values(item1, item2):
-        print("comparing",item1.__dict__['name'],"with", item2.__dict__['name'])
+        print("comparing", item1.__dict__["name"], "with", item2.__dict__["name"])
         counter_1 = Counter(item1.__dict__.values())
         counter_2 = Counter(item2.__dict__.values())
         return counter_1[None] - counter_2[None]
-            
+
     num_unis = len(universities_list)
     new_unis_list = copy.deepcopy(universities_list)
     new_unis_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
 
     for uni in new_unis_list:
-        print (str(uni.__dict__['id']) + ' ' + uni.__dict__['name'])
+        print(str(uni.__dict__["id"]) + " " + uni.__dict__["name"])
 
     # change the id of all universities
     for num in range(num_unis):
         new_id = num - num_unis
-        index = new_unis_list[num].__dict__['id']
-        print('changing id from', universities_list[index].id, 'to', new_id) 
+        index = new_unis_list[num].__dict__["id"]
+        print("changing id from", universities_list[index].id, "to", new_id)
         universities_list[index].id = new_id
-        
-    print('len', num_unis)
+
+    print("len", num_unis)
 
     for num in range(-num_unis, 0):
         new_id = universities_list[num].id + num_unis
-        print('changing id from', universities_list[num].id, 'to', new_id)
+        print("changing id from", universities_list[num].id, "to", new_id)
         universities_list[num].id = new_id
-    
+
     db.session.add_all(universities_list)
     db.session.commit()
 
@@ -519,56 +518,52 @@ def populate_coffee_shops():
             if "reviews" in coffee_shop and 2 < len(coffee_shop["reviews"])
             else "N/A",
             # -1 means closed on that day, N/A means hours not available
-            hours_day_0_open=hours[0]['start'] if hours[0] else 'N/A',
-            hours_day_0_closed=hours[0]['end'] if hours[0] else 'N/A',
-
-            hours_day_1_open=hours[1]['start'] if hours[1] else 'N/A',
-            hours_day_1_closed=hours[1]['end'] if hours[1] else 'N/A',
-
-            hours_day_2_open=hours[2]['start'] if hours[2] else 'N/A',
-            hours_day_2_closed=hours[2]['end'] if hours[2] else 'N/A',
-
-            hours_day_3_open=hours[3]['start'] if hours[3] else 'N/A',
-            hours_day_3_closed=hours[3]['end'] if hours[3] else 'N/A',
-
-            hours_day_4_open=hours[4]['start'] if hours[4] else 'N/A',
-            hours_day_4_closed=hours[4]['end'] if hours[4] else 'N/A',
-
-            hours_day_5_open=hours[5]['start'] if hours[5] else 'N/A',
-            hours_day_5_closed=hours[5]['end'] if hours[5] else 'N/A',
-
-            hours_day_6_open=hours[6]['start'] if hours[6] else 'N/A',
-            hours_day_6_closed=hours[6]['end'] if hours[6] else 'N/A',
-
-            hours_arr=hours_arr if hours_arr else 'N/A',
-            formatted_hours = formatted_hours
+            hours_day_0_open=hours[0]["start"] if hours[0] else "N/A",
+            hours_day_0_closed=hours[0]["end"] if hours[0] else "N/A",
+            hours_day_1_open=hours[1]["start"] if hours[1] else "N/A",
+            hours_day_1_closed=hours[1]["end"] if hours[1] else "N/A",
+            hours_day_2_open=hours[2]["start"] if hours[2] else "N/A",
+            hours_day_2_closed=hours[2]["end"] if hours[2] else "N/A",
+            hours_day_3_open=hours[3]["start"] if hours[3] else "N/A",
+            hours_day_3_closed=hours[3]["end"] if hours[3] else "N/A",
+            hours_day_4_open=hours[4]["start"] if hours[4] else "N/A",
+            hours_day_4_closed=hours[4]["end"] if hours[4] else "N/A",
+            hours_day_5_open=hours[5]["start"] if hours[5] else "N/A",
+            hours_day_5_closed=hours[5]["end"] if hours[5] else "N/A",
+            hours_day_6_open=hours[6]["start"] if hours[6] else "N/A",
+            hours_day_6_closed=hours[6]["end"] if hours[6] else "N/A",
+            hours_arr=hours_arr if hours_arr else "N/A",
+            formatted_hours=formatted_hours,
         )
         coffeeshops_list.append(new_coffeeshop)
 
-        
     def sort_by_num_null_values(item1, item2):
-        item_1_vals = [item for item in item1.__dict__.values() if type(item) is not list]
-        item_2_vals = [item for item in item2.__dict__.values() if type(item) is not list]
+        item_1_vals = [
+            item for item in item1.__dict__.values() if type(item) is not list
+        ]
+        item_2_vals = [
+            item for item in item2.__dict__.values() if type(item) is not list
+        ]
 
         counter_1 = Counter(item_1_vals)
         counter_2 = Counter(item_2_vals)
-        num_null_values1 = counter_1[None] + counter_1['N/A']
-        num_null_values2 = counter_2[None] + counter_2['N/A']
+        num_null_values1 = counter_1[None] + counter_1["N/A"]
+        num_null_values2 = counter_2[None] + counter_2["N/A"]
         return num_null_values1 - num_null_values2
-            
+
     num_items = len(coffeeshops_list)
     sorted_list = copy.deepcopy(coffeeshops_list)
     sorted_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
 
     for num in range(num_items):
         new_id = num - num_items
-        index = sorted_list[num].__dict__['id']
+        index = sorted_list[num].__dict__["id"]
         coffeeshops_list[index].id = new_id
 
     for num in range(-num_items, 0):
         new_id = coffeeshops_list[num].id + num_items
         coffeeshops_list[num].id = new_id
-        
+
     db.session.add_all(coffeeshops_list)
     db.session.commit()
 
@@ -710,65 +705,102 @@ def populate_libraries():
 
         new_library = Library(
             id=replace_id,
-            name=library['name'],
-            address=library['formatted_address'],
-            latitude=library['geometry']['location']['lat'],
-            longitude=library['geometry']['location']['lng'],
-            rating=library['rating'] if "rating" in library else -1,
-            phone=library["formatted_phone_number"] if "formatted_phone_number" in library else "",
-
-            maps_url = library['url'],
-            utc_offset = library['utc_offset'],
-            hours_arr = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
-            formatted_hours = formatted_hours,
-            photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
-            photo_link = photos_url + library['photos'][0]['photo_reference'] + '&key=' + api_key if 'photos' in library else 'N/A',
-            website = library['website'] if 'website' in library else 'N/A',
-
-            rating_string = str(library['rating']) if "rating" in library else 'N/A',
-
-            city = library['address_components'][index_of_city]['long_name'],
-            zipcode = library['address_components'][index_of_zip_code]['long_name'],
-
-            review_1_available = True if 'reviews' in library and 0 < len(library['reviews']) else False,
-            review_2_available = True if 'reviews' in library and 1 < len(library['reviews']) else False,
-            review_3_available = True if 'reviews' in library and 2 < len(library['reviews']) else False,
-
-            review_1_text = library['reviews'][0]['text'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
-            review_2_text = library['reviews'][1]['text'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
-            review_3_text = library['reviews'][2]['text'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
-
-            review_1_author = library['reviews'][0]['author_name'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
-            review_2_author = library['reviews'][1]['author_name'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
-            review_3_author = library['reviews'][2]['author_name'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
-
-            review_1_rating = library['reviews'][0]['rating'] if 'reviews' in library and 0 < len(library['reviews']) else -1,
-            review_2_rating = library['reviews'][1]['rating'] if 'reviews' in library and 1 < len(library['reviews']) else -1,
-            review_3_rating = library['reviews'][2]['rating'] if 'reviews' in library and 2 < len(library['reviews']) else -1,
-
-            review_1_rating_string = str(library['reviews'][0]['rating']) if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
-            review_2_rating_string = str(library['reviews'][1]['rating']) if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
-            review_3_rating_string = str(library['reviews'][2]['rating']) if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
+            name=library["name"],
+            address=library["formatted_address"],
+            latitude=library["geometry"]["location"]["lat"],
+            longitude=library["geometry"]["location"]["lng"],
+            rating=library["rating"] if "rating" in library else -1,
+            phone=library["formatted_phone_number"]
+            if "formatted_phone_number" in library
+            else "",
+            maps_url=library["url"],
+            utc_offset=library["utc_offset"],
+            hours_arr=library["opening_hours"]["weekday_text"]
+            if "opening_hours" in library
+            else "N/A",
+            formatted_hours=formatted_hours,
+            photo_reference=library["photos"][0]["photo_reference"]
+            if "photos" in library
+            else "N/A",
+            photo_link=photos_url
+            + library["photos"][0]["photo_reference"]
+            + "&key="
+            + api_key
+            if "photos" in library
+            else "N/A",
+            website=library["website"] if "website" in library else "N/A",
+            rating_string=str(library["rating"]) if "rating" in library else "N/A",
+            city=library["address_components"][index_of_city]["long_name"],
+            zipcode=library["address_components"][index_of_zip_code]["long_name"],
+            review_1_available=True
+            if "reviews" in library and 0 < len(library["reviews"])
+            else False,
+            review_2_available=True
+            if "reviews" in library and 1 < len(library["reviews"])
+            else False,
+            review_3_available=True
+            if "reviews" in library and 2 < len(library["reviews"])
+            else False,
+            review_1_text=library["reviews"][0]["text"]
+            if "reviews" in library and 0 < len(library["reviews"])
+            else "N/A",
+            review_2_text=library["reviews"][1]["text"]
+            if "reviews" in library and 1 < len(library["reviews"])
+            else "N/A",
+            review_3_text=library["reviews"][2]["text"]
+            if "reviews" in library and 2 < len(library["reviews"])
+            else "N/A",
+            review_1_author=library["reviews"][0]["author_name"]
+            if "reviews" in library and 0 < len(library["reviews"])
+            else "N/A",
+            review_2_author=library["reviews"][1]["author_name"]
+            if "reviews" in library and 1 < len(library["reviews"])
+            else "N/A",
+            review_3_author=library["reviews"][2]["author_name"]
+            if "reviews" in library and 2 < len(library["reviews"])
+            else "N/A",
+            review_1_rating=library["reviews"][0]["rating"]
+            if "reviews" in library and 0 < len(library["reviews"])
+            else -1,
+            review_2_rating=library["reviews"][1]["rating"]
+            if "reviews" in library and 1 < len(library["reviews"])
+            else -1,
+            review_3_rating=library["reviews"][2]["rating"]
+            if "reviews" in library and 2 < len(library["reviews"])
+            else -1,
+            review_1_rating_string=str(library["reviews"][0]["rating"])
+            if "reviews" in library and 0 < len(library["reviews"])
+            else "N/A",
+            review_2_rating_string=str(library["reviews"][1]["rating"])
+            if "reviews" in library and 1 < len(library["reviews"])
+            else "N/A",
+            review_3_rating_string=str(library["reviews"][2]["rating"])
+            if "reviews" in library and 2 < len(library["reviews"])
+            else "N/A",
         )
         libraries_list.append(new_library)
 
     def sort_by_num_null_values(item1, item2):
-        item_1_vals = [item for item in item1.__dict__.values() if type(item) is not list]
-        item_2_vals = [item for item in item2.__dict__.values() if type(item) is not list]
+        item_1_vals = [
+            item for item in item1.__dict__.values() if type(item) is not list
+        ]
+        item_2_vals = [
+            item for item in item2.__dict__.values() if type(item) is not list
+        ]
 
         counter_1 = Counter(item_1_vals)
         counter_2 = Counter(item_2_vals)
-        num_null_values1 = counter_1[None] + counter_1['N/A']
-        num_null_values2 = counter_2[None] + counter_2['N/A']
+        num_null_values1 = counter_1[None] + counter_1["N/A"]
+        num_null_values2 = counter_2[None] + counter_2["N/A"]
         return num_null_values1 - num_null_values2
-            
+
     num_items = len(libraries_list)
     sorted_list = copy.deepcopy(libraries_list)
     sorted_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
 
     for num in range(num_items):
         new_id = num - num_items
-        index = sorted_list[num].__dict__['id']
+        index = sorted_list[num].__dict__["id"]
         libraries_list[index].id = new_id
 
     for num in range(-num_items, 0):
