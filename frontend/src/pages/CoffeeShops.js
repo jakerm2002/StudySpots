@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState} from 'react'
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
@@ -6,22 +6,22 @@ import axios from "axios";
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://api.studyspots.me/coffeeshops').then(response => {
             console.log("response",response.data);
             setCoffeeShops(response.data);
-            setLoading(false);
+            // setLoading(false);
         },
         reject => {
             console.log("REJECT");
         });
     }, []);
 
-    if(loading){
-        return <h2>Loading...</h2>
-    }
+    // if(loading){
+    //     return <h2>Loading...</h2>
+    // }
     
 
     const Entries = coffeeShops.map(

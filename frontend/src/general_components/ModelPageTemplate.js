@@ -1,7 +1,6 @@
 import Table from 'react-bootstrap/Table';
 import Stack from 'react-bootstrap/Stack';
 import React, { useState } from 'react'
-import Pagination from './Pagination';
 import styles from './ModelPageTemplate.module.css'
 
 export default function getModel(model_info) {
@@ -16,7 +15,14 @@ const RenderPage = (entries, page_name, fields) => {
     const indexFirstBusiness = indexLastBusiness - postsPerPage;
     const currentPosts = entries.slice(indexFirstBusiness, indexLastBusiness);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+    const pageNums = [];
+    for(let i = 1; i <= Math.ceil(entries.length / postsPerPage); i++) {
+        pageNums.push(i);
+    }
+
+    console.log("expected pages: ", pageNums);
+
+    const setPage = (pageNumber) => setCurrentPage(pageNumber);
 
     return(
         <div className={styles.list}>
@@ -35,8 +41,17 @@ const RenderPage = (entries, page_name, fields) => {
                 </Table>
                 <Stack>
                     <div>{entries.length} items</div>
+                    <div>
+                        {
+                            pageNums.map((pageNum) => (
+                                <span className={pageNum === currentPage ? "cursor-pointer flex items-center justify-center w-12 h-12 border-2 rounded-full bg-blue-500 text-white" : "cursor-pointer flex items-center justify-center w-12 h-12 border-2 rounded-full"} onClick={() => {setPage(pageNum)}}>
+                                    <div>Page: {pageNum}</div>
+                                </span>
+                            ))
+                        }
+                    </div>
                     {/* <div>Page 1/1</div> */}
-                    <Pagination postsPerPage={postsPerPage} totalPosts={entries.length} paginate={paginate}/>
+                    {/* <Pagination postsPerPage={postsPerPage} totalPosts={entries.length} paginate={paginate}/> */}
                 </Stack>
         </div>
     )
