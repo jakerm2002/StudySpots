@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
-import Paginate from '../general_components/Pagination.js'
 
 const CoffeeShops = () => {
 
@@ -21,15 +20,16 @@ const CoffeeShops = () => {
         });
     }, []);
 
-    function getQuery(page, query, ignore) {
+    //get_query and get_data partially from GiveandLive (Spring 2022)
+    function get_query(page) {
         let url = `https://api.studyspots.me/coffeeshops`;
         url = url + `?page=${page}`
         return url;
     }
     
-    const get_data = async(page, query, ignore) => {
+    const get_data = async(page) => {
         setLoading(true);
-        const url = getQuery(page, query, ignore);
+        const url = get_query(page);
         const response = await axios.get(url);
         setCoffeeShops(response.data);
         setLoading(false);
@@ -39,13 +39,8 @@ const CoffeeShops = () => {
         console.log('hello');
         setCurrentPage(pageNumber);
         console.log('set page to ', pageNumber)
-        get_data(pageNumber, "", "")
+        get_data(pageNumber)
     }
-
-    // if(loading){
-    //     return <h2>Loading...</h2>
-    // }
-    
 
     const Entries = coffeeShops.map(
         (info) => {
@@ -77,8 +72,7 @@ const CoffeeShops = () => {
         fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
         num_items_per_page : 10,
         num_total_items : 1082,
-        set_new_page: set_page, 
-        is_loading: loading
+        set_new_page: set_page
     }
     return getModel(payload);
 }

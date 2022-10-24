@@ -1,51 +1,156 @@
+// Pagination code from AnimalWatch (Spring 2022)
+// https://gitlab.com/JohnPowow/animalwatch/-/blob/main/frontend/src/pages/Pagination.js
+
 import React, { useState } from 'react'
 import Pagination from 'react-bootstrap/Pagination'
 
-const Paginate = ({num_items_per_page, postsPerPage, totalPosts, paginate}) => {
+const Paginate = ({num_items_per_page, num_total_items, paginate}) => {
 
     const [currentPage, setCurrentPage] = useState(1)
 
-
-    // console.log("num total items", totalPosts)
-
-
-    const pageNums = [];
     const changePage = (num) => {
-        if (num <= pageNums.length) {
-            setCurrentPage(num)
-            paginate(num)
+        setCurrentPage(num)
+        paginate(num)
+    }
+
+    const span = Math.floor((num_items_per_page - 4) / 2);
+    const lastPage = Math.ceil(num_total_items / num_items_per_page);
+
+    const prevButtonKey = "prevButton";
+    const nextButtonKey = "nextButton";
+    const leftEllipsisKey = "leftEllipsis";
+    const rightEllipsisKey = "rightEllipsis";
+
+    // Layout used when not enough pages to use ellipses based on maxSpan
+    const displayAll = () => {
+        let items = [];
+        for (let i = 1; i <= lastPage; i++) {
+            items.push(
+                <Pagination.Item
+                    key={i}
+                    active={currentPage === i}
+                    onClick={() => {
+                        if (currentPage !== i) changePage(i);
+                    }}
+                >
+                    {i}
+                </Pagination.Item>
+            );
         }
+        return items;
+    };
+
+    // Layout used when active page is not near edge
+    // Ex.  "1 ... 4 5 '6' 7 8 ... 10"
+    const activeInMiddle = () => {
+        let items = [];
+        items.push(
+            <Pagination.Item
+                key={1}
+                onClick={() => {
+                    changePage(1);
+                }}
+            >
+                {1}
+            </Pagination.Item>,
+            <Pagination.Ellipsis key={leftEllipsisKey} />
+        );
+        for (let i = currentPage - span; i <= currentPage + span; i++) {
+            items.push(
+                <Pagination.Item
+                    key={i}
+                    active={currentPage === i}
+                    onClick={() => {
+                        if (currentPage !== i) changePage(i);
+                    }}
+                >
+                    {i}
+                </Pagination.Item>
+            );
+        }
+        items.push(
+            <Pagination.Ellipsis key={rightEllipsisKey} />,
+            <Pagination.Item
+                key={lastPage}
+                onClick={() => {
+                    changePage(lastPage);
+                }}
+            >
+                {lastPage}
+            </Pagination.Item>
+        );
+        return items;
+    };
+
+    // Used when active is near edge
+    // Ex.  "1 2 '3' ... 8 9 10"
+    const activeOnEdge = () => {
+        let items = [];
+        for (let i = 1; i <= span + 2; i++) {
+            items.push(
+                <Pagination.Item
+                    key={i}
+                    active={currentPage === i}
+                    onClick={() => {
+                        if (currentPage !== i) changePage(i);
+                    }}
+                >
+                    {i}
+                </Pagination.Item>
+            );
+        }
+        items.push(<Pagination.Ellipsis key={leftEllipsisKey} />);
+        for (let i = lastPage - span - 1; i <= lastPage; i++) {
+            items.push(
+                <Pagination.Item
+                    key={i}
+                    active={currentPage === i}
+                    onClick={() => {
+                        if (currentPage !== i) changePage(i);
+                    }}
+                >
+                    {i}
+                </Pagination.Item>
+            );
+        }
+        return items;
+    };
+
+    let content;
+    if (lastPage - 1 + 1 <= num_items_per_page) {
+        content = displayAll();
+    } else if (
+        currentPage > 1 + span &&
+        currentPage < lastPage - span
+    ) {
+        content = activeInMiddle();
+    } else {
+        content = activeOnEdge();
     }
-    // for(let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-    //     pageNums.push(i);
-    // }
 
-
-    // if(!is_loading) {
-    for(let i = 1; i <= Math.ceil(totalPosts / num_items_per_page); i++) {
-        pageNums.push(i);
-        console.log('hey')
-    }
-    // }
-
-    // console.log("page nums: ", pageNums);
-    // console.log("page nums length: ", pageNums.length)
 
     return (
-        <div>
+        // <div className="page-control">
             <Pagination>
-                    <Pagination.Prev onClick={() => changePage(currentPage - 1)} />
-                    {Array.from({ length: pageNums.length <= 40 ? pageNums.length : 40 }).map((_, idx) => (
-                        <Pagination.Item key={pageNums[idx]} active={pageNums[idx] === currentPage} onClick={() => changePage(pageNums[idx])}>
-                            {pageNums[idx]}
-                        </Pagination.Item>
-                    ))}
-                    <Pagination.Ellipsis />
-                    <Pagination.Next onClick={() => changePage(currentPage + 1)} />
+                <Pagination.Prev
+                    key={prevButtonKey}
+                    disabled={currentPage === 1}
+                    onClick={() => {
+                        changePage(currentPage - 1);
+                    }}
+                />
+                {content}
+                <Pagination.Next
+                    key={nextButtonKey}
+                    disabled={currentPage === lastPage}
+                    onClick={() => {
+                        changePage(currentPage + 1);
+                    }}
+                />
             </Pagination>
-            <div>Page {currentPage}/{totalPosts}</div>
-        </div>
-    )
+        // </div>
+    );
+
 
 }
 

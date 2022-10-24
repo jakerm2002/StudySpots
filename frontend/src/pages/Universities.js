@@ -9,6 +9,7 @@ var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
 const Universities = () => {
 
     const [universities, setUniversities] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         axios.get('http://api.studyspots.me/universities').then(response => {
@@ -20,6 +21,26 @@ const Universities = () => {
             console.log("REJECT");
         });
     }, []);
+
+    //get_query and get_data partially from GiveandLive (Spring 2022)
+    function get_query(page) {
+        let url = `https://api.studyspots.me/universities`;
+        url = url + `?page=${page}`
+        return url;
+    }
+    
+    const get_data = async(page) => {
+        const url = get_query(page);
+        const response = await axios.get(url);
+        setUniversities(response.data);
+    }    
+
+    const set_page = (pageNumber) => {
+        console.log('hello');
+        setCurrentPage(pageNumber);
+        console.log('set page to ', pageNumber)
+        get_data(pageNumber)
+    }
 
     const Entries = universities.map(
         (info) => {
@@ -39,7 +60,10 @@ const Universities = () => {
     var payload = {
         entries : Entries,
         pageName : "Universities",
-        fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"]
+        fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"],
+        num_items_per_page : 10,
+        num_total_items : 286,
+        set_new_page: set_page
     }
     return getModel(payload);
 }
