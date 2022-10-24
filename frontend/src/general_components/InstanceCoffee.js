@@ -16,6 +16,7 @@ const InstanceCoffee = () => {
     const { businessID } = useParams();
       const [isLoading, setIsLoading] = useState(true);
       const [data, setData] = useState([]);
+      const [businessHours, setBusinessHours] = useState([]);
     
       useEffect(() => {
         axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
@@ -23,6 +24,7 @@ const InstanceCoffee = () => {
             setData(response.data);
             console.log(data)
             setIsLoading(false);
+            setBusinessHours(response.data.hours_arr);
             
         },
         reject => {
@@ -47,8 +49,10 @@ const InstanceCoffee = () => {
                                 <Row className={styles.instance_temp_stat}>{data.review_count} reviews</Row>
                                 <Row className={styles.instance_temp_stat}>{data.address1}</Row>
                                 <Row className={styles.instance_temp_stat}>{data.city} {data.state} {data.zipcode}</Row>
+                                <Row className={styles.instance_temp_stat}>Phone: {data.phone}</Row>
                                 <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
                                 <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
+                                <Row className={styles.instance_temp_stat}> {data.formatted_hours}</Row>
                                 <NearbyUniversity zipcode={data.zipcode} />
                                 <NearbyLibrary zipcode={data.zipcode} />
                             </Container>
