@@ -18,7 +18,7 @@ const InstanceCoffee = () => {
       const [data, setData] = useState([]);
     
       useEffect(() => {
-        axios.get('http://api.studyspots.me/coffeeshops/' + businessID).then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
             console.log("response",response.data);
             setData(response.data);
             console.log(data)

@@ -24,7 +24,7 @@ const InstanceUniversity = () => {
       const [data, setData] = useState();
     
       useEffect(() => {
-        axios.get('http://api.studyspots.me/universities/' + universityID).then(response => {
+        axios.get('https://api.studyspots.me/universities/' + universityID).then(response => {
             console.log("response",response.data);
             setData(response.data);
             console.log(data)

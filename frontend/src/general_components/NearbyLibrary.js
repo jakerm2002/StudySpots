@@ -8,7 +8,7 @@ const NearbyLibrary = ({zipcode}) => {
     const [data, setData] = useState();
 
     useEffect(() => {
-    axios.get('http://api.studyspots.me/libraries?zipcode=' + zipcode).then(response => {
+    axios.get('https://api.studyspots.me/libraries?zipcode=' + zipcode).then(response => {
         setData(response.data);
         setIsLoading(false);
     },

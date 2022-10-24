@@ -8,7 +8,7 @@ const CoffeeShops = () => {
     const [coffeeShops, setCoffeeShops] = useState([]);
 
     useEffect(() => {
-        axios.get('http://api.studyspots.me/coffeeshops').then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops').then(response => {
             console.log("response",response.data);
             setCoffeeShops(response.data);
             

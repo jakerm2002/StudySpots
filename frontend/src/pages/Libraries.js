@@ -6,7 +6,7 @@ const Libraries = () => {
     const [libraries, setLibraries] = useState([]);
 
     useEffect(() => {
-        axios.get('http://api.studyspots.me/libraries').then(response => {
+        axios.get('https://api.studyspots.me/libraries').then(response => {
             console.log("response",response.data);
             setLibraries(response.data);
             

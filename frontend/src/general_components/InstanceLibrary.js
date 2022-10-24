@@ -18,7 +18,7 @@ const InstanceLibrary = () => {
       const [data, setData] = useState();
 
       useEffect(() => {
-        axios.get('http://api.studyspots.me/libraries/' + businessID).then(response => {
+        axios.get('https://api.studyspots.me/libraries/' + businessID).then(response => {
             console.log("response",response.data);
             setData(response.data);
             console.log(data)
