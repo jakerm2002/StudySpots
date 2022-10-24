@@ -11,18 +11,21 @@ import json
 import os
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
+app.config["DEBUG"] = True
 app.debug = True
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # Schema: "postgres+psycopg2://<USERNAME>:<PASSWORD>@<IP_ADDRESS>:<PORT>/<DATABASE_NAME>"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgre:rephrase-struggle-sulk@studyspots-db.cz5in1adcwq7.us-east-2.rds.amazonaws.com:5432/postgres'
+app.config[
+    "SQLALCHEMY_DATABASE_URI"
+] = "postgresql+psycopg2://postgre:rephrase-struggle-sulk@studyspots-db.cz5in1adcwq7.us-east-2.rds.amazonaws.com:5432/postgres"
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 CORS(app)
 
-days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 CORS(app)
+
 
 class University(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -52,33 +55,35 @@ class University(db.Model):
     description = db.Column(db.String)
     photo = db.Column(db.String)
 
-    def __init__(self,
-                    id="NaN", 
-                    name="NaN",
-                    alias="NaN",
-                    zipcode="NaN",
-                    city="NaN",
-                    state = "NaN",
-                    url = "NaN",
-                    locale = 0,
-                    size = 0,
-                    enrollment_all = 0,
-                    enrollment_ugr_12m = 0,
-                    enrollment_gr_12m = 0,
-                    instate_tuition = 0.0,
-                    outstate_tuition = 0.0,
-                    acceptance_rate = 0.0,
-                    carnegie_basic = 0,
-                    ownership = 0,
-                    institutional_characteristics = 0,
-                    sat_average = 0,
-                    sat_median_math = 0,
-                    sat_median_writing = 0 ,
-                    sat_median_reading = 0 ,
-                    latitude=0.0,
-                    longitude=0.0,
-                    description="",
-                    photo=""):
+    def __init__(
+        self,
+        id="NaN",
+        name="NaN",
+        alias="NaN",
+        zipcode="NaN",
+        city="NaN",
+        state="NaN",
+        url="NaN",
+        locale=0,
+        size=0,
+        enrollment_all=0,
+        enrollment_ugr_12m=0,
+        enrollment_gr_12m=0,
+        instate_tuition=0.0,
+        outstate_tuition=0.0,
+        acceptance_rate=0.0,
+        carnegie_basic=0,
+        ownership=0,
+        institutional_characteristics=0,
+        sat_average=0,
+        sat_median_math=0,
+        sat_median_writing=0,
+        sat_median_reading=0,
+        latitude=0.0,
+        longitude=0.0,
+        description="",
+        photo="",
+    ):
         self.id = id
         self.name = name
         self.alias = alias
@@ -106,8 +111,9 @@ class University(db.Model):
         self.description = description
         self.photo = photo
 
+
 class UniversitySchema(ma.Schema):
-    class Meta: # for flask_marshmallow
+    class Meta:  # for flask_marshmallow
         # Fields to expose
         fields = (
             "id",
@@ -135,23 +141,25 @@ class UniversitySchema(ma.Schema):
             "latitude",
             "longitude",
             "description",
-            "photo"
+            "photo",
         )
+
 
 university_schema = UniversitySchema()
 universities_schema = UniversitySchema(many=True)
 
+
 def populate_universities():
-    file_path = os.path.join(os.getcwd(), 'api_information/all_universities.json')
-    file = open(file_path, 'r')
+    file_path = os.path.join(os.getcwd(), "api_information/all_universities.json")
+    file = open(file_path, "r")
     db.create_all()
     universities_json = json.load(file)
-    dynamic_id_university=0
+    dynamic_id_university = 0
 
     universities_list = []
     for university in universities_json:
         replace_id = dynamic_id_university
-        dynamic_id_university+=1
+        dynamic_id_university += 1
         new_university = University(
             id=replace_id,
             name=university["latest.school.name"],
@@ -163,22 +171,30 @@ def populate_universities():
             locale=university["latest.school.locale"],
             size=university["latest.student.size"],
             enrollment_all=university["latest.student.enrollment.all"],
-            enrollment_ugr_12m=university["latest.student.enrollment.undergrad_12_month"],
+            enrollment_ugr_12m=university[
+                "latest.student.enrollment.undergrad_12_month"
+            ],
             enrollment_gr_12m=university["latest.student.enrollment.grad_12_month"],
             instate_tuition=university["latest.cost.tuition.in_state"],
             outstate_tuition=university["latest.cost.tuition.out_of_state"],
             acceptance_rate=university["latest.admissions.admission_rate.overall"],
             carnegie_basic=university["latest.school.carnegie_basic"],
             ownership=university["latest.school.ownership"],
-            institutional_characteristics=university["latest.school.institutional_characteristics.level"],
+            institutional_characteristics=university[
+                "latest.school.institutional_characteristics.level"
+            ],
             sat_average=university["latest.admissions.sat_scores.average.overall"],
             sat_median_math=university["latest.admissions.sat_scores.midpoint.math"],
-            sat_median_writing=university["latest.admissions.sat_scores.midpoint.writing"],
-            sat_median_reading=university["latest.admissions.sat_scores.midpoint.critical_reading"],
+            sat_median_writing=university[
+                "latest.admissions.sat_scores.midpoint.writing"
+            ],
+            sat_median_reading=university[
+                "latest.admissions.sat_scores.midpoint.critical_reading"
+            ],
             latitude=university["location.lat"],
             longitude=university["location.lon"],
             description=university["description"],
-            photo=university["photo"]
+            photo=university["photo"],
         )
         universities_list.append(new_university)
 
@@ -186,6 +202,7 @@ def populate_universities():
     db.session.commit()
 
     file.close()
+
 
 class CoffeeShop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -253,8 +270,8 @@ class CoffeeShop(db.Model):
 
     # figure out how to store hours in the DB?
 
-class CoffeeShopSchema(ma.Schema):
 
+class CoffeeShopSchema(ma.Schema):
     class Meta:
         # Fields to expose
         fields = (
@@ -268,89 +285,78 @@ class CoffeeShopSchema(ma.Schema):
             "rating",
             "price",
             "phone",
-
             "review_count",
             "address1",
             "state",
             "display_address",
             "photo",
-
             "rating_string",
-
             "review_1_available",
             "review_2_available",
             "review_3_available",
-
             "review_1_text",
             "review_2_text",
             "review_3_text",
-
             "review_1_author",
             "review_2_author",
             "review_3_author",
-
             "review_1_rating",
             "review_2_rating",
             "review_3_rating",
-
             "review_1_rating_string",
             "review_2_rating_string",
             "review_3_rating_string",
-
             "hours_day_0_open",
             "hours_day_0_closed",
-
             "hours_day_1_open",
             "hours_day_1_closed",
-
             "hours_day_2_open",
             "hours_day_2_closed",
-
             "hours_day_3_open",
             "hours_day_3_closed",
-
             "hours_day_4_open",
             "hours_day_4_closed",
-
             "hours_day_5_open",
             "hours_day_5_closed",
-
             "hours_day_6_open",
             "hours_day_6_closed",
-
             "hours_arr",
-            "formatted_hours"
+            "formatted_hours",
         )
+
 
 coffeeshop_schema = CoffeeShopSchema()
 coffeeshops_schema = CoffeeShopSchema(many=True)
 
+
 def populate_coffee_shops():
-    file_path = os.path.join(os.getcwd(), 'api_information/all_coffee_shops_with_reviews.json')
-    file = open(file_path, 'r')
+    file_path = os.path.join(
+        os.getcwd(), "api_information/all_coffee_shops_with_reviews.json"
+    )
+    file = open(file_path, "r")
     db.create_all()
     coffeeshops_json = json.load(file)
     coffeeshops_list = []
 
     def generate_hours(coffee_shop):
         hours = [None for x in range(7)]
-        if 'hours' in coffee_shop and 'open' in coffee_shop['hours'][0]:
+        if "hours" in coffee_shop and "open" in coffee_shop["hours"][0]:
             day_count = 0
             index = 0
-            while day_count<7:
-                if index < len(coffee_shop['hours'][0]['open']):
-                    day = coffee_shop['hours'][0]['open'][index]
-                    day_number = day['day']
+            while day_count < 7:
+                if index < len(coffee_shop["hours"][0]["open"]):
+                    day = coffee_shop["hours"][0]["open"][index]
+                    day_number = day["day"]
                     if day_count == day_number:
                         hours[day_count] = day
-                        day_count+=1
-                        index+=1
+                        day_count += 1
+                        index += 1
                     # handles the case where a day has more than
                     # one set of hours (for example 7-11am then 6-8pm).
                     # in this case, we'll take only the first set of hours from that day
                     # this is an extremely rare case that only happens like once in the database
                     elif day_count > day_number:
-                        index+=1
+                        index += 1
                     # this day does not have hours, which means it's closed.
                     # create a new entry with hours as '-1', signifying closed
                     else:
@@ -358,20 +364,20 @@ def populate_coffee_shops():
                             "is_overnight": False,
                             "start": "-1",
                             "end": "-1",
-                            "day": day_count
+                            "day": day_count,
                         }
-                        day_count+=1
+                        day_count += 1
                 # set any remaining days without an entry to 'closed'
                 else:
                     hours[day_count] = {
-                            "is_overnight": False,
-                            "start": "-1",
-                            "end": "-1",
-                            "day": day_count
-                        }
-                    day_count+=1
+                        "is_overnight": False,
+                        "start": "-1",
+                        "end": "-1",
+                        "day": day_count,
+                    }
+                    day_count += 1
         return hours
-    
+
     def generate_hours_arr(hours):
         hours_arr = [None for x in range(7)]
 
@@ -379,106 +385,123 @@ def populate_coffee_shops():
         for day in hours:
             if day is None:
                 hours_string = days[index] + ": Not available"
-            elif day['start'] == '-1':
+            elif day["start"] == "-1":
                 hours_string = days[index] + ": Closed"
                 day["formatted"] = hours_string
             else:
-                start_time_obj = time.strptime(day['start'], "%H%M")
+                start_time_obj = time.strptime(day["start"], "%H%M")
                 start_time = time.strftime("%I:%M %p", start_time_obj)
 
-                end_time_obj = time.strptime(day['end'], "%H%M")
+                end_time_obj = time.strptime(day["end"], "%H%M")
                 end_time = time.strftime("%I:%M %p", end_time_obj)
                 hours_string = days[index] + ": " + start_time + " - " + end_time
                 day["formatted"] = hours_string
             hours_arr[index] = hours_string
-            index+=1
+            index += 1
         return hours_arr
 
     def generate_formatted_hours(hours_arr):
-            if not hours_arr:
-                return 'N/A'
-            
-            chars_to_replace_with_blank = "{[']}"
-            orig_str = str(hours_arr)
-            for c in chars_to_replace_with_blank:
-                if c in orig_str:
-                    orig_str = orig_str.replace(c, '')
-            formatted_hours = orig_str.replace(',','\n')
-            return formatted_hours
-            
+        if not hours_arr:
+            return "N/A"
 
-    dynamic_id_coffeeshop=0
+        chars_to_replace_with_blank = "{[']}"
+        orig_str = str(hours_arr)
+        for c in chars_to_replace_with_blank:
+            if c in orig_str:
+                orig_str = orig_str.replace(c, "")
+        formatted_hours = orig_str.replace(",", "\n")
+        return formatted_hours
+
+    dynamic_id_coffeeshop = 0
     for coffee_shop in coffeeshops_json:
         hours = generate_hours(coffee_shop)
         hours_arr = generate_hours_arr(hours)
         formatted_hours = generate_formatted_hours(hours_arr)
 
         replace_id = dynamic_id_coffeeshop
-        dynamic_id_coffeeshop+=1
-        
+        dynamic_id_coffeeshop += 1
+
         new_coffeeshop = CoffeeShop(
             id=replace_id,
-            name=coffee_shop['name'],
-            image_url=coffee_shop['image_url'],
-            zipcode=coffee_shop['location']['zip_code'],
-            city=coffee_shop['location']['city'],
-            latitude=coffee_shop['coordinates']['latitude'],
-            longitude=coffee_shop['coordinates']['longitude'],
-            rating=coffee_shop['rating'],
-            price=coffee_shop['price'] if 'price' in coffee_shop else 'N/A',
-            phone=coffee_shop['phone'] if coffee_shop['phone']!='' else 'N/A',
-
-            review_count=coffee_shop['review_count'],
-            address1=coffee_shop['location']['address1'],
-            state=coffee_shop['location']['state'],
-            display_address=coffee_shop['location']['display_address'],
-            photo=coffee_shop['photos'][0] if coffee_shop['photos'] else '',
-            rating_string = str(coffee_shop['rating']) if 'rating' in coffee_shop else 'N/A',
-            
-            review_1_available=True if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else False,
-            review_2_available=True if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else False,
-            review_3_available=True if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else False,
-
-            review_1_text=coffee_shop['reviews'][0]['text'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
-            review_2_text=coffee_shop['reviews'][1]['text'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
-            review_3_text=coffee_shop['reviews'][2]['text'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
-
-            review_1_author=coffee_shop['reviews'][0]['user']['name'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
-            review_2_author=coffee_shop['reviews'][1]['user']['name'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
-            review_3_author=coffee_shop['reviews'][2]['user']['name'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
-
-            review_1_rating=coffee_shop['reviews'][0]['rating'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else -1,
-            review_2_rating=coffee_shop['reviews'][1]['rating'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else -1,
-            review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1,
-
-            review_1_rating_string=str(coffee_shop['reviews'][0]['rating']) if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
-            review_2_rating_string=str(coffee_shop['reviews'][1]['rating']) if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
-            review_3_rating_string=str(coffee_shop['reviews'][2]['rating']) if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
-
+            name=coffee_shop["name"],
+            image_url=coffee_shop["image_url"],
+            zipcode=coffee_shop["location"]["zip_code"],
+            city=coffee_shop["location"]["city"],
+            latitude=coffee_shop["coordinates"]["latitude"],
+            longitude=coffee_shop["coordinates"]["longitude"],
+            rating=coffee_shop["rating"],
+            price=coffee_shop["price"] if "price" in coffee_shop else "N/A",
+            phone=coffee_shop["phone"] if coffee_shop["phone"] != "" else "N/A",
+            review_count=coffee_shop["review_count"],
+            address1=coffee_shop["location"]["address1"],
+            state=coffee_shop["location"]["state"],
+            display_address=coffee_shop["location"]["display_address"],
+            photo=coffee_shop["photos"][0] if coffee_shop["photos"] else "",
+            rating_string=str(coffee_shop["rating"])
+            if "rating" in coffee_shop
+            else "N/A",
+            review_1_available=True
+            if "reviews" in coffee_shop and 0 < len(coffee_shop["reviews"])
+            else False,
+            review_2_available=True
+            if "reviews" in coffee_shop and 1 < len(coffee_shop["reviews"])
+            else False,
+            review_3_available=True
+            if "reviews" in coffee_shop and 2 < len(coffee_shop["reviews"])
+            else False,
+            review_1_text=coffee_shop["reviews"][0]["text"]
+            if "reviews" in coffee_shop and 0 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_2_text=coffee_shop["reviews"][1]["text"]
+            if "reviews" in coffee_shop and 1 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_3_text=coffee_shop["reviews"][2]["text"]
+            if "reviews" in coffee_shop and 2 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_1_author=coffee_shop["reviews"][0]["user"]["name"]
+            if "reviews" in coffee_shop and 0 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_2_author=coffee_shop["reviews"][1]["user"]["name"]
+            if "reviews" in coffee_shop and 1 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_3_author=coffee_shop["reviews"][2]["user"]["name"]
+            if "reviews" in coffee_shop and 2 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_1_rating=coffee_shop["reviews"][0]["rating"]
+            if "reviews" in coffee_shop and 0 < len(coffee_shop["reviews"])
+            else -1,
+            review_2_rating=coffee_shop["reviews"][1]["rating"]
+            if "reviews" in coffee_shop and 1 < len(coffee_shop["reviews"])
+            else -1,
+            review_3_rating=coffee_shop["reviews"][2]["rating"]
+            if "reviews" in coffee_shop and 2 < len(coffee_shop["reviews"])
+            else -1,
+            review_1_rating_string=str(coffee_shop["reviews"][0]["rating"])
+            if "reviews" in coffee_shop and 0 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_2_rating_string=str(coffee_shop["reviews"][1]["rating"])
+            if "reviews" in coffee_shop and 1 < len(coffee_shop["reviews"])
+            else "N/A",
+            review_3_rating_string=str(coffee_shop["reviews"][2]["rating"])
+            if "reviews" in coffee_shop and 2 < len(coffee_shop["reviews"])
+            else "N/A",
             # -1 means closed on that day, N/A means hours not available
-            hours_day_0_open=hours[0]['start'] if hours[0] else 'N/A',
-            hours_day_0_closed=hours[0]['end'] if hours[0] else 'N/A',
-
-            hours_day_1_open=hours[1]['start'] if hours[1] else 'N/A',
-            hours_day_1_closed=hours[1]['end'] if hours[1] else 'N/A',
-
-            hours_day_2_open=hours[2]['start'] if hours[2] else 'N/A',
-            hours_day_2_closed=hours[2]['end'] if hours[2] else 'N/A',
-
-            hours_day_3_open=hours[3]['start'] if hours[3] else 'N/A',
-            hours_day_3_closed=hours[3]['end'] if hours[3] else 'N/A',
-
-            hours_day_4_open=hours[4]['start'] if hours[4] else 'N/A',
-            hours_day_4_closed=hours[4]['end'] if hours[4] else 'N/A',
-
-            hours_day_5_open=hours[5]['start'] if hours[5] else 'N/A',
-            hours_day_5_closed=hours[5]['end'] if hours[5] else 'N/A',
-
-            hours_day_6_open=hours[6]['start'] if hours[6] else 'N/A',
-            hours_day_6_closed=hours[6]['end'] if hours[6] else 'N/A',
-
-            hours_arr=hours_arr if hours_arr else 'N/A',
-            formatted_hours = formatted_hours
+            hours_day_0_open=hours[0]["start"] if hours[0] else "N/A",
+            hours_day_0_closed=hours[0]["end"] if hours[0] else "N/A",
+            hours_day_1_open=hours[1]["start"] if hours[1] else "N/A",
+            hours_day_1_closed=hours[1]["end"] if hours[1] else "N/A",
+            hours_day_2_open=hours[2]["start"] if hours[2] else "N/A",
+            hours_day_2_closed=hours[2]["end"] if hours[2] else "N/A",
+            hours_day_3_open=hours[3]["start"] if hours[3] else "N/A",
+            hours_day_3_closed=hours[3]["end"] if hours[3] else "N/A",
+            hours_day_4_open=hours[4]["start"] if hours[4] else "N/A",
+            hours_day_4_closed=hours[4]["end"] if hours[4] else "N/A",
+            hours_day_5_open=hours[5]["start"] if hours[5] else "N/A",
+            hours_day_5_closed=hours[5]["end"] if hours[5] else "N/A",
+            hours_day_6_open=hours[6]["start"] if hours[6] else "N/A",
+            hours_day_6_closed=hours[6]["end"] if hours[6] else "N/A",
+            hours_arr=hours_arr if hours_arr else "N/A",
+            formatted_hours=formatted_hours,
         )
         coffeeshops_list.append(new_coffeeshop)
 
@@ -486,6 +509,7 @@ def populate_coffee_shops():
     db.session.commit()
 
     file.close()
+
 
 class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -527,7 +551,7 @@ class Library(db.Model):
     review_1_rating_string = db.Column(db.String())
     review_2_rating_string = db.Column(db.String())
     review_3_rating_string = db.Column(db.String())
-        
+
 
 class LibrarySchema(ma.Schema):
     class Meta:
@@ -542,7 +566,6 @@ class LibrarySchema(ma.Schema):
             "longitude",
             "rating",
             "phone",
-
             "maps_url",
             "utc_offset",
             "hours_arr",
@@ -552,34 +575,31 @@ class LibrarySchema(ma.Schema):
             "rating",
             "website",
             "rating_string",
-
             "review_1_available",
             "review_2_available",
             "review_3_available",
-
             "review_1_text",
             "review_2_text",
             "review_3_text",
-
             "review_1_author",
             "review_2_author",
             "review_3_author",
-
             "review_1_rating",
             "review_2_rating",
             "review_3_rating",
-
             "review_1_rating_string",
             "review_2_rating_string",
-            "review_3_rating_string"
+            "review_3_rating_string",
         )
+
 
 library_schema = LibrarySchema()
 libraries_schema = LibrarySchema(many=True)
 
+
 def populate_libraries():
-    file_path = os.path.join(os.getcwd(), 'api_information/all_libraries.json')
-    file = open(file_path, 'r')
+    file_path = os.path.join(os.getcwd(), "api_information/all_libraries.json")
+    file = open(file_path, "r")
     db.create_all()
     libraries_json = json.load(file)
 
@@ -588,84 +608,116 @@ def populate_libraries():
     photos_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photo_reference="
 
     libraries_list = []
-    dynamic_id_library=0
+    dynamic_id_library = 0
 
     for library in libraries_json:
         replace_id = dynamic_id_library
-        dynamic_id_library+=1
-        
+        dynamic_id_library += 1
+
         index_of_city = -1
         index_of_zip_code = -1
 
         def generate_formatted_hours():
-            if 'opening_hours' not in library:
-                return 'N/A'
-            
+            if "opening_hours" not in library:
+                return "N/A"
+
             chars_to_replace_with_blank = "{[']}"
-            orig_str = str(library['opening_hours']['weekday_text'])
+            orig_str = str(library["opening_hours"]["weekday_text"])
             for c in chars_to_replace_with_blank:
                 if c in orig_str:
-                    orig_str = orig_str.replace(c, '')
-            formatted_hours = orig_str.replace(',','\n')
+                    orig_str = orig_str.replace(c, "")
+            formatted_hours = orig_str.replace(",", "\n")
             return formatted_hours
-
 
         formatted_hours = generate_formatted_hours()
 
         count = 0
         # search through address_components array to find
         # the indices of the city, zip code, and state fields in that array
-        for component in library['address_components']:
+        for component in library["address_components"]:
             # the 'types' field of each component denotes which part of the address this is
-            if 'locality' in component['types']:
+            if "locality" in component["types"]:
                 index_of_city = count
-            if 'sublocality' in component['types'] and index_of_city == -1:
+            if "sublocality" in component["types"] and index_of_city == -1:
                 index_of_city = count
-            if 'postal_code' in component['types']:
+            if "postal_code" in component["types"]:
                 index_of_zip_code = count
-            count+=1
+            count += 1
 
         new_library = Library(
             id=replace_id,
-            name=library['name'],
-            address=library['formatted_address'],
-            latitude=library['geometry']['location']['lat'],
-            longitude=library['geometry']['location']['lng'],
-            rating=library['rating'] if "rating" in library else -1,
-            phone=library["formatted_phone_number"] if "formatted_phone_number" in library else "",
-
-            maps_url = library['url'],
-            utc_offset = library['utc_offset'],
-            hours_arr = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
-            formatted_hours = formatted_hours,
-            photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
-            photo_link = photos_url + library['photos'][0]['photo_reference'] + '&key=' + api_key if 'photos' in library else 'N/A',
-            website = library['website'] if 'website' in library else 'N/A',
-
-            rating_string = str(library['rating']) if "rating" in library else 'N/A',
-
-            city = library['address_components'][index_of_city]['long_name'],
-            zipcode = library['address_components'][index_of_zip_code]['long_name'],
-
-            review_1_available = True if 'reviews' in library and 0 < len(library['reviews']) else False,
-            review_2_available = True if 'reviews' in library and 1 < len(library['reviews']) else False,
-            review_3_available = True if 'reviews' in library and 2 < len(library['reviews']) else False,
-
-            review_1_text = library['reviews'][0]['text'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
-            review_2_text = library['reviews'][1]['text'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
-            review_3_text = library['reviews'][2]['text'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
-
-            review_1_author = library['reviews'][0]['author_name'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
-            review_2_author = library['reviews'][1]['author_name'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
-            review_3_author = library['reviews'][2]['author_name'] if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
-
-            review_1_rating = library['reviews'][0]['rating'] if 'reviews' in library and 0 < len(library['reviews']) else -1,
-            review_2_rating = library['reviews'][1]['rating'] if 'reviews' in library and 1 < len(library['reviews']) else -1,
-            review_3_rating = library['reviews'][2]['rating'] if 'reviews' in library and 2 < len(library['reviews']) else -1,
-
-            review_1_rating_string = str(library['reviews'][0]['rating']) if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
-            review_2_rating_string = str(library['reviews'][1]['rating']) if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
-            review_3_rating_string = str(library['reviews'][2]['rating']) if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
+            name=library["name"],
+            address=library["formatted_address"],
+            latitude=library["geometry"]["location"]["lat"],
+            longitude=library["geometry"]["location"]["lng"],
+            rating=library["rating"] if "rating" in library else -1,
+            phone=library["formatted_phone_number"]
+            if "formatted_phone_number" in library
+            else "",
+            maps_url=library["url"],
+            utc_offset=library["utc_offset"],
+            hours_arr=library["opening_hours"]["weekday_text"]
+            if "opening_hours" in library
+            else "N/A",
+            formatted_hours=formatted_hours,
+            photo_reference=library["photos"][0]["photo_reference"]
+            if "photos" in library
+            else "N/A",
+            photo_link=photos_url
+            + library["photos"][0]["photo_reference"]
+            + "&key="
+            + api_key
+            if "photos" in library
+            else "N/A",
+            website=library["website"] if "website" in library else "N/A",
+            rating_string=str(library["rating"]) if "rating" in library else "N/A",
+            city=library["address_components"][index_of_city]["long_name"],
+            zipcode=library["address_components"][index_of_zip_code]["long_name"],
+            review_1_available=True
+            if "reviews" in library and 0 < len(library["reviews"])
+            else False,
+            review_2_available=True
+            if "reviews" in library and 1 < len(library["reviews"])
+            else False,
+            review_3_available=True
+            if "reviews" in library and 2 < len(library["reviews"])
+            else False,
+            review_1_text=library["reviews"][0]["text"]
+            if "reviews" in library and 0 < len(library["reviews"])
+            else "N/A",
+            review_2_text=library["reviews"][1]["text"]
+            if "reviews" in library and 1 < len(library["reviews"])
+            else "N/A",
+            review_3_text=library["reviews"][2]["text"]
+            if "reviews" in library and 2 < len(library["reviews"])
+            else "N/A",
+            review_1_author=library["reviews"][0]["author_name"]
+            if "reviews" in library and 0 < len(library["reviews"])
+            else "N/A",
+            review_2_author=library["reviews"][1]["author_name"]
+            if "reviews" in library and 1 < len(library["reviews"])
+            else "N/A",
+            review_3_author=library["reviews"][2]["author_name"]
+            if "reviews" in library and 2 < len(library["reviews"])
+            else "N/A",
+            review_1_rating=library["reviews"][0]["rating"]
+            if "reviews" in library and 0 < len(library["reviews"])
+            else -1,
+            review_2_rating=library["reviews"][1]["rating"]
+            if "reviews" in library and 1 < len(library["reviews"])
+            else -1,
+            review_3_rating=library["reviews"][2]["rating"]
+            if "reviews" in library and 2 < len(library["reviews"])
+            else -1,
+            review_1_rating_string=str(library["reviews"][0]["rating"])
+            if "reviews" in library and 0 < len(library["reviews"])
+            else "N/A",
+            review_2_rating_string=str(library["reviews"][1]["rating"])
+            if "reviews" in library and 1 < len(library["reviews"])
+            else "N/A",
+            review_3_rating_string=str(library["reviews"][2]["rating"])
+            if "reviews" in library and 2 < len(library["reviews"])
+            else "N/A",
         )
         libraries_list.append(new_library)
 
@@ -674,11 +726,13 @@ def populate_libraries():
 
     file.close()
 
+
 def clear_databases():
     print("Clearing previous databases")
     db.session.remove()
     db.drop_all()
     db.create_all()
+
 
 if __name__ == "__main__":
     print("Creating the databases")
@@ -690,4 +744,3 @@ if __name__ == "__main__":
     print("Finished Coffee Shop database. Creating Library database")
     populate_libraries()
     print("Finished Library database.")
-
