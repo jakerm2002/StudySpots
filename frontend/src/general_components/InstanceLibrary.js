@@ -7,28 +7,29 @@ import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
-
+import axios from "axios";
+import NearbyUniversity from './NearbyUniversity.js';
+import NearbyCoffeeShop from './NearbyCoffeeShop.js';
 
 const InstanceLibrary = () => {
     const { businessID } = useParams();
     console.log(businessID)
       const [isLoading, setIsLoading] = useState(true);
       const [data, setData] = useState();
+
       useEffect(() => {
-        fetch(`../library_instances/${businessID}.json`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        })
-          .then((res) => res.json())
-          .then((response) => {
-	    console.log("RESPONSE: ", response.results[0])
-            setData(response.results[0]);
+        axios.get('http://api.studyspots.me/libraries/' + businessID).then(response => {
+            console.log("response",response.data);
+            setData(response.data);
+            console.log(data)
             setIsLoading(false);
-          })
-          .catch((error) => console.log("Error!! ", error));
-      }, [businessID]);
+            
+        },
+        reject => {
+            console.log("REJECT");
+        });
+      }, [])
+
     return (
         <>
           {!isLoading && (
@@ -38,17 +39,17 @@ const InstanceLibrary = () => {
              		<Row>
              			<Col className={styles.instance_temp_image}>
          				<Figure>
-             					<Figure.Image src={data.img} />
+             					<Figure.Image src={data.photo_link} />
              				</Figure>
              			</Col>
 				<Col>
 				<Container className={styles.instance_temp_stats}>
-					<Row className={styles.instance_temp_stat}>Currently {data.opening_hours.open_now ? "open" : "closed"}</Row>
-					<Row className={styles.instance_temp_stat}>{data.formatted_address}</Row>
+					{/* <Row className={styles.instance_temp_stat}>Currently {data.opening_hours.open_now ? "open" : "closed"}</Row> */}
+					<Row className={styles.instance_temp_stat}>{data.address}</Row>
 					<Row className={styles.instance_temp_stat}>Rating: {data.rating}</Row>
-					<Row className={styles.instance_temp_stat}>Telephone: {data.telephone}</Row>
-					<Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
-                                	<Row className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row>
+					<Row className={styles.instance_temp_stat}>Telephone: {data.phone}</Row>
+					<NearbyUniversity zipcode={data.zipcode} />
+					<NearbyCoffeeShop zipcode={data.zipcode} />
 				</Container>
              			</Col>
              		</Row>
@@ -58,14 +59,15 @@ const InstanceLibrary = () => {
 				<Col className={styles.instance_temp_col}>
 				<Accordion className={styles.instance_temp_info}>
 				<Accordion.Item eventKey="0">
-					<Accordion.Header>{"About " + data.name}</Accordion.Header>
-					<Accordion.Body className={styles.instance_temp_text}> {"body_text"}
-					</Accordion.Body> 
+				<Accordion.Header>{"Reviews and Ratings for " + data.name}</Accordion.Header>
+					{data.review_1_author !== "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_1_author + " : " + data.review_1_rating}</Accordion.Body>  : <Accordion.Body className={styles.instance_temp_text}>{"No Ratings Available"}</Accordion.Body> }
+					{data.review_2_author !== "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_2_author + " : " + data.review_2_rating}</Accordion.Body>  : ""}
+					{data.review_3_author !== "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_3_author + " : " + data.review_3_rating}</Accordion.Body>  : ""}
 				</Accordion.Item>
 				</Accordion>
 				</Col>
 				<Col className={styles.instance_temp_col}>
-					<MapComponent name={data.name} address={data.formatted_address} latitude={data.geometry.location.lat} longitude={data.geometry.location.lng}/>
+					<MapComponent name={data.name} address={data.address} latitude={data.latitude} longitude={data.longitude}/>
 				</Col>
 			</Row>
 

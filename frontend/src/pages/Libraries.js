@@ -1,18 +1,31 @@
-import React from 'react'
-import api_results from '../api_resources/libraries.json'
+import React, { useEffect, useState } from 'react'
 import getModel from '../general_components/ModelPageTemplate';
-import {Link} from 'react-router-dom'
+import axios from "axios";
 
 const Libraries = () => {
-    const Entries = api_results.businesses.map(
+    const [libraries, setLibraries] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://api.studyspots.me/libraries').then(response => {
+            console.log("response",response.data);
+            setLibraries(response.data);
+            
+        },
+        reject => {
+            console.log("REJECT");
+        });
+    }, []);
+
+
+    const Entries = libraries.map(
         (info) => {
             return(
-                <tr onClick={() => window.location.href = `/Libraries/${info.reference}`}>
+                <tr onClick={() => window.location.href = `/Libraries/${info.id}`}>
                     <td title={info.name}>{info.name}</td>
-                    <td title={info.formatted_address}>{info.formatted_address}</td>
+                    <td title={info.address}>{info.address}</td>
                     <td title={info.rating}>{info.rating}</td>
-                    <td title={info.telephone}>{info.telephone}</td>
-                    <td title={info.businesses_status}> ({info.business_status})</td>
+                    <td title={info.phone}>{info.phone}</td>
+                    <td title={info.formatted_hours}> {info.formatted_hours}</td>
                 </tr>
             )
         }
