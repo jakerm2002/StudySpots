@@ -35,7 +35,7 @@ const CoffeeShops = () => {
         // setLoading(false);
     }    
 
-    const paginate = (pageNumber) => {
+    const set_page = (pageNumber) => {
         console.log('hello');
         setCurrentPage(pageNumber);
         console.log('set page to ', pageNumber)
@@ -70,24 +70,13 @@ const CoffeeShops = () => {
         }
     );
 
-    const Paginator = () => {
-        return Paginate(286, currentPage, paginate);
-    }
-
-    function update_page() {
-
-    }
-
     console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
         num_total_items : 286,
-        page: Paginator,
-        current_page: currentPage,
-        set_current_page: setCurrentPage,
-        change_page: paginate
+        set_new_page: set_page
     }
     return getModel(payload);
 }
