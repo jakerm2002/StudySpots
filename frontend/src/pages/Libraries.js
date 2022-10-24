@@ -4,6 +4,7 @@ import axios from "axios";
 
 const Libraries = () => {
     const [libraries, setLibraries] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         axios.get('https://api.studyspots.me/libraries').then(response => {
@@ -16,6 +17,25 @@ const Libraries = () => {
         });
     }, []);
 
+    //get_query and get_data partially from GiveandLive (Spring 2022)
+    function get_query(page) {
+        let url = `https://api.studyspots.me/libraries`;
+        url = url + `?page=${page}`
+        return url;
+    }
+    
+    const get_data = async(page) => {
+        const url = get_query(page);
+        const response = await axios.get(url);
+        setLibraries(response.data);
+    }    
+
+    const set_page = (pageNumber) => {
+        console.log('hello');
+        setCurrentPage(pageNumber);
+        console.log('set page to ', pageNumber)
+        get_data(pageNumber)
+    }
 
     const Entries = libraries.map(
         (info) => {
@@ -34,7 +54,10 @@ const Libraries = () => {
     var payload = {
         entries : Entries,
         pageName : "Libraries",
-        fields : ["Name", "Location", "Rating", "Telephone", "Status"]
+        fields : ["Name", "Location", "Rating", "Telephone", "Status"],
+        num_items_per_page : 10,
+        num_total_items : 2476,
+        set_new_page: set_page
     }
     return getModel(payload);
 }

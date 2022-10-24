@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
 
 build-job:
   stage: build
@@ -12,3 +13,26 @@ build-job:
     - echo "build the app"
     - npm run-script build
     - echo "build was successful!"
+
+backend_tests:
+  stage: test
+  image: python:3.6-stretch
+  before_script:
+    - pip install -r backend/requirements.txt
+    - pip install google-search-results
+    - pip install black
+  script:
+    - cd backend
+    - python3 tests.py
+    - black *.py
+    - cd database
+    - black *.py
+
+postman_test:
+  stage: test
+  image:
+    name: postman/newman_alpine33
+    entrypoint: [""]
+  script:
+    - cd backend
+    - newman run Postman.json

@@ -1,13 +1,14 @@
 import Table from 'react-bootstrap/Table';
 import Stack from 'react-bootstrap/Stack';
-import React from 'react'
+import React, { useState } from 'react'
+import Pagination from './Pagination';
 import styles from './ModelPageTemplate.module.css'
 
 export default function getModel(model_info) {
-	return renderPage(model_info.entries, model_info.pageName, model_info.fields)
+	return RenderPage(model_info.entries, model_info.pageName, model_info.fields, model_info.num_items_per_page, model_info.num_total_items, model_info.set_new_page)
 }
 
-function renderPage(entries, page_name, fields) {
+const RenderPage = (entries, page_name, fields, num_items_per_page, num_total_items, set_new_page) => {
     return(
         <div className={styles.list}>
             <h1 className={styles.pageName}>{page_name}</h1>
@@ -24,8 +25,8 @@ function renderPage(entries, page_name, fields) {
                     </tbody>
                 </Table>
                 <Stack>
-                    <div>{entries.length} items</div>
-                    <div>Page 1/1</div>
+                    <div className={styles.model_page_pagination}><Pagination num_items_per_page={num_items_per_page} num_total_items={num_total_items} paginate={set_new_page}/></div>
+                    <div>Showing {entries.length} items</div>
                 </Stack>
         </div>
     )
