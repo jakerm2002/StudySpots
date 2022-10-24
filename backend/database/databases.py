@@ -12,6 +12,8 @@ import os
 import functools
 import copy
 from collections import Counter
+from itertools import chain
+
 
 
 app = Flask(__name__)
@@ -186,57 +188,21 @@ def populate_universities():
         )
         universities_list.append(new_university)
 
-    # def sort_by_num_null_values(item1, item2):
-    #     counter_1 = Counter(item1)
-    #     counter_2 = Counter(item2)
-
-    #     print(counter_1[None])
-    #     print(counter_2[None])
-
-    #     return counter_2[None] - counter_1[None]
-            
-    # universities_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
-
-    # for uni in universities_list:
-    #     # for c in uni.__table__.columns:
-    #     #     print(c)
-    #     counter_1 = Counter(uni.__dict__.values())
-    #     for e in uni.__dict__:
-    #         print(e)
-    #         print (uni.__dict__[e])
-    #     print('number of null values', counter_1[None])
-
     def sort_by_num_null_values(item1, item2):
         print("comparing",item1.__dict__['name'],"with", item2.__dict__['name'])
         counter_1 = Counter(item1.__dict__.values())
         counter_2 = Counter(item2.__dict__.values())
-
-
-        print (counter_1[None] - counter_2[None])
-        print ('done')
-
         return counter_1[None] - counter_2[None]
             
-    print(universities_list)
-    # newlist = universities_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
-    # print(universities_list[:10])
     num_unis = len(universities_list)
-
-    # universities_list[0].id=9
-
-    # for uni in universities_list:
-    #     print (uni.__dict__['name'])
-
     new_unis_list = copy.deepcopy(universities_list)
     new_unis_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
 
     for uni in new_unis_list:
         print (str(uni.__dict__['id']) + ' ' + uni.__dict__['name'])
 
-
     # change the id of all universities
     for num in range(num_unis):
-        # new_id = new_unis_list[num].__dict__['id'] - num_unis
         new_id = num - num_unis
         index = new_unis_list[num].__dict__['id']
         print('changing id from', universities_list[index].id, 'to', new_id) 
@@ -251,30 +217,6 @@ def populate_universities():
     
     db.session.add_all(universities_list)
     db.session.commit()
-
-    # for uni in new_unis_list:
-    #     print (uni.__dict__['name'])
-    
-    '''
-    # change the id of all universities
-    for num in range(num_unis):
-        current_uni = University.query.filter_by(id=num).first()
-        new_id = new_unis_list[num].__dict__['id']
-        # current_uni.id =
-        print('changing id from', current_uni.id, 'to', new_id)
-        current_uni.id = new_id - num_unis
-    db.session.commit()
-
-    print('len', num_unis)
-
-    for i in range(-num_unis, 0):
-        current_uni = University.query.filter_by(id=i).first()
-        new_id = current_uni.id + num_unis
-        print('changing id from', current_uni.id, 'to', new_id)
-        current_uni.id = new_id
-    db.session.commit()
-    '''
-
 
     file.close()
 
@@ -573,6 +515,30 @@ def populate_coffee_shops():
         )
         coffeeshops_list.append(new_coffeeshop)
 
+        
+    def sort_by_num_null_values(item1, item2):
+        item_1_vals = [item for item in item1.__dict__.values() if type(item) is not list]
+        item_2_vals = [item for item in item2.__dict__.values() if type(item) is not list]
+
+        counter_1 = Counter(item_1_vals)
+        counter_2 = Counter(item_2_vals)
+        num_null_values1 = counter_1[None] + counter_1['N/A']
+        num_null_values2 = counter_2[None] + counter_2['N/A']
+        return num_null_values1 - num_null_values2
+            
+    num_items = len(coffeeshops_list)
+    sorted_list = copy.deepcopy(coffeeshops_list)
+    sorted_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
+
+    for num in range(num_items):
+        new_id = num - num_items
+        index = sorted_list[num].__dict__['id']
+        coffeeshops_list[index].id = new_id
+
+    for num in range(-num_items, 0):
+        new_id = coffeeshops_list[num].id + num_items
+        coffeeshops_list[num].id = new_id
+        
     db.session.add_all(coffeeshops_list)
     db.session.commit()
 
@@ -759,6 +725,29 @@ def populate_libraries():
             review_3_rating_string = str(library['reviews'][2]['rating']) if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
         )
         libraries_list.append(new_library)
+
+    def sort_by_num_null_values(item1, item2):
+        item_1_vals = [item for item in item1.__dict__.values() if type(item) is not list]
+        item_2_vals = [item for item in item2.__dict__.values() if type(item) is not list]
+
+        counter_1 = Counter(item_1_vals)
+        counter_2 = Counter(item_2_vals)
+        num_null_values1 = counter_1[None] + counter_1['N/A']
+        num_null_values2 = counter_2[None] + counter_2['N/A']
+        return num_null_values1 - num_null_values2
+            
+    num_items = len(libraries_list)
+    sorted_list = copy.deepcopy(libraries_list)
+    sorted_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
+
+    for num in range(num_items):
+        new_id = num - num_items
+        index = sorted_list[num].__dict__['id']
+        libraries_list[index].id = new_id
+
+    for num in range(-num_items, 0):
+        new_id = libraries_list[num].id + num_items
+        libraries_list[num].id = new_id
 
     db.session.add_all(libraries_list)
     db.session.commit()
