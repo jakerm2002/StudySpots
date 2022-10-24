@@ -1,5 +1,6 @@
 stages:
   - build
+  - test
 
 build-job:
   stage: build
@@ -12,3 +13,12 @@ build-job:
     - echo "build the app"
     - npm run-script build
     - echo "build was successful!"
+
+postman_test:
+stage: test
+image:
+  name: postman/newman_alpine33
+  entrypoint: [""]
+script:
+  - cd backend
+  - newman run Postman.json
