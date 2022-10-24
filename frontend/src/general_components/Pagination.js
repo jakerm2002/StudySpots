@@ -20,6 +20,7 @@ const Paginate = ({postsPerPage, totalPosts, paginate}) => {
     }
 
     console.log("page nums: ", pageNums);
+    console.log("page nums length: ", pageNums.length)
 
     return (
         <div>

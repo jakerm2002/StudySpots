@@ -5,23 +5,23 @@ import Pagination from './Pagination';
 import styles from './ModelPageTemplate.module.css'
 
 export default function getModel(model_info) {
-	return RenderPage(model_info.entries, model_info.pageName, model_info.fields, model_info.num_total_items)
+	return RenderPage(model_info.entries, model_info.pageName, model_info.fields, model_info.num_total_items, model_info.page, model_info.currentPage, model_info.setCurrentPage, model_info.change_page)
 }
 
-const RenderPage = (entries, page_name, fields, num_total_items) => {
+const RenderPage = (entries, page_name, fields, num_total_items, page, currentPage, setCurrentPage, change_page) => {
 
     console.log("mkMASKDASD", num_total_items)
-    const [currentPage, setCurrentPage] = useState(1);
+    // const [currentPage, setCurrentPage] = useState(1);
     // const [postsPerPage] = useState(10);
 
     // const indexLastBusiness = currentPage * postsPerPage;
     // const indexFirstBusiness = indexLastBusiness - postsPerPage;
     // const currentPosts = entries.slice(indexFirstBusiness, indexLastBusiness);
 
-    const paginate = (pageNumber) => {
-        setCurrentPage(pageNumber);
-        // get_data(num, "", "");
-    }
+    // const paginate = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    //     // get_data(num, "", "");
+    // }
 
 
     return(
@@ -41,7 +41,7 @@ const RenderPage = (entries, page_name, fields, num_total_items) => {
                 </Table>
                 <Stack>
                     <div>Showing {entries.length} items</div>
-                   <Pagination postsPerPage={entries.length} totalPosts={num_total_items} paginate={paginate}/>
+                   <Pagination postsPerPage={entries.length} totalPosts={num_total_items} paginate={change_page}/>
                    {/* <div>Page 1/1</div> */}
                 </Stack>
         </div>

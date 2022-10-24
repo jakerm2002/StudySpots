@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
+import Paginate from '../general_components/Pagination.js'
 
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
     // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -20,7 +22,7 @@ const CoffeeShops = () => {
     }, []);
 
     function getQuery(page, query, ignore) {
-        let url = `https://api.studyspots.me/universities`;
+        let url = `https://api.studyspots.me/coffeeshops`;
         url = url + `?page=${page}`
         return url;
     }
@@ -33,6 +35,12 @@ const CoffeeShops = () => {
         // setLoading(false);
     }    
 
+    const paginate = (pageNumber) => {
+        console.log('hello');
+        setCurrentPage(pageNumber);
+        console.log('set page to ', pageNumber)
+        get_data(pageNumber, "", "")
+    }
 
     // if(loading){
     //     return <h2>Loading...</h2>
@@ -61,12 +69,25 @@ const CoffeeShops = () => {
             )
         }
     );
+
+    const Paginator = () => {
+        return Paginate(286, currentPage, paginate);
+    }
+
+    function update_page() {
+
+    }
+
     console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
-        num_total_items : 286
+        num_total_items : 286,
+        page: Paginator,
+        current_page: currentPage,
+        set_current_page: setCurrentPage,
+        change_page: paginate
     }
     return getModel(payload);
 }
