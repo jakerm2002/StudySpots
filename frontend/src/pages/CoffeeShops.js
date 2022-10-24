@@ -1,25 +1,41 @@
-import React from 'react'
-import api_results from '../api_resources/coffeeshops.json'
+import React, { useEffect, useState } from 'react'
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
-import { Link } from 'react-router-dom';
-import {useHistory} from 'react-router-dom';
+import axios from "axios";
 
 const CoffeeShops = () => {
-    const Entries = api_results.businesses.map(
+
+    const [coffeeShops, setCoffeeShops] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://api.studyspots.me/coffeeshops').then(response => {
+            console.log("response",response.data);
+            setCoffeeShops(response.data);
+            
+        },
+        reject => {
+            console.log("REJECT");
+        });
+    }, []);
+
+    const Entries = coffeeShops.map(
         (info) => {
+            var name = info.name;
             var open = "Open";
-            if (info.is_closed) {
+            if(info.is_closed){
                 open = "Closed";
+            }
+            if(name === ""){
+                console.log("name empty")
             }
             return(
                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
                     <td title={info.name}>{info.name}</td>
-                    <td title={info.location.city}>{info.location.city}</td>
+                    <td title={info.city}>{info.city}</td>
                     <td title={info.price}>{info.price}</td>
-                    <td title={info.rating}>{info.rating} ({info.review_count})</td>
+                    <td title={info.rating}>{info.rating}</td>
                     <td title={!info.is_closed ? "open" : "closed"} id={!info.is_closed ? styles.open : styles.closed}>{open}</td>
-                    {/* <Link to={`/CoffeeShops/${info.id}`}>Link</Link> */}
+
                 </tr>
             )
         }

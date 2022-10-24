@@ -5,9 +5,9 @@
 	justify-content: left;
 }
 .instance_temp_stat {
-	display: flex;
+	/* display: flex;
 	justify-content: left;
-	padding: 16px;
+	padding: 16px; */
 }
 
 .instance_temp_title {
