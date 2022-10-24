@@ -1,5 +1,5 @@
 from database.databases import *
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import os
 
 @app.route('/universities')

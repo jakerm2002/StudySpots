@@ -1,8 +1,11 @@
+from dataclasses import replace
 from operator import index
 from flask import Flask
-from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from sqlalchemy import create_engine, Column, String, Integer
+from flask_cors import CORS
+import time
 from flask_cors import CORS
 import json
 import os
@@ -17,8 +20,12 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 CORS(app)
 
+days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+CORS(app)
+
 class University(db.Model):
-    id = db.Column(db.String(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     alias = db.Column(db.String())
     zipcode = db.Column(db.String())
@@ -139,11 +146,14 @@ def populate_universities():
     file = open(file_path, 'r')
     db.create_all()
     universities_json = json.load(file)
+    dynamic_id_university=0
 
     universities_list = []
     for university in universities_json:
+        replace_id = dynamic_id_university
+        dynamic_id_university+=1
         new_university = University(
-            id=university["id"],
+            id=replace_id,
             name=university["latest.school.name"],
             alias=university["latest.school.alias"],
             zipcode=university["latest.school.zip"],
@@ -178,7 +188,7 @@ def populate_universities():
     file.close()
 
 class CoffeeShop(db.Model):
-    id = db.Column(db.String(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     image_url = db.Column(db.String())
     zipcode = db.Column(db.String())
@@ -195,6 +205,12 @@ class CoffeeShop(db.Model):
     display_address = db.Column(db.String())
     photo = db.Column(db.String())
 
+    rating_string = db.Column(db.String())
+
+    review_1_available = db.Column(db.Boolean)
+    review_2_available = db.Column(db.Boolean)
+    review_3_available = db.Column(db.Boolean)
+
     review_1_text = db.Column(db.String())
     review_2_text = db.Column(db.String())
     review_3_text = db.Column(db.String())
@@ -207,9 +223,38 @@ class CoffeeShop(db.Model):
     review_2_rating = db.Column(db.Integer)
     review_3_rating = db.Column(db.Integer)
 
+    review_1_rating_string = db.Column(db.String())
+    review_2_rating_string = db.Column(db.String())
+    review_3_rating_string = db.Column(db.String())
+
+    hours_day_0_open = db.Column(db.String())
+    hours_day_0_closed = db.Column(db.String())
+
+    hours_day_1_open = db.Column(db.String())
+    hours_day_1_closed = db.Column(db.String())
+
+    hours_day_2_open = db.Column(db.String())
+    hours_day_2_closed = db.Column(db.String())
+
+    hours_day_3_open = db.Column(db.String())
+    hours_day_3_closed = db.Column(db.String())
+
+    hours_day_4_open = db.Column(db.String())
+    hours_day_4_closed = db.Column(db.String())
+
+    hours_day_5_open = db.Column(db.String())
+    hours_day_5_closed = db.Column(db.String())
+
+    hours_day_6_open = db.Column(db.String())
+    hours_day_6_closed = db.Column(db.String())
+
+    hours_arr = db.Column(db.String())
+    formatted_hours = db.Column(db.String())
+
     # figure out how to store hours in the DB?
 
 class CoffeeShopSchema(ma.Schema):
+
     class Meta:
         # Fields to expose
         fields = (
@@ -230,6 +275,12 @@ class CoffeeShopSchema(ma.Schema):
             "display_address",
             "photo",
 
+            "rating_string",
+
+            "review_1_available",
+            "review_2_available",
+            "review_3_available",
+
             "review_1_text",
             "review_2_text",
             "review_3_text",
@@ -240,7 +291,35 @@ class CoffeeShopSchema(ma.Schema):
 
             "review_1_rating",
             "review_2_rating",
-            "review_3_rating"
+            "review_3_rating",
+
+            "review_1_rating_string",
+            "review_2_rating_string",
+            "review_3_rating_string",
+
+            "hours_day_0_open",
+            "hours_day_0_closed",
+
+            "hours_day_1_open",
+            "hours_day_1_closed",
+
+            "hours_day_2_open",
+            "hours_day_2_closed",
+
+            "hours_day_3_open",
+            "hours_day_3_closed",
+
+            "hours_day_4_open",
+            "hours_day_4_closed",
+
+            "hours_day_5_open",
+            "hours_day_5_closed",
+
+            "hours_day_6_open",
+            "hours_day_6_closed",
+
+            "hours_arr",
+            "formatted_hours"
         )
 
 coffeeshop_schema = CoffeeShopSchema()
@@ -251,11 +330,94 @@ def populate_coffee_shops():
     file = open(file_path, 'r')
     db.create_all()
     coffeeshops_json = json.load(file)
-
     coffeeshops_list = []
+
+    def generate_hours(coffee_shop):
+        hours = [None for x in range(7)]
+        if 'hours' in coffee_shop and 'open' in coffee_shop['hours'][0]:
+            day_count = 0
+            index = 0
+            while day_count<7:
+                if index < len(coffee_shop['hours'][0]['open']):
+                    day = coffee_shop['hours'][0]['open'][index]
+                    day_number = day['day']
+                    if day_count == day_number:
+                        hours[day_count] = day
+                        day_count+=1
+                        index+=1
+                    # handles the case where a day has more than
+                    # one set of hours (for example 7-11am then 6-8pm).
+                    # in this case, we'll take only the first set of hours from that day
+                    # this is an extremely rare case that only happens like once in the database
+                    elif day_count > day_number:
+                        index+=1
+                    # this day does not have hours, which means it's closed.
+                    # create a new entry with hours as '-1', signifying closed
+                    else:
+                        hours[day_count] = {
+                            "is_overnight": False,
+                            "start": "-1",
+                            "end": "-1",
+                            "day": day_count
+                        }
+                        day_count+=1
+                # set any remaining days without an entry to 'closed'
+                else:
+                    hours[day_count] = {
+                            "is_overnight": False,
+                            "start": "-1",
+                            "end": "-1",
+                            "day": day_count
+                        }
+                    day_count+=1
+        return hours
+    
+    def generate_hours_arr(hours):
+        hours_arr = [None for x in range(7)]
+
+        index = 0
+        for day in hours:
+            if day is None:
+                hours_string = days[index] + ": Not available"
+            elif day['start'] == '-1':
+                hours_string = days[index] + ": Closed"
+                day["formatted"] = hours_string
+            else:
+                start_time_obj = time.strptime(day['start'], "%H%M")
+                start_time = time.strftime("%I:%M %p", start_time_obj)
+
+                end_time_obj = time.strptime(day['end'], "%H%M")
+                end_time = time.strftime("%I:%M %p", end_time_obj)
+                hours_string = days[index] + ": " + start_time + " - " + end_time
+                day["formatted"] = hours_string
+            hours_arr[index] = hours_string
+            index+=1
+        return hours_arr
+
+    def generate_formatted_hours(hours_arr):
+            if not hours_arr:
+                return 'N/A'
+            
+            chars_to_replace_with_blank = "{[']}"
+            orig_str = str(hours_arr)
+            for c in chars_to_replace_with_blank:
+                if c in orig_str:
+                    orig_str = orig_str.replace(c, '')
+            formatted_hours = orig_str.replace(',','\n')
+            return formatted_hours
+            
+
+    dynamic_id_coffeeshop=0
     for coffee_shop in coffeeshops_json:
+        hours = generate_hours(coffee_shop)
+        hours_arr = generate_hours_arr(hours)
+        formatted_hours = generate_formatted_hours(hours_arr)
+
+        replace_id = dynamic_id_coffeeshop
+        dynamic_id_coffeeshop+=1
+        
         new_coffeeshop = CoffeeShop(
-            id=coffee_shop['id'],
+            id=replace_id,
             name=coffee_shop['name'],
             image_url=coffee_shop['image_url'],
             zipcode=coffee_shop['location']['zip_code'],
@@ -271,6 +433,11 @@ def populate_coffee_shops():
             state=coffee_shop['location']['state'],
             display_address=coffee_shop['location']['display_address'],
             photo=coffee_shop['photos'][0] if coffee_shop['photos'] else '',
+            rating_string = str(coffee_shop['rating']) if 'rating' in coffee_shop else 'N/A',
+            
+            review_1_available=True if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else False,
+            review_2_available=True if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else False,
+            review_3_available=True if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else False,
 
             review_1_text=coffee_shop['reviews'][0]['text'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
             review_2_text=coffee_shop['reviews'][1]['text'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
@@ -282,7 +449,36 @@ def populate_coffee_shops():
 
             review_1_rating=coffee_shop['reviews'][0]['rating'] if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else -1,
             review_2_rating=coffee_shop['reviews'][1]['rating'] if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else -1,
-            review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1
+            review_3_rating=coffee_shop['reviews'][2]['rating'] if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else -1,
+
+            review_1_rating_string=str(coffee_shop['reviews'][0]['rating']) if 'reviews' in coffee_shop and 0 < len(coffee_shop['reviews']) else 'N/A',
+            review_2_rating_string=str(coffee_shop['reviews'][1]['rating']) if 'reviews' in coffee_shop and 1 < len(coffee_shop['reviews']) else 'N/A',
+            review_3_rating_string=str(coffee_shop['reviews'][2]['rating']) if 'reviews' in coffee_shop and 2 < len(coffee_shop['reviews']) else 'N/A',
+
+            # -1 means closed on that day, N/A means hours not available
+            hours_day_0_open=hours[0]['start'] if hours[0] else 'N/A',
+            hours_day_0_closed=hours[0]['end'] if hours[0] else 'N/A',
+
+            hours_day_1_open=hours[1]['start'] if hours[1] else 'N/A',
+            hours_day_1_closed=hours[1]['end'] if hours[1] else 'N/A',
+
+            hours_day_2_open=hours[2]['start'] if hours[2] else 'N/A',
+            hours_day_2_closed=hours[2]['end'] if hours[2] else 'N/A',
+
+            hours_day_3_open=hours[3]['start'] if hours[3] else 'N/A',
+            hours_day_3_closed=hours[3]['end'] if hours[3] else 'N/A',
+
+            hours_day_4_open=hours[4]['start'] if hours[4] else 'N/A',
+            hours_day_4_closed=hours[4]['end'] if hours[4] else 'N/A',
+
+            hours_day_5_open=hours[5]['start'] if hours[5] else 'N/A',
+            hours_day_5_closed=hours[5]['end'] if hours[5] else 'N/A',
+
+            hours_day_6_open=hours[6]['start'] if hours[6] else 'N/A',
+            hours_day_6_closed=hours[6]['end'] if hours[6] else 'N/A',
+
+            hours_arr=hours_arr if hours_arr else 'N/A',
+            formatted_hours = formatted_hours
         )
         coffeeshops_list.append(new_coffeeshop)
 
@@ -292,7 +488,7 @@ def populate_coffee_shops():
     file.close()
 
 class Library(db.Model):
-    id = db.Column(db.String(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     address = db.Column(db.String())
     city = db.Column(db.String())
@@ -304,11 +500,17 @@ class Library(db.Model):
 
     maps_url = db.Column(db.String())
     utc_offset = db.Column(db.Integer)
+    hours_arr = db.Column(db.String())
     formatted_hours = db.Column(db.String())
     photo_reference = db.Column(db.String())
     photo_link = db.Column(db.String())
     rating = db.Column(db.Float)
     website = db.Column(db.String())
+    rating_string = db.Column(db.String())
+
+    review_1_available = db.Column(db.Boolean)
+    review_2_available = db.Column(db.Boolean)
+    review_3_available = db.Column(db.Boolean)
 
     review_1_text = db.Column(db.String())
     review_2_text = db.Column(db.String())
@@ -321,6 +523,10 @@ class Library(db.Model):
     review_1_rating = db.Column(db.Integer)
     review_2_rating = db.Column(db.Integer)
     review_3_rating = db.Column(db.Integer)
+
+    review_1_rating_string = db.Column(db.String())
+    review_2_rating_string = db.Column(db.String())
+    review_3_rating_string = db.Column(db.String())
         
 
 class LibrarySchema(ma.Schema):
@@ -339,11 +545,17 @@ class LibrarySchema(ma.Schema):
 
             "maps_url",
             "utc_offset",
+            "hours_arr",
             "formatted_hours",
             "photo_reference",
             "photo_link",
             "rating",
             "website",
+            "rating_string",
+
+            "review_1_available",
+            "review_2_available",
+            "review_3_available",
 
             "review_1_text",
             "review_2_text",
@@ -355,7 +567,11 @@ class LibrarySchema(ma.Schema):
 
             "review_1_rating",
             "review_2_rating",
-            "review_3_rating"
+            "review_3_rating",
+
+            "review_1_rating_string",
+            "review_2_rating_string",
+            "review_3_rating_string"
         )
 
 library_schema = LibrarySchema()
@@ -372,9 +588,29 @@ def populate_libraries():
     photos_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photo_reference="
 
     libraries_list = []
+    dynamic_id_library=0
+
     for library in libraries_json:
+        replace_id = dynamic_id_library
+        dynamic_id_library+=1
+        
         index_of_city = -1
         index_of_zip_code = -1
+
+        def generate_formatted_hours():
+            if 'opening_hours' not in library:
+                return 'N/A'
+            
+            chars_to_replace_with_blank = "{[']}"
+            orig_str = str(library['opening_hours']['weekday_text'])
+            for c in chars_to_replace_with_blank:
+                if c in orig_str:
+                    orig_str = orig_str.replace(c, '')
+            formatted_hours = orig_str.replace(',','\n')
+            return formatted_hours
+
+
+        formatted_hours = generate_formatted_hours()
 
         count = 0
         # search through address_components array to find
@@ -390,7 +626,7 @@ def populate_libraries():
             count+=1
 
         new_library = Library(
-            id=library['place_id'],
+            id=replace_id,
             name=library['name'],
             address=library['formatted_address'],
             latitude=library['geometry']['location']['lat'],
@@ -400,13 +636,20 @@ def populate_libraries():
 
             maps_url = library['url'],
             utc_offset = library['utc_offset'],
-            formatted_hours = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
+            hours_arr = library['opening_hours']['weekday_text'] if 'opening_hours' in library else 'N/A',
+            formatted_hours = formatted_hours,
             photo_reference = library['photos'][0]['photo_reference'] if 'photos' in library else 'N/A',
             photo_link = photos_url + library['photos'][0]['photo_reference'] + '&key=' + api_key if 'photos' in library else 'N/A',
             website = library['website'] if 'website' in library else 'N/A',
 
+            rating_string = str(library['rating']) if "rating" in library else 'N/A',
+
             city = library['address_components'][index_of_city]['long_name'],
             zipcode = library['address_components'][index_of_zip_code]['long_name'],
+
+            review_1_available = True if 'reviews' in library and 0 < len(library['reviews']) else False,
+            review_2_available = True if 'reviews' in library and 1 < len(library['reviews']) else False,
+            review_3_available = True if 'reviews' in library and 2 < len(library['reviews']) else False,
 
             review_1_text = library['reviews'][0]['text'] if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
             review_2_text = library['reviews'][1]['text'] if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
@@ -419,6 +662,10 @@ def populate_libraries():
             review_1_rating = library['reviews'][0]['rating'] if 'reviews' in library and 0 < len(library['reviews']) else -1,
             review_2_rating = library['reviews'][1]['rating'] if 'reviews' in library and 1 < len(library['reviews']) else -1,
             review_3_rating = library['reviews'][2]['rating'] if 'reviews' in library and 2 < len(library['reviews']) else -1,
+
+            review_1_rating_string = str(library['reviews'][0]['rating']) if 'reviews' in library and 0 < len(library['reviews']) else 'N/A',
+            review_2_rating_string = str(library['reviews'][1]['rating']) if 'reviews' in library and 1 < len(library['reviews']) else 'N/A',
+            review_3_rating_string = str(library['reviews'][2]['rating']) if 'reviews' in library and 2 < len(library['reviews']) else 'N/A',
         )
         libraries_list.append(new_library)
 
