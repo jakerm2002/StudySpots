@@ -32,3 +32,10 @@ tr {
 #closed {
     color: red;
 }
+
+.model_page_pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
