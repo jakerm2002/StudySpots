@@ -18,7 +18,7 @@ backend_tests:
   stage: test
   image: python:3.6-stretch
   before_script:
-    - pip install -r requirements.txt
+    - pip install -r backend/requirements.txt
     - pip install google-search-results
     - pip install black
   script:
