@@ -51,8 +51,6 @@ const InstanceCoffee = () => {
                                 <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
                                 <NearbyUniversity zipcode={data.zipcode} />
                                 <NearbyLibrary zipcode={data.zipcode} />
-                                {/* <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
-                                <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row> */}
                             </Container>
              			</Col>
              		</Row>
@@ -63,9 +61,9 @@ const InstanceCoffee = () => {
                   <Accordion className={styles.instance_temp_info}>
                   <Accordion.Item eventKey="0">
                     <Accordion.Header>{"Reviews and Ratings for " + data.name}</Accordion.Header>
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_1_author + " : " + data.review_1_rating}</Accordion.Body> 
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_2_author + " : " + data.review_2_rating}</Accordion.Body> 
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_3_author + " : " + data.review_3_rating}</Accordion.Body> 
+                    <Accordion.Body className={styles.instance_temp_text}> {data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}</Accordion.Body> 
+                    <Accordion.Body className={styles.instance_temp_text}> {data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}</Accordion.Body> 
+                    <Accordion.Body className={styles.instance_temp_text}> {data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}</Accordion.Body> 
                   </Accordion.Item>
                   </Accordion>
                   </Col>
