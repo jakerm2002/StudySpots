@@ -9,6 +9,10 @@ import time
 from flask_cors import CORS
 import json
 import os
+import functools
+import copy
+from collections import Counter
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -147,8 +151,8 @@ def populate_universities():
     db.create_all()
     universities_json = json.load(file)
     dynamic_id_university=0
-
     universities_list = []
+
     for university in universities_json:
         replace_id = dynamic_id_university
         dynamic_id_university+=1
@@ -182,8 +186,95 @@ def populate_universities():
         )
         universities_list.append(new_university)
 
+    # def sort_by_num_null_values(item1, item2):
+    #     counter_1 = Counter(item1)
+    #     counter_2 = Counter(item2)
+
+    #     print(counter_1[None])
+    #     print(counter_2[None])
+
+    #     return counter_2[None] - counter_1[None]
+            
+    # universities_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
+
+    # for uni in universities_list:
+    #     # for c in uni.__table__.columns:
+    #     #     print(c)
+    #     counter_1 = Counter(uni.__dict__.values())
+    #     for e in uni.__dict__:
+    #         print(e)
+    #         print (uni.__dict__[e])
+    #     print('number of null values', counter_1[None])
+
+    def sort_by_num_null_values(item1, item2):
+        print("comparing",item1.__dict__['name'],"with", item2.__dict__['name'])
+        counter_1 = Counter(item1.__dict__.values())
+        counter_2 = Counter(item2.__dict__.values())
+
+
+        print (counter_1[None] - counter_2[None])
+        print ('done')
+
+        return counter_1[None] - counter_2[None]
+            
+    print(universities_list)
+    # newlist = universities_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
+    # print(universities_list[:10])
+    num_unis = len(universities_list)
+
+    # universities_list[0].id=9
+
+    # for uni in universities_list:
+    #     print (uni.__dict__['name'])
+
+    new_unis_list = copy.deepcopy(universities_list)
+    new_unis_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
+
+    for uni in new_unis_list:
+        print (str(uni.__dict__['id']) + ' ' + uni.__dict__['name'])
+
+
+    # change the id of all universities
+    for num in range(num_unis):
+        # new_id = new_unis_list[num].__dict__['id'] - num_unis
+        new_id = num - num_unis
+        index = new_unis_list[num].__dict__['id']
+        print('changing id from', universities_list[index].id, 'to', new_id) 
+        universities_list[index].id = new_id
+        
+    print('len', num_unis)
+
+    for num in range(-num_unis, 0):
+        new_id = universities_list[num].id + num_unis
+        print('changing id from', universities_list[num].id, 'to', new_id)
+        universities_list[num].id = new_id
+    
     db.session.add_all(universities_list)
     db.session.commit()
+
+    # for uni in new_unis_list:
+    #     print (uni.__dict__['name'])
+    
+    '''
+    # change the id of all universities
+    for num in range(num_unis):
+        current_uni = University.query.filter_by(id=num).first()
+        new_id = new_unis_list[num].__dict__['id']
+        # current_uni.id =
+        print('changing id from', current_uni.id, 'to', new_id)
+        current_uni.id = new_id - num_unis
+    db.session.commit()
+
+    print('len', num_unis)
+
+    for i in range(-num_unis, 0):
+        current_uni = University.query.filter_by(id=i).first()
+        new_id = current_uni.id + num_unis
+        print('changing id from', current_uni.id, 'to', new_id)
+        current_uni.id = new_id
+    db.session.commit()
+    '''
+
 
     file.close()
 
