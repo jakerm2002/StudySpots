@@ -14,7 +14,7 @@ from app import (
 class APITest(TestCase):
     def test_universities_by_id(self):
         with app.app_context():
-            res = universities_by_id(0)
+            res = universities_by_id(103)
             res = json.loads(res)
             self.assertEqual(
                 res,
@@ -40,7 +40,7 @@ class APITest(TestCase):
                     "enrollment_all": None,
                     "description": "The University of Alabama at Birmingham (UAB) is a public research university in Birmingham, Alabama. Developed from an academic extension center established in 1936, the institution became a four-year campus in 1966 and a fully autonomous university in the University of Alabama System in 1969.\nUAB offers 140 programs of study in 12 academic divisions leading to bachelor's, master's, doctoral, and professional degrees in the social and behavioral sciences, the liberal arts, business, education, engineering, and health-related fields such as medicine, dentistry, optometry, nursing, and public health. In the fall of 2019, 22,080 students from more than 110 countries were enrolled.The UAB Health System, one of the largest academic medical centers in the United States, is affiliated with the university. UAB Hospital sponsors residency programs in medical specialties, including internal medicine, neurology, physical medicine and rehabilitation, surgery, radiology, and anesthesiology.\nUAB is the state's largest single employer, with more than 23,000 faculty and staff and over 53,000 jobs at the university and in the health system. An estimated 10 percent of the jobs in the Birmingham-Hoover Metropolitan Area and 1 in 31 jobs in the state of Alabama are directly or indirectly related to UAB. The university's overall annual economic impact was estimated to be $7.15 billion in 2017.",
                     "sat_median_reading": 614,
-                    "id": 0,
+                    "id": 103,
                     "enrollment_gr_12m": 10874,
                     "photo": "https://www.usnews.com/dims4/USNEWS/7095941/17177859217/resize/800x540%3E/quality/85/?url=https%3A%2F%2Fmedia.beam.usnews.com%2F30%2F09a5b34c4fa3a81530dcb48b57fc70%2Fcollege-photo_12935.jpg",
                     "alias": "UAB",
@@ -105,9 +105,9 @@ class APITest(TestCase):
                 },
             )
 
-    def test_library_by_id(self):
+    def test_libraries_by_id(self):
         with app.app_context():
-            res = library_by_id(0)
+            res = libraries_by_id(0)
             res = json.loads(res)
             self.assertEqual(
                 res,
@@ -129,7 +129,7 @@ class APITest(TestCase):
                     "maps_url": "https://maps.google.com/?cid=16577649552135182082",
                     "review_3_rating_string": "5",
                     "address": "300 N Harvard St, Boston, MA 02134, USA",
-                    "review_1_available": true,
+                    "review_1_available": True,
                     "formatted_hours": "Monday: 10:00 AM \u2013 6:00 PM\n Tuesday: 10:00 AM \u2013 6:00 PM\n Wednesday: 12:00 \u2013 8:00 PM\n Thursday: 10:00 AM \u2013 6:00 PM\n Friday: 9:00 AM \u2013 5:00 PM\n Saturday: 9:00 AM \u2013 2:00 PM\n Sunday: Closed",
                     "review_2_rating": 4,
                     "longitude": -71.12809440000001,
