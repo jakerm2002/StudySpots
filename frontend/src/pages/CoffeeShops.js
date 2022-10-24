@@ -6,17 +6,23 @@ import axios from "axios";
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://api.studyspots.me/coffeeshops').then(response => {
             console.log("response",response.data);
             setCoffeeShops(response.data);
-            
+            setLoading(false);
         },
         reject => {
             console.log("REJECT");
         });
     }, []);
+
+    if(loading){
+        return <h2>Loading...</h2>
+    }
+    
 
     const Entries = coffeeShops.map(
         (info) => {
