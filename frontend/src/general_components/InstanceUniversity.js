@@ -10,6 +10,8 @@ import { Col } from "react-bootstrap";
 import styles from './InstanceUniversity.module.css'
 import MapComponent from "./MapComponent";
 import axios from "axios";
+import NearbyCoffeeShop from './NearbyCoffeeShop.js';
+import NearbyLibrary from './NearbyLibrary.js';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -44,25 +46,29 @@ const InstanceUniversity = () => {
                         <div className={styles.instance_header}>{data.name}</div>
                     </Row>
                     <Row className={styles.fields}>
+                    <Col sm>
+                            {/* <div className={styles.fieldName}>{data.results.id}</div> */}
+                            <div className={styles.fieldName}>{data.alias}</div>
+                            <div className={styles.fieldName}>{data.city}, {data.state} {data.zipcode}</div>
+                            <div className={styles.fieldName}><a href={data.url}>{data.url}</a></div>
+                            <br/>
+                            <div className={styles.entry}><div className={styles.fieldName}>Undergraduate Population: </div>{data.size.toLocaleString("en-US", populationFormat)}</div>
+                            <div className={styles.entry}><div className={styles.fieldName}>Cost of attendance: </div>{data.instate_tuition.toLocaleString("en-US", currencyFormat)} (In-state)      {data.outstate_tuition.toLocaleString("en-US", currencyFormat)} (Out-of-state)</div>
+                            <div className={styles.entry}><div className={styles.fieldName}>Acceptance rate: </div>{(data.acceptance_rate* 100).toFixed(1)+'%'}</div>
+                            <br/>
+                            <div className={`${styles.entry} ${styles.fieldName}`}>Nearby coffee shops: </div>
+                            <div className={styles.entry}><NearbyCoffeeShop zipcode={data.zipcode} /></div>
+                            <div className={`${styles.entry} ${styles.fieldName}`}>Nearby libraries: </div>
+					                  <div className={styles.entry}><NearbyLibrary zipcode={data.zipcode} /></div>
+
+                        </Col> 
                       <Col className={styles.instance_temp_image}>
          				            <Figure>
              					        <Figure.Image src={data.photo} />
              				        </Figure>
              			        </Col>
 
-                        <Col sm>
-                            {/* <div className={styles.fieldName}>{data.results.id}</div> */}
-                            <div className={styles.fieldName}>{data.alias}</div>
-                            <div className={styles.fieldName}>{data.city}, {data.state} {data.zipcode}</div>
-                            <div className={styles.fieldName}><a href={data.url}>{data.url}</a></div>
-                            <br></br>
-                            <div className={styles.entry}><div className={styles.fieldName}>Undergraduate Population: </div>{data.size.toLocaleString("en-US", populationFormat)}</div>
-                            <div className={styles.entry}><div className={styles.fieldName}>Cost of attendance: </div>{data.instate_tuition.toLocaleString("en-US", currencyFormat)} (In-state)      {data.outstate_tuition.toLocaleString("en-US", currencyFormat)} (Out-of-state)</div>
-                            <div className={styles.entry}><div className={styles.fieldName}>Acceptance rate: </div>{(data.acceptance_rate* 100).toFixed(1)+'%'}</div>
-                            {/* <div className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.results[0].nearby_places[1].href}`}>{data.results[0].nearby_places[1].name}</a>}</div>
-                            <div className={styles.instance_temp_stat}>{<a href={`/CoffeeShops/${data.results[0].nearby_places[0].href}`}>{data.results[0].nearby_places[0].name}</a>}</div> */}
-
-                        </Col>  
+                         
                      </Row>
 
               </Container>
