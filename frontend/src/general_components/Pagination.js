@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import Pagination from 'react-bootstrap/Pagination'
 
-const Pagination = ({postsPerPage, totalPosts, paginate}) => {
+const Paginate = ({postsPerPage, totalPosts, paginate}) => {
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const changePage = (num) => {
+        if (num <= pageNums.length) {
+            setCurrentPage(num)
+            paginate(num)
+        }
+    }
+
+    console.log("num total items", totalPosts)
+
+
     const pageNums = [];
     for(let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNums.push(i);
@@ -9,18 +22,21 @@ const Pagination = ({postsPerPage, totalPosts, paginate}) => {
     console.log("page nums: ", pageNums);
 
     return (
-        <nav>
-            <ul className="pagination">
-                {pageNums.map(num => (
-                    <li key={num} className="item">
-                        <a onClick={() => paginate(num)} href='!#' className='link'>
-                            {num}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-        </nav>
+        <div>
+            <Pagination>
+                    <Pagination.Prev onClick={() => changePage(currentPage - 1)} />
+                    {Array.from({ length: pageNums.length <= 20 ? pageNums.length : 20 }).map((_, idx) => (
+                        <Pagination.Item key={pageNums[idx]} active={pageNums[idx] === currentPage} onClick={() => changePage(pageNums[idx])}>
+                            {pageNums[idx]}
+                        </Pagination.Item>
+                    ))}
+                    <Pagination.Ellipsis />
+                    <Pagination.Next onClick={() => changePage(currentPage + 1)} />
+            </Pagination>
+            <div>Page {currentPage}/{totalPosts}</div>
+        </div>
     )
+
 }
 
-export default Pagination
+export default Paginate

@@ -6,22 +6,37 @@ import axios from "axios";
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get('http://api.studyspots.me/coffeeshops').then(response => {
             console.log("response",response.data);
             setCoffeeShops(response.data);
-            setLoading(false);
+            // setLoading(false);
         },
         reject => {
             console.log("REJECT");
         });
     }, []);
 
-    if(loading){
-        return <h2>Loading...</h2>
+    function getQuery(page, query, ignore) {
+        let url = `https://api.studyspots.me/universities`;
+        url = url + `?page=${page}`
+        return url;
     }
+    
+    const get_data = async(page, query, ignore) => {
+        // setLoading(true);
+        const url = getQuery(page, query, ignore);
+        const response = await axios.get(url);
+        setCoffeeShops(response.data);
+        // setLoading(false);
+    }    
+
+
+    // if(loading){
+    //     return <h2>Loading...</h2>
+    // }
     
 
     const Entries = coffeeShops.map(
@@ -50,7 +65,8 @@ const CoffeeShops = () => {
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",
-        fields : ["Name", "City", "Price", "Rating", "Open/Closed"]
+        fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
+        num_total_items : 286
     }
     return getModel(payload);
 }
