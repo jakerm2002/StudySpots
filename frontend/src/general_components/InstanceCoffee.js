@@ -47,12 +47,16 @@ const InstanceCoffee = () => {
              			<Col>
                             <Container className={styles.instance_temp_stats}>
                                 <Row className={styles.instance_temp_stat}>{data.review_count} reviews</Row>
+                                <br/>
                                 <Row className={styles.instance_temp_stat}>{data.address1}</Row>
                                 <Row className={styles.instance_temp_stat}>{data.city} {data.state} {data.zipcode}</Row>
+                                <br/>
                                 <Row className={styles.instance_temp_stat}>Phone: {data.phone}</Row>
                                 <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
                                 <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
+                                <br/>
                                 <Row className={styles.instance_temp_stat}> {data.formatted_hours}</Row>
+                                <br/>
                                 <NearbyUniversity zipcode={data.zipcode} />
                                 <NearbyLibrary zipcode={data.zipcode} />
                             </Container>
