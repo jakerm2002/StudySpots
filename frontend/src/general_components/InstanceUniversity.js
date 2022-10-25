@@ -5,6 +5,7 @@ import { useParams, Link, BrowserRouter as Router, Route } from "react-router-do
 import Figure from 'react-bootstrap/Figure';
 import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button'
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import styles from './InstanceUniversity.module.css'
@@ -48,6 +49,7 @@ const InstanceUniversity = () => {
                     <Row className={styles.fields}>
                     <Col sm>
                             {/* <div className={styles.fieldName}>{data.results.id}</div> */}
+                            <Button className={styles.instance_temp_button} onClick={() =>  navigator.clipboard.writeText(data.name + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.url)}>Copy Information</Button>
                             <div className={styles.fieldName}>{data.alias}</div>
                             <div className={styles.fieldName}>{data.city}, {data.state} {data.zipcode}</div>
                             <div className={styles.fieldName}><a href={data.url}>{data.url}</a></div>

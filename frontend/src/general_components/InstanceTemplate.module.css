@@ -62,3 +62,7 @@
 	width: auto; /* you can use % */
 	height: 400px;
 }
+
+.instance_temp_button {
+	width: fit-content;
+}

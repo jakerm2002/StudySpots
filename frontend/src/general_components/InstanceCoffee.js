@@ -3,6 +3,7 @@ import { useParams, Link, BrowserRouter as Router, Route } from "react-router-do
 import Figure from 'react-bootstrap/Figure';
 import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
+import Button from 'react-bootstrap/Button'
 import { Row } from "react-bootstrap";
 import { Col } from "react-bootstrap";
 import styles from './InstanceTemplate.module.css';
@@ -43,6 +44,7 @@ const InstanceCoffee = () => {
                   <Row>
                     <Col>
                         <Container className={styles.instance_temp_stats}>
+                            <Row className={styles.instance_temp_text}><Button className={styles.instance_temp_button} onClick={() =>  navigator.clipboard.writeText(data.name + '\n' + data.address1 + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.phone)}>Copy Information</Button></Row>
                             <Row className={styles.instance_temp_text}>{data.review_count} reviews</Row>
                             <br/>
                             <Row className={styles.instance_temp_text}>{data.address1}</Row>
