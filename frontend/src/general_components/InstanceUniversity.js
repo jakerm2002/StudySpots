@@ -52,7 +52,7 @@ const InstanceUniversity = () => {
                             <Button className={styles.instance_temp_button} onClick={() =>  navigator.clipboard.writeText(data.name + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.url)}>Copy Information</Button>
                             <div className={styles.fieldName}>{data.alias}</div>
                             <div className={styles.fieldName}>{data.city}, {data.state} {data.zipcode}</div>
-                            <div className={styles.fieldName}><a href={data.url}>{data.url}</a></div>
+                            <div className={styles.fieldName}><a href={'//' + data.url}>{data.url}</a></div>
                             <br/>
                             <div className={styles.entry}><div className={styles.fieldName}>Undergraduate Population: </div>{data.size.toLocaleString("en-US", populationFormat)}</div>
                             <div className={styles.entry}><div className={styles.fieldName}>Cost of attendance: </div>{data.instate_tuition.toLocaleString("en-US", currencyFormat)} (In-state)      {data.outstate_tuition.toLocaleString("en-US", currencyFormat)} (Out-of-state)</div>
