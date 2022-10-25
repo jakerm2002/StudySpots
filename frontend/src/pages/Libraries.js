@@ -8,12 +8,12 @@ const Libraries = () => {
 
     useEffect(() => {
         axios.get('https://api.studyspots.me/libraries').then(response => {
-            console.log("response",response.data);
+            // console.log("response",response.data);
             setLibraries(response.data);
             
         },
         reject => {
-            console.log("REJECT");
+            // console.log("REJECT");
         });
     }, []);
 
@@ -31,9 +31,9 @@ const Libraries = () => {
     }    
 
     const set_page = (pageNumber) => {
-        console.log('hello');
+        // console.log('hello');
         setCurrentPage(pageNumber);
-        console.log('set page to ', pageNumber)
+        // console.log('set page to ', pageNumber)
         get_data(pageNumber)
     }
 
@@ -50,7 +50,7 @@ const Libraries = () => {
             )
         }
     );
-    console.log(Entries);
+    // console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Libraries",
