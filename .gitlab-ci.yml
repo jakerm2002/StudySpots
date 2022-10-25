@@ -22,17 +22,17 @@ jest_tests:
     - npm install
     - npm test
 
-selenium_tests:
-  stage: test
-  image: python:3.8
-  services:
-    - selenium/standalone-chrome
-  script:
-    - python3 -m pip install selenium
-    - python3 -m pip install unittest2
-    - python3 -m pip install webdriver_manager
-    - python3 -m pip install packaging
-    - python3 frontend/guitests.py
+# selenium_tests:
+#   stage: test
+#   image: python:3.8
+#   services:
+#     - selenium/standalone-chrome
+#   script:
+#     - python3 -m pip install selenium
+#     - python3 -m pip install unittest2
+#     - python3 -m pip install webdriver_manager
+#     - python3 -m pip install packaging
+#     - python3 frontend/guitests.py
 
 backend_tests:
   stage: test
