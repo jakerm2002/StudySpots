@@ -1,13 +1,40 @@
 import unittest
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver import Remote
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+url = "https://www.studyspots.me/"
 
 class GUITests(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Chrome("/usr/local/bin/chromedriver")
+        print("beginning setup for test_gui module")
+
+        # allow gitlab ci/cd to run selenium tests
+        #global driver, wait
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("window-size=1200x600")
+        if False:
+            self.driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), options = chrome_options)
+        else:
+            self.driver = Remote(
+                "http://selenium__standalone-chrome:4444/wd/hub",
+                desired_capabilities=chrome_options.to_capabilities(),
+            )
+        self.driver.get(url)
+        wait = WebDriverWait(self.driver, 20)
+        # return self.driver
 
     def tearDown(self):
-        self.driver.close()
+        self.driver.quit()
 
     def test_homepage(self):
         self.driver.get("https://studyspots.me")
