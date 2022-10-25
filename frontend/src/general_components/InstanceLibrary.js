@@ -44,12 +44,12 @@ const InstanceLibrary = () => {
 									<Container className={styles.instance_temp_stats}>
 										<Row className={styles.instance_temp_text}><Button className={styles.instance_temp_button} onClick={() =>  navigator.clipboard.writeText(data.name + '\n' + data.address + '\n' + data.phone)}>Copy Information</Button></Row>
 										<Row className={styles.instance_temp_text }>{data.address}</Row>
-										<Row className={styles.instance_temp_text}><a href={'//' + data.url}>{data.website}</a></Row>
+										<Row className={styles.instance_temp_text}><a href={data.website}>{data.website}</a></Row>
 										<br/>
 										<Row className={styles.instance_temp_text }>Rating: {data.rating}</Row>
 										<Row className={styles.instance_temp_text }>Telephone: {data.phone}</Row>
 										<br/>
-										<Row className={styles.instance_temp_text }> {data.formatted_hours}</Row>
+										<Row className={`${styles.instance_temp_text} ${styles.instance_temp_hours}`}> {data.formatted_hours}</Row>
 										<br/>
 										<NearbyUniversity latitude={data.latitude} longitude={data.longitude} />
 										<NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude} />

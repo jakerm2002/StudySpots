@@ -54,7 +54,7 @@ const InstanceCoffee = () => {
                             <Row className={styles.instance_temp_text}>Price: {data.price}</Row>
                             <Row className={styles.instance_temp_text}>Rating: {data.rating.toFixed(1)}</Row>
                             <br/>
-                            <Row className={styles.instance_temp_text}> {data.formatted_hours}</Row>
+                            <Row className={`${styles.instance_temp_text} ${styles.instance_temp_hours}`}> {data.formatted_hours}</Row>
                             <br/>
                             <NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
                             <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>

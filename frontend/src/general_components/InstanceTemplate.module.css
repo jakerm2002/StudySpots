@@ -66,3 +66,7 @@
 .instance_temp_button {
 	width: fit-content;
 }
+
+.instance_temp_hours {
+	white-space: pre-wrap;
+}
