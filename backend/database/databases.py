@@ -3,7 +3,7 @@ from operator import index
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from sqlalchemy import create_engine, Column, String, Integer
+from sqlalchemy import create_engine, Column, String, Integer, literal_column, text
 from flask_cors import CORS
 import time
 from flask_cors import CORS
