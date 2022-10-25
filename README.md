@@ -7,7 +7,7 @@
 
 - Git SHA:
     - Phase 1: 23c9ba97666ba4f6fb69548ce5b46e73723ba88e
-    - Phase 2: 
+    - Phase 2: c0f8e6c565b1d4695224a96c119a0d23f4dedf17
 
 - Project Leaders:
     - Phase 1: Joanne Chen
@@ -53,3 +53,4 @@
 - Comments:
     - Inspiration on database structure from: https://gitlab.com/giveandlive/giveandlive/
     - Used https://gitlab.com/giveandlive/giveandlive/-/tree/260215fb5f072e5af9e076c5f296f2cf01db9476/back-end to be able to deploy on aws elastic beanstalk
+    - Since we ran out of GitLab CI/CD minutes, we had to try and set up a personal GitLab runner last minute, and we were unable to get the selenium tests working through the runner. However, we did run them locally, so we included a screenshot of them passing in selenium_tests.jpeg.
