@@ -22,6 +22,27 @@ jest_tests:
     - npm install
     - npm test
 
+selenium_tests:
+  stage: test
+  image: python:3.8.2
+  services:
+    - selenium/standalone-chrome
+  script:
+    - python3 -m pip install selenium
+    - python3 -m pip install unittest
+    - python3 -m pip install webdriver_manager
+    - apt-get update -q -y
+    - apt-get install nodejs npm -y
+    - apt-get --yes install libnss3
+    - apt-get --yes install libgconf-2-4
+    - apt-get install libx11-xcb1
+    - curl -sS -L https://dl.google.com/linux/linux_signing_key.pub |
+      apt-key add -
+    - echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+    - apt-get update -q -y
+    - apt-get install -y google-chrome-stable
+    - python3 frontend/guitests.py
+
 backend_tests:
   stage: test
   image: python:3.6-stretch
