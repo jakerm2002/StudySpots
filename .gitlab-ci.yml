@@ -14,6 +14,14 @@ build-job:
     - npm run-script build
     - echo "build was successful!"
 
+jest_tests:
+  stage: test
+  image: node:18
+  script:
+    - cd frontend
+    - npm install
+    - npm test
+
 backend_tests:
   stage: test
   image: python:3.6-stretch

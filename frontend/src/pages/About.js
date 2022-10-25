@@ -241,10 +241,10 @@ const About = () => {
         fetchInfo();
     });
 
-    // Don't load page yet until the stats have been fetched.
-    if (!isFetched) {
-        return <></>
-    }
+    // // Don't load page yet until the stats have been fetched.
+    // if (!isFetched) {
+    //     return <></>
+    // }
 
     return[
         <div className={styles.info}>
@@ -261,19 +261,25 @@ const About = () => {
         <div className={styles.teamInfo}>
             <h1>Meet the Team</h1>
             <h3>Members</h3>
-            <Row xs={4} md={4} className={styles.profiles}>
-                {teamMembers.map(teamMember => (
-                    <Profile person={teamMember}/>
-                ))}
-            </Row>
-            <h3>Team Stats</h3>
-            <Card style = {{width: '75%'}} className={styles.team}>
-                <Card.Body>
-                    <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
-                    <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
-                    <Card.Text><b>Tests: </b>{numTests}</Card.Text>
-                </Card.Body>
-            </Card>
+            {
+                isFetched ? (
+                    <div>
+                        <Row xs={4} md={4} className={styles.profiles}>
+                            {teamMembers.map(teamMember => (
+                                <Profile person={teamMember}/>
+                            ))}
+                        </Row>
+                        <h3>Team Stats</h3>
+                        <Card style = {{width: '75%'}} className={styles.team}>
+                            <Card.Body>
+                                <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
+                                <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
+                                <Card.Text><b>Tests: </b>{numTests}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                ) : (<div></div>)}
+            
         </div>,
         <div className={styles.techInfo}>
             <h1>Technology Used</h1>
@@ -283,7 +289,7 @@ const About = () => {
                     <tbody>
                         <tr>
                         {tools.map(tool => (
-                            <td><Tool tool={tool}/></td>
+                            <td key={tool.name}><Tool tool={tool}/></td>
                         ))}
                         </tr>                    
                     </tbody>
@@ -295,7 +301,7 @@ const About = () => {
                     <tbody>
                         <tr>
                             {apis.map(api => (
-                                <td><Tool tool={api}/></td>
+                                <td key={api.name}><Tool tool={api}/></td>
                             ))}
                         </tr>
                     </tbody>
