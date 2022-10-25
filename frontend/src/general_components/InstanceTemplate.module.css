@@ -8,6 +8,7 @@
 	/* display: flex;
 	justify-content: left;
 	padding: 16px; */
+	margin: 25px 25px;
 }
 
 .instance_temp_title {
@@ -29,13 +30,18 @@
 	justify-content: center;
 }
 
+.instance_container{
+    margin: 25px 50px;
+}
+
 .instance_temp_info {
 	width: 500px;
 }
 
 .instance_temp_text {
 	display: flex;
-	justify-content: left;
+	justify-content: left; 
+	margin-left: 25px;
 }
 
 .instance_temp_header {

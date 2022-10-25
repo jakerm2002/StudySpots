@@ -57,9 +57,9 @@ const InstanceUniversity = () => {
                             <div className={styles.entry}><div className={styles.fieldName}>Acceptance rate: </div>{(data.acceptance_rate* 100).toFixed(1)+'%'}</div>
                             <br/>
                             <div className={`${styles.entry} ${styles.fieldName}`}>Nearby coffee shops: </div>
-                            <div className={styles.entry}><NearbyCoffeeShop zipcode={data.zipcode} /></div>
+                            <div className={styles.entry}><NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude} /></div>
                             <div className={`${styles.entry} ${styles.fieldName}`}>Nearby libraries: </div>
-					                  <div className={styles.entry}><NearbyLibrary zipcode={data.zipcode} /></div>
+					                  <div className={styles.entry}><NearbyLibrary latitude={data.latitude} longitude={data.longitude} /></div>
 
                         </Col> 
                       <Col className={styles.instance_temp_image}>
@@ -86,9 +86,6 @@ const InstanceUniversity = () => {
                           <Col className={styles.instance_temp_col}>
                             <MapComponent name={data.name} address={data.city}/>
                           </Col>
-                        {/* <Row className={styles.instance_temp_col}> */}
-                        
-                        {/* </Row> */}
                      </Row>
               </div>
             </div>
