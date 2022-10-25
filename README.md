@@ -7,9 +7,11 @@
 
 - Git SHA:
     - Phase 1: 23c9ba97666ba4f6fb69548ce5b46e73723ba88e
+    - Phase 2: 
 
 - Project Leaders:
     - Phase 1: Joanne Chen
+    - Phase 2: Jake Medina
 
 - GitLab Pipelines:
     - https://gitlab.com/jakem02/cs373-idb/-/pipelines
@@ -26,6 +28,13 @@
         - Joanne Chen: 15
         - Bianca Alvarado: 10
 
+    - Phase 2:
+        - Jake Medina: 21
+        - Vincent Chen: 20
+        - Ami Iyer: 21
+        - Joanne Chen: 20
+        - Bianca Alvarado: 21
+
 - Actual Completion Time
     - Phase 1:
         - Jake Medina: 25
@@ -33,6 +42,13 @@
         - Ami Iyer: 25
         - Joanne Chen: 25
         - Bianca Alvarado: 15
+
+    - Phase 2:
+        - Jake Medina: 25
+        - Vincent Chen: 25
+        - Ami Iyer: 25
+        - Joanne Chen: 25
+        - Bianca Alvarado: 25
 
 - Comments:
     - Inspiration on database structure from: https://gitlab.com/giveandlive/giveandlive/
