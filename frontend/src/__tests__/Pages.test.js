@@ -48,7 +48,7 @@ describe("Test About Page", () => {
 });
 
 describe("Test Splash Page", () => {
-    it("Proper Rendering of Splash Page", () => {
+    test("Proper Rendering of Splash Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
         render(<Splash/>, {wrapper: BrowserRouter});
@@ -59,6 +59,62 @@ describe("Test Splash Page", () => {
         expect(screen.getByText("Find coffee shops near you!")).toBeInTheDocument();
         expect(screen.getByText("Find Libraries near you!")).toBeInTheDocument();
         expect(screen.getByText("Meet Our Team")).toBeInTheDocument();
+
+        console.error = originalError;
+    });
+
+});
+
+describe("Test Coffee Shops Page", () => {
+    test("Proper Rendering of Coffee Shops Page", () => {
+        const originalError = console.error;
+        console.error = jest.fn();
+        render(<CoffeeShops/>)
+        
+        // Make sure all the parts of the Splash page is included
+        expect(screen.getByText("Name")).toBeInTheDocument();
+        expect(screen.getByText("City")).toBeInTheDocument();
+        expect(screen.getByText("Price")).toBeInTheDocument();
+        expect(screen.getByText("Rating")).toBeInTheDocument();
+        expect(screen.getByText("Open/Closed")).toBeInTheDocument();
+
+        console.error = originalError;
+    });
+
+});
+
+describe("Test Libraries Page", () => {
+    test("Proper Rendering of Libraries Page", () => {
+        const originalError = console.error;
+        console.error = jest.fn();
+        render(<Libraries/>)
+        
+        // Make sure all the parts of the Splash page is included
+        expect(screen.getByText("Name")).toBeInTheDocument();
+        expect(screen.getByText("Location")).toBeInTheDocument();
+        expect(screen.getByText("Rating")).toBeInTheDocument();
+        expect(screen.getByText("Telephone")).toBeInTheDocument();
+        expect(screen.getByText("Status")).toBeInTheDocument();
+
+
+        console.error = originalError;
+    });
+
+});
+
+describe("Test Universities Page", () => {
+    test("Proper Rendering of Universities Page", () => {
+        const originalError = console.error;
+        console.error = jest.fn();
+        render(<Universities/>)
+        
+        // Make sure all the parts of the Splash page is included
+        expect(screen.getByText("Name")).toBeInTheDocument();
+        expect(screen.getByText("City")).toBeInTheDocument();
+        expect(screen.getByText("Zip")).toBeInTheDocument();
+        expect(screen.getByText("Undergraduate Population")).toBeInTheDocument();
+        expect(screen.getByText("In State Tuition")).toBeInTheDocument();
+        expect(screen.getByText("Out of State Tuition")).toBeInTheDocument();
 
         console.error = originalError;
     });
