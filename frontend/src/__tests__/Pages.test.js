@@ -6,10 +6,10 @@ import Universities from "../pages/Universities"
 import Splash from "../pages/Splash"
 import Navigation from "../general_components/Navigation"
 import Paginate from "../general_components/Pagination"
-import { render, screen, waitFor, cleanup } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { BrowserRouter } from "react-router-dom"
+
 
 afterEach(cleanup);
 
@@ -115,6 +115,20 @@ describe("Test Universities Page", () => {
         expect(screen.getByText("Undergraduate Population")).toBeInTheDocument();
         expect(screen.getByText("In State Tuition")).toBeInTheDocument();
         expect(screen.getByText("Out of State Tuition")).toBeInTheDocument();
+
+        console.error = originalError;
+    });
+
+});
+
+describe("Test Pagination", () => {
+    test("Proper Rendering of Pagination", () => {
+        const originalError = console.error;
+        console.error = jest.fn();
+        render(<Paginate/>)
+
+        expect(screen.getByText("Next")).toBeInTheDocument();
+        expect(screen.getByText("More")).toBeInTheDocument();
 
         console.error = originalError;
     });
