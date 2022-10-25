@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import './Splash.css';
 
 
-const ModelCards = () => {
+export const ModelCards = () => {
     return (
         <div>
              <Row className="modelCardsContainer">
@@ -65,7 +65,7 @@ const ModelCards = () => {
      );
 }
 
-const AboutCard = () => {
+export const AboutCard = () => {
     return (
         <div>
              <Row className="modelCardsContainer">
@@ -92,7 +92,7 @@ const AboutCard = () => {
 
 }
 
-const SlideShow = () => {
+export const SlideShow = () => {
    return (
     <div className="slider">
         <Carousel interval={8000}>
