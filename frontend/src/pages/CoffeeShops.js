@@ -11,12 +11,12 @@ const CoffeeShops = () => {
 
     useEffect(() => {
         axios.get('https://api.studyspots.me/coffeeshops').then(response => {
-            console.log("response",response.data);
+            // console.log("response",response.data);
             setCoffeeShops(response.data);
             setLoading(false);
         },
         reject => {
-            console.log("REJECT");
+            // console.log("REJECT");
         });
     }, []);
 
@@ -36,9 +36,9 @@ const CoffeeShops = () => {
     }    
 
     const set_page = (pageNumber) => {
-        console.log('hello');
+        // console.log('hello');
         setCurrentPage(pageNumber);
-        console.log('set page to ', pageNumber)
+        // console.log('set page to ', pageNumber)
         get_data(pageNumber)
     }
 
@@ -50,7 +50,7 @@ const CoffeeShops = () => {
                 open = "Closed";
             }
             if(name === ""){
-                console.log("name empty")
+                // console.log("name empty")
             }
             return(
                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
@@ -65,7 +65,7 @@ const CoffeeShops = () => {
         }
     );
 
-    console.log(Entries);
+    // console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",

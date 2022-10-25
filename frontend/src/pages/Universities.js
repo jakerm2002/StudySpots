@@ -13,12 +13,12 @@ const Universities = () => {
 
     useEffect(() => {
         axios.get('https://api.studyspots.me/universities').then(response => {
-            console.log("response",response.data);
+            // console.log("response",response.data);
             setUniversities(response.data);
             
         },
         reject => {
-            console.log("REJECT");
+            // console.log("REJECT");
         });
     }, []);
 
@@ -36,9 +36,9 @@ const Universities = () => {
     }    
 
     const set_page = (pageNumber) => {
-        console.log('hello');
+        // console.log('hello');
         setCurrentPage(pageNumber);
-        console.log('set page to ', pageNumber)
+        // console.log('set page to ', pageNumber)
         get_data(pageNumber)
     }
 
@@ -56,7 +56,7 @@ const Universities = () => {
             )
         }
     );
-    console.log(Entries);
+    // console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Universities",

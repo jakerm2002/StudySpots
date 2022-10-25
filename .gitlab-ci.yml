@@ -29,7 +29,7 @@ selenium_tests:
     - selenium/standalone-chrome
   script:
     - python3 -m pip install selenium
-    - python3 -m pip install unittest
+    - python3 -m pip install unittest2
     - python3 -m pip install webdriver_manager
     - apt-get update -q -y
     - apt-get install nodejs npm -y
