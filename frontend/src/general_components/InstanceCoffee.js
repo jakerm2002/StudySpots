@@ -16,6 +16,7 @@ const InstanceCoffee = () => {
     const { businessID } = useParams();
       const [isLoading, setIsLoading] = useState(true);
       const [data, setData] = useState([]);
+      const [businessHours, setBusinessHours] = useState([]);
     
       useEffect(() => {
         axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
@@ -23,6 +24,7 @@ const InstanceCoffee = () => {
             setData(response.data);
             console.log(data)
             setIsLoading(false);
+            setBusinessHours(response.data.hours_arr);
             
         },
         reject => {
@@ -34,38 +36,44 @@ const InstanceCoffee = () => {
         <>
           {!isLoading && (
             <div>
-              <div className={styles.instance_temp_title}>{data.name}</div>
-             	<Container className={styles.instance_temp_header} >
-             		<Row>
-             			<Col className={styles.instance_temp_image}>
-                            <Figure>
-                                <Figure.Image className={styles.instance_temp_picture} src={data.image_url} />
-                            </Figure>
-             			</Col>
-             			<Col>
-                            <Container className={styles.instance_temp_stats}>
-                                <Row className={styles.instance_temp_stat}>{data.review_count} reviews</Row>
-                                <Row className={styles.instance_temp_stat}>{data.address1}</Row>
-                                <Row className={styles.instance_temp_stat}>{data.city} {data.state} {data.zipcode}</Row>
-                                <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
-                                <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
-                                <NearbyUniversity zipcode={data.zipcode} />
-                                <NearbyLibrary zipcode={data.zipcode} />
-                                {/* <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
-                                <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row> */}
-                            </Container>
-             			</Col>
-             		</Row>
-             	</Container>
+                <Container className={styles.instance_container} >
+                  <Row>
+                    <div className={styles.instance_temp_title}>{data.name}</div>
+                  </Row>
+                  <Row>
+                    <Col>
+                        <Container className={styles.instance_temp_stats}>
+                            <Row className={styles.instance_temp_text}>{data.review_count} reviews</Row>
+                            <br/>
+                            <Row className={styles.instance_temp_text}>{data.address1}</Row>
+                            <Row className={styles.instance_temp_text}>{data.city} {data.state} {data.zipcode}</Row>
+                            <br/>
+                            <Row className={styles.instance_temp_text}>Phone: {data.phone}</Row>
+                            <Row className={styles.instance_temp_text}>Price: {data.price}</Row>
+                            <Row className={styles.instance_temp_text}>Rating: {data.rating.toFixed(1)}</Row>
+                            <br/>
+                            <Row className={styles.instance_temp_text}> {data.formatted_hours}</Row>
+                            <br/>
+                            <NearbyUniversity zipcode={data.zipcode} />
+                            <NearbyLibrary zipcode={data.zipcode} />
+                        </Container>
+                    </Col>
+                    <Col className={styles.instance_temp_image}>
+                        <Figure>
+                            <Figure.Image className={styles.instance_temp_picture} src={data.image_url} />
+                        </Figure>
+                    </Col>
+                  </Row>
+                </Container>
               <div className={styles.instance_temp_body}>
                 <Row>
                   <Col className={styles.instance_temp_col}>
                   <Accordion className={styles.instance_temp_info}>
                   <Accordion.Item eventKey="0">
                     <Accordion.Header>{"Reviews and Ratings for " + data.name}</Accordion.Header>
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_1_author + " : " + data.review_1_rating}</Accordion.Body> 
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_2_author + " : " + data.review_2_rating}</Accordion.Body> 
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_3_author + " : " + data.review_3_rating}</Accordion.Body> 
+                    <Accordion.Body className={styles.instance_temp_text}> {data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}</Accordion.Body> 
+                    <Accordion.Body className={styles.instance_temp_text}> {data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}</Accordion.Body> 
+                    <Accordion.Body className={styles.instance_temp_text}> {data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}</Accordion.Body> 
                   </Accordion.Item>
                   </Accordion>
                   </Col>
