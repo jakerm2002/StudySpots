@@ -49,8 +49,8 @@ const InstanceCoffee = () => {
                                 <Row className={styles.instance_temp_stat}>{data.city} {data.state} {data.zipcode}</Row>
                                 <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
                                 <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
-                                <NearbyUniversity zipcode={data.zipcode} />
-                                <NearbyLibrary zipcode={data.zipcode} />
+                                <NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
+                                <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
                                 {/* <Row className={styles.instance_temp_stat}>{<a href={`/Universities/${data.nearby_places[0].href}`}>{data.nearby_places[0].name}</a>}</Row>
                                 <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${data.nearby_places[1].href}`}>{data.nearby_places[1].name}</a>}</Row> */}
                             </Container>

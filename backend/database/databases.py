@@ -29,8 +29,6 @@ CORS(app)
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
-CORS(app)
-
 
 class University(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -48,8 +48,8 @@ const InstanceLibrary = () => {
 					<Row className={styles.instance_temp_stat}>{data.address}</Row>
 					<Row className={styles.instance_temp_stat}>Rating: {data.rating}</Row>
 					<Row className={styles.instance_temp_stat}>Telephone: {data.phone}</Row>
-					<NearbyUniversity zipcode={data.zipcode} />
-					<NearbyCoffeeShop zipcode={data.zipcode} />
+					<NearbyUniversity latitude={data.latitude} longitude={data.longitude} />
+					<NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude} />
 				</Container>
              			</Col>
              		</Row>

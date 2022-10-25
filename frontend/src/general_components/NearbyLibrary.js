@@ -3,12 +3,12 @@ import { Row } from "react-bootstrap";
 import styles from './InstanceTemplate.module.css';
 import axios from "axios";
 
-const NearbyLibrary = ({zipcode}) => {
+const NearbyLibrary = ({latitude, longitude}) => {
     const [isLoading, setIsLoading] = useState(true);
     const [data, setData] = useState();
 
     useEffect(() => {
-    axios.get('https://api.studyspots.me/libraries?zipcode=' + zipcode).then(response => {
+    axios.get('https://api.studyspots.me/libraries?latitude=' + latitude + '&longitude=' + longitude).then(response => {
         setData(response.data);
         setIsLoading(false);
     },
