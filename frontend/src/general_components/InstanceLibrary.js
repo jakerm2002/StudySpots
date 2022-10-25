@@ -49,8 +49,8 @@ const InstanceLibrary = () => {
 										<br/>
 										<Row className={styles.instance_temp_text }> {data.formatted_hours}</Row>
 										<br/>
-										<NearbyUniversity zipcode={data.zipcode} />
-										<NearbyCoffeeShop zipcode={data.zipcode} />
+										<NearbyUniversity latitude={data.latitude} longitude={data.longitude} />
+										<NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude} />
 									</Container>
 								</Col>
 								<Col className={styles.instance_temp_image}>

@@ -54,8 +54,8 @@ const InstanceCoffee = () => {
                             <br/>
                             <Row className={styles.instance_temp_text}> {data.formatted_hours}</Row>
                             <br/>
-                            <NearbyUniversity zipcode={data.zipcode} />
-                            <NearbyLibrary zipcode={data.zipcode} />
+                            <NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
+                            <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
                         </Container>
                     </Col>
                     <Col className={styles.instance_temp_image}>

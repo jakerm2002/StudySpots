@@ -2,6 +2,8 @@ from database.databases import *
 from flask import Flask, request
 import os
 
+NEARBY_RADIUS = 25
+
 
 @app.route("/universities")
 def universities():
@@ -15,6 +17,35 @@ def universities():
     if zipcode:
         universities_matching_zipcodes = University.query.filter_by(zipcode=zipcode)
         return universities_schema.dumps(universities_matching_zipcodes)
+
+    latitude = request.args.get("latitude") if request.args.get("latitude") else None
+    longitude = request.args.get("longitude") if request.args.get("longitude") else None
+
+    if latitude and longitude:
+        sub = (
+            db.session.query(
+                University.name,
+                University.id,
+                University.latitude,
+                University.longitude,
+                literal_column(
+                    "SQRT(POW(69.1 * (latitude - "
+                    + latitude
+                    + "), 2) + POW(69.1 * ("
+                    + longitude
+                    + " - longitude) * COS(latitude / 57.3), 2))"
+                ).label("distance"),
+            )
+            .order_by("distance")
+            .subquery()
+        )
+        universities_nearby = (
+            db.session.query(sub)
+            .filter(text("distance<" + str(NEARBY_RADIUS)))
+            .limit(6)
+            .all()
+        )
+        return universities_schema.dumps(universities_nearby)
 
     all_universities = (
         db.session.query(University)
@@ -41,6 +72,35 @@ def coffeeshops():
         coffeeshops_matching_zipcodes = CoffeeShop.query.filter_by(zipcode=zipcode)
         return coffeeshops_schema.dumps(coffeeshops_matching_zipcodes)
 
+    latitude = request.args.get("latitude") if request.args.get("latitude") else None
+    longitude = request.args.get("longitude") if request.args.get("longitude") else None
+
+    if latitude and longitude:
+        sub = (
+            db.session.query(
+                CoffeeShop.name,
+                CoffeeShop.id,
+                CoffeeShop.latitude,
+                CoffeeShop.longitude,
+                literal_column(
+                    "SQRT(POW(69.1 * (latitude - "
+                    + latitude
+                    + "), 2) + POW(69.1 * ("
+                    + longitude
+                    + " - longitude) * COS(latitude / 57.3), 2))"
+                ).label("distance"),
+            )
+            .order_by("distance")
+            .subquery()
+        )
+        coffeeshops_nearby = (
+            db.session.query(sub)
+            .filter(text("distance<" + str(NEARBY_RADIUS)))
+            .limit(6)
+            .all()
+        )
+        return coffeeshops_schema.dumps(coffeeshops_nearby)
+
     all_coffee_shops = (
         db.session.query(CoffeeShop)
         .order_by(CoffeeShop.id)
@@ -65,6 +125,35 @@ def libraries():
     if zipcode:
         libraries_matching_zipcodes = Library.query.filter_by(zipcode=zipcode)
         return libraries_schema.dumps(libraries_matching_zipcodes)
+
+    latitude = request.args.get("latitude") if request.args.get("latitude") else None
+    longitude = request.args.get("longitude") if request.args.get("longitude") else None
+
+    if latitude and longitude:
+        sub = (
+            db.session.query(
+                Library.name,
+                Library.id,
+                Library.latitude,
+                Library.longitude,
+                literal_column(
+                    "SQRT(POW(69.1 * (latitude - "
+                    + latitude
+                    + "), 2) + POW(69.1 * ("
+                    + longitude
+                    + " - longitude) * COS(latitude / 57.3), 2))"
+                ).label("distance"),
+            )
+            .order_by("distance")
+            .subquery()
+        )
+        libraries_nearby = (
+            db.session.query(sub)
+            .filter(text("distance<" + str(NEARBY_RADIUS)))
+            .limit(6)
+            .all()
+        )
+        return libraries_schema.dumps(libraries_nearby)
 
     all_libraries = (
         db.session.query(Library)
