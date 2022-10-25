@@ -1,0 +1,124 @@
+@startuml
+skinparam dpi 150
+entity Universities{
+* id
+--
+* name
+* alias
+* zipcode
+* city
+* state
+* url
+* locale
+* size
+* enrollment_all
+* enrollment_ugr_12m
+* enrollment_gr_12m
+* instate_tuition
+* outstate_tuition
+* acceptance_rate
+* carnegie_basic
+* ownership
+* institutional_characteristics
+* sat_average
+* sat_median_math
+* sat_median_writing
+* sat_median_reading
+* latitude
+* longitude
+* description
+* photo
+}
+
+entity CoffeeShops {
+* id
+--
+* name
+* image_url
+* zipcode
+* city
+* latitude
+* longitude
+* rating
+* price
+* phone
+* review_count
+* address1
+* state
+* display_address
+* photo
+* rating_string
+* review_1_available
+* review_2_available
+* review_3_available
+* review_1_text
+* review_2_text
+* review_3_text
+* review_1_author
+* review_2_author
+* review_3_author
+* review_1_rating
+* review_2_rating
+* review_3_rating
+* review_1_rating_string
+* review_2_rating_string
+* review_3_rating_string
+* hours_day_0_open
+* hours_day_0_closed
+* hours_day_1_open
+* hours_day_1_closed
+* hours_day_2_open
+* hours_day_2_closed
+* hours_day_3_open
+* hours_day_3_closed
+* hours_day_4_open
+* hours_day_4_closed
+* hours_day_5_open
+* hours_day_5_closed
+* hours_day_6_open
+* hours_day_6_closed
+* hours_arr
+* formatted_hours
+}
+
+entity Libraries {
+* id
+--
+* name
+* address
+* city
+* zipcode
+* latitude
+* longitude
+* rating
+* phone
+* maps_url
+* utc_offset
+* hours_arr
+* formatted_hours
+* photo_reference
+* photo_link
+* rating
+* website
+* rating_string
+* review_1_available
+* review_2_available
+* review_3_available
+* review_1_text
+* review_2_text
+* review_3_text
+* review_1_author
+* review_2_author
+* review_3_author
+* review_1_rating
+* review_2_rating
+* review_3_rating
+* review_1_rating_string
+* review_2_rating_string
+* review_3_rating_string
+}
+Universities }|-|{ CoffeeShops : many-to-many
+CoffeeShops }|-|{ Libraries : many-to-many
+Libraries }|-|{ Universities : many-to-many
+
+@enduml
