@@ -55,11 +55,12 @@ class GUITests(unittest.TestCase):
         self.assertEqual(self.driver.current_url, "https://www.studyspots.me/universities")
 
     def test_universities_ucla(self):
-        self.driver.get("https://studyspots.me/universities")
-        elem = self.driver.find_element(By.NAME, "Los Angeles")
-        elem.click()
-        self.assertEqual(title, "React App")
+        self.driver.get("https://studyspots.me/Universities/110662")
+        self.assertEqual(self.driver.title, "React App")
 
-    # def test_homepage(self):
-    #     title = self.driver.title 
-    #     self.assertEqual(title, "React App")
+    def test_coffeeshops_bennu(self):
+        self.driver.get("https://www.studyspots.me/CoffeeShops/gXip--EE80jF-sqdk5Aghw")
+        self.assertEqual(self.driver.title, "React App")
+
+if __name__ == "__main__":
+    unittest.main()
