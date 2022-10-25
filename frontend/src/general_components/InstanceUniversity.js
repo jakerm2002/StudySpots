@@ -86,9 +86,6 @@ const InstanceUniversity = () => {
                           <Col className={styles.instance_temp_col}>
                             <MapComponent name={data.name} address={data.city}/>
                           </Col>
-                        {/* <Row className={styles.instance_temp_col}> */}
-                        
-                        {/* </Row> */}
                      </Row>
               </div>
             </div>

@@ -36,33 +36,35 @@ const InstanceCoffee = () => {
         <>
           {!isLoading && (
             <div>
-              <div className={styles.instance_temp_title}>{data.name}</div>
-             	<Container className={styles.instance_temp_header} >
-             		<Row>
-             			<Col className={styles.instance_temp_image}>
-                            <Figure>
-                                <Figure.Image className={styles.instance_temp_picture} src={data.image_url} />
-                            </Figure>
-             			</Col>
-             			<Col>
-                            <Container className={styles.instance_temp_stats}>
-                                <Row className={styles.instance_temp_stat}>{data.review_count} reviews</Row>
-                                <br/>
-                                <Row className={styles.instance_temp_stat}>{data.address1}</Row>
-                                <Row className={styles.instance_temp_stat}>{data.city} {data.state} {data.zipcode}</Row>
-                                <br/>
-                                <Row className={styles.instance_temp_stat}>Phone: {data.phone}</Row>
-                                <Row className={styles.instance_temp_stat}>Price: {data.price}</Row>
-                                <Row className={styles.instance_temp_stat}>Rating: {data.rating.toFixed(1)}</Row>
-                                <br/>
-                                <Row className={styles.instance_temp_stat}> {data.formatted_hours}</Row>
-                                <br/>
-                                <NearbyUniversity zipcode={data.zipcode} />
-                                <NearbyLibrary zipcode={data.zipcode} />
-                            </Container>
-             			</Col>
-             		</Row>
-             	</Container>
+                <Container className={styles.instance_container} >
+                  <Row>
+                    <div className={styles.instance_temp_title}>{data.name}</div>
+                  </Row>
+                  <Row>
+                    <Col>
+                        <Container className={styles.instance_temp_stats}>
+                            <Row className={styles.instance_temp_text}>{data.review_count} reviews</Row>
+                            <br/>
+                            <Row className={styles.instance_temp_text}>{data.address1}</Row>
+                            <Row className={styles.instance_temp_text}>{data.city} {data.state} {data.zipcode}</Row>
+                            <br/>
+                            <Row className={styles.instance_temp_text}>Phone: {data.phone}</Row>
+                            <Row className={styles.instance_temp_text}>Price: {data.price}</Row>
+                            <Row className={styles.instance_temp_text}>Rating: {data.rating.toFixed(1)}</Row>
+                            <br/>
+                            <Row className={styles.instance_temp_text}> {data.formatted_hours}</Row>
+                            <br/>
+                            <NearbyUniversity zipcode={data.zipcode} />
+                            <NearbyLibrary zipcode={data.zipcode} />
+                        </Container>
+                    </Col>
+                    <Col className={styles.instance_temp_image}>
+                        <Figure>
+                            <Figure.Image className={styles.instance_temp_picture} src={data.image_url} />
+                        </Figure>
+                    </Col>
+                  </Row>
+                </Container>
               <div className={styles.instance_temp_body}>
                 <Row>
                   <Col className={styles.instance_temp_col}>
