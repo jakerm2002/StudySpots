@@ -1,6 +1,7 @@
 from database.databases import *
 from flask import Flask, request
 import os
+import json
 
 NEARBY_RADIUS = 25
 
@@ -82,11 +83,14 @@ def get_nearby_libraries(latitude, longitude):
     )
     return libraries_schema.dumps(libraries_nearby)
 
-def generate_query(model, page, per_page, exact_filters, sort_attributes):
+def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes
+#, search_fields, search_query
+):
     base_query = db.session.query(model)
+    #base_query = add_search_filters(base_query, search_fields, search_query)
     base_query = add_exact_filters(base_query, exact_filters)
+    base_query = add_range_filters(base_query, range_filters)
     base_query = add_sort(base_query, sort_attributes)
-    # base_query = base_query.order_by(model.id)
     base_query = base_query.paginate(page=page, per_page=per_page)
     return base_query
 
@@ -169,6 +173,56 @@ def add_sort(existing_query, sort_attributes):
 
 
 
+def get_range_param(request_args, param_name):
+    if param_name in request_args:
+        param = request_args[param_name]
+        return param
+    return None
+
+# returns a dict where the keys are the columns that are range-filter-eligible
+# and the value is a tuple containing the min and max
+def get_range_filters(request_args, range_filter_fields):
+    range_filters = {}
+    for field in range_filter_fields:
+        filter_min_name = field.name + 'Min'
+        filter_max_name = field.name + 'Max'
+        min = get_range_param(request_args, filter_min_name)
+        max = get_range_param(request_args, filter_max_name)
+
+        # if we didn't filter by a field, we don't need to add it to the
+        # query. only add filters containing elements.
+        if min or max:
+            range_filters[field] = (min, max)
+
+    return range_filters
+
+# add our range filters to the query.
+def add_range_filters(existing_query, filters):
+    new_query = []
+    for field in filters:
+        print('type is', type(field))
+        min = filters[field][0]
+        max = filters[field][1]
+        if min:
+            new_query.append(field >= min)
+        if max:
+            new_query.append(field <= max)
+    return existing_query.filter(and_(*new_query))
+
+
+def add_search_filters(existing_query, fields, val):
+    # fields are the searchable columns want this to be done by the backend so the endpoint will pass in this field
+    # search_str = "%"
+    print ('val is', val)
+    search_args = []
+    for s in val.split():
+        search_str = s + "%"
+        for field in fields:
+            search_args.append(field.ilike(search_str))
+    return existing_query.filter(or_(*search_args))
+
+
+
 
 @app.route("/universities")
 def universities():
@@ -180,9 +234,7 @@ def universities():
         University.zipcode
     ]
 
-    sort_filter_fields = [
-        University.id,
-        University.name,
+    range_filter_fields = [
         University.enrollment_ugr_12m,
         University.instate_tuition,
         University.outstate_tuition,
@@ -190,6 +242,22 @@ def universities():
         University.sat_median_reading,
         University.acceptance_rate,
         University.sat_average
+    ]
+
+    sort_filter_fields = [
+        University.id,
+        University.name,
+        University.enrollment_ugr_12m,
+        University.instate_tuition,
+        University.outstate_tuition,
+        University.acceptance_rate,
+        University.sat_average
+    ]
+
+    search_fields = [
+        University.name,
+        University.city,
+        University.state
     ]
 
     # Possible arguments that can be added to request
@@ -245,10 +313,15 @@ def universities():
     if latitude and longitude:
         return get_nearby_universities(latitude, longitude)
     
+    # search_query = request.args.get("search")
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
+    range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, University)
     
-    all_universities = generate_query(University, page, per_page, exact_filters, sort_attributes)
+    all_universities = generate_query(University, page, per_page, exact_filters, range_filters, sort_attributes)
+    print(all_universities.query.count())
+
+    
 
     # **** TODO ****
     # Filtering by an exact filter will reduce the number of results
@@ -277,7 +350,18 @@ def universities():
     # page, per_page, and num_results are optional because we are going to set
     # page and per_page on the frontend, and num_results is calculated by
     # calling length() on the API response in the frontend.
+    # response = {}
+    # response["page"] = page
+    # response["per_page"] = per_page
+    # response["num_results"] = len(json.loads(universities_schema.dumps(all_universities.items)))
+    # response["num_total_results"] = all_universities.query.count()
+    # response["results"] = json.loads(universities_schema.dumps(all_universities.items))
+
+    # print(type(json.loads(universities_schema.dumps(all_universities.items))))
+    # print (json.loads(universities_schema.dumps(all_universities.items)))
+
     return universities_schema.dumps(all_universities.items)
+    # return json.dumps(response, indent=4)
 
 
 @app.route("/universities/<string:id>")
@@ -292,6 +376,11 @@ def coffeeshops():
         CoffeeShop.state,
         CoffeeShop.city,
         CoffeeShop.zipcode
+    ]
+
+    range_filter_fields = [
+        CoffeeShop.price,
+        CoffeeShop.rating
     ]
 
     sort_filter_fields = [
@@ -313,9 +402,10 @@ def coffeeshops():
         return get_nearby_coffeeshops(latitude, longitude)
 
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
+    range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
 
-    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, sort_attributes)
+    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes)
 
     return coffeeshops_schema.dumps(all_coffee_shops.items)
 
@@ -334,6 +424,10 @@ def libraries():
         Library.zipcode
     ]
 
+    range_filter_fields = [
+        Library.rating
+    ]
+
     sort_filter_fields = [
         Library.id,
         Library.name,
@@ -350,9 +444,10 @@ def libraries():
         return get_nearby_libraries(latitude, longitude)
 
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
+    range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, Library)
 
-    all_libraries = generate_query(Library, page, per_page, exact_filters, sort_attributes)
+    all_libraries = generate_query(Library, page, per_page, exact_filters, range_filters, sort_attributes)
 
     return libraries_schema.dumps(all_libraries.items)
 
