@@ -572,6 +572,7 @@ class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     address = db.Column(db.String())
+    # state = db.Column(db.String())
     city = db.Column(db.String())
     zipcode = db.Column(db.String())
     latitude = db.Column(db.Float)
@@ -617,6 +618,7 @@ class LibrarySchema(ma.Schema):
             "id",
             "name",
             "address",
+            #"state",
             "city",
             "zipcode",
             "latitude",
@@ -673,6 +675,7 @@ def populate_libraries():
 
         index_of_city = -1
         index_of_zip_code = -1
+        # index_of_state = -1
 
         def generate_formatted_hours():
             if "opening_hours" not in library:
@@ -699,6 +702,8 @@ def populate_libraries():
                 index_of_city = count
             if "postal_code" in component["types"]:
                 index_of_zip_code = count
+            # if "administrative_area_level_1" in component["types"]:
+            #     index_of_state = count
             count += 1
 
         new_library = Library(
@@ -728,6 +733,7 @@ def populate_libraries():
             else "N/A",
             website=library["website"] if "website" in library else "N/A",
             rating_string=str(library["rating"]) if "rating" in library else "N/A",
+            # state = library["address_components"][index_of_state]["short_name"],
             city=library["address_components"][index_of_city]["long_name"],
             zipcode=library["address_components"][index_of_zip_code]["long_name"],
             review_1_available=True
