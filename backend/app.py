@@ -82,6 +82,15 @@ def get_nearby_libraries(latitude, longitude):
     )
     return libraries_schema.dumps(libraries_nearby)
 
+def generate_query(model, page, per_page, exact_filters, sort_attributes):
+    base_query = db.session.query(model)
+    base_query = add_exact_filters(base_query, exact_filters)
+    base_query = add_sort(base_query, sort_attributes)
+    # base_query = base_query.order_by(model.id)
+    base_query = base_query.paginate(page=page, per_page=per_page)
+    return base_query
+
+
 # link any possible exact filters with the arguments passed into them
 # ex: stateFilter='TX'   cityFilter='Austin'
 # this method will then return a dictionary:
@@ -134,8 +143,30 @@ def add_exact_filters(existing_query, filters):
             new_query.append(field.in_(filters[field]))
     return existing_query.filter(*new_query)
 
+# sort by id by default if no sortBy parameter is passed
+# sort by ascending by default if no ascending attribute is passed
+def get_sort_attributes(request_args, sort_filter_fields, model):
+    sortBy = request_args.get("sortBy", None)
+    # print ('uhhh', request_args.get("ascending"))
 
+    ascInput = request_args.get("ascending", "n/a")
+    # if some random string is passed in, default to true
+    ascending = False if ascInput == "false" else True
     
+    print ('sortby is ', sortBy)
+    print ('ascending is ', ascending)
+    if sortBy:
+        for field in sort_filter_fields:
+            if field.name == sortBy: # found the field to sort by
+                print('found match')
+                if ascending:
+                    return field.asc()
+                return field.desc()
+    return model.id
+
+def add_sort(existing_query, sort_attributes):
+    return existing_query.order_by(sort_attributes)
+
 
 
 
@@ -147,6 +178,18 @@ def universities():
         University.state,
         University.city,
         University.zipcode
+    ]
+
+    sort_filter_fields = [
+        University.id,
+        University.name,
+        University.enrollment_ugr_12m,
+        University.instate_tuition,
+        University.outstate_tuition,
+        University.sat_median_math,
+        University.sat_median_reading,
+        University.acceptance_rate,
+        University.sat_average
     ]
 
     # Possible arguments that can be added to request
@@ -190,8 +233,8 @@ def universities():
     #   - City
     #   - Zip Code
     #
-    # We are also going to create a get_sort_field method that looks for the
-    # API parameters sortBy (type String) and ascOrder (type Boolean)
+    # We are also going to create a get_sort_attributes method that looks for the
+    # API parameters sortBy (type String) and ascending (type Boolean)
     # For the Universities model, the possible sort fields will be:
     #   - Name
     #   - Undergraduate Population
@@ -203,12 +246,9 @@ def universities():
         return get_nearby_universities(latitude, longitude)
     
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
-
-    base_query = db.session.query(University)
-    base_query = add_exact_filters(base_query, exact_filters)
-    base_query = base_query.order_by(University.id)
-    base_query = base_query.paginate(page=page, per_page=per_page)
-    all_universities = base_query
+    sort_attributes = get_sort_attributes(request.args, sort_filter_fields, University)
+    
+    all_universities = generate_query(University, page, per_page, exact_filters, sort_attributes)
 
     # **** TODO ****
     # Filtering by an exact filter will reduce the number of results
@@ -248,6 +288,20 @@ def universities_by_id(id):
 
 @app.route("/coffeeshops")
 def coffeeshops():
+    exact_filter_fields = [
+        CoffeeShop.state,
+        CoffeeShop.city,
+        CoffeeShop.zipcode
+    ]
+
+    sort_filter_fields = [
+        CoffeeShop.id,
+        CoffeeShop.name,
+        CoffeeShop.review_count,
+        CoffeeShop.rating,
+        CoffeeShop.price
+    ]
+
     # Possible arguments that can be added to request
     page = int(request.args.get("page")) if request.args.get("page") else 1
     per_page = int(request.args.get("per_page")) if request.args.get("per_page") else 10
@@ -258,11 +312,11 @@ def coffeeshops():
     if latitude and longitude:
         return get_nearby_coffeeshops(latitude, longitude)
 
-    all_coffee_shops = (
-        db.session.query(CoffeeShop)
-        .order_by(CoffeeShop.id)
-        .paginate(page=page, per_page=per_page)
-    )
+    exact_filters = get_exact_filters(request.args, exact_filter_fields)
+    sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
+
+    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, sort_attributes)
+
     return coffeeshops_schema.dumps(all_coffee_shops.items)
 
 
@@ -274,6 +328,17 @@ def coffeeshops_by_id(id):
 
 @app.route("/libraries")
 def libraries():
+    exact_filter_fields = [
+        # Library.state,
+        Library.city,
+        Library.zipcode
+    ]
+
+    sort_filter_fields = [
+        Library.id,
+        Library.name,
+        Library.rating
+    ]
     # Possible arguments that can be added to request
     page = int(request.args.get("page")) if request.args.get("page") else 1
     per_page = int(request.args.get("per_page")) if request.args.get("per_page") else 10
@@ -284,11 +349,11 @@ def libraries():
     if latitude and longitude:
         return get_nearby_libraries(latitude, longitude)
 
-    all_libraries = (
-        db.session.query(Library)
-        .order_by(Library.id)
-        .paginate(page=page, per_page=per_page)
-    )
+    exact_filters = get_exact_filters(request.args, exact_filter_fields)
+    sort_attributes = get_sort_attributes(request.args, sort_filter_fields, Library)
+
+    all_libraries = generate_query(Library, page, per_page, exact_filters, sort_attributes)
+
     return libraries_schema.dumps(all_libraries.items)
 
 
