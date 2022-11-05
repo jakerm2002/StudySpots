@@ -384,7 +384,7 @@ def coffeeshops():
     ]
 
     range_filter_fields = [
-        CoffeeShop.price,
+        CoffeeShop.price_integer,
         CoffeeShop.rating
     ]
 
@@ -393,7 +393,7 @@ def coffeeshops():
         CoffeeShop.name,
         CoffeeShop.review_count,
         CoffeeShop.rating,
-        CoffeeShop.price
+        CoffeeShop.price_integer
     ]
 
     # Possible arguments that can be added to request
@@ -431,7 +431,7 @@ def coffeeshops_by_id(id):
 @app.route("/libraries")
 def libraries():
     exact_filter_fields = [
-        # Library.state,
+        Library.state,
         Library.city,
         Library.zipcode
     ]
@@ -443,7 +443,7 @@ def libraries():
     sort_filter_fields = [
         Library.id,
         Library.name,
-        Library.rating
+        Library.rating,
     ]
     # Possible arguments that can be added to request
     page = int(request.args.get("page")) if request.args.get("page") else 1
