@@ -323,7 +323,6 @@ def universities():
 
     
 
-    # **** TODO ****
     # Filtering by an exact filter will reduce the number of results
     # returned by the API. We will no longer be returning ALL universities
     # every time. This means there will no longer be a fixed number of pages
@@ -360,8 +359,14 @@ def universities():
     # print(type(json.loads(universities_schema.dumps(all_universities.items))))
     # print (json.loads(universities_schema.dumps(all_universities.items)))
 
-    return universities_schema.dumps(all_universities.items)
-    # return json.dumps(response, indent=4)
+    university_info = json.loads(universities_schema.dumps(all_universities.items))
+    metadata = {
+        "page": page,
+        "per_page": per_page,
+        "num_results": len(university_info),
+        "num_total_results": all_universities.query.count()
+    }
+    return {"metadata": metadata, "results": university_info}
 
 
 @app.route("/universities/<string:id>")
@@ -407,7 +412,14 @@ def coffeeshops():
 
     all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes)
 
-    return coffeeshops_schema.dumps(all_coffee_shops.items)
+    coffee_shop_info = json.loads(coffeeshops_schema.dumps(all_coffee_shops.items))
+    metadata = {
+        "page": page,
+        "per_page": per_page,
+        "num_results": len(coffee_shop_info),
+        "num_total_results": all_coffee_shops.query.count()
+    }
+    return {"metadata": metadata, "results": coffee_shop_info}
 
 
 @app.route("/coffeeshops/<string:id>")
@@ -449,7 +461,14 @@ def libraries():
 
     all_libraries = generate_query(Library, page, per_page, exact_filters, range_filters, sort_attributes)
 
-    return libraries_schema.dumps(all_libraries.items)
+    library_info = json.loads(libraries_schema.dumps(all_libraries.items))
+    metadata = {
+        "page": page,
+        "per_page": per_page,
+        "num_results": len(library_info),
+        "num_total_results": all_libraries.query.count()
+    }
+    return {"metadata": metadata, "results": library_info}
 
 
 @app.route("/libraries/<string:id>")
