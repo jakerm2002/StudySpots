@@ -83,11 +83,10 @@ def get_nearby_libraries(latitude, longitude):
     )
     return libraries_schema.dumps(libraries_nearby)
 
-def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes
-#, search_fields, search_query
+def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields=(), search_query=""
 ):
     base_query = db.session.query(model)
-    #base_query = add_search_filters(base_query, search_fields, search_query)
+    base_query = add_search_filters(base_query, search_fields, search_query)
     base_query = add_exact_filters(base_query, exact_filters)
     base_query = add_range_filters(base_query, range_filters)
     base_query = add_sort(base_query, sort_attributes)
@@ -214,14 +213,13 @@ def add_search_filters(existing_query, fields, val):
     # fields are the searchable columns want this to be done by the backend so the endpoint will pass in this field
     # search_str = "%"
     print ('val is', val)
-    search_args = []
-    for s in val.split():
-        search_str = s + "%"
+    def search_for_word_in_columns(s):
+        search_args = []
+        search_query = "%" + s + "%"
         for field in fields:
-            search_args.append(field.ilike(search_str))
-    return existing_query.filter(or_(*search_args))
-
-
+            search_args.append(func.lower(field).like(func.lower(search_query)))
+        return or_(*search_args)
+    return existing_query.filter(and_(*list((search_for_word_in_columns(s) for s in val.split()))))
 
 
 @app.route("/universities")
@@ -254,10 +252,16 @@ def universities():
         University.sat_average
     ]
 
+    # TODO: search fields can only be for Strings -- provide support for other fields?
     search_fields = [
         University.name,
+        University.alias,
+        University.zipcode,
         University.city,
-        University.state
+        University.state,
+        University.url,
+        University.description,
+        University.photo,
     ]
 
     # Possible arguments that can be added to request
@@ -313,15 +317,13 @@ def universities():
     if latitude and longitude:
         return get_nearby_universities(latitude, longitude)
     
-    # search_query = request.args.get("search")
+    search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, University)
     
-    all_universities = generate_query(University, page, per_page, exact_filters, range_filters, sort_attributes)
+    all_universities = generate_query(University, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
     print(all_universities.query.count())
-
-    
 
     # Filtering by an exact filter will reduce the number of results
     # returned by the API. We will no longer be returning ALL universities
@@ -396,6 +398,25 @@ def coffeeshops():
         CoffeeShop.price_integer
     ]
 
+    search_fields = [
+        CoffeeShop.name,
+        CoffeeShop.image_url,
+        CoffeeShop.zipcode,
+        CoffeeShop.city,
+        CoffeeShop.price,
+        CoffeeShop.phone,
+        CoffeeShop.address1,
+        CoffeeShop.state,
+        CoffeeShop.display_address,
+        CoffeeShop.photo,
+        CoffeeShop.review_1_text,
+        CoffeeShop.review_2_text,
+        CoffeeShop.review_3_text,
+        CoffeeShop.review_1_author,
+        CoffeeShop.review_2_author,
+        CoffeeShop.review_3_author,
+    ]
+
     # Possible arguments that can be added to request
     page = int(request.args.get("page")) if request.args.get("page") else 1
     per_page = int(request.args.get("per_page")) if request.args.get("per_page") else 10
@@ -406,11 +427,12 @@ def coffeeshops():
     if latitude and longitude:
         return get_nearby_coffeeshops(latitude, longitude)
 
+    search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
 
-    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes)
+    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
 
     coffee_shop_info = json.loads(coffeeshops_schema.dumps(all_coffee_shops.items))
     metadata = {
@@ -445,6 +467,29 @@ def libraries():
         Library.name,
         Library.rating,
     ]
+
+    search_fields = [
+        Library.name,
+        Library.address,
+        Library.state,
+        Library.city,
+        Library.zipcode,
+        Library.phone,
+        Library.maps_url,
+        Library.hours_arr,
+        Library.formatted_hours,
+        Library.photo_reference,
+        Library.photo_link,
+        Library.rating_string,
+        Library.website,
+        Library.review_1_text,
+        Library.review_2_text,
+        Library.review_3_text,
+        Library.review_1_author,
+        Library.review_2_author,
+        Library.review_3_author,
+    ]
+
     # Possible arguments that can be added to request
     page = int(request.args.get("page")) if request.args.get("page") else 1
     per_page = int(request.args.get("per_page")) if request.args.get("per_page") else 10
@@ -455,11 +500,12 @@ def libraries():
     if latitude and longitude:
         return get_nearby_libraries(latitude, longitude)
 
+    search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, Library)
 
-    all_libraries = generate_query(Library, page, per_page, exact_filters, range_filters, sort_attributes)
+    all_libraries = generate_query(Library, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
 
     library_info = json.loads(libraries_schema.dumps(all_libraries.items))
     metadata = {
