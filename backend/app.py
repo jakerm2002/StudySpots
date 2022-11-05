@@ -83,11 +83,11 @@ def get_nearby_libraries(latitude, longitude):
     )
     return libraries_schema.dumps(libraries_nearby)
 
-def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes
-#, search_fields, search_query
-):
+def generate_query(model, page, per_page, exact_filters, range_filters, 
+    sort_attributes, search_fields=None):
     base_query = db.session.query(model)
-    #base_query = add_search_filters(base_query, search_fields, search_query)
+    if search_fields:
+        base_query = add_search_filters(base_query, search_fields)
     base_query = add_exact_filters(base_query, exact_filters)
     base_query = add_range_filters(base_query, range_filters)
     base_query = add_sort(base_query, sort_attributes)
@@ -151,7 +151,6 @@ def add_exact_filters(existing_query, filters):
 # sort by ascending by default if no ascending attribute is passed
 def get_sort_attributes(request_args, sort_filter_fields, model):
     sortBy = request_args.get("sortBy", None)
-    # print ('uhhh', request_args.get("ascending"))
 
     ascInput = request_args.get("ascending", "n/a")
     # if some random string is passed in, default to true
@@ -200,7 +199,6 @@ def get_range_filters(request_args, range_filter_fields):
 def add_range_filters(existing_query, filters):
     new_query = []
     for field in filters:
-        print('type is', type(field))
         min = filters[field][0]
         max = filters[field][1]
         if min:
@@ -209,17 +207,26 @@ def add_range_filters(existing_query, filters):
             new_query.append(field <= max)
     return existing_query.filter(and_(*new_query))
 
+def get_search_filters(request_args, search_fields):
+    search_query = request_args.get("search", "")
+    print ('search query is', search_query)
+    search_filters = []
+    for word in search_query.split():
+        search_str = word + "%"
+        for field in search_fields:
+            search_filters.append(field.ilike(search_str))
+    return search_filters
 
-def add_search_filters(existing_query, fields, val):
-    # fields are the searchable columns want this to be done by the backend so the endpoint will pass in this field
-    # search_str = "%"
-    print ('val is', val)
-    search_args = []
-    for s in val.split():
-        search_str = s + "%"
-        for field in fields:
-            search_args.append(field.ilike(search_str))
-    return existing_query.filter(or_(*search_args))
+# will add an individual LIKE query for each word for each column
+# for example "austin texas" will produce a query similar to:
+#   WHERE name  LIKE austin%
+#   OR    state LIKE austin%
+#   OR    city  LIKE austin%
+#   OR    name  LIKE texas%
+#   OR    state LIKE texas%
+#   OR    city  LIKE texas%
+def add_search_filters(existing_query, search_filters):
+    return existing_query.filter(or_(*search_filters))
 
 
 
@@ -313,13 +320,13 @@ def universities():
     if latitude and longitude:
         return get_nearby_universities(latitude, longitude)
     
-    # search_query = request.args.get("search")
+    search_filters = get_search_filters(request.args, search_fields)
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, University)
     
-    all_universities = generate_query(University, page, per_page, exact_filters, range_filters, sort_attributes)
-    print(all_universities.query.count())
+    all_universities = generate_query(University, page, per_page, exact_filters, range_filters, sort_attributes, search_filters)
+    print(all_universities.query.count(), 'total results')
 
     
 
@@ -353,15 +360,12 @@ def universities():
     # response = {}
     # response["page"] = page
     # response["per_page"] = per_page
-    # response["num_results"] = len(json.loads(universities_schema.dumps(all_universities.items)))
+    # response["num_results"] = len(json.loads(universities_schema.dumps(all_universities.items))) # horrible
     # response["num_total_results"] = all_universities.query.count()
     # response["results"] = json.loads(universities_schema.dumps(all_universities.items))
-
-    # print(type(json.loads(universities_schema.dumps(all_universities.items))))
-    # print (json.loads(universities_schema.dumps(all_universities.items)))
+    # return json.dumps(response)
 
     return universities_schema.dumps(all_universities.items)
-    # return json.dumps(response, indent=4)
 
 
 @app.route("/universities/<string:id>")
