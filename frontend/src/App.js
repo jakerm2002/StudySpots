@@ -5,6 +5,7 @@ import Navigation from './general_components/Navigation'
 
 import './App.css';
 import About from './pages/About';
+import Search from "./pages/Search";
 import CoffeeShops from './pages/CoffeeShops'
 import Libraries from './pages/Libraries'
 import Splash from './pages/Splash'
@@ -19,6 +20,7 @@ function App() {
       <Navigation/>
       <Routes>
         <Route path='/' element={<Splash/>}/>
+        <Route path="/Search" element={<Search/>}/>
         <Route path='/CoffeeShops' element={<CoffeeShops/>}/>
         <Route path='/Libraries' element={<Libraries/>}/>
         <Route path='/Universities' element={<Universities/>}/>
