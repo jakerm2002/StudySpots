@@ -53,4 +53,5 @@
 - Comments:
     - Inspiration on database structure from: https://gitlab.com/giveandlive/giveandlive/
     - Used https://gitlab.com/giveandlive/giveandlive/-/tree/260215fb5f072e5af9e076c5f296f2cf01db9476/back-end to be able to deploy on aws elastic beanstalk
+    - Inspiration on how to implement searching/sorting/filtering ui toolbar from: https://gitlab.com/coleweinman/swe-college-project/-/blob/main/frontend/src/components/toolbar/ModelToolbar.tsx
     - Since we ran out of GitLab CI/CD minutes, we had to try and set up a personal GitLab runner last minute, and we were unable to get the selenium tests working through the runner. However, we did run them locally, so we included a screenshot of them passing in selenium_tests.jpeg.

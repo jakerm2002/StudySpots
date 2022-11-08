@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import SearchBar from "../general_components/SearchBar";
 import { RenderPageTable } from '../general_components/ModelPageTemplate';
 import styles from "../general_components/ModelPageTemplate.module.css";
 import axios from "axios";
@@ -17,8 +18,11 @@ const Search = () => {
     });
 
     useEffect(() => {
-        axios.get("http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/search" + searchParams.toString()).then(response => {
+        axios.get(
+            "http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/search?" + searchParams.toString()
+        ).then(response => {
             setSearchInfo(response.data);
+            console.log(searchInfo);
         });
     });
 
@@ -79,6 +83,7 @@ const Search = () => {
     const universityFields = ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"];
 
     return [
+        <SearchBar/>,
         <div className={styles.list}>
             <RenderPageTable entries={coffeeShopEntries} page_name="Coffee Shops" fields={coffeeShopFields}/>
         </div>,
