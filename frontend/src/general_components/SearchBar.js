@@ -16,7 +16,7 @@ const SearchBar = () => {
         setSearchParams(newParams);
     };
     const updateSearch = (searchValue) => {
-        setSearchQuery(searchValue.target.value.toLowerCase());
+        setSearchQuery(searchValue.target.value);
     }
 
     return [
