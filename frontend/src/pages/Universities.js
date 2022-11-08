@@ -8,11 +8,11 @@ var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
 
 const Universities = () => {
 
-    const [universities, setUniversities] = useState([]);
+    const [universities, setUniversities] = useState({'metadata': {}, 'results': []});
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        axios.get('https://api.studyspots.me/universities').then(response => {
+        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/universities').then(response => {
             // console.log("response",response.data);
             setUniversities(response.data);
             
@@ -24,7 +24,7 @@ const Universities = () => {
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `https://api.studyspots.me/universities`;
+        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/universities`;
         url = url + `?page=${page}`
         return url;
     }
@@ -42,7 +42,7 @@ const Universities = () => {
         get_data(pageNumber)
     }
 
-    const Entries = universities.map(
+    const Entries = universities["results"].map(
         (info) => {
             return(
                 <tr onClick={() => window.location.href = `/Universities/${info.id}`}>
@@ -61,8 +61,8 @@ const Universities = () => {
         entries : Entries,
         pageName : "Universities",
         fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"],
-        num_items_per_page : 10,
-        num_total_items : 286,
+        num_items_per_page : universities["metadata"]["per_page"],
+        num_total_items : universities["metadata"]["num_total_results"],
         set_new_page: set_page
     }
     return getModel(payload);
