@@ -5,12 +5,12 @@ import axios from "axios";
 
 const CoffeeShops = () => {
 
-    const [coffeeShops, setCoffeeShops] = useState([]);
+    const [coffeeShops, setCoffeeShops] = useState({'metadata': {}, 'results': []});
     const [currentPage, setCurrentPage] = useState(1);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('https://api.studyspots.me/coffeeshops').then(response => {
+        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops').then(response => {
             // console.log("response",response.data);
             setCoffeeShops(response.data);
             setLoading(false);
@@ -22,7 +22,7 @@ const CoffeeShops = () => {
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `https://api.studyspots.me/coffeeshops`;
+        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops`;
         url = url + `?page=${page}`
         return url;
     }
@@ -42,7 +42,7 @@ const CoffeeShops = () => {
         get_data(pageNumber)
     }
 
-    const Entries = coffeeShops.map(
+    const Entries = coffeeShops["results"].map(
         (info) => {
             var name = info.name;
             var open = "Open";
@@ -70,8 +70,8 @@ const CoffeeShops = () => {
         entries : Entries,
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Open/Closed"],
-        num_items_per_page : 10,
-        num_total_items : 1082,
+        num_items_per_page : coffeeShops["metadata"]["per_page"],
+        num_total_items : coffeeShops["metadata"]["num_total_results"],
         set_new_page: set_page
     }
     return getModel(payload);
