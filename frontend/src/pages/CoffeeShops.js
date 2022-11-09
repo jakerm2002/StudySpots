@@ -12,16 +12,19 @@ const CoffeeShops = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?' + searchParams.toString()).then(response => {
+        // const currentParams =  Object.fromEntries([...searchParams]);
+        // console.log(currentParams); // get new values onchange
+        axios.get(`http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?${searchParams.toString()}`).then(response => {
             // console.log("response",response.data);
             setCoffeeShops(response.data);
             console.log(response.data);
+            console.log('hello.');
             setLoading(false);
         },
         reject => {
             // console.log("REJECT");
         });
-        }, []);
+        }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
@@ -52,6 +55,14 @@ const CoffeeShops = () => {
         get_data(pageNumber)
     }
 
+    const set_search_param = (param) => {
+        setSearchParams(param);
+        console.log('yoooo this is ' + searchParams.toString());
+        for (const entry of searchParams.entries()) {
+            console.log(entry);
+        }
+    }
+
     const Entries = coffeeShops["results"].map(
         (info) => {
             var name = info.name;
@@ -75,7 +86,7 @@ const CoffeeShops = () => {
         }
     );
 
-    console.log(Entries);
+    // console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",
@@ -85,7 +96,7 @@ const CoffeeShops = () => {
         set_new_page: set_page
     }
     return [
-        <SearchBar/>,
+        <SearchBar searchParams={searchParams} setSearchParams={set_search_param}/>,
         getModel(payload)
     ];
 }
