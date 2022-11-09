@@ -21,7 +21,7 @@ const CoffeeShops = () => {
         reject => {
             // console.log("REJECT");
         });
-        }, []);
+        }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
