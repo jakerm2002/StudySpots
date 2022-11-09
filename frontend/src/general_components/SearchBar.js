@@ -13,6 +13,7 @@ const SearchBar = () => {
         } else {
             newParams.set("search", newSearchQuery);
         }
+        newParams.set("page", 1);
         setSearchParams(newParams);
     };
     const updateSearch = (searchValue) => {
@@ -27,6 +28,7 @@ const SearchBar = () => {
         onKeyPress={(event) => {
             if (event.key === "Enter") {
                 submitSearch(searchQuery);
+                window.location.reload();
             }
         }}
         />

@@ -8,20 +8,13 @@ import axios from "axios";
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState({'metadata': {}, 'results': []});
-    const [loading, setLoading] = useState(true);
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?' + searchParams.toString()).then(response => {
-            // console.log("response",response.data);
             setCoffeeShops(response.data);
-            console.log(response.data);
-            setLoading(false);
-        },
-        reject => {
-            // console.log("REJECT");
         });
-        }, [searchParams]);
+    }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
@@ -38,17 +31,14 @@ const CoffeeShops = () => {
     }
     
     const get_data = async(page) => {
-        setLoading(true);
         const url = get_query(page);
         const response = await axios.get(url);
         setCoffeeShops(response.data);
-        setLoading(false);
     }    
 
     const set_page = (pageNumber) => {
-        // console.log('hello');
         update_query("page", pageNumber);
-        // console.log('set page to ', pageNumber)
+        // console.log('st page to ', pageNumber)
         get_data(pageNumber)
     }
 
