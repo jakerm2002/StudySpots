@@ -20,6 +20,10 @@ const SearchBar = () => {
         setSearchQuery(searchValue.target.value);
     }
 
+    useEffect(() => {
+        setSearchQuery(searchParams.get("search") ?? "");
+    }, []);
+
     return [
         <h1>Search</h1>,
         <TextField

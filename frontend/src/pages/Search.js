@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import Button from 'react-bootstrap/Button'
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
 import { RenderPageTable } from '../general_components/ModelPageTemplate';
 import styles from "../general_components/ModelPageTemplate.module.css";
@@ -16,6 +17,7 @@ const Search = () => {
         'library_results': [],
         'coffeeshop_results': [],
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(
@@ -25,6 +27,10 @@ const Search = () => {
             console.log(searchInfo);
         });
     });
+
+    const routeChange = (link) => {
+        navigate(link + "?" + searchParams.toString());
+    }
 
     const coffeeShopEntries = searchInfo["coffeeshop_results"].map(
         (info) => {
@@ -87,12 +93,15 @@ const Search = () => {
         <div className={styles.list}>
             <RenderPageTable entries={coffeeShopEntries} page_name="Coffee Shops" fields={coffeeShopFields}/>
         </div>,
+        <Button variant="outline-dark" onClick={() => routeChange("/CoffeeShops")}>View all CoffeeShop Results</Button>,
         <div className={styles.list}>
             <RenderPageTable entries={libraryEntries} page_name="Libraries" fields={libraryFields}/>
         </div>,
+        <Button variant="outline-dark" onClick={() => routeChange("/Libraries")}>View all Library Results</Button>,
         <div className={styles.list}>
-            <RenderPageTable entries={universityEntries} page_name="Unversities" fields={universityFields}/>
+            <RenderPageTable entries={universityEntries} page_name="Universities" fields={universityFields}/>
         </div>,
+        <Button variant="outline-dark" onClick={() => routeChange("/Universities")}>View all University Results</Button>,
     ];
 }
 
