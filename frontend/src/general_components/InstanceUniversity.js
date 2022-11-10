@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, BrowserRouter as Router, Route } from "react-router-dom";
 
-
 import Figure from 'react-bootstrap/Figure';
 import Container from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
@@ -13,6 +12,7 @@ import MapComponent from "./MapComponent";
 import axios from "axios";
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
 import NearbyLibrary from './NearbyLibrary.js';
+import Divider from "@mui/material/Divider";
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -43,9 +43,10 @@ const InstanceUniversity = () => {
           {!isLoading && (
             <div>
              	<Container className={styles.instance_container}>
-               <Row>
-                        <div className={styles.instance_header}>{data.name}</div>
-                    </Row>
+                <Row>
+                    <div className={styles.instance_header}>{data.name}</div>
+                </Row>
+                <Divider className={styles.instance_divider}>🎓</Divider>
                     <Row className={styles.fields}>
                     <Col sm>
                             {/* <div className={styles.fieldName}>{data.results.id}</div> */}

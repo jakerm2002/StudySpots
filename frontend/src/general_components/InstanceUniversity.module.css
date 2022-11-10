@@ -15,12 +15,20 @@
     display: inline;
 }
 
-
 .instance_header{
+    font-family: "Patrick Hand";
+	justify-content: center;
     font-size: xxx-large;
     font-weight: bold;
     display: flex;
     margin: 25px 25px;
+}
+
+.instance_divider {
+	padding-bottom: 25px;
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: x-large;
 }
 
 .stat {

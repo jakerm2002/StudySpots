@@ -11,6 +11,7 @@ import MapComponent from "./MapComponent";
 import axios from "axios";
 import NearbyLibrary from './NearbyLibrary.js';
 import NearbyUniversity from './NearbyUniversity.js';
+import Divider from "@mui/material/Divider";
 
 
 const InstanceCoffee = () => {
@@ -41,6 +42,7 @@ const InstanceCoffee = () => {
                   <Row>
                     <div className={styles.instance_temp_title}>{data.name}</div>
                   </Row>
+                  <Divider className={styles.instance_divider}>☕︎</Divider>
                   <Row>
                     <Col>
                         <Container className={styles.instance_temp_stats}>

@@ -10,10 +10,17 @@
 	padding: 16px; */
 	margin: 25px 25px;
 }
+.instance_divider {
+	padding-bottom: 25px;
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: x-large;
+}
 
 .instance_temp_title {
 	display: flex;
 	justify-content: center;
+	font-family: 'Patrick Hand';
 	font-size: xxx-large;
 	font-weight: bold;
 	padding: 16px;
