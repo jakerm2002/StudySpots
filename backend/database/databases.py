@@ -4,6 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from sqlalchemy import create_engine, Column, String, Integer, literal_column, text
+from sqlalchemy import and_, or_, func
 from flask_cors import CORS
 import time
 from flask_cors import CORS
@@ -167,7 +168,7 @@ def populate_universities():
             id=replace_id,
             name=university["latest.school.name"],
             alias=university["latest.school.alias"],
-            zipcode=university["latest.school.zip"],
+            zipcode=university["latest.school.zip"][:5],
             city=university["latest.school.city"],
             state=university["latest.school.state"],
             url=university["latest.school.school_url"],
@@ -202,7 +203,7 @@ def populate_universities():
         universities_list.append(new_university)
 
     def sort_by_num_null_values(item1, item2):
-        print("comparing", item1.__dict__["name"], "with", item2.__dict__["name"])
+        # print("comparing", item1.__dict__["name"], "with", item2.__dict__["name"])
         counter_1 = Counter(item1.__dict__.values())
         counter_2 = Counter(item2.__dict__.values())
         return counter_1[None] - counter_2[None]
@@ -211,21 +212,21 @@ def populate_universities():
     new_unis_list = copy.deepcopy(universities_list)
     new_unis_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
 
-    for uni in new_unis_list:
-        print(str(uni.__dict__["id"]) + " " + uni.__dict__["name"])
+    # for uni in new_unis_list:
+    #     print(str(uni.__dict__["id"]) + " " + uni.__dict__["name"])
 
     # change the id of all universities
     for num in range(num_unis):
         new_id = num - num_unis
         index = new_unis_list[num].__dict__["id"]
-        print("changing id from", universities_list[index].id, "to", new_id)
+        # print("changing id from", universities_list[index].id, "to", new_id)
         universities_list[index].id = new_id
 
-    print("len", num_unis)
+    # print("len", num_unis)
 
     for num in range(-num_unis, 0):
         new_id = universities_list[num].id + num_unis
-        print("changing id from", universities_list[num].id, "to", new_id)
+        # print("changing id from", universities_list[num].id, "to", new_id)
         universities_list[num].id = new_id
 
     db.session.add_all(universities_list)
@@ -244,6 +245,7 @@ class CoffeeShop(db.Model):
     longitude = db.Column(db.Float)
     rating = db.Column(db.Float)
     price = db.Column(db.String())
+    price_integer = db.Column(db.Integer)
     phone = db.Column(db.String())
 
     review_count = db.Column(db.Integer)
@@ -314,6 +316,7 @@ class CoffeeShopSchema(ma.Schema):
             "longitude",
             "rating",
             "price",
+            "price_integer",
             "phone",
             "review_count",
             "address1",
@@ -461,6 +464,7 @@ def populate_coffee_shops():
             longitude=coffee_shop["coordinates"]["longitude"],
             rating=coffee_shop["rating"],
             price=coffee_shop["price"] if "price" in coffee_shop else "N/A",
+            price_integer=len(coffee_shop["price"]) if "price" in coffee_shop else 0,
             phone=coffee_shop["phone"] if coffee_shop["phone"] != "" else "N/A",
             review_count=coffee_shop["review_count"],
             address1=coffee_shop["location"]["address1"],
@@ -572,6 +576,7 @@ class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     address = db.Column(db.String())
+    state = db.Column(db.String())
     city = db.Column(db.String())
     zipcode = db.Column(db.String())
     latitude = db.Column(db.Float)
@@ -617,6 +622,7 @@ class LibrarySchema(ma.Schema):
             "id",
             "name",
             "address",
+            "state",
             "city",
             "zipcode",
             "latitude",
@@ -673,6 +679,7 @@ def populate_libraries():
 
         index_of_city = -1
         index_of_zip_code = -1
+        index_of_state = -1
 
         def generate_formatted_hours():
             if "opening_hours" not in library:
@@ -699,6 +706,8 @@ def populate_libraries():
                 index_of_city = count
             if "postal_code" in component["types"]:
                 index_of_zip_code = count
+            if "administrative_area_level_1" in component["types"]:
+                index_of_state = count
             count += 1
 
         new_library = Library(
@@ -728,6 +737,7 @@ def populate_libraries():
             else "N/A",
             website=library["website"] if "website" in library else "N/A",
             rating_string=str(library["rating"]) if "rating" in library else "N/A",
+            state = library["address_components"][index_of_state]["short_name"],
             city=library["address_components"][index_of_city]["long_name"],
             zipcode=library["address_components"][index_of_zip_code]["long_name"],
             review_1_available=True
