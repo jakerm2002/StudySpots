@@ -4,6 +4,7 @@ import SearchBar from "../general_components/SearchBar";
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
+import Highlighter from "react-highlight-words";
 
 const CoffeeShops = () => {
 
@@ -38,7 +39,6 @@ const CoffeeShops = () => {
 
     const set_page = (pageNumber) => {
         update_query("page", pageNumber);
-        // console.log('st page to ', pageNumber)
         get_data(pageNumber)
     }
 
@@ -49,14 +49,32 @@ const CoffeeShops = () => {
             if(info.is_closed){
                 open = "Closed";
             }
-            if(name === ""){
-                // console.log("name empty")
-            }
             return(
                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
-                    <td title={info.name}>{info.name}</td>
-                    <td title={info.city}>{info.city}</td>
-                    <td title={info.price}>{info.price}</td>
+                    <td title={info.name}>{
+                        searchParams.get("search") != null
+                            ? <Highlighter
+                                searchWords={searchParams.get("search").split(" ")}
+                                textToHighlight={info.name}
+                                />
+                            : info.name
+                    }</td>
+                    <td title={info.city}>{
+                        searchParams.get("search") != null
+                        ? <Highlighter
+                            searchWords={searchParams.get("search").split(" ")}
+                            textToHighlight={info.city}
+                            />
+                        : info.city
+                    }</td>
+                    <td title={info.price}>{
+                        searchParams.get("search") != null
+                        ? <Highlighter
+                            searchWords={searchParams.get("search").split(" ")}
+                            textToHighlight={info.price}
+                            />
+                        : info.price
+                    }</td>
                     <td title={info.rating}>{info.rating}</td>
                     <td title={!info.is_closed ? "open" : "closed"} id={!info.is_closed ? styles.open : styles.closed}>{open}</td>
 
