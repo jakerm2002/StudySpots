@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
+import Highlighter from "react-highlight-words";
 
 const Libraries = () => {
     const [libraries, setLibraries] = useState({'metadata': {}, 'results': []});
@@ -43,11 +44,39 @@ const Libraries = () => {
         (info) => {
             return(
                 <tr onClick={() => window.location.href = `/Libraries/${info.id}`}>
-                    <td title={info.name}>{info.name}</td>
-                    <td title={info.address}>{info.address}</td>
+                    <td title={info.name}>{
+                        searchParams.get("search") != null
+                        ? <Highlighter
+                            searchWords={searchParams.get("search").split(" ")}
+                            textToHighlight={info.name}
+                            />
+                        : info.name
+                    }</td>
+                    <td title={info.address}>{
+                        searchParams.get("search") != null
+                        ? <Highlighter
+                            searchWords={searchParams.get("search").split(" ")}
+                            textToHighlight={info.address}
+                            />
+                        : info.address
+                    }</td>
                     <td title={info.rating}>{info.rating}</td>
-                    <td title={info.phone}>{info.phone}</td>
-                    <td title={info.formatted_hours}> {info.formatted_hours}</td>
+                    <td title={info.phone}>{
+                        searchParams.get("search") != null
+                        ? <Highlighter
+                            searchWords={searchParams.get("search").split(" ")}
+                            textToHighlight={info.phone}
+                            />
+                        : info.phone
+                    }</td>
+                    <td title={info.formatted_hours}> {
+                        searchParams.get("search") != null
+                        ? <Highlighter
+                            searchWords={searchParams.get("search").split(" ")}
+                            textToHighlight={info.formatted_hours}
+                            />
+                        : info.formatted_hours
+                    }</td>
                 </tr>
             )
         }
