@@ -25,6 +25,8 @@ function ExactFilterBar(props) {
 
   let values = [];
   let paramValues = props.value;
+  console.log("paramValues");
+  console.log(paramValues);
   if (props.options !== undefined) {
     for (let value of paramValues) {
       let option = props.options.find((o) => o.value === value);
@@ -34,6 +36,7 @@ function ExactFilterBar(props) {
     }
   } else if (paramValues) {
     values = paramValues;
+    console.log("okay we are setting the values here");
   }
 
   // const fetchCityOptions = useMemo(() =>
@@ -69,6 +72,7 @@ function ExactFilterBar(props) {
 
     if (props.options === undefined) {
       // fetchCityOptions();
+      console.log('oh fuck');
     }
   }, [inputValue, props.options]);
   // }, [inputValue, props.options, fetchCityOptions]);
@@ -111,6 +115,8 @@ function ExactFilterBar(props) {
         }
       }}
       onChange={(event, value, reason, details) => {
+        console.log("i am seeing a new value");
+        console.log(value);
         let newValues = [];
         for (let element of value) {
           if (typeof element === "string") newValues.push(element);
@@ -121,9 +127,15 @@ function ExactFilterBar(props) {
       }}
       renderTags={(value, getTagProps) =>
         value.map((option, index) => {
+          console.log("hello hello");
+          console.log(option);
           let label = "";
-          if (typeof option === "string") label = option;
-          else label = option.label;
+          if (typeof option === "string") {
+            label = option;
+          } else {
+            label = option.label;
+            console.log('label is ' + label);
+          }
           return (
             <Chip
               variant="filled"

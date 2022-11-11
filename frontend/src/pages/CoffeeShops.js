@@ -15,8 +15,10 @@ const CoffeeShops = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const getFilterFieldValue = (field) => {
-        let param = searchParams.get(field + "Filter") ?? "";
+        let param = searchParams.get(field) ?? "";
         let paramValues = param === "" ? [] : param.split(",");
+        console.log("getfilterFieldValue");
+        console.log(paramValues);
         return paramValues;
       };
 
@@ -113,6 +115,8 @@ const CoffeeShops = () => {
         label={f.label}
         options={f.options}
         onChange={(value) => {
+            console.log("hey whats up im seweing the new values as THIS!!!");
+            console.log(value);
             let newParams = searchParams;
             if (value.length === 0) {
               newParams.delete(f.field);
