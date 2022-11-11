@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Row } from "react-bootstrap";
-import styles from './InstanceTemplate.module.css';
 import axios from "axios";
+import { Box, List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 
 const NearbyLibrary = ({latitude, longitude}) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -11,23 +10,39 @@ const NearbyLibrary = ({latitude, longitude}) => {
     axios.get('https://api.studyspots.me/libraries?latitude=' + latitude + '&longitude=' + longitude).then(response => {
         setData(response.data);
         setIsLoading(false);
-    },
-    reject => {
-        console.log("REJECT");
     });
-    }, [])
+    })
 
     console.log(data);
-    if (!isLoading && data.length == 0){
-        return (<Row className={styles.instance_temp_stat}>{<p>Nearby libraries not found</p>}</Row>);
+    if (!isLoading && data.length === 0){
+        return (
+        <Box>
+            <h4>Nearby Libraries</h4>
+            <p>Nearby libraries not found</p>
+        </Box>
+        );
     } else {
-        return (<>{!isLoading && data.map(
-            (info) => {
-                return(
-                    <Row className={styles.instance_temp_stat}>{<a href={`/Libraries/${info.id}`}>{info.name}</a>}</Row>
-                )
-            }
-        )}</>);
+        return (
+        <Box>
+            <h4>Nearby Libraries</h4>
+            <List>
+                {!isLoading && data.map(
+                    (info) => {
+                        return(
+                            <ListItem disablePadding>
+                                <ListItemButton component="a" href={`/Libraries/${info.id}`}>
+                                    <ListItemText 
+                                        style={{textAlign: "center"}}
+                                        primary={info.name}
+                                    />
+                                </ListItemButton>
+                            </ListItem>
+                        )
+                    }
+                )}
+            </List>
+        </Box>
+        );
     }
 }
 

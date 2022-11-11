@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useParams, Link, BrowserRouter as Router, Route } from "react-router-dom";
-import Figure from 'react-bootstrap/Figure';
-import Container from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button'
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
-import styles from './InstanceTemplate.module.css';
-import MapComponent from "./MapComponent";
 import axios from "axios";
+import styles from './InstanceTemplate.module.css'
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import MapComponent from "./MapComponent";
 import NearbyLibrary from './NearbyLibrary.js';
 import NearbyUniversity from './NearbyUniversity.js';
+import { Divider } from "@mui/material";
+import { Button, Carousel, Container, Row, Col, Accordion } from "react-bootstrap";
 
 
 const InstanceCoffee = () => {
     const { businessID } = useParams();
       const [isLoading, setIsLoading] = useState(true);
       const [data, setData] = useState([]);
-      const [businessHours, setBusinessHours] = useState([]);
     
       useEffect(() => {
         axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
@@ -25,67 +20,126 @@ const InstanceCoffee = () => {
             setData(response.data);
             console.log(data)
             setIsLoading(false);
-            setBusinessHours(response.data.hours_arr);
-            
-        },
-        reject => {
-            console.log("REJECT");
         });
-      }, [])
+      });
 
     return (
         <>
           {!isLoading && (
-            <div>
-                <Container className={styles.instance_container} >
-                  <Row>
-                    <div className={styles.instance_temp_title}>{data.name}</div>
-                  </Row>
-                  <Row>
-                    <Col>
-                        <Container className={styles.instance_temp_stats}>
-                            <Row className={styles.instance_temp_text}><Button className={styles.instance_temp_button} onClick={() =>  navigator.clipboard.writeText(data.name + '\n' + data.address1 + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.phone)}>Copy Information</Button></Row>
-                            <Row className={styles.instance_temp_text}>{data.review_count} reviews</Row>
-                            <br/>
-                            <Row className={styles.instance_temp_text}>{data.address1}</Row>
-                            <Row className={styles.instance_temp_text}>{data.city} {data.state} {data.zipcode}</Row>
-                            <br/>
-                            <Row className={styles.instance_temp_text}>Phone: {data.phone}</Row>
-                            <Row className={styles.instance_temp_text}>Price: {data.price}</Row>
-                            <Row className={styles.instance_temp_text}>Rating: {data.rating.toFixed(1)}</Row>
-                            <br/>
-                            <Row className={`${styles.instance_temp_text} ${styles.instance_temp_hours}`}> {data.formatted_hours}</Row>
-                            <br/>
-                            <NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
-                            <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
-                        </Container>
-                    </Col>
-                    <Col className={styles.instance_temp_image}>
-                        <Figure>
-                            <Figure.Image className={styles.instance_temp_picture} src={data.image_url} />
-                        </Figure>
-                    </Col>
-                  </Row>
-                </Container>
-              <div className={styles.instance_temp_body}>
+            <div className={styles.general}>
+              <h1>{data.name}</h1>
+              <Divider className={styles.divider}>☕</Divider>
+              <Container className={styles.spacing}>
+                <Carousel>
+                  <Carousel.Item>
+                      <img
+                        className={`d-block w-50 ${styles.image}`}
+                        src={data.image_url}
+                        alt={data.name}
+                      />
+                  </Carousel.Item>
+                </Carousel>
+              </Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <Row>
-                  <Col className={styles.instance_temp_col}>
-                  <Accordion className={styles.instance_temp_info}>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>{"Reviews and Ratings for " + data.name}</Accordion.Header>
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}</Accordion.Body> 
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}</Accordion.Body> 
-                    <Accordion.Body className={styles.instance_temp_text}> {data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}</Accordion.Body> 
-                  </Accordion.Item>
-                  </Accordion>
+                  <Col>
+                    <div>
+                      <b>Address:</b><br/>
+                      {data.address1}<br/>
+                      {data.city}, {data.state} {data.zipcode}
+                    </div>
+                    <div>
+                      <b>Phone Number:</b> {data.phone}
+                    </div>
+                    <div>
+                      <b>Price:</b> {data.price}
+                    </div>
                   </Col>
-                  <Col className={styles.instance_temp_col}>
-                  <MapComponent name={data.name} address={data.address1} latitude={data.latitude} longitude={data.longitude}/>
+                  <Col>
+                    <div>
+                      <b>Hours:</b> <br/>
+                      <div className={styles.hours}>
+                        {data.formatted_hours}
+                      </div>
+                    </div>
                   </Col>
                 </Row>
-
-              </div>
-             	</div>
+                <Button
+                  className={styles.spacing}
+                  variant="dark"
+                  onClick={() => 
+                    navigator.clipboard.writeText(
+                      data.name + '\n' + data.address1 + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.phone
+                    )
+                  }
+                >
+                  Copy Information
+                </Button>
+              </Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+                <div>
+                  <b>Overall Rating:</b> {data.rating.toFixed(1)}
+                </div>
+                <div>
+                  <b>Number of Reviews:</b> {data.review_count}
+                </div>
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Review #1</Accordion.Header>
+                    <Accordion.Body>
+                      {data.review_1_author !== "N/A" 
+                        ? <Accordion.Body>
+                          {data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}
+                          </Accordion.Body>
+                        : <Accordion.Body>
+                          {"No Ratings Available"}
+                          </Accordion.Body>
+                      }
+                    </Accordion.Body>
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="1">
+                    <Accordion.Header>Review #2</Accordion.Header>
+                    <Accordion.Body>
+                      {data.review_2_author !== "N/A" 
+                        ? <Accordion.Body>
+                          {data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}
+                          </Accordion.Body>
+                        : <Accordion.Body>
+                          {"No Ratings Available"}
+                          </Accordion.Body>
+                      }
+                    </Accordion.Body>
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>Review #3</Accordion.Header>
+                    <Accordion.Body>
+                      {data.review_3_author !== "N/A" 
+                        ? <Accordion.Body>
+                          {data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}
+                          </Accordion.Body>
+                        : <Accordion.Body>
+                          {"No Ratings Available"}
+                          </Accordion.Body>
+                      }
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+                <h4>Map</h4>
+                <MapComponent name={data.name} address={data.address1} latitude={data.latitude} longitude={data.longitude}/>
+              </Container>
+              <Container className={styles.spacing}>
+                <Row>
+                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
+                    <NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
+                  </Col>
+                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
+                    <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
           )}
         </>
     );
