@@ -5,7 +5,7 @@ import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { UniversityEndpointName, UniversityExactFilters } from '../general_components/UniversityOptions';
+import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters } from '../general_components/UniversityOptions';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -94,7 +94,7 @@ const Universities = () => {
 
     return [
         <SearchBar/>,
-        <FilterContainer api_name={UniversityEndpointName} exactFilters={UniversityExactFilters}/>,
+        <FilterContainer api_name={UniversityEndpointName} exactFilters={UniversityExactFilters} rangeFilters={UniversityRangeFilters}/>,
         getModel(payload)
     ];
 }

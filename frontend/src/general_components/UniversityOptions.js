@@ -20,6 +20,141 @@ const UniversityExactFilters = [
   },
 ];
 
+const UniversityRangeFilters = [
+  {
+    label: "Undergrad Population",
+    field: "enrollment_ugr_12m",
+    min: 1_000,
+    max: 80_000,
+    nonlinear: true,
+    compactNumbers: true,
+    marks: [
+      {
+        label: "<1K",
+        value: 1_000,
+      },
+      {
+        label: "4K",
+        value: 4_000,
+      },
+      {
+        label: "10K",
+        value: 10_000,
+      },
+      {
+        label: "40K",
+        value: 40_000,
+      },
+      {
+        label: ">80K",
+        value: 80_000,
+      },
+    ],
+  },
+  {
+    label: "Average SAT",
+    field: "sat_average",
+    min: 0,
+    max: 1600,
+    step: 1,
+    marks: [
+      {
+        label: "0",
+        value: 0,
+      },
+      {
+        label: "800",
+        value: 800,
+      },
+      {
+        label: "1200",
+        value: 1200,
+      },
+      {
+        label: "1600",
+        value: 1600,
+      },
+    ],
+  },
+  {
+    label: "In-State Tuition",
+    field: "instate_tuition",
+    min: 5_000,
+    max: 60_000,
+    nonlinear: true,
+    compactNumbers: true,
+    marks: [
+      {
+        label: "<5K",
+        value: 5_000,
+      },
+      {
+        label: "10K",
+        value: 10_000,
+      },
+      {
+        label: "20K",
+        value: 20_000,
+      },
+      {
+        label: "30K",
+        value: 30_000,
+      },
+      {
+        label: "40K",
+        value: 40_000,
+      },
+      {
+        label: "50K",
+        value: 50_000,
+      },
+      {
+        label: ">60K",
+        value: 60_000,
+      },
+    ],
+  },
+  {
+    label: "Out-of-State Tuition",
+    field: "outstate_tuition",
+    min: 5_000,
+    max: 60_000,
+    nonlinear: true,
+    compactNumbers: true,
+    marks: [
+      {
+        label: "<5K",
+        value: 5_000,
+      },
+      {
+        label: "10K",
+        value: 10_000,
+      },
+      {
+        label: "20K",
+        value: 20_000,
+      },
+      {
+        label: "30K",
+        value: 30_000,
+      },
+      {
+        label: "40K",
+        value: 40_000,
+      },
+      {
+        label: "50K",
+        value: 50_000,
+      },
+      {
+        label: ">60K",
+        value: 60_000,
+      },
+    ],
+  },
+];
+
+
 // to store options for frontend dropdown sort menu
 const UniversitySortOptions = [
     {
@@ -53,4 +188,4 @@ const UniversitySortOptions = [
   ];
   
 
-export { UniversityEndpointName, UniversityExactFilters, UniversitySortOptions };
+export { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions };

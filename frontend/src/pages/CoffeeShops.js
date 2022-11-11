@@ -6,7 +6,7 @@ import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { CoffeeShopEndpointName ,CoffeeShopExactFilters } from '../general_components/CoffeeShopOptions';
+import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters } from '../general_components/CoffeeShopOptions';
 
 
 const CoffeeShops = () => {
@@ -106,7 +106,7 @@ const CoffeeShops = () => {
 
     return [
         <SearchBar/>,
-        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters}/>,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
         getModel(payload)
     ];
 }
