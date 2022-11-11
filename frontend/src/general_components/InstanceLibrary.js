@@ -5,7 +5,7 @@ import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
 import NearbyUniversity from './NearbyUniversity.js';
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
-import { Accordion, Button, Carousel, Container, Col, Row } from "react-bootstrap";
+import { Accordion, Button, Carousel, Container, Col, Figure, Row } from "react-bootstrap";
 import Divider from "@mui/material/Divider";
 
 const InstanceLibrary = () => {
@@ -33,11 +33,14 @@ const InstanceLibrary = () => {
 				<Container className={styles.spacing}>
 					<Carousel>
 						<Carousel.Item>
-							<img
-							  className={`d-block w-50 ${styles.image}`}
-							  src={data.photo_link}
-							  alt={data.name}
+							<Figure.Image
+								className={`d-block w-50 ${styles.image}`}
+								src={data.photo_link}
+								alt={data.name}
 							/>
+							<Figure.Caption className={styles.caption}>
+								Image Source: {data.photo_link}
+							</Figure.Caption>
 						</Carousel.Item>
 					</Carousel>
 				</Container>

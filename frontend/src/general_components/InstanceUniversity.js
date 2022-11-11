@@ -6,7 +6,7 @@ import styles from './InstanceTemplate.module.css'
 import MapComponent from "./MapComponent";
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
 import NearbyLibrary from './NearbyLibrary.js';
-import { Button, Carousel, Col, Container, Row } from "react-bootstrap";
+import { Button, Carousel, Col, Container, Figure, Row } from "react-bootstrap";
 import { Divider } from "@mui/material";
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
@@ -38,11 +38,14 @@ const InstanceUniversity = () => {
               <Container className={styles.spacing}>
                 <Carousel>
                   <Carousel.Item>
-                    <img
+                    <Figure.Image
                       className={`d-block w-50 ${styles.image}`}
                       src={data.photo}
                       alt={data.name}
                     />
+                    <Figure.Caption className={styles.caption}>
+                      Image Source: {data.photo}
+                    </Figure.Caption>
                   </Carousel.Item>
                 </Carousel>
               </Container>

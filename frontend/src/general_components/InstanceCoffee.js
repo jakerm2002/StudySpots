@@ -6,7 +6,7 @@ import MapComponent from "./MapComponent";
 import NearbyLibrary from './NearbyLibrary.js';
 import NearbyUniversity from './NearbyUniversity.js';
 import { Divider } from "@mui/material";
-import { Button, Carousel, Container, Row, Col, Accordion } from "react-bootstrap";
+import { Button, Carousel, Container, Figure, Row, Col, Accordion } from "react-bootstrap";
 
 
 const InstanceCoffee = () => {
@@ -33,36 +33,45 @@ const InstanceCoffee = () => {
                 <Carousel>
                   {data.image_url !== ""
                   ? <Carousel.Item>
-                      <img
+                      <Figure.Image
                         className={`d-block w-50 ${styles.image}`}
                         src={data.image_url}
                         alt={data.name}
                       />
+                      <Figure.Caption className={styles.caption}>
+                        Image Source: {data.image_url}
+                      </Figure.Caption>
                     </Carousel.Item>
                   : <Carousel.Item>
                       <img
                         className={`d-block w-50 ${styles.image}`}
                         src="https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg"
-                        alt="No image found"
+                        alt="Unable to display coffee shop"
                       />
                     </Carousel.Item>
                   }
                   {data.image_2_url !== "" && (
                         <Carousel.Item>
-                            <img
+                            <Figure.Image
                               className={`d-block w-50 ${styles.image}`}
                               src={data.image_2_url}
                               alt={data.name}
                             />
+                            <Figure.Caption className={styles.caption}>
+                              Image Source: {data.image_2_url}
+                            </Figure.Caption>
                           </Carousel.Item>
                   )}
                   {data.image_3_url !== "" && (
                         <Carousel.Item>
-                            <img
+                            <Figure.Image
                               className={`d-block w-50 ${styles.image}`}
                               src={data.image_3_url}
                               alt={data.name}
                             />
+                            <Figure.Caption className={styles.caption}>
+                              Image Source: {data.image_3_url}
+                            </Figure.Caption>
                           </Carousel.Item>
                   )}
                 </Carousel>
