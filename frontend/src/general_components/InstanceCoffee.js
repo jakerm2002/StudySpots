@@ -6,7 +6,7 @@ import MapComponent from "./MapComponent";
 import NearbyLibrary from './NearbyLibrary.js';
 import NearbyUniversity from './NearbyUniversity.js';
 import { Divider } from "@mui/material";
-import { Button,Carousel, Container, Row, Col, Accordion } from "react-bootstrap";
+import { Button, Carousel, Container, Row, Col, Accordion } from "react-bootstrap";
 
 
 const InstanceCoffee = () => {
@@ -26,20 +26,21 @@ const InstanceCoffee = () => {
     return (
         <>
           {!isLoading && (
-            <div>
+            <div className={styles.general}>
               <h1>{data.name}</h1>
               <Divider className={styles.divider}>☕</Divider>
-              <Container>
+              <Container className={styles.spacing}>
                 <Carousel>
                   <Carousel.Item>
-                    <img
-                      src={data.image_url}
-                      alt={data.name}
-                    />
+                      <img
+                        className={`d-block w-50 ${styles.image}`}
+                        src={data.image_url}
+                        alt={data.name}
+                      />
                   </Carousel.Item>
                 </Carousel>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <Row>
                   <Col>
                     <div>
@@ -64,6 +65,8 @@ const InstanceCoffee = () => {
                   </Col>
                 </Row>
                 <Button
+                  className={styles.spacing}
+                  variant="dark"
                   onClick={() => 
                     navigator.clipboard.writeText(
                       data.name + '\n' + data.address1 + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.phone
@@ -73,7 +76,7 @@ const InstanceCoffee = () => {
                   Copy Information
                 </Button>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <div>
                   <b>Overall Rating:</b> {data.rating.toFixed(1)}
                 </div>
@@ -81,56 +84,57 @@ const InstanceCoffee = () => {
                   <b>Number of Reviews:</b> {data.review_count}
                 </div>
                 <Accordion>
-						<Accordion.Item eventKey="0">
-							<Accordion.Header>Review #1</Accordion.Header>
-							<Accordion.Body>
-								{data.review_1_author !== "N/A" 
-									? <Accordion.Body>
-										{data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}
-									  </Accordion.Body>
-									: <Accordion.Body>
-										{"No Ratings Available"}
-									  </Accordion.Body>
-								}
-							</Accordion.Body>
-						</Accordion.Item>
-						<Accordion.Item eventKey="1">
-							<Accordion.Header>Review #2</Accordion.Header>
-							<Accordion.Body>
-								{data.review_2_author !== "N/A" 
-									? <Accordion.Body>
-										{data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}
-									  </Accordion.Body>
-									: <Accordion.Body>
-										{"No Ratings Available"}
-									  </Accordion.Body>
-								}
-							</Accordion.Body>
-						</Accordion.Item>
-						<Accordion.Item eventKey="2">
-							<Accordion.Header>Review #3</Accordion.Header>
-							<Accordion.Body>
-								{data.review_3_author !== "N/A" 
-									? <Accordion.Body>
-										{data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}
-									  </Accordion.Body>
-									: <Accordion.Body>
-										{"No Ratings Available"}
-									  </Accordion.Body>
-								}
-							</Accordion.Body>
-						</Accordion.Item>
-					</Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Review #1</Accordion.Header>
+                    <Accordion.Body>
+                      {data.review_1_author !== "N/A" 
+                        ? <Accordion.Body>
+                          {data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}
+                          </Accordion.Body>
+                        : <Accordion.Body>
+                          {"No Ratings Available"}
+                          </Accordion.Body>
+                      }
+                    </Accordion.Body>
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="1">
+                    <Accordion.Header>Review #2</Accordion.Header>
+                    <Accordion.Body>
+                      {data.review_2_author !== "N/A" 
+                        ? <Accordion.Body>
+                          {data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}
+                          </Accordion.Body>
+                        : <Accordion.Body>
+                          {"No Ratings Available"}
+                          </Accordion.Body>
+                      }
+                    </Accordion.Body>
+                  </Accordion.Item>
+                  <Accordion.Item eventKey="2">
+                    <Accordion.Header>Review #3</Accordion.Header>
+                    <Accordion.Body>
+                      {data.review_3_author !== "N/A" 
+                        ? <Accordion.Body>
+                          {data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}
+                          </Accordion.Body>
+                        : <Accordion.Body>
+                          {"No Ratings Available"}
+                          </Accordion.Body>
+                      }
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+                <h4>Map</h4>
                 <MapComponent name={data.name} address={data.address1} latitude={data.latitude} longitude={data.longitude}/>
               </Container>
-              <Container>
+              <Container className={styles.spacing}>
                 <Row>
-                  <Col>
+                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
                     <NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
-                  <Col>
+                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
                     <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
                 </Row>

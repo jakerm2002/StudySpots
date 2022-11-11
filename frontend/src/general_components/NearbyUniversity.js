@@ -30,7 +30,10 @@ const NearbyUniversity = ({latitude, longitude}) => {
                     return (
                         <ListItem disablePadding>
                             <ListItemButton component="a" href={`/Universities/${info.id}`}>
-                                <ListItemText primary={info.name}/>
+                                <ListItemText 
+                                        style={{textAlign: "center"}}
+                                        primary={info.name}
+                                    />
                             </ListItemButton>
                         </ListItem>
                     )

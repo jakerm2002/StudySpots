@@ -32,20 +32,21 @@ const InstanceUniversity = () => {
     return (
         <>
           {!isLoading && (
-            <div>
+            <div className={styles.general}>
               <h1>{data.name}</h1>
               <Divider className={styles.divider}>🎓</Divider>
-              <Container>
+              <Container className={styles.spacing}>
                 <Carousel>
                   <Carousel.Item>
                     <img
+                      className={`d-block w-50 ${styles.image}`}
                       src={data.photo}
                       alt={data.name}
                     />
                   </Carousel.Item>
                 </Carousel>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <div>
                   <b>Alias:</b> {data.alias}
                 </div>
@@ -57,6 +58,8 @@ const InstanceUniversity = () => {
                   <a href={data.url.startsWith("http") ? data.url : '//' + data.url}>{data.url}</a>
                 </div>
                 <Button
+                  className={styles.spacing}
+                  variant="dark"
                   onClick={() => 
                     navigator.clipboard.writeText(
                       data.name + '\n' + data.city + ' ' + data.state + ' ' + data.zipcode + '\n' + data.url
@@ -66,7 +69,7 @@ const InstanceUniversity = () => {
                   Copy Information
                 </Button>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <div>
                   <b>Undergraduate Population:</b> {data.size.toLocaleString("en-US", populationFormat)}
                 </div>
@@ -80,19 +83,22 @@ const InstanceUniversity = () => {
                   <b>Acceptance Rate:</b> {(data.acceptance_rate* 100).toFixed(1)+'%'}
                 </div>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <h4>Description</h4>
-                {data.description}
+                <div className={styles.spacing}>
+                  {data.description}
+                </div>
               </Container>
-              <Container>
+              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+                <h4>Map</h4>
                 <MapComponent name={data.name} address={data.city} latitude={data.latitude} longitude={data.longitude}/>
               </Container>
-              <Container>
+              <Container className={styles.spacing}>
                 <Row>
-                  <Col>
+                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
                     <NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
-                  <Col>
+                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
                     <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
                 </Row>

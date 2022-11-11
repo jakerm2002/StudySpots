@@ -1,3 +1,28 @@
+.general {
+	font-family: "Patrick Hand";
+}
+
+.image {
+	margin: auto;
+}
+
+.spacing {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.spacing_side {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.styleCard { /* style borrowed from https://codesandbox.io/s/lxvpmnn6z7?file=/src/styles.css*/
+	border-radius: 8px;
+	box-shadow: 0px 0px 8px #ccc;
+	color: #253b56;
+}
+
+
 .divider {
 	padding-bottom: 25px;
 	padding-left: 50px;

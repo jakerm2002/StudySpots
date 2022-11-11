@@ -27,20 +27,21 @@ const InstanceLibrary = () => {
     return (
         <>
           {!isLoading && (
-            <div>
+            <div className={styles.general}>
 				<h1>{data.name}</h1>
 				<Divider className={styles.divider}>📖</Divider>
-				<Container>
+				<Container className={styles.spacing}>
 					<Carousel>
 						<Carousel.Item>
 							<img
+							  className={`d-block w-50 ${styles.image}`}
 							  src={data.photo_link}
 							  alt={data.name}
 							/>
 						</Carousel.Item>
 					</Carousel>
 				</Container>
-				<Container>
+				<Container className={`${styles.spacing} ${styles.styleCard}`}>
 					<Row>
 						<Col>
 							<div>
@@ -64,6 +65,8 @@ const InstanceLibrary = () => {
 						</Col>
 					</Row>
 					<Button
+						className={styles.spacing}
+						variant="dark"
 						onClick={() =>
 							navigator.clipboard.writeText(
 								data.name + '\n' + data.address + '\n' + data.phone
@@ -73,7 +76,7 @@ const InstanceLibrary = () => {
 						Copy Information
 					</Button>
 				</Container>
-				<Container>
+				<Container className={`${styles.spacing} ${styles.styleCard}`}>
 					<div>
 						<b>Overall Rating: </b> {data.rating}
 					</div>
@@ -119,15 +122,16 @@ const InstanceLibrary = () => {
 						</Accordion.Item>
 					</Accordion>
 				</Container>
-				<Container>
+				<Container className={`${styles.spacing} ${styles.styleCard}`}>
+					<h4>Map</h4>
 					<MapComponent name={data.name} address={data.address} latitude={data.latitude} longitude={data.longitude}/>
 				</Container>
-				<Container>
+				<Container className={styles.spacing}>
 					<Row>
-						<Col>
+						<Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
 							<NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
 						</Col>
-						<Col>
+						<Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
 							<NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude}/>
 						</Col>
 					</Row>

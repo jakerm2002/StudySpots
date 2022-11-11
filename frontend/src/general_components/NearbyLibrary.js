@@ -29,9 +29,12 @@ const NearbyLibrary = ({latitude, longitude}) => {
                 {!isLoading && data.map(
                     (info) => {
                         return(
-                            <ListItem>
+                            <ListItem disablePadding>
                                 <ListItemButton component="a" href={`/Libraries/${info.id}`}>
-                                    <ListItemText primary={info.name}/>
+                                    <ListItemText 
+                                        style={{textAlign: "center"}}
+                                        primary={info.name}
+                                    />
                                 </ListItemButton>
                             </ListItem>
                         )
