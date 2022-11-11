@@ -1,6 +1,6 @@
 import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 // import { API_URL } from "../globals";
 import throttle from "lodash/throttle";
 
@@ -39,31 +39,35 @@ function ExactFilterBar(props) {
     console.log("okay we are setting the values here");
   }
 
-  // const fetchCityOptions = useMemo(() =>
-  //     throttle(async () => {
-  //       setOptions([]);
+  const fetchOptions = useMemo(() =>
+      throttle(async () => {
+        setOptions([]);
+        console.log("HI");
 
-  //       let response: AxiosResponse<any, any> = await axios.get(
-  //         `${API_URL}/cities?query=` + inputValue
-  //       );
-  //       let data = response.data["data"];
-  //       if (response.data["status"] !== "success") return;
+        let response = await axios.get(
+          `http://localhost:5000/${props.api_name}/${props.api}?query=` + inputValue
+        );
+        let data = response.data;
+        console.log("still here");
+        // if (response.data["status"] !== "success") return;
 
-  //       let names = new Set<string>();
-  //       data["cities"].forEach((city: any) => {
-  //         names.add(city["name"]);
-  //       });
-  //       let ops: Option[] = [...names].map((name: string): Option => {
-  //         let op: Option = { label: name, value: name };
-  //         return op;
-  //       });
+        let names = new Set();
+        data.forEach((field) => {
+          names.add(field[props.api_field_name]);
+        });
+        console.log("names");
+        console.log(names);
+        let ops = [...names].map((name) => {
+          let op = { label: name, value: name };
+          return op;
+        });
 
-  //       setOpen(ops.length !== 0);
-  //       setOptions(ops);
-  //       console.log(ops);
-  //     }, 200),
-  //   [inputValue]
-  // );
+        setOpen(ops.length !== 0);
+        setOptions(ops);
+        console.log(ops);
+      }, 200),
+    [inputValue]
+  );
 
   useEffect(() => {
     if (inputValue === "") {
@@ -71,11 +75,17 @@ function ExactFilterBar(props) {
     }
 
     if (props.options === undefined) {
-      // fetchCityOptions();
-      console.log('oh fuck');
+      console.log("no props.options detected.");
+      if (props.api) {
+        console.log("detecting an api call!");
+        let api_name = props.api_name;
+        console.log("api_name");
+        console.log(api_name);
+        fetchOptions();
+      }
     }
   }, [inputValue, props.options]);
-  // }, [inputValue, props.options, fetchCityOptions]);
+  // }, [inputValue, props.options, fetchOptions]);
 
   return (
     <Autocomplete

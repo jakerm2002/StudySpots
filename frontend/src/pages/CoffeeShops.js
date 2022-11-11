@@ -105,15 +105,19 @@ const CoffeeShops = () => {
     }
 
 
-    let f = CoffeeShopExactFilters[0];
+    let f = CoffeeShopExactFilters[2];
+    let api_name = "coffeeshops";
     return [
         <SearchBar/>,
         <ExactFilterBar 
+        api_name = {api_name}
         value={getFilterFieldValue(f.field)}
         // key={f.field}
         field={f.field}
         label={f.label}
         options={f.options}
+        api={f.api}
+        api_field_name={f.api_field_name}
         onChange={(value) => {
             console.log("hey whats up im seweing the new values as THIS!!!");
             console.log(value);

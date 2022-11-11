@@ -9,10 +9,14 @@ const CoffeeShopExactFilters = [
   {
     label: "City Filter",
     field: "cityFilter",
+    api: "cities",
+    api_field_name: "city"
   },
   {
     label: "Zip Code Filter",
     field: "zipcodeFilter",
+    api: "zipcodes",
+    api_field_name: "zipcode"
   },
 ];
 
