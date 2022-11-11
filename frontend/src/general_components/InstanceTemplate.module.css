@@ -1,72 +1,35 @@
-.instance_temp_stats {
-	display: flex;
-	border: none;
-	padding-top: 50px;
-	justify-content: left;
-}
-.instance_temp_stat {
-	/* display: flex;
-	justify-content: left;
-	padding: 16px; */
-	margin: 25px 25px;
+.general {
+	font-family: "Patrick Hand";
 }
 
-.instance_temp_title {
-	display: flex;
-	justify-content: center;
-	font-size: xxx-large;
-	font-weight: bold;
-	padding: 16px;
-}
-    
-.instance_temp_body {
-	display: fit-content;
-	margin: 6rem;
-	justify-content: center;
+.image {
+	margin: auto;
 }
 
-.instance_temp_col {
-	display: flex;
-	justify-content: center;
+.spacing {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.instance_container{
-    margin: 25px 50px;
+.spacing_side {
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
-.instance_temp_info {
-	width: 500px;
+.styleCard { /* style borrowed from https://codesandbox.io/s/lxvpmnn6z7?file=/src/styles.css*/
+	border-radius: 8px;
+	box-shadow: 0px 0px 8px #ccc;
+	color: #253b56;
 }
 
-.instance_temp_text {
-	display: flex;
-	justify-content: left; 
-	margin-left: 25px;
+
+.divider {
+	padding-bottom: 25px;
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: x-large;
 }
 
-.instance_temp_header {
-	display: flex;
-	justify-content: left;
-	margin: 2rem;
-	margin-left: 6rem;
-	margin-right: 6rem;
-}
-
-.instance_temp_image {
-	padding: 32px;
-	justify-content: center;
-	display: flex;
-}
-
-.instance_temp_picture {
-	width: auto; /* you can use % */
-	height: 400px;
-}
-
-.instance_temp_button {
-	width: fit-content;
-}
-
-.instance_temp_hours {
+.hours {
 	white-space: pre-wrap;
 }
