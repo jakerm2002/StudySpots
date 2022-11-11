@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SearchBar from '../general_components/SearchBar';
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { UniversityEndpointName, UniversityExactFilters } from '../general_components/UniversityOptions';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -89,8 +91,10 @@ const Universities = () => {
         num_total_items : universities["metadata"]["num_total_results"],
         set_new_page: set_page
     }
+
     return [
         <SearchBar/>,
+        <FilterContainer api_name={UniversityEndpointName} exactFilters={UniversityExactFilters}/>,
         getModel(payload)
     ];
 }

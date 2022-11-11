@@ -1,13 +1,13 @@
+import { useSearchParams } from 'react-router-dom';
+import { Box, Stack } from "@mui/material";
+
 import ExactFilterBar from "./ExactFilterBar";
 
-function FilterBar(props) {
+function FilterContainer(props) {
     const [searchParams, setSearchParams] = useSearchParams();
 
-    // let exactFilters = props.exactFilters;
-    // let rangeFilters = props.rangeFilters;
-
     const getFilterFieldValue = (field) => {
-        let param = searchParams.get(field) ?? "";
+        let param = searchParams.get(field + "Filter") ?? "";
         let paramValues = param === "" ? [] : param.split(",");
         console.log("getfilterFieldValue");
         console.log(paramValues);
@@ -19,11 +19,13 @@ function FilterBar(props) {
               {props.exactFilters.map((f) => (
                 <Box sx={{ flexGrow: 1 }}>
                   <ExactFilterBar
+                    api_name={props.api_name}
                     value={getFilterFieldValue(f.field)}
                     key={f.field}
                     label={f.label}
                     field={f.field}
                     options={f.options}
+                    api={f.api}
                     onChange={(value) => {
                       let newParams = searchParams;
                       if (value.length === 0) {
@@ -37,9 +39,9 @@ function FilterBar(props) {
                   />
                 </Box>
               ))}
-            </Stack>
+          </Stack>
     );
     
 }
 
-export default FilterBar;
+export default FilterContainer;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
-import ExactFilterBar from "../general_components/ExactFilterBar";
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { CoffeeShopExactFilters } from '../general_components/CoffeeShopOptions';
+import { CoffeeShopEndpointName ,CoffeeShopExactFilters } from '../general_components/CoffeeShopOptions';
 
 
 const CoffeeShops = () => {
@@ -104,33 +104,9 @@ const CoffeeShops = () => {
         set_new_page: set_page
     }
 
-
-    let f = CoffeeShopExactFilters[2];
-    let api_name = "coffeeshops";
     return [
         <SearchBar/>,
-        <ExactFilterBar 
-        api_name = {api_name}
-        value={getFilterFieldValue(f.field)}
-        // key={f.field}
-        field={f.field}
-        label={f.label}
-        options={f.options}
-        api={f.api}
-        api_field_name={f.api_field_name}
-        onChange={(value) => {
-            console.log("hey whats up im seweing the new values as THIS!!!");
-            console.log(value);
-            let newParams = searchParams;
-            if (value.length === 0) {
-              newParams.delete(f.field);
-            } else {
-              newParams.set(f.field, value.join(","));
-            }
-            newParams.delete("page");
-            setSearchParams(newParams);
-          }}
-        />,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters}/>,
         getModel(payload)
     ];
 }

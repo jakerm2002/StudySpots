@@ -1,8 +1,8 @@
 import { StateOptions } from "./StateOptions";
 
-const CoffeeShopEndpointName = "coffeeshops";
+const LibraryEndpointName = "libraries";
 
-const CoffeeShopExactFilters = [
+const LibraryExactFilters = [
   {
     label: "State Filter",
     field: "state",
@@ -20,4 +20,4 @@ const CoffeeShopExactFilters = [
   },
 ];
 
-export { CoffeeShopEndpointName, CoffeeShopExactFilters };
+export { LibraryEndpointName, LibraryExactFilters };

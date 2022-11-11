@@ -1,21 +1,7 @@
 import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState, useMemo } from 'react'
-// import { API_URL } from "../globals";
 import throttle from "lodash/throttle";
-
-// interface ExactFilterBarProps {
-//   value: string[];
-//   options?: Option[];
-//   label: string;
-//   field: string;
-//   onChange: (value: string[]) => void;
-// }
-
-// interface Option {
-//   label: string;
-//   value: string;
-// }
 
 function ExactFilterBar(props) {
   const [open, setOpen] = useState(false);
@@ -53,7 +39,7 @@ function ExactFilterBar(props) {
 
         let names = new Set();
         data.forEach((field) => {
-          names.add(field[props.api_field_name]);
+          names.add(field[props.field]);
         });
         console.log("names");
         console.log(names);

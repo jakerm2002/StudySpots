@@ -1,18 +1,22 @@
 import { StateOptions } from "./StateOptions";
 
-const CollegeExactFilters = [
+const UniversityEndpointName = "universities";
+
+const UniversityExactFilters = [
   {
     label: "State Filter",
-    field: "stateFilter",
+    field: "state",
     options: StateOptions,
   },
   {
     label: "City Filter",
-    field: "cityFilter",
+    field: "city",
+    api: "cities",
   },
   {
     label: "Zip Code Filter",
-    field: "zipcodeFilter",
+    field: "zipcode",
+    api: "zipcodes",
   },
 ];
 
@@ -49,4 +53,4 @@ const UniversitySortOptions = [
   ];
   
 
-export { CollegeExactFilters, UniversitySortOptions };
+export { UniversityEndpointName, UniversityExactFilters, UniversitySortOptions };
