@@ -1,79 +1,10 @@
-.instance_temp_stats {
-	display: flex;
-	border: none;
-	padding-top: 50px;
-	justify-content: left;
-}
-.instance_temp_stat {
-	/* display: flex;
-	justify-content: left;
-	padding: 16px; */
-	margin: 25px 25px;
-}
-.instance_divider {
+.divider {
 	padding-bottom: 25px;
 	padding-left: 50px;
 	padding-right: 50px;
 	font-size: x-large;
 }
 
-.instance_temp_title {
-	display: flex;
-	justify-content: center;
-	font-family: 'Patrick Hand';
-	font-size: xxx-large;
-	font-weight: bold;
-	padding: 16px;
-}
-    
-.instance_temp_body {
-	display: fit-content;
-	margin: 6rem;
-	justify-content: center;
-}
-
-.instance_temp_col {
-	display: flex;
-	justify-content: center;
-}
-
-.instance_container{
-    margin: 25px 50px;
-}
-
-.instance_temp_info {
-	width: 500px;
-}
-
-.instance_temp_text {
-	display: flex;
-	justify-content: left; 
-	margin-left: 25px;
-}
-
-.instance_temp_header {
-	display: flex;
-	justify-content: left;
-	margin: 2rem;
-	margin-left: 6rem;
-	margin-right: 6rem;
-}
-
-.instance_temp_image {
-	padding: 32px;
-	justify-content: center;
-	display: flex;
-}
-
-.instance_temp_picture {
-	width: auto; /* you can use % */
-	height: 400px;
-}
-
-.instance_temp_button {
-	width: fit-content;
-}
-
-.instance_temp_hours {
+.hours {
 	white-space: pre-wrap;
 }

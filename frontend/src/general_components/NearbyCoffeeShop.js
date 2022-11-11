@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from './InstanceTemplate.module.css';
 import axios from "axios";
 import { Box, List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 
@@ -11,14 +10,11 @@ const NearbyCoffeeShop = ({latitude, longitude}) => {
     axios.get('https://api.studyspots.me/coffeeshops?latitude=' + latitude + '&longitude=' + longitude).then(response => {
         setData(response.data);
         setIsLoading(false);
-    },
-    reject => {
-        console.log("REJECT");
     });
-    }, [])
+    })
 
     console.log(data);
-    if (!isLoading && data.length == 0){
+    if (!isLoading && data.length === 0){
         return (
         <Box>
             <h4>Nearby Coffee Shops</h4>

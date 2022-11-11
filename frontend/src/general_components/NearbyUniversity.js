@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styles from './InstanceTemplate.module.css';
 import axios from "axios";
 import { Box, List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 
@@ -14,7 +13,7 @@ const NearbyUniversity = ({latitude, longitude}) => {
     });
     })
 
-    if (!isLoading && data.length == 0){
+    if (!isLoading && data.length === 0){
         return (
         <Box>
             <h4>Nearby Universities</h4>
