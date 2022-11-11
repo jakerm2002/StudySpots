@@ -15,7 +15,7 @@ const InstanceCoffee = () => {
       const [data, setData] = useState([]);
     
       useEffect(() => {
-        axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
+        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops/' + businessID).then(response => {
             console.log("response",response.data);
             setData(response.data);
             console.log(data)
@@ -31,13 +31,40 @@ const InstanceCoffee = () => {
               <Divider className={styles.divider}>☕</Divider>
               <Container className={styles.spacing}>
                 <Carousel>
-                  <Carousel.Item>
+                  {data.image_url !== ""
+                  ? <Carousel.Item>
                       <img
                         className={`d-block w-50 ${styles.image}`}
                         src={data.image_url}
                         alt={data.name}
                       />
-                  </Carousel.Item>
+                    </Carousel.Item>
+                  : <Carousel.Item>
+                      <img
+                        className={`d-block w-50 ${styles.image}`}
+                        src="https://www.escapeauthority.com/wp-content/uploads/2116/11/No-image-found.jpg"
+                        alt="No image found"
+                      />
+                    </Carousel.Item>
+                  }
+                  {data.image_2_url !== "" && (
+                        <Carousel.Item>
+                            <img
+                              className={`d-block w-50 ${styles.image}`}
+                              src={data.image_2_url}
+                              alt={data.name}
+                            />
+                          </Carousel.Item>
+                  )}
+                  {data.image_3_url !== "" && (
+                        <Carousel.Item>
+                            <img
+                              className={`d-block w-50 ${styles.image}`}
+                              src={data.image_3_url}
+                              alt={data.name}
+                            />
+                          </Carousel.Item>
+                  )}
                 </Carousel>
               </Container>
               <Container className={`${styles.spacing} ${styles.styleCard}`}>
