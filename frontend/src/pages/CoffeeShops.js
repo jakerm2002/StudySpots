@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
+import ExactFilterBar from "../general_components/ExactFilterBar";
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { CoffeeShopExactFilters } from '../general_components/CoffeeShopOptions';
+
 
 const CoffeeShops = () => {
 
     const [coffeeShops, setCoffeeShops] = useState({'metadata': {}, 'results': []});
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const getFilterFieldValue = (field) => {
+        let param = searchParams.get(field + "Filter") ?? "";
+        let paramValues = param === "" ? [] : param.split(",");
+        return paramValues;
+      };
 
     useEffect(() => {
         axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?' + searchParams.toString()).then(response => {
@@ -92,8 +101,28 @@ const CoffeeShops = () => {
         num_total_items : coffeeShops["metadata"]["num_total_results"],
         set_new_page: set_page
     }
+
+
+    let f = CoffeeShopExactFilters[0];
     return [
         <SearchBar/>,
+        <ExactFilterBar 
+        value={getFilterFieldValue(f.field)}
+        // key={f.field}
+        field={f.field}
+        label={f.label}
+        options={f.options}
+        onChange={(value) => {
+            let newParams = searchParams;
+            if (value.length === 0) {
+              newParams.delete(f.field);
+            } else {
+              newParams.set(f.field, value.join(","));
+            }
+            newParams.delete("page");
+            setSearchParams(newParams);
+          }}
+        />,
         getModel(payload)
     ];
 }

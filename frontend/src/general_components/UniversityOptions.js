@@ -1,5 +1,22 @@
-// to store options for frontend dropdown sort menu
+import { StateOptions } from "./StateOptions";
 
+const CollegeExactFilters = [
+  {
+    label: "State Filter",
+    field: "stateFilter",
+    options: StateOptions,
+  },
+  {
+    label: "City Filter",
+    field: "cityFilter",
+  },
+  {
+    label: "Zip Code Filter",
+    field: "zipcodeFilter",
+  },
+];
+
+// to store options for frontend dropdown sort menu
 const UniversitySortOptions = [
     {
       label: "Name",
@@ -32,4 +49,4 @@ const UniversitySortOptions = [
   ];
   
 
-export { UniversitySortOptions };
+export { CollegeExactFilters, UniversitySortOptions };
