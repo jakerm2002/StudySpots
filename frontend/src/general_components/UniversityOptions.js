@@ -54,16 +54,12 @@ const UniversityRangeFilters = [
   {
     label: "Average SAT",
     field: "sat_average",
-    min: 0,
+    min: 800,
     max: 1600,
     step: 1,
     marks: [
       {
-        label: "0",
-        value: 0,
-      },
-      {
-        label: "800",
+        label: "<800",
         value: 800,
       },
       {
@@ -117,55 +113,30 @@ const UniversityRangeFilters = [
   {
     label: "Out-of-State Tuition",
     field: "outstate_tuition",
-    min: 5_000,
+    min: 10_000,
     max: 60_000,
-    // nonlinear: true,
     step: 1,
     compactNumbers: true,
     marks: [
       {
-        label: "<5K",
-        value: 5_000,
+        label: "<10K",
+        value: 10_000,
       },
-      // {
-      //   label: "10K",
-      //   value: 10_000,
-      // },
       {
-        label: "15K",
-        value: 15_000,
+        label: "20K",
+        value: 20_000,
       },
-      // {
-      //   label: "20K",
-      //   value: 20_000,
-      // },
       {
-        label: "25K",
-        value: 25_000,
+        label: "30K",
+        value: 30_000,
       },
-      // {
-      //   label: "30K",
-      //   value: 30_000,
-      // },
       {
-        label: "35K",
-        value: 35_000,
+        label: "40K",
+        value: 40_000,
       },
-      // {
-      //   label: "40K",
-      //   value: 40_000,
-      // },
       {
-        label: "45K",
-        value: 45_000,
-      },
-      // {
-      //   label: "50K",
-      //   value: 50_000,
-      // },
-      {
-        label: "55K",
-        value: 55_000,
+        label: "50K",
+        value: 50_000,
       },
       {
         label: ">60K",
@@ -178,35 +149,34 @@ const UniversityRangeFilters = [
 
 // to store options for frontend dropdown sort menu
 const UniversitySortOptions = [
-    {
-      label: "Name",
-      db_label: "name",
-    },
-    {
-      label: "Undergraduate Population",
-      db_label: "enrollment_ugr_12m",
-    },
-    {
-      label: "In-State Tuition",
-      db_label: "instate_tuition",
-    },
-    {
-      label: "Out-Of-State Tuition",
-      db_label: "outstate_tuition",
-    },
-    {
-      label: "SAT Median Math",
-      db_label: "sat_median_math",
-    },
-    {
-      label: "SAT Median Reading",
-      db_label: "sat_median_reading",
-    },
-    {
-      label: "Acceptance Rate",
-      db_label: "acceptance_rate",
-    }
-  ];
-  
+  {
+    label: "Name",
+    db_label: "name",
+  },
+  {
+    label: "Undergraduate Population",
+    db_label: "enrollment_ugr_12m",
+  },
+  {
+    label: "In-State Tuition",
+    db_label: "instate_tuition",
+  },
+  {
+    label: "Out-Of-State Tuition",
+    db_label: "outstate_tuition",
+  },
+  {
+    label: "SAT Median Math",
+    db_label: "sat_median_math",
+  },
+  {
+    label: "SAT Median Reading",
+    db_label: "sat_median_reading",
+  },
+  {
+    label: "Acceptance Rate",
+    db_label: "acceptance_rate",
+  }
+];
 
 export { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions };

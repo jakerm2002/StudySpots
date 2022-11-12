@@ -38,12 +38,12 @@ function RangeFilterBar(props) {
   }
 
   useEffect(() => {
-    let min= props.min;
+    let min = props.min;
     let queryMin = props.value[0].toString();
     if (queryMin != null && queryMin.length !== 0) {
       min = parseInt(queryMin);
     }
-    let max= props.max;
+    let max = props.max;
     let queryMax = props.value[1].toString();
     if (queryMax != null && queryMax.length !== 0) {
       max = parseInt(queryMax);
@@ -76,14 +76,14 @@ function RangeFilterBar(props) {
       </Typography>
       <Box sx={{ marginTop: "8px", marginLeft: "24px", marginRight: "24px" }}>
         <Slider
-          marks={scaledMarks}
           color="primary"
           step={props.step !== undefined ? props.step : nonlinear ? 0.01 : null}
-          valueLabelDisplay="auto"
+          marks={scaledMarks}
           value={value}
+          valueLabelDisplay="auto"
+          valueLabelFormat={(value) => getLabel(value)}
           min={calculateSliderValue(props.min)}
           max={calculateSliderValue(props.max)}
-          valueLabelFormat={(value) => getLabel(value)}
           scale={calculateValue}
           onChangeCommitted={(event, newValue) =>
             handleCommittedChange(newValue)

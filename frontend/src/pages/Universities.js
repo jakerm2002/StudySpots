@@ -82,7 +82,7 @@ const Universities = () => {
             )
         }
     );
-    // console.log(Entries);
+
     var payload = {
         entries : Entries,
         pageName : "Universities",

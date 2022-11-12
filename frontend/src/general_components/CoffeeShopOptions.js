@@ -68,5 +68,4 @@ const CoffeeShopRangeFilters = [
   },
 ];
 
-
 export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters };
