@@ -13,8 +13,16 @@
   }
 }
 
+#light {
+  background-color: #e7dbcf;
+}
+
+#dark {
+  background-color: #78330c;
+}
+
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
