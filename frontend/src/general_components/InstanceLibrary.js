@@ -60,7 +60,7 @@ const InstanceLibrary = () => {
 						</Col>
 						<Col>
 						<div>
-							<b>Hours: </b> <br/>
+							<b>Hours (in CT): </b> <br/>
 							<div className={styles.hours}>
 								{data.formatted_hours}
 							</div>
