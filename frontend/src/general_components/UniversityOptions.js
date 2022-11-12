@@ -119,32 +119,53 @@ const UniversityRangeFilters = [
     field: "outstate_tuition",
     min: 5_000,
     max: 60_000,
-    nonlinear: true,
+    // nonlinear: true,
+    step: 1,
     compactNumbers: true,
     marks: [
       {
         label: "<5K",
         value: 5_000,
       },
+      // {
+      //   label: "10K",
+      //   value: 10_000,
+      // },
       {
-        label: "10K",
-        value: 10_000,
+        label: "15K",
+        value: 15_000,
       },
+      // {
+      //   label: "20K",
+      //   value: 20_000,
+      // },
       {
-        label: "20K",
-        value: 20_000,
+        label: "25K",
+        value: 25_000,
       },
+      // {
+      //   label: "30K",
+      //   value: 30_000,
+      // },
       {
-        label: "30K",
-        value: 30_000,
+        label: "35K",
+        value: 35_000,
       },
+      // {
+      //   label: "40K",
+      //   value: 40_000,
+      // },
       {
-        label: "40K",
-        value: 40_000,
+        label: "45K",
+        value: 45_000,
       },
+      // {
+      //   label: "50K",
+      //   value: 50_000,
+      // },
       {
-        label: "50K",
-        value: 50_000,
+        label: "55K",
+        value: 55_000,
       },
       {
         label: ">60K",

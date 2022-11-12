@@ -5,7 +5,7 @@ import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { LibraryEndpointName, LibraryExactFilters } from '../general_components/LibraryOptions';
+import { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters } from '../general_components/LibraryOptions';
 
 const Libraries = () => {
     const [libraries, setLibraries] = useState({'metadata': {}, 'results': []});
@@ -94,7 +94,7 @@ const Libraries = () => {
     }
     return [
         <SearchBar/>,
-        <FilterContainer api_name={LibraryEndpointName} exactFilters={LibraryExactFilters}/>,
+        <FilterContainer api_name={LibraryEndpointName} exactFilters={LibraryExactFilters} rangeFilters={LibraryRangeFilters}/>,
         getModel(payload)
     ];
 }

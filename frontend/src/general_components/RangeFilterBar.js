@@ -2,25 +2,6 @@ import { Slider } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import React, { useState, useCallback, useEffect } from "react";
 
-// interface RangeFilterBarProps {
-//   value: number[];
-//   min: number;
-//   max: number;
-//   step?: number;
-//   field: string;
-//   label: string;
-//   marks?: Mark[];
-//   nonlinear?: boolean;
-//   autoMark?: boolean;
-//   compactNumbers?: boolean;
-//   onChange: (value: number[]) => void;
-// }
-
-// interface Mark {
-//   value: number;
-//   label: string;
-// }
-
 const numberFormatter = Intl.NumberFormat("en", { notation: "compact" });
 
 function RangeFilterBar(props) {
@@ -86,16 +67,6 @@ function RangeFilterBar(props) {
     let min = Math.round(calculateValue(newValue[0]));
     let max = Math.round(calculateValue(newValue[1]));
     props.onChange([min, max]);
-    // let newParams = searchParams;
-    // newParams.set(props.field + "Min", min.toString());
-    // newParams.set(props.field + "Max", max.toString());
-    // if (min === props.min) {
-    //     newParams.delete(props.field + "Min");
-    // }
-    // if (max === props.max) {
-    //     newParams.delete(props.field + "Max");
-    // }
-    // setSearchParams(newParams);
   };
 
   return (
