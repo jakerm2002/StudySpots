@@ -28,6 +28,7 @@ selenium_tests:
   services:
     - selenium/standalone-chrome
   before_script:
+    - python3 -m pip install --upgrade pip
     - python3 -m pip install -r frontend/selenium/requirements.txt
   script:
     - cd frontend/selenium

@@ -15,7 +15,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 driver = None
 wait = None
-local = True # set to FALSE when pushing to gitlab
+local = False # set to FALSE when pushing to gitlab
 
 url = "https://studyspots.me/"
 
@@ -43,9 +43,3 @@ def teardown_module():
 def test_title():
     print("testing test_title")
     assert driver.title == "Study Spots"
-
-def test_navbar_home():
-    print("testing test_navbar_home")
-    home = driver.find_elements(By.XPATH, "/html/body/div/nav/div/a")
-    home[0].click()
-    assert driver.current_url == url
