@@ -21,6 +21,18 @@
   background-color: #78330c;
 }
 
+.switchButton label {
+  margin: 10px;
+}
+
+#light .switchButton label {
+  color: black;
+}
+
+#dark .switchButton label {
+  color: white;
+}
+
 .App-header {
   /* background-color: #282c34; */
   min-height: 100vh;
@@ -35,6 +47,14 @@
 .App-link {
   color: #61dafb;
 }
+
+/* #light .App-link {
+  color: #78330c
+}
+
+#dark .App-link {
+  color: white
+} */
 
 @keyframes App-logo-spin {
   from {

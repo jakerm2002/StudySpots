@@ -1,17 +1,18 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import './Navigation.css';
 
 const Navigation = () => {
     return (
         <>
-            <Navbar bg='dark' variant='dark'>
+            <Navbar className="navBar">
                 <Container>
-                    <Nav>
-                        <Nav.Link href='/'>Home</Nav.Link>
-                        <Nav.Link href="/Search">Search</Nav.Link>
-                        <Nav.Link href='/CoffeeShops'>Coffee Shops</Nav.Link>
-                        <Nav.Link href='/Libraries'>Libraries</Nav.Link>
-                        <Nav.Link href='/Universities'>Universities</Nav.Link>
-                        <Nav.Link href='/About'>About</Nav.Link>
+                    <Nav >
+                        <Nav.Link className="Nav-link" href='/'>Home</Nav.Link>
+                        <Nav.Link className="Nav-link" href="/Search">Search</Nav.Link>
+                        <Nav.Link className="Nav-link" href='/CoffeeShops'>Coffee Shops</Nav.Link>
+                        <Nav.Link className="Nav-link" href='/Libraries'>Libraries</Nav.Link>
+                        <Nav.Link className="Nav-link" href='/Universities'>Universities</Nav.Link>
+                        <Nav.Link className="Nav-link" href='/About'>About</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

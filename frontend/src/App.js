@@ -14,19 +14,24 @@ import Universities from './pages/Universities'
 import InstanceCoffee from './general_components/InstanceCoffee'
 import InstanceUniversity from './general_components/InstanceUniversity'
 import InstanceLibrary from "./general_components/InstanceLibrary"
-import { createContext, useState } from 'react';
+import { createContext, useState} from 'react';
+import Button from 'react-bootstrap/Button';
 
 export const ThemeContext = createContext(null);
 
 function App() {
-  const [theme, setTheme] = useState("dark")
+  const [theme, setTheme] = useState("light")
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark": "light"));
   }
   return(
     <ThemeContext.Provider value={{ theme, toggleTheme}}>
       <div className="App" id={theme}>
-        <Navigation/>
+        <Navigation id={theme}/>
+        <div className='switchButton'>
+          <label>{theme === "light" ? "Light Mode" : "Dark Mode"} </label>
+          <Button onClick={toggleTheme}/>
+        </div> 
         <Routes>
           <Route path='/' element={<Splash/>}/>
           <Route path="/Search" element={<Search/>}/>
