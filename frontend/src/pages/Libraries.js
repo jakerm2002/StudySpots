@@ -60,7 +60,7 @@ const Libraries = () => {
                             />
                         : info.address
                     }</td>
-                    <td title={info.rating}>{info.rating}</td>
+                    <td title={info.rating_string}>{info.rating_string}</td>
                     <td title={info.phone}>{
                         searchParams.get("search") != null
                         ? <Highlighter
