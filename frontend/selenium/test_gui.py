@@ -17,9 +17,12 @@ driver = None
 wait = None
 local = False # set to FALSE when pushing to gitlab
 
-url = "https://studyspots.me/"
+url = "https://www.studyspots.me/"
 
 def setup_module():
+    print("beginning setup for test_gui module")
+
+    # allow gitlab ci/cd to run selenium tests
     global driver, wait
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -30,7 +33,7 @@ def setup_module():
         driver = webdriver.Chrome(service = Service(ChromeDriverManager().install()), chrome_options = chrome_options)
     else:
         driver = Remote(
-            "http://selenium__standalone-chrome:444/wd/hub",
+            "http://selenium__standalone-chrome:4444/wd/hub",
             desired_capabilities=chrome_options.to_capabilities(),
         )
     driver.get(url)
@@ -38,8 +41,12 @@ def setup_module():
     return driver
 
 def teardown_module():
+    print("tearing down test_gui module")
     driver.quit()
 
+'''
+Basic Tests
+'''
 def test_title():
-    print("testing test_title")
+    print("starting test_title")
     assert driver.title == "Study Spots"
