@@ -25,7 +25,6 @@ const Search = () => {
             "http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/search?" + searchParams.toString()
         ).then(response => {
             setSearchInfo(response.data);
-            console.log(searchInfo);
         });
     });
 

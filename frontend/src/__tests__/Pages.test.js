@@ -119,7 +119,7 @@ describe("Test Coffee Shops Page", () => {
     test("Proper Rendering of Coffee Shops Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<CoffeeShops/>)
+        render(<CoffeeShops/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
         expect(screen.getByText("Name")).toBeInTheDocument();
@@ -137,7 +137,7 @@ describe("Test Libraries Page", () => {
     test("Proper Rendering of Libraries Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Libraries/>)
+        render(<Libraries/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
         expect(screen.getByText("Name")).toBeInTheDocument();
@@ -156,7 +156,7 @@ describe("Test Universities Page", () => {
     test("Proper Rendering of Universities Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Universities/>)
+        render(<Universities/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
         expect(screen.getByText("Name")).toBeInTheDocument();

@@ -16,7 +16,6 @@ const Universities = () => {
     useEffect(() => {
         axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/universities?' + searchParams.toString()).then(response => {
             setUniversities(response.data);
-            console.log(response.data);
         });
     }, [searchParams]);
 
