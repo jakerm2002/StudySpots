@@ -95,7 +95,7 @@ def test_about_info():
     assert title.text == "StudySpots"
     mission = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h3")
     assert mission.text == "Mission"
-    discovery = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/div/h3")
+    discovery = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/div[1]/h3")
     assert discovery.text == "Discovery"
 
 def test_about_team_info():
@@ -105,28 +105,6 @@ def test_about_team_info():
     assert title.text == "Meet the Team"
     members = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h3")
     assert members.text == "Members"
-    team_stats = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/h3")
-    assert team_stats.text == "Team Stats"
-    team_commits = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[2]/div/p[1]")
-    assert "Commits:" in team_commits.text
-    team_issues = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[2]/div/p[2]")
-    assert "Issues:" in team_issues.text
-    team_tests = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[2]/div/p[3]")
-    assert "Tests:" in team_tests.text
-
-def test_about_team_cards():
-    print("starting test_about_team_cards")
-    driver.get(url + 'About')
-    bianca = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[1]/div/div")
-    assert bianca.text == "Bianca Alvarado"
-    joanne = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[2]/div/div")
-    assert joanne.text == "Joanne Chen"
-    vincent = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[3]/div/div")
-    assert vincent.text == "Vincent Chen"
-    ami = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[4]/div/div")
-    assert ami.text == "Ami Iyer"
-    jake = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[5]/div/div")
-    assert jake.text == "Jake Medina"
 
 def test_about_tech_info():
     print("starting test_about_tech_info")
