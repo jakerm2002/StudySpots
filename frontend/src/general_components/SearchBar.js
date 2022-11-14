@@ -25,7 +25,7 @@ const SearchBar = () => {
     }, []);
 
     return [
-        <h1>Search</h1>,
+        <h1 className='text'>Search</h1>,
         <TextField
         value={searchQuery}
         onChange={updateSearch}
