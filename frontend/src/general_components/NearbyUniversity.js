@@ -11,7 +11,7 @@ const NearbyUniversity = ({latitude, longitude}) => {
         setData(response.data);
         setIsLoading(false);
     });
-    })
+    }, [])
 
     if (!isLoading && data.length === 0){
         return (

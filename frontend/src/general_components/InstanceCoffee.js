@@ -23,7 +23,7 @@ const InstanceCoffee = () => {
             console.log(data)
             setIsLoading(false);
         });
-      });
+      }, []);
     
     return (
         <>

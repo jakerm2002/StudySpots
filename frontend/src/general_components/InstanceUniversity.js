@@ -29,7 +29,7 @@ const InstanceUniversity = () => {
             setIsLoading(false);
             
         });
-      })
+      }, [])
 
     return (
         <>

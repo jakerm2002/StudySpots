@@ -24,7 +24,7 @@ const InstanceLibrary = () => {
             setIsLoading(false);
             
         });
-      })
+      }, [])
 
     return (
         <>
