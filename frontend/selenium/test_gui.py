@@ -53,7 +53,8 @@ def test_title():
 
 def test_navbar_home():
     print("starting test_navbar_home")
-    home = driver.find_elements(By.XPATH, "/html/body/div/div/nav/div/div/a[1]")
+    home = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[1]")
+    print(home)
     home.click()
     assert driver.current_url == url
 
