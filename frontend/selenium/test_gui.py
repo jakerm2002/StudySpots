@@ -17,7 +17,7 @@ driver = None
 wait = None
 local = False # set to FALSE when pushing to gitlab
 
-url = "https://www.studyspots.me/"
+url = "https://develop.studyspots.me/"
 
 def setup_module():
     print("beginning setup for test_gui module")
