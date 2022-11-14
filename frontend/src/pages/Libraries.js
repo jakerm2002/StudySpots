@@ -81,7 +81,6 @@ const Libraries = () => {
             )
         }
     );
-    // console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Libraries",

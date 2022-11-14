@@ -83,7 +83,6 @@ const CoffeeShops = () => {
         }
     );
 
-    console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",
