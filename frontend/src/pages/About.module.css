@@ -11,10 +11,26 @@
     margin: 25px;
 }
 
+#light .profileCard {
+    background-color: #e2b78c;
+  }
+  
+  #dark .profileCard {
+    background-color: #662716;
+  }
+
 .info {
     margin-top: 40px;
     margin-bottom: 40px;
 }
+
+#light .info {
+    color: #78330c;
+  }
+  
+  #dark .info {
+    color: #e7dbcf;
+  }
 
 .techInfo {
     margin-top: 40px;
@@ -36,3 +52,11 @@
 .project_links {
     margin-bottom: 50px;
 }
+
+#light .text {
+    color: #78330c;
+  }
+  
+  #dark .text {
+    color: #e7dbcf;
+  }
