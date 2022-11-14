@@ -8,6 +8,13 @@
     margin-top: 2rem;
 }
 
+#light .modelCard {
+    background-color: #e2b78c;
+}
+#dark .modelCard {
+    background-color: #662716;
+}
+
 .image {
     margin-top: 2rem;
 }
@@ -33,4 +40,19 @@
     width: 26rem;
     margin-top: 2rem;
     padding: 16px;
+}
+
+#light .aboutCard {
+    background-color: #e2b78c;
+}
+#dark .aboutCard {
+    background-color: #662716;
+}
+
+#light .text {
+    color: #662716;
+}
+
+#dark .text {
+    color: #e2b78c;
 }
