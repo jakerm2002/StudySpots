@@ -1,3 +1,6 @@
+// credit to UniverCity for frontend filtering logic
+// (https://gitlab.com/coleweinman/swe-college-project)
+
 import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState, useMemo } from 'react'
