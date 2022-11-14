@@ -53,30 +53,30 @@ def test_title():
 
 def test_navbar_home():
     print("starting test_navbar_home")
-    home = driver.find_elements(By.XPATH, "/html/body/div/div/nav/div/div/a[0]")
+    home = driver.find_elements(By.XPATH, "/html/body/div/div/nav/div/div/a[1]")
     home.click()
     assert driver.current_url == url
 
 def test_navbar_coffeeshops():
     print("starting test_navbar_coffeeshops")
-    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[1]")
+    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[2]")
     coffeeshops.click()
     assert driver.current_url == url + "CoffeeShops"
 
 def test_navbar_libraries():
     print("starting test_navbar_libraries")
-    libraries = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[2]")
+    libraries = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[3]")
     libraries.click()
     assert driver.current_url == url + "Libraries"
 
 def test_navbar_universities():
     print("starting test_navbar_universities")
-    universities = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[3]")
+    universities = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[4]")
     universities.click()
     assert driver.current_url == url + "Universities"
 
 def test_navbar_about():
     print("starting test_navbar_about")
-    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[4]")
+    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[5]")
     about.click()
     assert driver.current_url == url + "About"
