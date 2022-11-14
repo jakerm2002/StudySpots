@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SearchBar from '../general_components/SearchBar';
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters } from '../general_components/UniversityOptions';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -72,14 +74,14 @@ const Universities = () => {
                             />
                         : info.zipcode
                     }</td>
-                    <td title={info.size}>{info.size.toLocaleString("en-US", populationFormat)}</td>
+                    <td title={info.enrollment_ugr_12m}>{info.enrollment_ugr_12m.toLocaleString("en-US", populationFormat)}</td>
                     <td title={info.instate_tuition}>{info.instate_tuition.toLocaleString("en-US", currencyFormat)}</td>
                     <td title={info.outstate_tuition}>{info.outstate_tuition.toLocaleString("en-US", currencyFormat)}</td> 
                 </tr>
             )
         }
     );
-    // console.log(Entries);
+
     var payload = {
         entries : Entries,
         pageName : "Universities",
@@ -88,8 +90,10 @@ const Universities = () => {
         num_total_items : universities["metadata"]["num_total_results"],
         set_new_page: set_page
     }
+
     return [
         <SearchBar/>,
+        <FilterContainer api_name={UniversityEndpointName} exactFilters={UniversityExactFilters} rangeFilters={UniversityRangeFilters}/>,
         getModel(payload)
     ];
 }

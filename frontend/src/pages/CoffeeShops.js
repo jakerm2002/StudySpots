@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters } from '../general_components/CoffeeShopOptions';
+
 
 const CoffeeShops = () => {
-
     const [coffeeShops, setCoffeeShops] = useState({'metadata': {}, 'results': []});
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -91,8 +93,10 @@ const CoffeeShops = () => {
         num_total_items : coffeeShops["metadata"]["num_total_results"],
         set_new_page: set_page
     }
+
     return [
         <SearchBar/>,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
         getModel(payload)
     ];
 }

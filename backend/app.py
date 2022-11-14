@@ -221,6 +221,20 @@ def add_search_filters(existing_query, fields, val):
         return or_(*search_args)
     return existing_query.filter(and_(*list((search_for_word_in_columns(s) for s in val.split()))))
 
+def get_model_cities(model):
+    q = request.args.get("query", "")
+    # ilike() specifies LIKE as not case sensitive
+    cities = db.session.query(model.city)\
+        .filter(cast( model.city, String ).ilike( q + '%' ))\
+        .order_by(model.city).distinct().paginate(page=1, per_page=10)
+    return cities.items
+
+def get_model_zipcodes(model):
+    q = request.args.get("query", "")
+    zipcodes = db.session.query(model.zipcode)\
+        .filter(cast( model.zipcode, String ).ilike( q + '%' ))\
+        .order_by(model.zipcode).distinct().paginate(page=1, per_page=10)
+    return zipcodes.items
 
 @app.route("/universities")
 def universities():
@@ -376,6 +390,17 @@ def universities_by_id(id):
     university = University.query.filter_by(id=id).first()
     return university_schema.dumps(university)
 
+# support for autocomplete in frontend filter fields
+@app.route("/universities/cities")
+def universities_list_cities():
+    cities = get_model_cities(University)
+    return universities_schema.dumps(cities)
+
+@app.route("/universities/zipcodes")
+def universities_list_zipcodes():
+    zipcodes = get_model_zipcodes(University)
+    return universities_schema.dumps(zipcodes)
+
 
 @app.route("/coffeeshops")
 def coffeeshops():
@@ -449,6 +474,17 @@ def coffeeshops_by_id(id):
     coffeeshop = CoffeeShop.query.filter_by(id=id).first()
     return coffeeshop_schema.dumps(coffeeshop)
 
+# support for autocomplete in frontend filter fields
+@app.route("/coffeeshops/cities")
+def coffeeshops_list_cities():
+    cities = get_model_cities(CoffeeShop)
+    return coffeeshops_schema.dumps(cities)
+
+@app.route("/coffeeshops/zipcodes")
+def coffeeshops_list_zipcodes():
+    zipcodes = get_model_zipcodes(CoffeeShop)
+    return coffeeshops_schema.dumps(zipcodes)
+
 
 @app.route("/libraries")
 def libraries():
@@ -521,6 +557,17 @@ def libraries():
 def libraries_by_id(id):
     library = Library.query.filter_by(id=id).first()
     return library_schema.dumps(library)
+
+# support for autocomplete in frontend filter fields
+@app.route("/libraries/cities")
+def libraries_list_cities():
+    cities = get_model_cities(Library)
+    return libraries_schema.dumps(cities)
+
+@app.route("/libraries/zipcodes")
+def libraries_list_zipcodes():
+    zipcodes = get_model_zipcodes(Library)
+    return libraries_schema.dumps(zipcodes)
 
 # Sitewide search
 @app.route("/search")
