@@ -690,7 +690,7 @@ def populate_libraries():
 
         def generate_formatted_hours():
             if "opening_hours" not in library:
-                return "N/A"
+                return "Hours unavailable"
 
             chars_to_replace_with_blank = "{[']}"
             orig_str = str(library["opening_hours"]["weekday_text"])
@@ -731,7 +731,7 @@ def populate_libraries():
             utc_offset=library["utc_offset"],
             hours_arr=library["opening_hours"]["weekday_text"]
             if "opening_hours" in library
-            else "Hours unavailable",
+            else "N/A",
             formatted_hours=formatted_hours,
             photo_reference=library["photos"][0]["photo_reference"]
             if "photos" in library
