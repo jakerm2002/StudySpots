@@ -22,17 +22,17 @@ jest_tests:
     - npm install
     - npm test
 
-selenium_tests:
-  stage: test
-  image: python:3.9-slim
-  services:
-    - selenium/standalone-chrome
-  before_script:
-    - python3 -m pip install --upgrade pip
-    - python3 -m pip install -r frontend/selenium/requirements.txt
-  script:
-    - cd frontend/selenium
-    - python3 -m pytest
+# selenium_tests:
+#   stage: test
+#   image: python:3.9-slim
+#   services:
+#     - selenium/standalone-chrome
+#   before_script:
+#     - python3 -m pip install --upgrade pip
+#     - python3 -m pip install -r frontend/selenium/requirements.txt
+#   script:
+#     - cd frontend/selenium
+#     - python3 -m pytest
 
 backend_tests:
   stage: test
