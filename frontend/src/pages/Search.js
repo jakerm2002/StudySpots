@@ -22,7 +22,7 @@ const Search = () => {
 
     useEffect(() => {
         axios.get(
-            "http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/search?" + searchParams.toString()
+            "https://api.studyspots.me/search?" + searchParams.toString()
         ).then(response => {
             setSearchInfo(response.data);
         });

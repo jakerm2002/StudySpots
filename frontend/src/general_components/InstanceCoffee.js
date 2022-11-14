@@ -16,7 +16,7 @@ const InstanceCoffee = () => {
       const [data, setData] = useState([]);
     
       useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops/' + businessID).then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
             console.log("response",response.data);
             setData(response.data);
             console.log(data)

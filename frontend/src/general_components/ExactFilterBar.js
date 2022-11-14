@@ -30,7 +30,7 @@ function ExactFilterBar(props) {
       setOptions([]);
 
       let response = await axios.get(
-        `http://localhost:5000/${props.api_name}/${props.api}?query=` + inputValue
+        `https://api.studyspots.me/${props.api_name}/${props.api}?query=` + inputValue
       );
       let data = response.data;
 

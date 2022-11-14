@@ -14,14 +14,14 @@ const CoffeeShops = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?' + searchParams.toString()).then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops?' + searchParams.toString()).then(response => {
             setCoffeeShops(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops`;
+        let url = `https://api.studyspots.me/coffeeshops`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;

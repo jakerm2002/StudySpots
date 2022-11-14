@@ -12,14 +12,14 @@ const Libraries = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/libraries?' + searchParams.toString()).then(response => {
+        axios.get('https://api.studyspots.me/libraries?' + searchParams.toString()).then(response => {
             setLibraries(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/libraries`;
+        let url = `https://api.studyspots.me/libraries`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;
