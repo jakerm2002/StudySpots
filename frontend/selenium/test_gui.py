@@ -49,4 +49,34 @@ Basic Tests
 '''
 def test_title():
     print("starting test_title")
-    assert driver.title == "Study Spots"
+    assert driver.title == "React App"
+
+def test_navbar_home():
+    print("starting test_navbar_home")
+    home = driver.find_elements(By.XPATH, "/html/body/div/nav/div/a")
+    home[0].click()
+    assert driver.current_url == url
+
+def test_navbar_coffeeshops():
+    print("starting test_navbar_coffeeshops")
+    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/nav/div/div/div/a[1]")
+    coffeeshops.click()
+    assert driver.current_url == url + "CoffeeShops"
+
+def test_navbar_libraries():
+    print("starting test_navbar_libraries")
+    libraries = driver.find_element(By.XPATH, "/html/body/div/nav/div/div/div/a[2]")
+    libraries.click()
+    assert driver.current_url == url + "Libraries"
+
+def test_navbar_universities():
+    print("starting test_navbar_universities")
+    universities = driver.find_element(By.XPATH, "/html/body/div/nav/div/div/div/a[3]")
+    universities.click()
+    assert driver.current_url == url + "Universities"
+
+def test_navbar_about():
+    print("starting test_navbar_about")
+    about = driver.find_element(By.XPATH, "/html/body/div/nav/div/div/div/a[4]")
+    about.click()
+    assert driver.current_url == url + "About"
