@@ -726,12 +726,12 @@ def populate_libraries():
             rating=library["rating"] if "rating" in library else -1,
             phone=library["formatted_phone_number"]
             if "formatted_phone_number" in library
-            else "",
+            else "N/A",
             maps_url=library["url"],
             utc_offset=library["utc_offset"],
             hours_arr=library["opening_hours"]["weekday_text"]
             if "opening_hours" in library
-            else "N/A",
+            else "Hours unavailable",
             formatted_hours=formatted_hours,
             photo_reference=library["photos"][0]["photo_reference"]
             if "photos" in library
