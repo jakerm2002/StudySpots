@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters } from '../general_components/LibraryOptions';
 
 const Libraries = () => {
     const [libraries, setLibraries] = useState({'metadata': {}, 'results': []});
@@ -81,6 +83,7 @@ const Libraries = () => {
             )
         }
     );
+
     var payload = {
         entries : Entries,
         pageName : "Libraries",
@@ -91,6 +94,7 @@ const Libraries = () => {
     }
     return [
         <SearchBar/>,
+        <FilterContainer api_name={LibraryEndpointName} exactFilters={LibraryExactFilters} rangeFilters={LibraryRangeFilters}/>,
         getModel(payload)
     ];
 }
