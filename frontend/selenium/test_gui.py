@@ -93,9 +93,9 @@ def test_about_info():
     driver.get(url + 'About')
     title = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h1")
     assert title.text == "StudySpots"
-    mission = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h3")
+    mission = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h3[1]")
     assert mission.text == "Mission"
-    discovery = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/div[1]/h3")
+    discovery = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h3[2]")
     assert discovery.text == "Discovery"
 
 def test_about_team_info():
