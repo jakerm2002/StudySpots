@@ -125,3 +125,52 @@ def test_about_project_info():
     assert gitlab.text == "GitLab Project Repository"
     postman = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/a[2]")
     assert postman.text == "Postman API Documentation"
+
+'''
+Coffee Shops Page Tests
+'''
+
+def test_coffeeshops_title():
+    print("starting test_coffeeshops_title")
+    driver.get(url + 'CoffeeShops')
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div/h1")
+    assert title.text == "Coffee Shops"
+
+def test_coffeeshops_items():
+    print("starting test_coffeeshops_items")
+    driver.get(url + 'CoffeeShops')
+    count = driver.find_element(By.XPATH, "/html/body/div/div/div/div/div[2]")
+    assert "Showing " in count.text
+    assert "items" in count.text
+
+'''
+Libraries Page Tests
+'''
+def test_libraries_title():
+    print("starting test_libraries_title")
+    driver.get(url + 'Libraries')
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div/h1")
+    assert title.text == "Libraries"
+
+def test_libraries_items():
+    print("starting test_libraries_items")
+    driver.get(url + 'Libraries')
+    count = driver.find_element(By.XPATH, "/html/body/div/div/div/div/div[2]")
+    assert "Showing " in count.text
+    assert "items" in count.text
+
+'''
+Universities Page Tests
+'''
+def test_universities_title():
+    print("starting test_coffeeshops_title")
+    driver.get(url + 'Universities')
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div/h1")
+    assert title.text == "Universities"
+
+def test_universities_items():
+    print("starting test_universities_items")
+    driver.get(url + 'Universities')
+    count = driver.find_element(By.XPATH, "/html/body/div/div/div/div/div[2]")
+    assert "Showing " in count.text
+    assert "items" in count.text
