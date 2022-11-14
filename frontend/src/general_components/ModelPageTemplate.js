@@ -34,7 +34,7 @@ const RenderPage = (entries, page_name, fields, num_items_per_page, num_total_it
             <RenderPageTable entries={entries} page_name={page_name} fields={fields}/>
             <Stack>
                 <div className={styles.model_page_pagination}><Pagination num_items_per_page={num_items_per_page} num_total_items={num_total_items} paginate={set_new_page}/></div>
-                <div>Showing {entries.length} items</div>
+                <div className='text'>Showing {entries.length} items</div>
             </Stack>
         </div>
     )
