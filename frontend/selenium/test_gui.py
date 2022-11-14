@@ -51,6 +51,9 @@ def test_title():
     print("starting test_title")
     assert driver.title == "React App"
 
+'''
+Navbar Tests
+'''
 def test_navbar_home():
     print("starting test_navbar_home")
     home = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[1]")
@@ -81,3 +84,66 @@ def test_navbar_about():
     about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[5]")
     about.click()
     assert driver.current_url == url + "About"
+
+'''
+About Page Tests
+'''
+def test_about_info():
+    print("starting test_about_info")
+    driver.get(url + 'About')
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h1")
+    assert title.text == "StudySpots"
+    mission = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h3")
+    assert mission.text == "Mission"
+    discovery = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/div/h3")
+    assert discovery.text == "Discovery"
+
+def test_about_team_info():
+    print("starting test_about_team_info")
+    driver.get(url + 'About')
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h1")
+    assert title.text == "Meet the Team"
+    members = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h3")
+    assert members.text == "Members"
+    team_stats = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/h3")
+    assert team_stats.text == "Team Stats"
+    team_commits = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[2]/div/p[1]")
+    assert "Commits:" in team_commits.text
+    team_issues = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[2]/div/p[2]")
+    assert "Issues:" in team_issues.text
+    team_tests = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[2]/div/p[3]")
+    assert "Tests:" in team_tests.text
+
+def test_about_team_cards():
+    print("starting test_about_team_cards")
+    driver.get(url + 'About')
+    bianca = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[1]/div/div")
+    assert bianca.text == "Bianca Alvarado"
+    joanne = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[2]/div/div")
+    assert joanne.text == "Joanne Chen"
+    vincent = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[3]/div/div")
+    assert vincent.text == "Vincent Chen"
+    ami = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[4]/div/div")
+    assert ami.text == "Ami Iyer"
+    jake = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div/div[1]/div[5]/div/div")
+    assert jake.text == "Jake Medina"
+
+def test_about_tech_info():
+    print("starting test_about_tech_info")
+    driver.get(url + 'About')
+    tech = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h1")
+    assert tech.text == "Technology Used"
+    tools = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h3[1]")
+    assert tools.text == "Tools"
+    apis = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h3[2]")
+    assert apis.text == "APIs Scraped"
+
+def test_about_project_info():
+    print("starting test_about_project_info")
+    driver.get(url + 'About')
+    project = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/h3")
+    assert project.text == "Project Links"
+    gitlab = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/a[1]")
+    assert gitlab.text == "GitLab Project Repository"
+    postman = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/a[2]")
+    assert postman.text == "Postman API Documentation"
