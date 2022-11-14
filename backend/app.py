@@ -412,7 +412,14 @@ def coffeeshops():
 
     range_filter_fields = [
         CoffeeShop.price_integer,
-        CoffeeShop.rating
+        CoffeeShop.rating,
+        CoffeeShop.hours_day_0_closed,
+        CoffeeShop.hours_day_1_closed,
+        CoffeeShop.hours_day_2_closed,
+        CoffeeShop.hours_day_3_closed,
+        CoffeeShop.hours_day_4_closed,
+        CoffeeShop.hours_day_5_closed,
+        CoffeeShop.hours_day_6_closed
     ]
 
     sort_filter_fields = [
