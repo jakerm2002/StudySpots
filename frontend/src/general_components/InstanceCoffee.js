@@ -8,6 +8,7 @@ import NearbyUniversity from './NearbyUniversity.js';
 import WeatherWidget from "./WeatherWidget";
 import { Divider } from "@mui/material";
 import { Button, Carousel, Container, Figure, Row, Col, Accordion } from "react-bootstrap";
+import TravelTime from "./TravelTime";
 
 
 const InstanceCoffee = () => {
@@ -23,7 +24,7 @@ const InstanceCoffee = () => {
             setIsLoading(false);
         });
       });
-
+    
     return (
         <>
           {!isLoading && (
@@ -166,6 +167,7 @@ const InstanceCoffee = () => {
               <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <h4>Map</h4>
                 <MapComponent name={data.name} address={data.address1} latitude={data.latitude} longitude={data.longitude}/>
+                <TravelTime instanceLatitude={data.latitude} instanceLongitude={data.longitude}/>
               </Container>
               <Container className={styles.spacing}>
                 <Row>
