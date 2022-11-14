@@ -21,7 +21,7 @@ const teamMembers = [
         "name" : "Bianca Alvarado",
         "photo": BiancaAlvImg,
         "bio" : "I'm a senior CS major with a minor in Business! I'm from Houston, TX. In my free time I enjoy playing board games and binge watching shows with friends :)",
-        "responsibility": "Frontend - Splash page",
+        "responsibility": "Frontend",
         "possible_names": ["Bianca Alvarado", "bianca.alvarado", "Bianca M Alvarado"],
         "commits": 0,
         "issues": 0,
@@ -195,7 +195,7 @@ function aggregateTests() {
 const Profile = (props) => {
 
     return (
-        <Card className={styles.profileCard}>
+        <Card className={`cards ${styles.profileCard}`}>
             <Card.Body className="text">
                 <Card.Img variant="top" src={props.person["photo"]}/>
                 <Card.Title>{props.person["name"]}</Card.Title>
@@ -270,7 +270,7 @@ const About = () => {
                             ))}
                         </Row>
                         <h3 className="text">Team Stats</h3>
-                        <Card style = {{width: '75%'}} className={styles.team}>
+                        <Card style = {{width: '75%'}} className={`cards ${styles.team}`}>
                             <Card.Body className="text">
                                 <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
                                 <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
@@ -286,7 +286,7 @@ const About = () => {
             <h3 className="text">Tools</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody>
+                    <tbody className='cards'>
                         <tr>
                         {tools.map(tool => (
                             <td key={tool.name}><Tool tool={tool}/></td>
@@ -298,7 +298,7 @@ const About = () => {
             <h3 className="text">APIs Scraped</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody>
+                    <tbody className='cards'>
                         <tr>
                             {apis.map(api => (
                                 <td key={api.name}><Tool tool={api}/></td>

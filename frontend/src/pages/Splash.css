@@ -9,10 +9,10 @@
 }
 
 #light .modelCard {
-    background-color: #e2b78c;
+    background-color: #e7dbcf;
 }
 #dark .modelCard {
-    background-color: #662716;
+    background-color: #00003f;
 }
 
 .image {
@@ -43,10 +43,10 @@
 }
 
 #light .aboutCard {
-    background-color: #e2b78c;
+    background-color: #e7dbcf;
 }
 #dark .aboutCard {
-    background-color: #662716;
+    background-color: #00003f;
 }
 
 #light .text {
@@ -54,5 +54,5 @@
 }
 
 #dark .text {
-    color: #e2b78c;
+    color: white
 }

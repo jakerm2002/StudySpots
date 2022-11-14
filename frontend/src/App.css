@@ -14,11 +14,11 @@
 }
 
 #light {
-  background-color: #e7dbcf;
+  background-color: #e2b78c;
 }
 
 #dark {
-  background-color: #78330c;
+  background-color: #001E45;
 }
 
 .switchButton label {
@@ -63,4 +63,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#light .cards {
+  background-color: #e7dbcf;
+}
+
+#dark .cards {
+  background-color: #00003f;
 }

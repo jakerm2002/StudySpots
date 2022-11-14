@@ -11,12 +11,12 @@
     margin: 25px;
 }
 
-#light .profileCard {
+ .tableCard {
     background-color: #e2b78c;
   }
   
-  #dark .profileCard {
-    background-color: #662716;
+  #dark .tableCard {
+    background-color: #001E45;
   }
 
 .info {
@@ -29,7 +29,7 @@
   }
   
   #dark .info {
-    color: #e7dbcf;
+    color: white;
   }
 
 .techInfo {
@@ -58,5 +58,5 @@
   }
   
   #dark .text {
-    color: #e7dbcf;
+    color: white;
   }
