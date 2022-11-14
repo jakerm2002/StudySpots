@@ -65,12 +65,12 @@ function Sorter(props) {
     submitSearch(searchQuery);
 };
 
-  const handleSortDirectionChange = (sortAscending) => {
-    let newParams = searchParams;
-    newParams.set("ascending", sortAscending ? "true" : "false");
-    newParams.delete("page");
-    setSearchParams(newParams);
-  };
+  // const handleSortDirectionChange = (sortAscending) => {
+  //   let newParams = searchParams;
+  //   newParams.set("ascending", sortAscending ? "true" : "false");
+  //   newParams.delete("page");
+  //   setSearchParams(newParams);
+  // };
 
 
   function getMenuOptions (options) {
