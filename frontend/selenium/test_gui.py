@@ -61,27 +61,33 @@ def test_navbar_home():
     home.click()
     assert driver.current_url == url
 
+def test_navbar_search():
+    print("starting test_navbar_search")
+    search = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[2]")
+    search.click()
+    assert driver.current_url == url + "Search"
+
 def test_navbar_coffeeshops():
     print("starting test_navbar_coffeeshops")
-    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[2]")
+    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[3]")
     coffeeshops.click()
     assert driver.current_url == url + "CoffeeShops"
 
 def test_navbar_libraries():
     print("starting test_navbar_libraries")
-    libraries = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[3]")
+    libraries = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[4]")
     libraries.click()
     assert driver.current_url == url + "Libraries"
 
 def test_navbar_universities():
     print("starting test_navbar_universities")
-    universities = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[4]")
+    universities = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[5]")
     universities.click()
     assert driver.current_url == url + "Universities"
 
 def test_navbar_about():
     print("starting test_navbar_about")
-    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[5]")
+    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/a[6]")
     about.click()
     assert driver.current_url == url + "About"
 
@@ -133,7 +139,7 @@ Coffee Shops Page Tests
 def test_coffeeshops_title():
     print("starting test_coffeeshops_title")
     driver.get(url + 'CoffeeShops')
-    title = driver.find_element(By.XPATH, "/html/body/div/div/div/h1")
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/div[1]/h1")
     assert title.text == "Coffee Shops"
 
 def test_coffeeshops_items():
@@ -149,7 +155,7 @@ Libraries Page Tests
 def test_libraries_title():
     print("starting test_libraries_title")
     driver.get(url + 'Libraries')
-    title = driver.find_element(By.XPATH, "/html/body/div/div/div/h1")
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/div[1]/h1")
     assert title.text == "Libraries"
 
 def test_libraries_items():
@@ -165,7 +171,7 @@ Universities Page Tests
 def test_universities_title():
     print("starting test_coffeeshops_title")
     driver.get(url + 'Universities')
-    title = driver.find_element(By.XPATH, "/html/body/div/div/div/h1")
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/div[1]/h1")
     assert title.text == "Universities"
 
 def test_universities_items():
