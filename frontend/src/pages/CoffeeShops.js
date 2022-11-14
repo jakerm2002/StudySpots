@@ -1,25 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters } from '../general_components/CoffeeShopOptions';
+
 
 const CoffeeShops = () => {
-
     const [coffeeShops, setCoffeeShops] = useState({'metadata': {}, 'results': []});
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?' + searchParams.toString()).then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops?' + searchParams.toString()).then(response => {
             setCoffeeShops(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops`;
+        let url = `https://api.studyspots.me/coffeeshops`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;
@@ -83,7 +85,6 @@ const CoffeeShops = () => {
         }
     );
 
-    console.log(Entries);
     var payload = {
         entries : Entries,
         pageName : "Coffee Shops",
@@ -92,8 +93,10 @@ const CoffeeShops = () => {
         num_total_items : coffeeShops["metadata"]["num_total_results"],
         set_new_page: set_page
     }
+
     return [
         <SearchBar/>,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
         getModel(payload)
     ];
 }

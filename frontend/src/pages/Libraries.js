@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
 import SearchBar from "../general_components/SearchBar";
+import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
+import { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters } from '../general_components/LibraryOptions';
 
 const Libraries = () => {
     const [libraries, setLibraries] = useState({'metadata': {}, 'results': []});
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/libraries?' + searchParams.toString()).then(response => {
+        axios.get('https://api.studyspots.me/libraries?' + searchParams.toString()).then(response => {
             setLibraries(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/libraries`;
+        let url = `https://api.studyspots.me/libraries`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;
@@ -60,7 +62,7 @@ const Libraries = () => {
                             />
                         : info.address
                     }</td>
-                    <td title={info.rating}>{info.rating}</td>
+                    <td title={info.rating_string}>{info.rating_string}</td>
                     <td title={info.phone}>{
                         searchParams.get("search") != null
                         ? <Highlighter
@@ -81,7 +83,7 @@ const Libraries = () => {
             )
         }
     );
-    // console.log(Entries);
+
     var payload = {
         entries : Entries,
         pageName : "Libraries",
@@ -92,6 +94,7 @@ const Libraries = () => {
     }
     return [
         <SearchBar/>,
+        <FilterContainer api_name={LibraryEndpointName} exactFilters={LibraryExactFilters} rangeFilters={LibraryRangeFilters}/>,
         getModel(payload)
     ];
 }

@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from sqlalchemy import create_engine, Column, String, Integer, literal_column, text
 from sqlalchemy import and_, or_, func
+from sqlalchemy import cast, String
 from flask_cors import CORS
 import time
 from flask_cors import CORS
@@ -689,7 +690,7 @@ def populate_libraries():
 
         def generate_formatted_hours():
             if "opening_hours" not in library:
-                return "N/A"
+                return "Hours unavailable"
 
             chars_to_replace_with_blank = "{[']}"
             orig_str = str(library["opening_hours"]["weekday_text"])
@@ -725,7 +726,7 @@ def populate_libraries():
             rating=library["rating"] if "rating" in library else -1,
             phone=library["formatted_phone_number"]
             if "formatted_phone_number" in library
-            else "",
+            else "N/A",
             maps_url=library["url"],
             utc_offset=library["utc_offset"],
             hours_arr=library["opening_hours"]["weekday_text"]

@@ -11,7 +11,7 @@ const NearbyLibrary = ({latitude, longitude}) => {
         setData(response.data);
         setIsLoading(false);
     });
-    })
+    }, [])
 
     console.log(data);
     if (!isLoading && data.length === 0){

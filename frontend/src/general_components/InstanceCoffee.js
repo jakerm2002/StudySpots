@@ -5,8 +5,10 @@ import { useParams } from "react-router-dom";
 import MapComponent from "./MapComponent";
 import NearbyLibrary from './NearbyLibrary.js';
 import NearbyUniversity from './NearbyUniversity.js';
+import WeatherWidget from "./WeatherWidget";
 import { Divider } from "@mui/material";
 import { Button, Carousel, Container, Figure, Row, Col, Accordion } from "react-bootstrap";
+import TravelTime from "./TravelTime";
 
 
 const InstanceCoffee = () => {
@@ -15,19 +17,20 @@ const InstanceCoffee = () => {
       const [data, setData] = useState([]);
     
       useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops/' + businessID).then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops/' + businessID).then(response => {
             console.log("response",response.data);
             setData(response.data);
             console.log(data)
             setIsLoading(false);
         });
-      });
-
+      }, []);
+    
     return (
         <>
           {!isLoading && (
             <div className={styles.general}>
               <h1>{data.name}</h1>
+              <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
               <Divider className={styles.divider}>☕</Divider>
               <Container className={styles.spacing}>
                 <Carousel>
@@ -164,6 +167,7 @@ const InstanceCoffee = () => {
               <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <h4>Map</h4>
                 <MapComponent name={data.name} address={data.address1} latitude={data.latitude} longitude={data.longitude}/>
+                <TravelTime instanceLatitude={data.latitude} instanceLongitude={data.longitude}/>
               </Container>
               <Container className={styles.spacing}>
                 <Row>

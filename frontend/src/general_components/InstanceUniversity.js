@@ -8,6 +8,8 @@ import NearbyCoffeeShop from './NearbyCoffeeShop.js';
 import NearbyLibrary from './NearbyLibrary.js';
 import { Button, Carousel, Col, Container, Figure, Row } from "react-bootstrap";
 import { Divider } from "@mui/material";
+import WeatherWidget from "./WeatherWidget";
+import TravelTime from "./TravelTime";
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -27,13 +29,14 @@ const InstanceUniversity = () => {
             setIsLoading(false);
             
         });
-      })
+      }, [])
 
     return (
         <>
           {!isLoading && (
             <div className={styles.general}>
               <h1>{data.name}</h1>
+              <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
               <Divider className={styles.divider}>🎓</Divider>
               <Container className={styles.spacing}>
                 <Carousel>
@@ -95,6 +98,7 @@ const InstanceUniversity = () => {
               <Container className={`${styles.spacing} ${styles.styleCard}`}>
                 <h4>Map</h4>
                 <MapComponent name={data.name} address={data.city} latitude={data.latitude} longitude={data.longitude}/>
+                <TravelTime instanceLatitude={data.latitude} instanceLongitude={data.longitude}/>
               </Container>
               <Container className={styles.spacing}>
                 <Row>

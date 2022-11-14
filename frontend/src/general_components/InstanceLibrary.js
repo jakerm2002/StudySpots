@@ -7,6 +7,8 @@ import NearbyUniversity from './NearbyUniversity.js';
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
 import { Accordion, Button, Carousel, Container, Col, Figure, Row } from "react-bootstrap";
 import Divider from "@mui/material/Divider";
+import WeatherWidget from "./WeatherWidget";
+import TravelTime from "./TravelTime";
 
 const InstanceLibrary = () => {
     const { businessID } = useParams();
@@ -22,13 +24,14 @@ const InstanceLibrary = () => {
             setIsLoading(false);
             
         });
-      })
+      }, [])
 
     return (
         <>
           {!isLoading && (
             <div className={styles.general}>
 				<h1>{data.name}</h1>
+				<WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
 				<Divider className={styles.divider}>📖</Divider>
 				<Container className={styles.spacing}>
 					<Carousel>
@@ -128,6 +131,7 @@ const InstanceLibrary = () => {
 				<Container className={`${styles.spacing} ${styles.styleCard}`}>
 					<h4>Map</h4>
 					<MapComponent name={data.name} address={data.address} latitude={data.latitude} longitude={data.longitude}/>
+					<TravelTime instanceLatitude={data.latitude} instanceLongitude={data.longitude}/>
 				</Container>
 				<Container className={styles.spacing}>
 					<Row>
