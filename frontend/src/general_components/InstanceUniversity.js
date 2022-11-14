@@ -13,6 +13,7 @@ import MapComponent from "./MapComponent";
 import axios from "axios";
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
 import NearbyLibrary from './NearbyLibrary.js';
+import WeatherWidget from "./WeatherWidget";
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -45,6 +46,7 @@ const InstanceUniversity = () => {
              	<Container className={styles.instance_container}>
                <Row>
                         <div className={styles.instance_header}>{data.name}</div>
+                        <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
                     </Row>
                     <Row className={styles.fields}>
                     <Col sm>

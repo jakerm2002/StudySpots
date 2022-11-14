@@ -11,6 +11,7 @@ import MapComponent from "./MapComponent";
 import axios from "axios";
 import NearbyLibrary from './NearbyLibrary.js';
 import NearbyUniversity from './NearbyUniversity.js';
+import WeatherWidget from "./WeatherWidget";
 
 
 const InstanceCoffee = () => {
@@ -40,6 +41,7 @@ const InstanceCoffee = () => {
                 <Container className={styles.instance_container} >
                   <Row>
                     <div className={styles.instance_temp_title}>{data.name}</div>
+                    <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
                   </Row>
                   <Row>
                     <Col>

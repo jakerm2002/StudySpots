@@ -11,6 +11,7 @@ import MapComponent from "./MapComponent";
 import axios from "axios";
 import NearbyUniversity from './NearbyUniversity.js';
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
+import WeatherWidget from "./WeatherWidget";
 
 const InstanceLibrary = () => {
     const { businessID } = useParams();
@@ -38,6 +39,7 @@ const InstanceLibrary = () => {
 				<Container className={styles.instance_container} >
 					<Row>
 						<div className={styles.instance_temp_title}>{data.name}</div>
+						<WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
 					</Row>
 							<Row>
 								<Col>
