@@ -8,6 +8,7 @@ import axios from "axios";
 import Highlighter from "react-highlight-words";
 import OpenUntil from '../general_components/OpenUntil'
 import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopTimeFilters } from '../general_components/CoffeeShopOptions';
+import TimeOptions from '../general_components/TimeOptions';
 
 
 const CoffeeShops = () => {
@@ -15,14 +16,14 @@ const CoffeeShops = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('https://api.studyspots.me/coffeeshops?' + searchParams.toString()).then(response => {
+        axios.get('http://localhost:5000/coffeeshops?' + searchParams.toString()).then(response => {
             setCoffeeShops(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `https://api.studyspots.me/coffeeshops`;
+        let url = `http://localhost:5000/coffeeshops`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;
@@ -143,7 +144,7 @@ const CoffeeShops = () => {
     return [
         <SearchBar/>,
         <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
-        <OpenUntil options={CoffeeShopTimeFilters}/>,
+        <OpenUntil options={TimeOptions}/>,
         getModel(payload)
     ];
 }

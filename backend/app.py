@@ -83,12 +83,14 @@ def get_nearby_libraries(latitude, longitude):
     )
     return libraries_schema.dumps(libraries_nearby)
 
-def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query
+def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters = None
 ):
     base_query = db.session.query(model)
     base_query = add_search_filters(base_query, search_fields, search_query)
     base_query = add_exact_filters(base_query, exact_filters)
     base_query = add_range_filters(base_query, range_filters)
+    if time_filters:
+        base_query = add_time_filters(base_query, time_filters)
     base_query = add_sort(base_query, sort_attributes)
     base_query = base_query.paginate(page=page, per_page=per_page)
     return base_query
@@ -532,7 +534,7 @@ def coffeeshops():
     time_filters = get_time_filters(request.args, time_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
 
-    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
+    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters=time_filters)
 
     coffee_shop_info = json.loads(coffeeshops_schema.dumps(all_coffee_shops.items))
     metadata = {
