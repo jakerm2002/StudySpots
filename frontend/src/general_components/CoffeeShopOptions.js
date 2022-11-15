@@ -68,4 +68,23 @@ const CoffeeShopRangeFilters = [
   },
 ];
 
-export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters };
+const CoffeeShopSortOptions = [
+  {
+    label: "Name",
+    db_label: "name",
+  },
+  {
+    label: "Review Count",
+    db_label: "review_count"
+  },
+  {
+    label: "Rating",
+    db_label: "rating"
+  },
+  {
+    label: "Price",
+    db_label: "price_integer"
+  }
+]
+
+export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions };
