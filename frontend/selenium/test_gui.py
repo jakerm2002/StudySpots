@@ -133,6 +133,41 @@ def test_about_project_info():
     assert postman.text == "Postman API Documentation"
 
 '''
+Search Page Tests
+'''
+def test_search_page_title():
+    print("starting test_search_page_title")
+    driver.get(url + "Search")
+    assert "Search" in driver.page_source
+    assert "Coffee Shops" in driver.page_source
+    assert "Libraries" in driver.page_source
+    assert "Universities" in driver.page_source
+
+def test_search_page_coffeeshops():
+    print("starting test_search_page_coffeeshops")
+    driver.get(url + "Search")
+    driver.implicitly_wait(5)
+    buttons = driver.find_elements(By.TAG_NAME, "button")
+    buttons[0].click()
+    assert driver.current_url == url + "/CoffeeShops"
+
+def test_search_page_libraries():
+    print("starting test_search_page_libraries")
+    driver.get(url + "Search")
+    driver.implicitly_wait(5)
+    buttons = driver.find_elements(By.TAG_NAME, "button")
+    buttons[1].click()
+    assert driver.current_url == url + "/Libraries"
+
+def test_search_page_universities():
+    print("starting test_search_page_universities")
+    driver.get(url + "Search")
+    driver.implicitly_wait(5)
+    buttons = driver.find_elements(By.TAG_NAME, "button")
+    buttons[2].click()
+    assert driver.current_url == url + "/Universities"
+
+'''
 Coffee Shops Page Tests
 '''
 
@@ -148,6 +183,28 @@ def test_coffeeshops_items():
     count = driver.find_element(By.XPATH, "/html/body/div/div/div/div/div[2]")
     assert "Showing " in count.text
     assert "items" in count.text
+
+def test_coffeeshops_search_sort_filter():
+    print("starting test_coffeeshops_search_sort_filter")
+    driver.get(url + 'CoffeeShops')
+    assert "Search" in driver.page_source
+    assert "State Filter" in driver.page_source
+    assert "City Filter" in driver.page_source
+    assert "Zip Code Filter" in driver.page_source
+    assert "Price" in driver.page_source
+    assert "Rating" in driver.page_source
+    assert "Sort" in driver.page_source
+
+def test_coffeeshops_sort():
+    print("starting test_coffeeshops_sort")
+    driver.get(url + 'CoffeeShops')
+    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/div/div")
+    sort.click()
+
+    options = driver.find_elements(By.CLASS_NAME, "MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1km1ehz")
+    assert options[0].text == "Name"
+    options[0].click()
+    assert driver.current_url == url + "CoffeeShops?ascending=true&sortBy=name"
 
 '''
 Libraries Page Tests
@@ -165,6 +222,27 @@ def test_libraries_items():
     assert "Showing " in count.text
     assert "items" in count.text
 
+def test_libraries_search_sort_filter():
+    print("starting test_libraries_search_sort_filter")
+    driver.get(url + 'Libraries')
+    assert "Search" in driver.page_source
+    assert "State Filter" in driver.page_source
+    assert "City Filter" in driver.page_source
+    assert "Zip Code Filter" in driver.page_source
+    assert "Rating" in driver.page_source
+    assert "Sort" in driver.page_source
+
+def test_libraries_sort():
+    print("starting test_libraries_sort")
+    driver.get(url + 'Libraries')
+    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/div/div")
+    sort.click()
+
+    options = driver.find_elements(By.CLASS_NAME, "MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1km1ehz")
+    assert options[0].text == "Name"
+    options[0].click()
+    assert driver.current_url == url + "Libraries?ascending=true&sortBy=name"
+
 '''
 Universities Page Tests
 '''
@@ -180,3 +258,27 @@ def test_universities_items():
     count = driver.find_element(By.XPATH, "/html/body/div/div/div/div/div[2]")
     assert "Showing " in count.text
     assert "items" in count.text
+
+def test_universities_search_sort_filter():
+    print("starting test_universities_search_sort_filter")
+    driver.get(url + 'Universities')
+    assert "Search" in driver.page_source
+    assert "State Filter" in driver.page_source
+    assert "City Filter" in driver.page_source
+    assert "Zip Code Filter" in driver.page_source
+    assert "Undergrad Population" in driver.page_source
+    assert "Average SAT" in driver.page_source
+    assert "In-State Tuition" in driver.page_source
+    assert "Out-of-State Tuition" in driver.page_source
+    assert "Sort" in driver.page_source
+
+def test_universities_sort():
+    print("starting test_universities_sort")
+    driver.get(url + 'Universities')
+    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/div/div")
+    sort.click()
+
+    options = driver.find_elements(By.CLASS_NAME, "MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1km1ehz")
+    assert options[0].text == "Name"
+    options[0].click()
+    assert driver.current_url == url + "Universities?ascending=true&sortBy=name"
