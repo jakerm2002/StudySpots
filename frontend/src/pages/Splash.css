@@ -56,3 +56,19 @@
 #dark .text {
     color: white
 }
+
+#light .border {
+    border-color: #662716 !important;
+}
+
+#dark .border {
+    border-color: white !important;
+}
+
+#light .buttonBackground {
+    background-color: #e7dbcf;
+}
+
+#dark .buttonBackground {
+    background-color: #00003f;
+}

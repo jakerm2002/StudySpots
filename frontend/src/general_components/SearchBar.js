@@ -28,7 +28,12 @@ const SearchBar = () => {
     return [
         <h1 className='text'>Search</h1>,
         <TextField
-        InputProps={{className: "text"}}
+        InputProps={{
+            className: "text",
+            classes: {
+                notchedOutline: "border"
+            },
+        }}
         variant="outlined"
         value={searchQuery}
         onChange={updateSearch}

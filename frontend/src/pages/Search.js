@@ -160,15 +160,15 @@ const Search = () => {
         <div className={styles.list}>
             <RenderPageTable entries={coffeeShopEntries} page_name="Coffee Shops" fields={coffeeShopFields}/>
         </div>,
-        <Button variant="outline-dark" onClick={() => routeChange("/CoffeeShops")}>View all CoffeeShop Results</Button>,
+        <Button className='buttonBackground text' onClick={() => routeChange("/CoffeeShops")}>View all CoffeeShop Results</Button>,
         <div className={styles.list}>
             <RenderPageTable entries={libraryEntries} page_name="Libraries" fields={libraryFields}/>
         </div>,
-        <Button variant="outline-dark" onClick={() => routeChange("/Libraries")}>View all Library Results</Button>,
+        <Button className='buttonBackground text' onClick={() => routeChange("/Libraries")}>View all Library Results</Button>,
         <div className={styles.list}>
             <RenderPageTable entries={universityEntries} page_name="Universities" fields={universityFields}/>
         </div>,
-        <Button variant="outline-dark" onClick={() => routeChange("/Universities")}>View all University Results</Button>,
+        <Button className='buttonBackground text' onClick={() => routeChange("/Universities")}>View all University Results</Button>,
     ];
 }
 

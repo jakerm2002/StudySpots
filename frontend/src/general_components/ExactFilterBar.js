@@ -116,6 +116,9 @@ function ExactFilterBar(props) {
             InputProps={{
               ...params.InputProps,
               className: "text",
+              classes: {
+                notchedOutline: "border",
+            },
               style: { borderRadius: "8px" },
               endAdornment: (
                 <>

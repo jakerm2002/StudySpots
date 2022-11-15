@@ -45,6 +45,7 @@ function OpenUntil(props) {
                 <FormControl fullWidth>
                     <InputLabel>Open until:</InputLabel>
                     <Select
+                        className="text"
                         label="Open until:"
                         value={options}
                         onChange={(event) =>
@@ -56,7 +57,7 @@ function OpenUntil(props) {
                                 flexGrow: 1,
                                 minWidth: "120px",
                                 display: "flex",
-                            },
+                            }
                         }}
                     >
                         {props.options.map((option) => (
