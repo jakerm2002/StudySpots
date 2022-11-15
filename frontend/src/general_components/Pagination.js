@@ -141,7 +141,6 @@ const Paginate = ({ num_items_per_page, num_total_items }) => {
 
 
     return (
-        // <div className="page-control">
         <Pagination>
             <Pagination.Prev
                 key={prevButtonKey}
@@ -159,7 +158,6 @@ const Paginate = ({ num_items_per_page, num_total_items }) => {
                 }}
             />
         </Pagination>
-        // </div>
     );
 
 
