@@ -16,6 +16,7 @@ const SearchBar = () => {
         newParams.set("page", 1);
         setSearchParams(newParams);
     };
+    
     const updateSearch = (searchValue) => {
         setSearchQuery(searchValue.target.value);
     }
