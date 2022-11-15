@@ -5,7 +5,7 @@ import {
     FormControl,
     Box
 } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 
 
@@ -13,6 +13,18 @@ function OpenUntil(props) {
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [options, setOptions] = useState(props.options[0]);
+
+    useEffect(() => {
+        const d = new Date();
+        let day = d.getDay();
+        let openUntilFilter = searchParams.get("day" + day + "OpenUntil");
+        if (openUntilFilter !== null) {
+          setOptions(props.options.find((o) => o.value === openUntilFilter) ?? options);
+        } else {
+          setOptions(options);
+        }
+      }, [searchParams]);
+    
 
     const handleChange = (option) => {
         const d = new Date();
