@@ -73,13 +73,13 @@ function RangeFilterBar(props) {
   };
 
   return (
-    <Box>
-      <Typography variant="body1" sx={{ textAlign: "center" }}>
+    <Box  className="text">
+      <Typography className="text" variant="body1" sx={{ textAlign: "center" }}>
         {props.label}
       </Typography>
-      <Box sx={{ marginTop: "8px", marginLeft: "24px", marginRight: "24px" }}>
+      <Box className="text" sx={{ marginTop: "8px", marginLeft: "24px", marginRight: "24px" }}>
         <Slider
-          color="primary"
+          className="text"
           step={props.step !== undefined ? props.step : nonlinear ? 0.01 : null}
           marks={scaledMarks}
           value={value}
