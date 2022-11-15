@@ -27,6 +27,7 @@ const SearchBar = () => {
     return [
         <h1 className='text'>Search</h1>,
         <TextField
+        InputProps={{className: "text"}}
         value={searchQuery}
         onChange={updateSearch}
         onKeyPress={(event) => {
