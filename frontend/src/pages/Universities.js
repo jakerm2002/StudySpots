@@ -16,15 +16,14 @@ const Universities = () => {
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/universities?' + searchParams.toString()).then(response => {
+        axios.get('https://api.studyspots.me/universities?' + searchParams.toString()).then(response => {
             setUniversities(response.data);
-            console.log(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/universities`;
+        let url = `https://api.studyspots.me/universities`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;

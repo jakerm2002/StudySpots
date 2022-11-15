@@ -1,3 +1,6 @@
+// credit to UniverCity for frontend filtering logic
+// (https://gitlab.com/coleweinman/swe-college-project)
+
 import { Autocomplete, Chip, CircularProgress, TextField } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState, useMemo } from 'react'
@@ -27,7 +30,7 @@ function ExactFilterBar(props) {
       setOptions([]);
 
       let response = await axios.get(
-        `http://localhost:5000/${props.api_name}/${props.api}?query=` + inputValue
+        `https://api.studyspots.me/${props.api_name}/${props.api}?query=` + inputValue
       );
       let data = response.data;
 

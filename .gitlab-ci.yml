@@ -24,15 +24,15 @@ jest_tests:
 
 # selenium_tests:
 #   stage: test
-#   image: python:3.8
+#   image: python:3.9-slim
 #   services:
 #     - selenium/standalone-chrome
+#   before_script:
+#     - python3 -m pip install --upgrade pip
+#     - python3 -m pip install -r frontend/selenium/requirements.txt
 #   script:
-#     - python3 -m pip install selenium
-#     - python3 -m pip install unittest2
-#     - python3 -m pip install webdriver_manager
-#     - python3 -m pip install packaging
-#     - python3 frontend/guitests.py
+#     - cd frontend/selenium
+#     - python3 -m pytest
 
 backend_tests:
   stage: test

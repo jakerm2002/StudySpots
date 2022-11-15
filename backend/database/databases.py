@@ -240,6 +240,8 @@ class CoffeeShop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     image_url = db.Column(db.String())
+    image_2_url = db.Column(db.String())
+    image_3_url = db.Column(db.String())
     zipcode = db.Column(db.String())
     city = db.Column(db.String())
     latitude = db.Column(db.Float)
@@ -311,6 +313,8 @@ class CoffeeShopSchema(ma.Schema):
             "id",
             "name",
             "image_url",
+            "image_2_url",
+            "image_3_url",
             "zipcode",
             "city",
             "latitude",
@@ -459,6 +463,8 @@ def populate_coffee_shops():
             id=replace_id,
             name=coffee_shop["name"],
             image_url=coffee_shop["image_url"],
+            image_2_url=coffee_shop["photos"][1] if len(coffee_shop["photos"]) > 1 else "",
+            image_3_url=coffee_shop["photos"][2] if len(coffee_shop["photos"]) > 2 else "",
             zipcode=coffee_shop["location"]["zip_code"],
             city=coffee_shop["location"]["city"],
             latitude=coffee_shop["coordinates"]["latitude"],
@@ -684,7 +690,7 @@ def populate_libraries():
 
         def generate_formatted_hours():
             if "opening_hours" not in library:
-                return "N/A"
+                return "Hours unavailable"
 
             chars_to_replace_with_blank = "{[']}"
             orig_str = str(library["opening_hours"]["weekday_text"])
@@ -720,7 +726,7 @@ def populate_libraries():
             rating=library["rating"] if "rating" in library else -1,
             phone=library["formatted_phone_number"]
             if "formatted_phone_number" in library
-            else "",
+            else "N/A",
             maps_url=library["url"],
             utc_offset=library["utc_offset"],
             hours_arr=library["opening_hours"]["weekday_text"]

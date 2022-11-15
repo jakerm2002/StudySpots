@@ -1,3 +1,6 @@
+// credit to UniverCity for frontend filtering logic
+// (https://gitlab.com/coleweinman/swe-college-project)
+
 import { useSearchParams } from 'react-router-dom';
 import { Box, Stack } from "@mui/material";
 

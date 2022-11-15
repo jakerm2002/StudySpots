@@ -1,3 +1,6 @@
+// credit to UniverCity for frontend filtering logic
+// (https://gitlab.com/coleweinman/swe-college-project)
+
 import { Slider } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import React, { useState, useCallback, useEffect } from "react";

@@ -10,27 +10,18 @@ import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters 
 
 
 const CoffeeShops = () => {
-
     const [coffeeShops, setCoffeeShops] = useState({'metadata': {}, 'results': []});
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const getFilterFieldValue = (field) => {
-        let param = searchParams.get(field) ?? "";
-        let paramValues = param === "" ? [] : param.split(",");
-        console.log("getfilterFieldValue");
-        console.log(paramValues);
-        return paramValues;
-      };
-
     useEffect(() => {
-        axios.get('http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops?' + searchParams.toString()).then(response => {
+        axios.get('https://api.studyspots.me/coffeeshops?' + searchParams.toString()).then(response => {
             setCoffeeShops(response.data);
         });
     }, [searchParams]);
 
     //get_query and get_data partially from GiveandLive (Spring 2022)
     function get_query(page) {
-        let url = `http://studyspotstempapi-env.eba-ypjgz4pn.us-east-2.elasticbeanstalk.com/coffeeshops`;
+        let url = `https://api.studyspots.me/coffeeshops`;
         url = url + `?${searchParams.toString()}`;
         url = url + `&page=${page}`
         return url;
@@ -89,15 +80,15 @@ const CoffeeShops = () => {
                 break;
         }
 
-        if (startHour == 'N/A' || endHour == 'N/A') {
+        if (startHour === 'N/A' || endHour === 'N/A') {
             return 'Hours unavailable';
-        } else if (startHour == -1 || endHour == -1) {
+        } else if (startHour === -1 || endHour === -1) {
             return 'Closed'
         }
 
         //really dumb workaround, date could be any date, not just 2000
-        let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00' + 'Z');
-        let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00' + 'Z');
+        let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00Z');
+        let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00Z');
         startHour = startHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
         endHour = endHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
         return startHour + ' - ' + endHour;
@@ -105,11 +96,6 @@ const CoffeeShops = () => {
 
     const Entries = coffeeShops["results"].map(
         (info) => {
-            var name = info.name;
-            var open = "Open";
-            if(info.is_closed){
-                open = "Closed";
-            }
             return(
                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
                     <td title={info.name}>{
