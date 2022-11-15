@@ -69,12 +69,4 @@ const CoffeeShopRangeFilters = [
   },
 ];
 
-const CoffeeShopTimeFilters = (field) => [
-  {
-    label: "Open until",
-    field: "field",
-    options: TimeOptions,
-  },
-];
-
-export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopTimeFilters };
+export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters };

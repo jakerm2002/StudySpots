@@ -143,8 +143,7 @@ const CoffeeShops = () => {
     
     return [
         <SearchBar/>,
-        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
-        <OpenUntil options={TimeOptions}/>,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters} timeOptions={TimeOptions}/>,
         getModel(payload)
     ];
 }

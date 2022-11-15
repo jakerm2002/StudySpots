@@ -6,6 +6,7 @@ import { Box, Stack } from "@mui/material";
 
 import ExactFilterBar from "./ExactFilterBar";
 import { RangeFilterBar } from './RangeFilterBar';
+import OpenUntil from './OpenUntil';
 
 function FilterContainer(props) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,6 +44,7 @@ function FilterContainer(props) {
         ))}
       </Stack>
       <Stack direction="row" gap={2} flexWrap="wrap" ml="50px" mr="50px">
+        {props.timeOptions && <OpenUntil options={props.timeOptions}></OpenUntil>}
         {props.rangeFilters.map((f) => (
           <Box sx={{ flexBasis: "400px", flexGrow: 1 }}>
             <RangeFilterBar
