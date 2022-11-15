@@ -89,14 +89,6 @@ const Libraries = () => {
                             />
                         : info.phone
                     }</td>
-                    {/* <td title={info.formatted_hours}> {
-                        searchParams.get("search") != null
-                        ? <Highlighter
-                            searchWords={searchParams.get("search").split(" ")}
-                            textToHighlight={info.formatted_hours}
-                            />
-                        : info.formatted_hours
-                    }</td> */}
                     <td>{get_todays_hours(info)}</td>
                 </tr>
             )
