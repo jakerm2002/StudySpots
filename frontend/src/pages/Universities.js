@@ -22,31 +22,6 @@ const Universities = () => {
         });
     }, [searchParams]);
 
-    //get_query and get_data partially from GiveandLive (Spring 2022)
-    function get_query(page) {
-        let url = `https://api.studyspots.me/universities`;
-        url = url + `?${searchParams.toString()}`;
-        url = url + `&page=${page}`
-        return url;
-    }
-    
-    function update_query(param, val) {
-        let newParams = searchParams;
-        newParams.set(param, val);
-        setSearchParams(newParams);
-    }
-
-    const get_data = async(page) => {
-        const url = get_query(page);
-        const response = await axios.get(url);
-        setUniversities(response.data);
-    }    
-
-    const set_page = (pageNumber) => {
-        update_query("page", pageNumber);
-        get_data(pageNumber)
-    }
-
     const Entries = universities["results"].map(
         (info) => {
             return(
@@ -88,8 +63,7 @@ const Universities = () => {
         pageName : "Universities",
         fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"],
         num_items_per_page : universities["metadata"]["per_page"],
-        num_total_items : universities["metadata"]["num_total_results"],
-        set_new_page: set_page
+        num_total_items : universities["metadata"]["num_total_results"]
     }
 
     return [

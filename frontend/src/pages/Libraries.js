@@ -18,31 +18,6 @@ const Libraries = () => {
         });
     }, [searchParams]);
 
-    //get_query and get_data partially from GiveandLive (Spring 2022)
-    function get_query(page) {
-        let url = `https://api.studyspots.me/libraries`;
-        url = url + `?${searchParams.toString()}`;
-        url = url + `&page=${page}`
-        return url;
-    }
-
-    function update_query(param, val) {
-        let newParams = searchParams;
-        newParams.set(param, val);
-        setSearchParams(newParams);
-    }
-    
-    const get_data = async(page) => {
-        const url = get_query(page);
-        const response = await axios.get(url);
-        setLibraries(response.data);
-    }    
-
-    const set_page = (pageNumber) => {
-        update_query("page", pageNumber);
-        get_data(pageNumber)
-    }
-
     const get_todays_hours = (info) => {
         const d = new Date();
         let day = d.getDay();
@@ -100,8 +75,7 @@ const Libraries = () => {
         pageName : "Libraries",
         fields : ["Name", "Address", "Rating", "Phone #", "Hours today"],
         num_items_per_page : libraries["metadata"]["per_page"],
-        num_total_items : libraries["metadata"]["num_total_results"],
-        set_new_page: set_page
+        num_total_items : libraries["metadata"]["num_total_results"]
     }
     return [
         <SearchBar/>,
