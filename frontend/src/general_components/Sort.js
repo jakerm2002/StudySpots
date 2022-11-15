@@ -55,6 +55,7 @@ function Sorter(props) {
 	>
     <Tooltip title={sortAscending ? "Ascending" : "Descending"}>
       <IconButton
+        className="text"
         onClick={() => handleSortDirectionChange(!sortAscending)}
       >
         {sortAscending && <AscendingIcon />}
@@ -64,13 +65,14 @@ function Sorter(props) {
 
 	  <Typography
 	    gutterBottom
-	    className="modelTitle"
+	    className="text"
 	    variant="h2"
 	    sx={{ textAlign: "center" }}
 	  >
 	    Sort
 	  </Typography>
 	  <Select
+    className="text border"
     defaultValue = "Sort By"
 		children={sortOptions.map((option) => (
         <MenuItem

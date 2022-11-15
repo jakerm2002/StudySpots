@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css';
+// eslint-disable-next-line
 import { Route, Routes, Router} from 'react-router-dom'
 
 import Navigation from './general_components/Navigation'
@@ -13,23 +14,48 @@ import Universities from './pages/Universities'
 import InstanceCoffee from './general_components/InstanceCoffee'
 import InstanceUniversity from './general_components/InstanceUniversity'
 import InstanceLibrary from "./general_components/InstanceLibrary"
+import { createContext, useEffect, useState} from 'react';
+import Button from 'react-bootstrap/Button';
+
+export const ThemeContext = createContext(null);
 
 function App() {
+  const [theme, setTheme] = useState(() => {
+    const storedMode = localStorage.getItem("MODE");
+    if (typeof storedMode === 'string') {
+      return storedMode;
+    }
+    return "light";
+  })
+  const toggleTheme = () => {
+    setTheme((curr) => (curr === "light" ? "dark": "light"));
+  }
+  
+  useEffect(() => {
+    localStorage.setItem("MODE", theme);
+  }, [theme])
+
   return(
-    <div className="App">
-      <Navigation/>
-      <Routes>
-        <Route path='/' element={<Splash/>}/>
-        <Route path="/Search" element={<Search/>}/>
-        <Route path='/CoffeeShops' element={<CoffeeShops/>}/>
-        <Route path='/Libraries' element={<Libraries/>}/>
-        <Route path='/Universities' element={<Universities/>}/>
-        <Route path='/About' element={<About/>}/>
-        <Route path='/CoffeeShops/:businessID' element={<InstanceCoffee/>}/>
-        <Route path='/Universities/:universityID' element={<InstanceUniversity/>}/>
-        <Route path='/Libraries/:businessID' element={<InstanceLibrary/>}/>
-      </Routes>
-    </div>
+    <ThemeContext.Provider value={{ theme, toggleTheme}}>
+      <div className="App" id={theme}>
+        <Navigation id={theme}/>
+        <div className='switchButton'>
+          <label>{theme === "light" ? "Light Mode" : "Dark Mode"} </label>
+          <Button onClick={toggleTheme}/>
+        </div> 
+        <Routes>
+          <Route path='/' element={<Splash/>}/>
+          <Route path="/Search" element={<Search/>}/>
+          <Route path='/CoffeeShops' element={<CoffeeShops/>}/>
+          <Route path='/Libraries' element={<Libraries/>}/>
+          <Route path='/Universities' element={<Universities/>}/>
+          <Route path='/About' element={<About/>}/>
+          <Route path='/CoffeeShops/:businessID' element={<InstanceCoffee/>}/>
+          <Route path='/Universities/:universityID' element={<InstanceUniversity/>}/>
+          <Route path='/Libraries/:businessID' element={<InstanceLibrary/>}/>
+        </Routes>
+      </div>
+    </ThemeContext.Provider>
   )
 }
 

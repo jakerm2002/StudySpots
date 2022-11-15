@@ -13,8 +13,28 @@
   }
 }
 
+#light {
+  background-color: #e2b78c;
+}
+
+#dark {
+  background-color: #001E45;
+}
+
+.switchButton label {
+  margin: 10px;
+}
+
+#light .switchButton label {
+  color: black;
+}
+
+#dark .switchButton label {
+  color: white;
+}
+
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -28,6 +48,14 @@
   color: #61dafb;
 }
 
+/* #light .App-link {
+  color: #78330c
+}
+
+#dark .App-link {
+  color: white
+} */
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -35,4 +63,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+#light .cards {
+  background-color: #e7dbcf;
+}
+
+#dark .cards {
+  background-color: #00003f;
 }

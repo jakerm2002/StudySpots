@@ -8,6 +8,13 @@
     margin-top: 2rem;
 }
 
+#light .modelCard {
+    background-color: #e7dbcf;
+}
+#dark .modelCard {
+    background-color: #00003f;
+}
+
 .image {
     margin-top: 2rem;
 }
@@ -33,4 +40,35 @@
     width: 26rem;
     margin-top: 2rem;
     padding: 16px;
+}
+
+#light .aboutCard {
+    background-color: #e7dbcf;
+}
+#dark .aboutCard {
+    background-color: #00003f;
+}
+
+#light .text {
+    color: #662716;
+}
+
+#dark .text {
+    color: white
+}
+
+#light .border {
+    border-color: #662716 !important;
+}
+
+#dark .border {
+    border-color: white !important;
+}
+
+#light .buttonBackground {
+    background-color: #e7dbcf;
+}
+
+#dark .buttonBackground {
+    background-color: #00003f;
 }

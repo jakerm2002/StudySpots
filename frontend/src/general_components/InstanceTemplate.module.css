@@ -2,6 +2,14 @@
 	font-family: "Patrick Hand";
 }
 
+#light .general {
+	color: #662716;
+}
+
+#dark .general {
+	color: #e2b78c;
+}
+
 .image {
 	margin: auto;
 }
@@ -19,7 +27,14 @@
 .styleCard { /* style borrowed from https://codesandbox.io/s/lxvpmnn6z7?file=/src/styles.css*/
 	border-radius: 8px;
 	box-shadow: 0px 0px 8px #ccc;
-	color: #253b56;
+}
+
+#light .styleCard {
+	color: #e2b78c;
+}
+
+#dark .styleCard {
+	color: #662716;
 }
 
 
@@ -38,3 +53,5 @@
 	font-size: xx-small;
 	padding-top: 10px;
 }
+
+

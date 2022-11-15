@@ -2,9 +2,17 @@
     margin: 20px 50px;
 }
 
-h1.pageName {
+.pageName {
     margin-bottom: 20px;
 }
+
+#light .pageName {
+    color: #e7dbcf;
+  }
+  
+#dark .pageName {
+    color: #78330c;
+  }
 
 /* used for bolding font on hover */
 /* tr:hover {
@@ -38,4 +46,28 @@ tr {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+}
+
+#light .model_page_pagination {
+    background-color: #e7dbcf;
+  }
+  
+  #dark .model_page_pagination {
+    background-color: #78330c;
+  }
+
+#light .text{
+    color: #662716;
+}
+
+#dark .text{
+    color: #e2b78c;
+}
+
+#light .textField_Label{
+    color: #662716 !important;
+}
+
+#dark .textField_Label{
+    color: #e2b78c !important;
 }
