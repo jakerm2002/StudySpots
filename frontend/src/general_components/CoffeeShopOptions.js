@@ -68,4 +68,12 @@ const CoffeeShopRangeFilters = [
   },
 ];
 
+const CoffeeShopTimeFilters = [
+  {
+    label: "Open until",
+    field: "state",
+    options: StateOptions,
+  },
+];
+
 export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters };

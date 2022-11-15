@@ -208,6 +208,34 @@ def add_range_filters(existing_query, filters):
             new_query.append(field <= max)
     return existing_query.filter(and_(*new_query))
 
+# returns a dict where the keys are the columns that are time-filter-eligible
+# and the value is a tuple containing the min and max
+def get_time_filters(request_args, time_filter_fields):
+    range_filters = {}
+    for field in time_filter_fields:
+        filter_name = field.name + 'OpenUntil'
+        openUntil = get_range_param(request_args, filter_name)
+
+        # if we didn't filter by a field, we don't need to add it to the
+        # query. only add filters containing elements.
+        if min or max:
+            range_filters[field] = (min, max)
+
+    return range_filters
+
+# add our range filters to the query.
+def add_time_filters(existing_query, filters):
+    new_query = []
+    for field in filters:
+        print('type is', type(field))
+        min = filters[field][0]
+        max = filters[field][1]
+        if min:
+            new_query.append(field >= min)
+        if max:
+            new_query.append(field <= max)
+    return existing_query.filter(and_(*new_query))
+
 
 def add_search_filters(existing_query, fields, val):
     # fields are the searchable columns want this to be done by the backend so the endpoint will pass in this field
@@ -413,6 +441,9 @@ def coffeeshops():
     range_filter_fields = [
         CoffeeShop.price_integer,
         CoffeeShop.rating,
+    ]
+
+    time_filter_fields = [
         CoffeeShop.hours_day_0_closed,
         CoffeeShop.hours_day_1_closed,
         CoffeeShop.hours_day_2_closed,
@@ -462,6 +493,7 @@ def coffeeshops():
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
+    time_filters = get_time_filters(request.args, time_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
 
     all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
