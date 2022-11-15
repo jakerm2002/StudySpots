@@ -161,7 +161,9 @@ describe("Test Coffee Shops Page", () => {
 describe("Test Libraries Page", () => {
     test("Proper Rendering of Libraries Page", () => {
         const originalError = console.error;
+        const originalWarn = console.warn;
         console.error = jest.fn();
+        console.warn = jest.fn();
         render(<Libraries/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
@@ -173,6 +175,7 @@ describe("Test Libraries Page", () => {
 
 
         console.error = originalError;
+        console.warn = originalWarn;
     });
 
 });
@@ -180,7 +183,9 @@ describe("Test Libraries Page", () => {
 describe("Test Universities Page", () => {
     test("Proper Rendering of Universities Page", () => {
         const originalError = console.error;
+        const originalWarn = console.warn;
         console.error = jest.fn();
+        console.warn = jest.fn();
         render(<Universities/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
@@ -192,6 +197,7 @@ describe("Test Universities Page", () => {
         expect(screen.getByText("Out of State Tuition")).toBeInTheDocument();
 
         console.error = originalError;
+        console.warn = originalWarn;
     });
 
 });
