@@ -140,7 +140,9 @@ describe("Test Splash Page", () => {
 describe("Test Coffee Shops Page", () => {
     test("Proper Rendering of Coffee Shops Page", () => {
         const originalError = console.error;
+        const originalWarn = console.warn;
         console.error = jest.fn();
+        console.warn = jest.fn();
         render(<CoffeeShops/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
@@ -151,6 +153,7 @@ describe("Test Coffee Shops Page", () => {
         expect(screen.getByText("Hours today")).toBeInTheDocument();
 
         console.error = originalError;
+        console.warn = originalWarn;
     });
 
 });
@@ -197,7 +200,7 @@ describe("Test Pagination", () => {
     test("Proper Rendering of Pagination", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Paginate/>)
+        render(<Paginate/>,  {wrapper: BrowserRouter})
 
         expect(screen.getByText("Next")).toBeInTheDocument();
         expect(screen.getByText("More")).toBeInTheDocument();
