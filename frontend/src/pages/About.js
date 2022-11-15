@@ -21,7 +21,7 @@ const teamMembers = [
         "name" : "Bianca Alvarado",
         "photo": BiancaAlvImg,
         "bio" : "I'm a senior CS major with a minor in Business! I'm from Houston, TX. In my free time I enjoy playing board games and binge watching shows with friends :)",
-        "responsibility": "Frontend - Splash page",
+        "responsibility": "Frontend",
         "possible_names": ["Bianca Alvarado", "bianca.alvarado", "Bianca M Alvarado"],
         "commits": 0,
         "issues": 0,
@@ -195,8 +195,8 @@ function aggregateTests() {
 const Profile = (props) => {
 
     return (
-        <Card className={styles.profileCard}>
-            <Card.Body>
+        <Card className={`cards ${styles.profileCard}`}>
+            <Card.Body className="text">
                 <Card.Img variant="top" src={props.person["photo"]}/>
                 <Card.Title>{props.person["name"]}</Card.Title>
                 <Card.Text>{props.person["bio"]}</Card.Text>
@@ -212,7 +212,7 @@ const Profile = (props) => {
 const Tool = (props) => {
     return (
         <Card style = {{ width: '15rem'}}>
-            <Card.Body>
+            <Card.Body className="text">
                 <Card.Img variant="top" src={props.tool["image"]}/>
                 <a href={props.tool["link"]}>
                     <Card.Title>{props.tool["name"]}</Card.Title>
@@ -248,19 +248,19 @@ const About = () => {
 
     return[
         <div className={styles.info}>
-            <h1>StudySpots</h1>
-            <h3>Mission</h3>
+            <h1 className="text">StudySpots</h1>
+            <h3 className="text">Mission</h3>
             <div className={styles.center}>
-                <p>StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
+                <p className="text">StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
             </div>
-            <h3>Discovery</h3>
+            <h3 className="text">Discovery</h3>
             <div className={styles.center}>
-                <p>When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
+                <p className="text">When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
             </div>
         </div>,
         <div className={styles.teamInfo}>
-            <h1>Meet the Team</h1>
-            <h3>Members</h3>
+            <h1 className="text">Meet the Team</h1>
+            <h3 className="text">Members</h3>
             {
                 isFetched ? (
                     <div>
@@ -269,9 +269,9 @@ const About = () => {
                                 <Profile person={teamMember}/>
                             ))}
                         </Row>
-                        <h3>Team Stats</h3>
-                        <Card style = {{width: '75%'}} className={styles.team}>
-                            <Card.Body>
+                        <h3 className="text">Team Stats</h3>
+                        <Card style = {{width: '75%'}} className={`cards ${styles.team}`}>
+                            <Card.Body className="text">
                                 <Card.Text><b>Commits: </b>{numCommits}</Card.Text>
                                 <Card.Text><b>Issues: </b>{numIssues}</Card.Text>
                                 <Card.Text><b>Tests: </b>{numTests}</Card.Text>
@@ -282,11 +282,11 @@ const About = () => {
             
         </div>,
         <div className={styles.techInfo}>
-            <h1>Technology Used</h1>
-            <h3>Tools</h3>
+            <h1 className="text">Technology Used</h1>
+            <h3 className="text">Tools</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody>
+                    <tbody className='cards'>
                         <tr>
                         {tools.map(tool => (
                             <td key={tool.name}><Tool tool={tool}/></td>
@@ -295,10 +295,10 @@ const About = () => {
                     </tbody>
                 </Table>
             </div>
-            <h3>APIs Scraped</h3>
+            <h3 className="text">APIs Scraped</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody>
+                    <tbody className='cards'>
                         <tr>
                             {apis.map(api => (
                                 <td key={api.name}><Tool tool={api}/></td>
@@ -309,7 +309,7 @@ const About = () => {
             </div>
         </div>,
         <div className={styles.project_links}>
-            <h3>Project Links</h3>
+            <h3 className="text">Project Links</h3>
             <Button href="https://gitlab.com/jakem02/cs373-idb" variant="dark">GitLab Project Repository</Button>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <Button href="https://documenter.getpostman.com/view/23653833/2s83tGoBu1" variant="dark">Postman API Documentation</Button>

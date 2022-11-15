@@ -8,6 +8,7 @@ import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
 import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions } from '../general_components/CoffeeShopOptions';
+import TimeOptions from '../general_components/TimeOptions';
 
 
 const CoffeeShops = () => {
@@ -19,31 +20,6 @@ const CoffeeShops = () => {
             setCoffeeShops(response.data);
         });
     }, [searchParams]);
-
-    //get_query and get_data partially from GiveandLive (Spring 2022)
-    function get_query(page) {
-        let url = `https://api.studyspots.me/coffeeshops`;
-        url = url + `?${searchParams.toString()}`;
-        url = url + `&page=${page}`
-        return url;
-    }
-
-    function update_query(param, val) {
-        let newParams = searchParams;
-        newParams.set(param, val);
-        setSearchParams(newParams);
-    }
-    
-    const get_data = async(page) => {
-        const url = get_query(page);
-        const response = await axios.get(url);
-        setCoffeeShops(response.data);
-    }    
-
-    const set_page = (pageNumber) => {
-        update_query("page", pageNumber);
-        get_data(pageNumber)
-    }
 
     const get_todays_hours = (info) => {
         const d = new Date();
@@ -78,6 +54,8 @@ const CoffeeShops = () => {
             case 6:
                 startHour = info.hours_day_6_open;
                 endHour = info.hours_day_6_closed;
+                break;
+            default:
                 break;
         }
 
@@ -136,13 +114,12 @@ const CoffeeShops = () => {
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Hours today"],
         num_items_per_page : coffeeShops["metadata"]["per_page"],
-        num_total_items : coffeeShops["metadata"]["num_total_results"],
-        set_new_page: set_page
+        num_total_items : coffeeShops["metadata"]["num_total_results"]
     }
     
     return [
         <SearchBar/>,
-        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters} timeOptions={TimeOptions}/>,
         <Sorter api_name={CoffeeShopEndpointName} sortOptions={CoffeeShopSortOptions}/>,
         getModel(payload)
     ];
