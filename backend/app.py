@@ -83,12 +83,14 @@ def get_nearby_libraries(latitude, longitude):
     )
     return libraries_schema.dumps(libraries_nearby)
 
-def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query
+def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters = None
 ):
     base_query = db.session.query(model)
     base_query = add_search_filters(base_query, search_fields, search_query)
     base_query = add_exact_filters(base_query, exact_filters)
     base_query = add_range_filters(base_query, range_filters)
+    if time_filters:
+        base_query = add_time_filters(base_query, time_filters)
     base_query = add_sort(base_query, sort_attributes)
     base_query = base_query.paginate(page=page, per_page=per_page)
     return base_query
@@ -206,6 +208,66 @@ def add_range_filters(existing_query, filters):
             new_query.append(field >= min)
         if max:
             new_query.append(field <= max)
+    return existing_query.filter(and_(*new_query))
+
+# returns a dict where the keys are the columns that are time-filter-eligible
+# and the value is a 24 hour time string that means a store should be open
+# at or before that time on the given day
+def get_time_filters(request_args, time_filter_fields):
+    time_filters = {}
+    for field in time_filter_fields:
+        # index 10 of field name contains the day number
+        filter_name = 'day' + field.name[10] + 'OpenUntil'
+        openUntil = get_range_param(request_args, filter_name)
+
+        # if we didn't filter by a field, we don't need to add it to the
+        # query. only add filters containing elements.
+        if openUntil:
+            time_filters[field] = openUntil
+
+    return time_filters
+
+# add our time filters to the query.
+def add_time_filters(existing_query, filters):
+    ignore_query = []
+    new_query = []
+    for field in filters:
+        openUntil = filters[field]
+        if (openUntil == 'N/A'):
+            openUntilInt = -1
+        else:
+            openUntilInt = int(openUntil)
+        
+        ignore_query.append(field != '-1')
+        ignore_query.append(field != 'N/A')
+
+        # if the time is past midnight, we need to include
+        # all results before midnight
+        # so we are going to say that the closing time must be
+        # after 10:00am or before the input time
+
+        # SELECT name, hours_day_0_open, hours_day_0_closed 
+        # FROM public.coffee_shop 
+        # WHERE
+        #   (hours_day_0_closed != '-1' and hours_day_0_closed != 'N/A' 
+        #   and 
+        #   (hours_day_0_closed > '1000' or '0200' >= hours_day_0_closed)) 
+        # ORDER BY hours_day_0_closed ASC 
+        if openUntilInt < 1000:
+            new_query.append(field > '1000')
+            new_query.append(openUntil >= field)
+            return existing_query.filter(and_(*ignore_query)).filter(or_(*new_query))
+        # times before midnight
+        # SELECT name, hours_day_0_open, hours_day_0_closed
+        # FROM public.coffee_shop WHERE
+        #   (hours_day_0_closed != '-1' and hours_day_0_closed != 'N/A'
+        #   and
+        #   (hours_day_0_closed > '1000' and hours_day_0_closed <= '2200'))
+        # ORDER BY hours_day_0_closed ASC
+        new_query.append(field > '1000')
+        new_query.append(field <= openUntil)
+        return existing_query.filter(and_(*ignore_query)).filter(and_(*new_query))
+
     return existing_query.filter(and_(*new_query))
 
 
@@ -412,7 +474,17 @@ def coffeeshops():
 
     range_filter_fields = [
         CoffeeShop.price_integer,
-        CoffeeShop.rating
+        CoffeeShop.rating,
+    ]
+
+    time_filter_fields = [
+        CoffeeShop.hours_day_0_closed,
+        CoffeeShop.hours_day_1_closed,
+        CoffeeShop.hours_day_2_closed,
+        CoffeeShop.hours_day_3_closed,
+        CoffeeShop.hours_day_4_closed,
+        CoffeeShop.hours_day_5_closed,
+        CoffeeShop.hours_day_6_closed
     ]
 
     sort_filter_fields = [
@@ -455,9 +527,10 @@ def coffeeshops():
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
+    time_filters = get_time_filters(request.args, time_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
 
-    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
+    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters=time_filters)
 
     coffee_shop_info = json.loads(coffeeshops_schema.dumps(all_coffee_shops.items))
     metadata = {
@@ -511,11 +584,6 @@ def libraries():
         Library.city,
         Library.zipcode,
         Library.phone,
-        Library.maps_url,
-        Library.hours_arr,
-        Library.formatted_hours,
-        Library.photo_reference,
-        Library.photo_link,
         Library.rating_string,
         Library.website,
         Library.review_1_text,
@@ -612,11 +680,6 @@ def search_entire_site():
         Library.city,
         Library.zipcode,
         Library.phone,
-        Library.maps_url,
-        Library.hours_arr,
-        Library.formatted_hours,
-        Library.photo_reference,
-        Library.photo_link,
         Library.rating_string,
         Library.website,
         Library.review_1_text,

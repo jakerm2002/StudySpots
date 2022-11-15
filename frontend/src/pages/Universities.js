@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SearchBar from '../general_components/SearchBar';
+import Sorter from '../general_components/Sort';
 import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters } from '../general_components/UniversityOptions';
+import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions } from '../general_components/UniversityOptions';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -20,31 +21,6 @@ const Universities = () => {
             setUniversities(response.data);
         });
     }, [searchParams]);
-
-    //get_query and get_data partially from GiveandLive (Spring 2022)
-    function get_query(page) {
-        let url = `https://api.studyspots.me/universities`;
-        url = url + `?${searchParams.toString()}`;
-        url = url + `&page=${page}`
-        return url;
-    }
-    
-    function update_query(param, val) {
-        let newParams = searchParams;
-        newParams.set(param, val);
-        setSearchParams(newParams);
-    }
-
-    const get_data = async(page) => {
-        const url = get_query(page);
-        const response = await axios.get(url);
-        setUniversities(response.data);
-    }    
-
-    const set_page = (pageNumber) => {
-        update_query("page", pageNumber);
-        get_data(pageNumber)
-    }
 
     const Entries = universities["results"].map(
         (info) => {
@@ -87,13 +63,13 @@ const Universities = () => {
         pageName : "Universities",
         fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"],
         num_items_per_page : universities["metadata"]["per_page"],
-        num_total_items : universities["metadata"]["num_total_results"],
-        set_new_page: set_page
+        num_total_items : universities["metadata"]["num_total_results"]
     }
 
     return [
         <SearchBar/>,
         <FilterContainer api_name={UniversityEndpointName} exactFilters={UniversityExactFilters} rangeFilters={UniversityRangeFilters}/>,
+        <Sorter api_name={UniversityEndpointName} sortOptions={UniversitySortOptions}/>,
         getModel(payload)
     ];
 }

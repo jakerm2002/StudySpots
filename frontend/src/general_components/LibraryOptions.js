@@ -52,4 +52,15 @@ const LibraryRangeFilters = [
   },
 ];
 
-export { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters };
+const LibrarySortOptions = [
+  {
+    label: "Name",
+    db_label: "name",
+  },
+  {
+    label: "Rating",
+    db_label: "rating",
+  }
+]
+
+export { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters, LibrarySortOptions };

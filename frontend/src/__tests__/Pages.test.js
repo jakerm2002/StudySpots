@@ -4,6 +4,7 @@ import CoffeeShops from "../pages/CoffeeShops"
 import Libraries from "../pages/Libraries"
 import Universities from "../pages/Universities"
 import Splash from "../pages/Splash"
+import Search from "../pages/Search"
 import { ModelCards, AboutCard, SlideShow } from "../pages/Splash"
 import Navigation from "../general_components/Navigation"
 import Paginate from "../general_components/Pagination"
@@ -21,6 +22,7 @@ describe("Test Navigation Bar", () => {
         
         // Make sure all of the navigation bars are included
         expect(screen.getByText("Home")).toBeInTheDocument();
+        expect(screen.getByText("Search")).toBeInTheDocument();
         expect(screen.getByText("Coffee Shops")).toBeInTheDocument();
         expect(screen.getByText("Libraries")).toBeInTheDocument();
         expect(screen.getByText("Universities")).toBeInTheDocument();
@@ -30,7 +32,7 @@ describe("Test Navigation Bar", () => {
 });
 
 describe("Test About Page", () => {
-    test("Proper Rendering of About Page", () => {
+    test("Proper Rendering of Search Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
         render(<About/>);
@@ -43,6 +45,26 @@ describe("Test About Page", () => {
         expect(screen.getByText("Technology Used")).toBeInTheDocument();
         expect(screen.getByText("APIs Scraped")).toBeInTheDocument();
         expect(screen.getByText("Project Links")).toBeInTheDocument();
+
+        console.error = originalError;
+
+    });
+});
+
+describe("Test Search Page", () => {
+    test("Proper Rendering of Search Page", () => {
+        const originalError = console.error;
+        console.error = jest.fn();
+        render(<Search/>, {wrapper: BrowserRouter});
+
+        // Make sure all the parts of the Search page is included
+        expect(screen.getByText("Search")).toBeInTheDocument();
+        expect(screen.getByText("Coffee Shops")).toBeInTheDocument();
+        expect(screen.getByText("Libraries")).toBeInTheDocument();
+        expect(screen.getByText("Universities")).toBeInTheDocument();
+        expect(screen.getByText("View all CoffeeShop Results")).toBeInTheDocument();
+        expect(screen.getByText("View all Library Results")).toBeInTheDocument();
+        expect(screen.getByText("View all University Results")).toBeInTheDocument();
 
         console.error = originalError;
 
@@ -118,7 +140,9 @@ describe("Test Splash Page", () => {
 describe("Test Coffee Shops Page", () => {
     test("Proper Rendering of Coffee Shops Page", () => {
         const originalError = console.error;
+        const originalWarn = console.warn;
         console.error = jest.fn();
+        console.warn = jest.fn();
         render(<CoffeeShops/>, {wrapper: BrowserRouter})
         
         // Make sure all the parts of the Splash page is included
@@ -126,9 +150,10 @@ describe("Test Coffee Shops Page", () => {
         expect(screen.getByText("City")).toBeInTheDocument();
         expect(screen.getAllByText("Price").length !== 0);
         expect(screen.getAllByText("Rating").length !== 0);
-        expect(screen.getByText("Open/Closed")).toBeInTheDocument();
+        expect(screen.getByText("Hours today")).toBeInTheDocument();
 
         console.error = originalError;
+        console.warn = originalWarn;
     });
 
 });
@@ -141,10 +166,10 @@ describe("Test Libraries Page", () => {
         
         // Make sure all the parts of the Splash page is included
         expect(screen.getByText("Name")).toBeInTheDocument();
-        expect(screen.getByText("Location")).toBeInTheDocument();
+        expect(screen.getByText("Address")).toBeInTheDocument();
         expect(screen.getAllByText("Rating").length !== 0);
-        expect(screen.getByText("Telephone")).toBeInTheDocument();
-        expect(screen.getByText("Status")).toBeInTheDocument();
+        expect(screen.getByText("Phone #")).toBeInTheDocument();
+        expect(screen.getByText("Hours today")).toBeInTheDocument();
 
 
         console.error = originalError;
@@ -175,7 +200,7 @@ describe("Test Pagination", () => {
     test("Proper Rendering of Pagination", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Paginate/>)
+        render(<Paginate/>,  {wrapper: BrowserRouter})
 
         expect(screen.getByText("Next")).toBeInTheDocument();
         expect(screen.getByText("More")).toBeInTheDocument();

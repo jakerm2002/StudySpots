@@ -1,16 +1,27 @@
 // Pagination code from AnimalWatch (Spring 2022)
 // https://gitlab.com/JohnPowow/animalwatch/-/blob/main/frontend/src/pages/Pagination.js
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams } from "react-router-dom";
 import Pagination from 'react-bootstrap/Pagination'
 
-const Paginate = ({num_items_per_page, num_total_items, paginate}) => {
+const Paginate = ({ num_items_per_page, num_total_items }) => {
 
-    const [currentPage, setCurrentPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // get and display the current page if it is in the URL
+    // but not selected using this Pagination component
+    useEffect(() => {
+        let pageNumber = parseInt(searchParams.get("page") ?? 1);
+        setCurrentPage(pageNumber)
+    }, [searchParams]);
 
     const changePage = (num) => {
-        setCurrentPage(num)
-        paginate(num)
+        let newParams = searchParams;
+        newParams.set("page", num);
+        setCurrentPage(num);
+        setSearchParams(newParams);
     }
 
     const span = Math.floor((num_items_per_page - 4) / 2);
@@ -130,25 +141,23 @@ const Paginate = ({num_items_per_page, num_total_items, paginate}) => {
 
 
     return (
-        // <div className="page-control">
-            <Pagination>
-                <Pagination.Prev
-                    key={prevButtonKey}
-                    disabled={currentPage === 1}
-                    onClick={() => {
-                        changePage(currentPage - 1);
-                    }}
-                />
-                {content}
-                <Pagination.Next
-                    key={nextButtonKey}
-                    disabled={currentPage === lastPage}
-                    onClick={() => {
-                        changePage(currentPage + 1);
-                    }}
-                />
-            </Pagination>
-        // </div>
+        <Pagination>
+            <Pagination.Prev
+                key={prevButtonKey}
+                disabled={currentPage === 1}
+                onClick={() => {
+                    changePage(currentPage - 1);
+                }}
+            />
+            {content}
+            <Pagination.Next
+                key={nextButtonKey}
+                disabled={currentPage === lastPage}
+                onClick={() => {
+                    changePage(currentPage + 1);
+                }}
+            />
+        </Pagination>
     );
 
 
