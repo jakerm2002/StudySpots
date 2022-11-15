@@ -1,4 +1,5 @@
 import { StateOptions } from "./StateOptions";
+import TimeOptions from "./TimeOptions";
 
 const CoffeeShopEndpointName = "coffeeshops";
 
@@ -68,12 +69,12 @@ const CoffeeShopRangeFilters = [
   },
 ];
 
-const CoffeeShopTimeFilters = [
+const CoffeeShopTimeFilters = (field) => [
   {
     label: "Open until",
-    field: "state",
-    options: StateOptions,
+    field: "field",
+    options: TimeOptions,
   },
 ];
 
-export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters };
+export { CoffeeShopEndpointName, CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopTimeFilters };
