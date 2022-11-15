@@ -14,25 +14,26 @@ function OpenUntil(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [options, setOptions] = useState(props.options[0]);
 
-    const handleSortChange = (option) => {
+    const handleChange = (option) => {
         const d = new Date();
         let day = d.getDay();
         let newParams = searchParams;
-        newParams.set("day" + day + "OpenUntil", option.value);
+        if (option.value !== "")
+            newParams.set("day" + day + "OpenUntil", option.value);
+        else
+            newParams.delete("day" + day + "OpenUntil")
         newParams.delete("page");
         setOptions(option);
         setSearchParams(newParams);
     };
 
+    const optionToLabel = (option) => {
+        return option.label
+    }
 
-    const optionToValue = (option) => {
-        return option.value;
-    };
-
-    const valueToOption = (value) => {
-        let option =
-          props.options.find((o) => o.value === value) ??
-          props.options[0];
+    const labelToOption = (label) => {
+        let option = 
+            props.options.find((o) => o.label === label) ?? props.options[0];
         return option;
       };
     
@@ -40,13 +41,13 @@ function OpenUntil(props) {
         <>
         <Box sx={{ minWidth: 120 }}>
         <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Open until</InputLabel>
+        <InputLabel>Open until:</InputLabel>
         <Select
-            id="open-until-field"
-            label="Open until"
-            value={optionToValue(options)}
+            label="Open until:"
+            value={optionToLabel(options)}
             onChange={(event) =>
-                handleSortChange(valueToOption(event.target.value))
+                // frontend label of the selected dropdown option
+                handleChange(labelToOption(event.target.value))
             }
             inputProps={{
                 sx: {
@@ -59,8 +60,8 @@ function OpenUntil(props) {
         >
             {props.options.map((option) => (
                 <MenuItem
-                key={option.value}
-                value={option.value}
+                // key={option.value}
+                value={option.label}
                 >
                 {option.label}
                 </MenuItem>

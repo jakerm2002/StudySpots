@@ -1,5 +1,4 @@
 import { StateOptions } from "./StateOptions";
-import TimeOptions from "./TimeOptions";
 
 const CoffeeShopEndpointName = "coffeeshops";
 

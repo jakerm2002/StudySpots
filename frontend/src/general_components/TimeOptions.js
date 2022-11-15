@@ -1,5 +1,5 @@
 const TimeOptions = [
-    { label: "Anytime" , value: ""},
+    { label: "Show all" , value: ""},
     { label: "11:00 AM", value: "1100" },
     { label: "11:30 AM", value: "1130" },
     { label: "12:00 PM", value: "1200" },
