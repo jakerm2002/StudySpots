@@ -126,7 +126,7 @@ describe("Test Coffee Shops Page", () => {
         expect(screen.getByText("City")).toBeInTheDocument();
         expect(screen.getAllByText("Price").length !== 0);
         expect(screen.getAllByText("Rating").length !== 0);
-        expect(screen.getByText("Open/Closed")).toBeInTheDocument();
+        expect(screen.getByText("Hours today")).toBeInTheDocument();
 
         console.error = originalError;
     });
@@ -141,10 +141,10 @@ describe("Test Libraries Page", () => {
         
         // Make sure all the parts of the Splash page is included
         expect(screen.getByText("Name")).toBeInTheDocument();
-        expect(screen.getByText("Location")).toBeInTheDocument();
+        expect(screen.getByText("Address")).toBeInTheDocument();
         expect(screen.getAllByText("Rating").length !== 0);
-        expect(screen.getByText("Telephone")).toBeInTheDocument();
-        expect(screen.getByText("Status")).toBeInTheDocument();
+        expect(screen.getByText("Phone #")).toBeInTheDocument();
+        expect(screen.getByText("Hours today")).toBeInTheDocument();
 
 
         console.error = originalError;
