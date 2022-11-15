@@ -14,8 +14,7 @@ function OpenUntil(props) {
     const [searchParams, setSearchParams] = useSearchParams();
     const [options, setOptions] = useState(props.options[0]);
 
-    const d = new Date();
-    let day = d.getDay();
+    let day = new Date().getDay();
 
     // get and display the current filtering value if it is in the URL
     // but not selected using this OpenUntil component
