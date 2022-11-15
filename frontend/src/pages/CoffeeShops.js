@@ -8,6 +8,7 @@ import styles from '../general_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
 import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions } from '../general_components/CoffeeShopOptions';
+import TimeOptions from '../general_components/TimeOptions';
 
 
 const CoffeeShops = () => {
@@ -79,6 +80,8 @@ const CoffeeShops = () => {
                 startHour = info.hours_day_6_open;
                 endHour = info.hours_day_6_closed;
                 break;
+            default:
+                break;
         }
 
         if (startHour === 'N/A' || endHour === 'N/A') {
@@ -142,7 +145,7 @@ const CoffeeShops = () => {
     
     return [
         <SearchBar/>,
-        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters}/>,
+        <FilterContainer api_name={CoffeeShopEndpointName} exactFilters={CoffeeShopExactFilters} rangeFilters={CoffeeShopRangeFilters} timeOptions={TimeOptions}/>,
         <Sorter api_name={CoffeeShopEndpointName} sortOptions={CoffeeShopSortOptions}/>,
         getModel(payload)
     ];
