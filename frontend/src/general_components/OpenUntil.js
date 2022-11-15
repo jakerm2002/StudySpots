@@ -4,13 +4,13 @@ import {
     InputLabel,
     FormControl,
     Box
-  } from "@mui/material";
+} from "@mui/material";
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-  
+
 
 function OpenUntil(props) {
-    
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [options, setOptions] = useState(props.options[0]);
 
@@ -27,48 +27,32 @@ function OpenUntil(props) {
         setSearchParams(newParams);
     };
 
-    const optionToLabel = (option) => {
-        return option.label
-    }
-
-    const labelToOption = (label) => {
-        let option = 
-            props.options.find((o) => o.label === label) ?? props.options[0];
-        return option;
-      };
-    
-    return(
+    return (
         <>
-        <Box sx={{ minWidth: 120 }}>
-        <FormControl fullWidth>
-        <InputLabel>Open until:</InputLabel>
-        <Select
-            label="Open until:"
-            value={optionToLabel(options)}
-            onChange={(event) =>
-                // frontend label of the selected dropdown option
-                handleChange(labelToOption(event.target.value))
-            }
-            inputProps={{
-                sx: {
-                borderRadius: "8px",
-                flexGrow: 1,
-                minWidth: "150px",
-                display: "flex",
-                },
-            }}
-        >
-            {props.options.map((option) => (
-                <MenuItem
-                // key={option.value}
-                value={option.label}
-                >
-                {option.label}
-                </MenuItem>
-            ))}
-        </Select>
-        </FormControl>
-        </Box>
+            <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                    <InputLabel>Open until:</InputLabel>
+                    <Select
+                        label="Open until:"
+                        value={options}
+                        onChange={(event) =>
+                            // frontend label of the selected dropdown option
+                            handleChange(event.target.value)
+                        }
+                        inputProps={{
+                            sx: {
+                                flexGrow: 1,
+                                minWidth: "120px",
+                                display: "flex",
+                            },
+                        }}
+                    >
+                        {props.options.map((option) => (
+                            <MenuItem value={option}>{option.label}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
+            </Box>
         </>
     )
 }
