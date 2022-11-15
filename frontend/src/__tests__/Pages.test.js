@@ -45,6 +45,8 @@ describe("Test About Page", () => {
         expect(screen.getByText("Technology Used")).toBeInTheDocument();
         expect(screen.getByText("APIs Scraped")).toBeInTheDocument();
         expect(screen.getByText("Project Links")).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: "GitLab Project Repository"}));
+        expect(screen.getByRole('button', {name: "Postman API Documentation"}));
 
         console.error = originalError;
 
@@ -149,6 +151,9 @@ describe("Test Coffee Shops Page", () => {
         expect(screen.getAllByText("Price").length !== 0);
         expect(screen.getAllByText("Rating").length !== 0);
         expect(screen.getByText("Hours today")).toBeInTheDocument();
+
+        expect(screen.getByRole("textbox")).toHaveDisplayValue("");
+
 
         console.error = originalError;
     });
