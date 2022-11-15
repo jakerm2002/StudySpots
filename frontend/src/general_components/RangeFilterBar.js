@@ -79,20 +79,21 @@ function RangeFilterBar(props) {
       </Typography>
       <Box className="text" sx={{ marginTop: "8px", marginLeft: "24px", marginRight: "24px" }}>
         <Slider
-          className="text"
-          step={props.step !== undefined ? props.step : nonlinear ? 0.01 : null}
-          marks={scaledMarks}
-          value={value}
-          valueLabelDisplay="auto"
-          valueLabelFormat={(value) => getLabel(value)}
-          min={calculateSliderValue(props.min)}
-          max={calculateSliderValue(props.max)}
-          scale={calculateValue}
-          onChangeCommitted={(event, newValue) =>
-            handleCommittedChange(newValue)
-          }
-          onChange={(event, newValue) => handleChange(newValue)}
-        />
+            step={props.step !== undefined ? props.step : nonlinear ? 0.01 : null}
+            marks={scaledMarks}
+            value={value}
+            valueLabelDisplay="auto"
+            valueLabelFormat={(value) => getLabel(value)}
+            min={calculateSliderValue(props.min)}
+            max={calculateSliderValue(props.max)}
+            scale={calculateValue}
+            onChangeCommitted={(event, newValue) =>
+              handleCommittedChange(newValue)
+            }
+            onChange={(event, newValue) => handleChange(newValue)}
+            className={"text"}
+            classes={{ markLabel: "text" }}
+          />
       </Box>
     </Box>
   );
