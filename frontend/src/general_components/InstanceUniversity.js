@@ -34,7 +34,7 @@ const InstanceUniversity = () => {
     return (
         <>
           {!isLoading && (
-            <div className={styles.general}>
+            <div className={`text ${styles.general}`}>
               <h1>{data.name}</h1>
               <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
               <Divider className={styles.divider}>🎓</Divider>
@@ -52,7 +52,7 @@ const InstanceUniversity = () => {
                   </Carousel.Item>
                 </Carousel>
               </Container>
-              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+              <Container className={`cards ${styles.spacing} ${styles.styleCard}`}>
                 <div>
                   <b>Alias:</b> {data.alias}
                 </div>
@@ -75,7 +75,7 @@ const InstanceUniversity = () => {
                   Copy Information
                 </Button>
               </Container>
-              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+              <Container className={`cards ${styles.spacing} ${styles.styleCard}`}>
                 <div>
                   <b>Undergraduate Population:</b> {data.size.toLocaleString("en-US", populationFormat)}
                 </div>
@@ -89,23 +89,23 @@ const InstanceUniversity = () => {
                   <b>Acceptance Rate:</b> {(data.acceptance_rate* 100).toFixed(1)+'%'}
                 </div>
               </Container>
-              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+              <Container className={`cards ${styles.spacing} ${styles.styleCard}`}>
                 <h4>Description</h4>
                 <div className={styles.spacing}>
                   {data.description}
                 </div>
               </Container>
-              <Container className={`${styles.spacing} ${styles.styleCard}`}>
+              <Container className={`cards ${styles.spacing} ${styles.styleCard}`}>
                 <h4>Map</h4>
                 <MapComponent name={data.name} address={data.city} latitude={data.latitude} longitude={data.longitude}/>
                 <TravelTime instanceLatitude={data.latitude} instanceLongitude={data.longitude}/>
               </Container>
               <Container className={styles.spacing}>
                 <Row>
-                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
+                  <Col className={`cards ${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
                     <NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
-                  <Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
+                  <Col className={`cards ${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
                     <NearbyLibrary latitude={data.latitude} longitude={data.longitude}/>
                   </Col>
                 </Row>
