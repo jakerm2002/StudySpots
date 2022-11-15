@@ -43,7 +43,7 @@ function OpenUntil(props) {
         <>
             <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                    <InputLabel>Open until:</InputLabel>
+                    <InputLabel className="text">Open until:</InputLabel>
                     <Select
                         className="text"
                         label="Open until:"

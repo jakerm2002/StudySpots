@@ -14,16 +14,27 @@ import Universities from './pages/Universities'
 import InstanceCoffee from './general_components/InstanceCoffee'
 import InstanceUniversity from './general_components/InstanceUniversity'
 import InstanceLibrary from "./general_components/InstanceLibrary"
-import { createContext, useState} from 'react';
+import { createContext, useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 
 export const ThemeContext = createContext(null);
 
 function App() {
-  const [theme, setTheme] = useState("light")
+  const [theme, setTheme] = useState(() => {
+    const storedMode = localStorage.getItem("MODE");
+    if (typeof storedMode === 'string') {
+      return storedMode;
+    }
+    return "light";
+  })
   const toggleTheme = () => {
     setTheme((curr) => (curr === "light" ? "dark": "light"));
   }
+  
+  useEffect(() => {
+    localStorage.setItem("MODE", theme);
+  }, [theme])
+
   return(
     <ThemeContext.Provider value={{ theme, toggleTheme}}>
       <div className="App" id={theme}>
