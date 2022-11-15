@@ -19,7 +19,6 @@ const Universities = () => {
     useEffect(() => {
         axios.get('https://api.studyspots.me/universities?' + searchParams.toString()).then(response => {
             setUniversities(response.data);
-            console.log(response.data);
         });
     }, [searchParams]);
 
@@ -76,14 +75,14 @@ const Universities = () => {
                             />
                         : info.zipcode
                     }</td>
-                    <td title={info.size}>{info.size.toLocaleString("en-US", populationFormat)}</td>
+                    <td title={info.enrollment_ugr_12m}>{info.enrollment_ugr_12m.toLocaleString("en-US", populationFormat)}</td>
                     <td title={info.instate_tuition}>{info.instate_tuition.toLocaleString("en-US", currencyFormat)}</td>
                     <td title={info.outstate_tuition}>{info.outstate_tuition.toLocaleString("en-US", currencyFormat)}</td> 
                 </tr>
             )
         }
     );
-    // console.log(Entries);
+
     var payload = {
         entries : Entries,
         pageName : "Universities",

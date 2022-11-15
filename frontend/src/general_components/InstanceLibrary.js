@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link, BrowserRouter as Router, Route } from "react-router-dom";
-import Figure from 'react-bootstrap/Figure';
-import Container from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button'
-import { Row } from "react-bootstrap";
-import { Col } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import styles from './InstanceTemplate.module.css';
 import MapComponent from "./MapComponent";
-import axios from "axios";
 import NearbyUniversity from './NearbyUniversity.js';
 import NearbyCoffeeShop from './NearbyCoffeeShop.js';
+import { Accordion, Button, Carousel, Container, Col, Figure, Row } from "react-bootstrap";
+import Divider from "@mui/material/Divider";
+import WeatherWidget from "./WeatherWidget";
+import TravelTime from "./TravelTime";
 
 const InstanceLibrary = () => {
     const { businessID } = useParams();
@@ -25,61 +23,126 @@ const InstanceLibrary = () => {
             console.log(data)
             setIsLoading(false);
             
-        },
-        reject => {
-            console.log("REJECT");
         });
       }, [])
 
     return (
         <>
           {!isLoading && (
-            <div>
-				<Container className={styles.instance_container} >
+            <div className={styles.general}>
+				<h1>{data.name}</h1>
+				<WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
+				<Divider className={styles.divider}>📖</Divider>
+				<Container className={styles.spacing}>
+					<Carousel>
+						<Carousel.Item>
+							<Figure.Image
+								className={`d-block w-50 ${styles.image}`}
+								src={data.photo_link}
+								alt={data.name}
+							/>
+							<Figure.Caption className={styles.caption}>
+								Image Source: {data.photo_link}
+							</Figure.Caption>
+						</Carousel.Item>
+					</Carousel>
+				</Container>
+				<Container className={`${styles.spacing} ${styles.styleCard}`}>
 					<Row>
-						<div className={styles.instance_temp_title}>{data.name}</div>
-					</Row>
-							<Row>
-								<Col>
-									<Container className={styles.instance_temp_stats}>
-										<Row className={styles.instance_temp_text}><Button className={styles.instance_temp_button} onClick={() =>  navigator.clipboard.writeText(data.name + '\n' + data.address + '\n' + data.phone)}>Copy Information</Button></Row>
-										<Row className={styles.instance_temp_text }>{data.address}</Row>
-										<Row className={styles.instance_temp_text}><a href={data.website}>{data.website}</a></Row>
-										<br/>
-										<Row className={styles.instance_temp_text }>Rating: {data.rating}</Row>
-										<Row className={styles.instance_temp_text }>Telephone: {data.phone}</Row>
-										<br/>
-										<Row className={`${styles.instance_temp_text} ${styles.instance_temp_hours}`}> {data.formatted_hours}</Row>
-										<br/>
-										<NearbyUniversity latitude={data.latitude} longitude={data.longitude} />
-										<NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude} />
-									</Container>
-								</Col>
-								<Col className={styles.instance_temp_image}>
-									<Figure>
-										<Figure.Image src={data.photo_link} />
-									</Figure>
-								</Col>
-							</Row>
-						</Container>
-				<div className={styles.instance_temp_body}>
-					<Row>
-						<Col className={styles.instance_temp_col}>
-							<Accordion className={styles.instance_temp_info}>
-								<Accordion.Item eventKey="0">
-								<Accordion.Header>{"Reviews and Ratings for " + data.name}</Accordion.Header>
-									{data.review_1_author !== "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text} </Accordion.Body>  : <Accordion.Body className={styles.instance_temp_text}>{"No Ratings Available"}</Accordion.Body> }
-									{data.review_2_author !== "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}</Accordion.Body>  : ""}
-									{data.review_3_author !== "N/A" ? <Accordion.Body className={styles.instance_temp_text}> {data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}</Accordion.Body>  : ""}
-								</Accordion.Item>
-							</Accordion>
+						<Col>
+							<div>
+								<b>Address: </b> {data.address}
+							</div>
+							<div>
+								<b>Phone Number: </b> {data.phone}
+							</div>
+							<div>
+								<b>Website: </b>
+								<a href={data.website}>{data.website}</a>
+							</div>
 						</Col>
-						<Col className={styles.instance_temp_col}>
-							<MapComponent name={data.name} address={data.address} latitude={data.latitude} longitude={data.longitude}/>
+						<Col>
+						<div>
+							<b>Hours (in CT): </b> <br/>
+							<div className={styles.hours}>
+								{data.formatted_hours}
+							</div>
+						</div>
 						</Col>
 					</Row>
-
-				</div>
+					<Button
+						className={styles.spacing}
+						variant="dark"
+						onClick={() =>
+							navigator.clipboard.writeText(
+								data.name + '\n' + data.address + '\n' + data.phone
+							)
+						}
+					>
+						Copy Information
+					</Button>
+				</Container>
+				<Container className={`${styles.spacing} ${styles.styleCard}`}>
+					<div>
+						<b>Overall Rating: </b> {data.rating}
+					</div>
+					<Accordion>
+						<Accordion.Item eventKey="0">
+							<Accordion.Header>Review #1</Accordion.Header>
+							<Accordion.Body>
+								{data.review_1_author !== "N/A" 
+									? <Accordion.Body>
+										{data.review_1_rating + "/5 stars - " + data.review_1_author + " : " + data.review_1_text}
+									  </Accordion.Body>
+									: <Accordion.Body>
+										{"No Ratings Available"}
+									  </Accordion.Body>
+								}
+							</Accordion.Body>
+						</Accordion.Item>
+						<Accordion.Item eventKey="1">
+							<Accordion.Header>Review #2</Accordion.Header>
+							<Accordion.Body>
+								{data.review_2_author !== "N/A" 
+									? <Accordion.Body>
+										{data.review_2_rating + "/5 stars - " + data.review_2_author + " : " + data.review_2_text}
+									  </Accordion.Body>
+									: <Accordion.Body>
+										{"No Ratings Available"}
+									  </Accordion.Body>
+								}
+							</Accordion.Body>
+						</Accordion.Item>
+						<Accordion.Item eventKey="2">
+							<Accordion.Header>Review #3</Accordion.Header>
+							<Accordion.Body>
+								{data.review_3_author !== "N/A" 
+									? <Accordion.Body>
+										{data.review_3_rating + "/5 stars - " + data.review_3_author + " : " + data.review_3_text}
+									  </Accordion.Body>
+									: <Accordion.Body>
+										{"No Ratings Available"}
+									  </Accordion.Body>
+								}
+							</Accordion.Body>
+						</Accordion.Item>
+					</Accordion>
+				</Container>
+				<Container className={`${styles.spacing} ${styles.styleCard}`}>
+					<h4>Map</h4>
+					<MapComponent name={data.name} address={data.address} latitude={data.latitude} longitude={data.longitude}/>
+					<TravelTime instanceLatitude={data.latitude} instanceLongitude={data.longitude}/>
+				</Container>
+				<Container className={styles.spacing}>
+					<Row>
+						<Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
+							<NearbyUniversity latitude={data.latitude} longitude={data.longitude}/>
+						</Col>
+						<Col className={`${styles.spacing} ${styles.styleCard} ${styles.spacing_side}`}>
+							<NearbyCoffeeShop latitude={data.latitude} longitude={data.longitude}/>
+						</Col>
+					</Row>
+				</Container>
             </div>
           )}
         </>
