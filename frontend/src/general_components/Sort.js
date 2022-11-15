@@ -1,8 +1,7 @@
-// import {
-//   Clear,
-//   ArrowUpward as AscendingIcon,
-//   ArrowDownward as DescendingIcon,
-// } from "@mui/icons-material";
+import {
+  ArrowUpward as AscendingIcon,
+  ArrowDownward as DescendingIcon,
+} from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -30,8 +29,7 @@ function Sorter(props) {
     props.sortOptions[0]
   )
   const [sortAscending, setSortAscending] = React.useState(props.sortAscending);
-    var sortOptions = props.sortOptions;
-  var menuOptions = getMenuOptions(sortOptions);
+  var sortOptions = props.sortOptions;
 
   const handleSortChange = (option) => {
     console.log("handling change")
@@ -65,32 +63,32 @@ function Sorter(props) {
     submitSearch(searchQuery);
 };
 
-  // const handleSortDirectionChange = (sortAscending) => {
-  //   let newParams = searchParams;
-  //   newParams.set("ascending", sortAscending ? "true" : "false");
-  //   newParams.delete("page");
-  //   setSearchParams(newParams);
-  // };
-
-
-  function getMenuOptions (options) {
-
-    menuOptions = []
-    for (var i = 0; i < options.length; i++) {
-      console.log(options[i])
-      menuOptions.push(<MenuItem
-        value={options[i].db_label}
-        onChange={(event) => 
-          handleSortChange(event.target.value)
-        }
-
-      >{options[i].label}</MenuItem>)
-    }
-    return menuOptions;
+  const handleSortDirectionChange = (sortAscending) => {
+    let newParams = searchParams;
+    newParams.set("ascending", sortAscending ? "true" : "false");
+    newParams.delete("page");
+    setSearchParams(newParams);
   };
 
 
-  let defaultSortOptionIndex = props.defaultSortOptionIndex;
+  // function getMenuOptions (options) {
+
+  //   menuOptions = []
+  //   for (var i = 0; i < options.length; i++) {
+  //     console.log(options[i])
+  //     menuOptions.push(<MenuItem
+  //       value={options[i].db_label}
+  //       onChange={(event) => 
+  //         handleSortChange(event.target.value)
+  //       }
+
+  //     >{options[i].label}</MenuItem>)
+  //   }
+  //   return menuOptions;
+  // };
+
+
+  // let defaultSortOptionIndex = props.defaultSortOptionIndex;
 
   // useEffect(() => {
   //   // setSearchQuery(searchParams.get("query") ?? "");
@@ -109,6 +107,15 @@ function Sorter(props) {
 	    flexDirection: "column",
 	  }}
 	>
+    <Tooltip title={sortAscending ? "Ascending" : "Descending"}>
+      <IconButton
+        onClick={() => handleSortDirectionChange(!sortAscending)}
+      >
+        {sortAscending && <AscendingIcon />}
+        {!sortAscending && <DescendingIcon />}
+      </IconButton>
+    </Tooltip>
+
 	  <Typography
 	    gutterBottom
 	    className="modelTitle"
@@ -119,7 +126,14 @@ function Sorter(props) {
 	  </Typography>
 	  <Select
     defaultValue = {sortOptions[0].db_label}
-		children={menuOptions}
+		children={sortOptions.map((option) => (
+        <MenuItem
+          value={option.db_label}
+          onChange={(event) => 
+            handleSortChange(event.target.value)
+          }>
+          {option.label}</MenuItem>
+      ))}
     onKeyDown={(event) => {
       if (event.key === "Enter") {
         submitSearch(searchQuery);
