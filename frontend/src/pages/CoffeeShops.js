@@ -21,30 +21,30 @@ const CoffeeShops = () => {
         });
     }, [searchParams]);
 
-    //get_query and get_data partially from GiveandLive (Spring 2022)
-    function get_query(page) {
-        let url = `https://api.studyspots.me/coffeeshops`;
-        url = url + `?${searchParams.toString()}`;
-        url = url + `&page=${page}`
-        return url;
-    }
+    // //get_query and get_data partially from GiveandLive (Spring 2022)
+    // function get_query(page) {
+    //     let url = `https://api.studyspots.me/coffeeshops`;
+    //     url = url + `?${searchParams.toString()}`;
+    //     url = url + `&page=${page}`
+    //     return url;
+    // }
 
-    function update_query(param, val) {
-        let newParams = searchParams;
-        newParams.set(param, val);
-        setSearchParams(newParams);
-    }
+    // function update_query(param, val) {
+    //     let newParams = searchParams;
+    //     newParams.set(param, val);
+    //     setSearchParams(newParams);
+    // }
     
-    const get_data = async(page) => {
-        const url = get_query(page);
-        const response = await axios.get(url);
-        setCoffeeShops(response.data);
-    }    
+    // const get_data = async(page) => {
+    //     const url = get_query(page);
+    //     const response = await axios.get(url);
+    //     setCoffeeShops(response.data);
+    // }    
 
-    const set_page = (pageNumber) => {
-        update_query("page", pageNumber);
-        get_data(pageNumber)
-    }
+    // const set_page = (pageNumber) => {
+    //     update_query("page", pageNumber);
+    //     get_data(pageNumber)
+    // }
 
     const get_todays_hours = (info) => {
         const d = new Date();
@@ -139,8 +139,7 @@ const CoffeeShops = () => {
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Hours today"],
         num_items_per_page : coffeeShops["metadata"]["per_page"],
-        num_total_items : coffeeShops["metadata"]["num_total_results"],
-        set_new_page: set_page
+        num_total_items : coffeeShops["metadata"]["num_total_results"]
     }
     
     return [
