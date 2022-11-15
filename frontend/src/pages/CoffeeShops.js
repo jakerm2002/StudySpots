@@ -80,15 +80,15 @@ const CoffeeShops = () => {
                 break;
         }
 
-        if (startHour == 'N/A' || endHour == 'N/A') {
+        if (startHour === 'N/A' || endHour === 'N/A') {
             return 'Hours unavailable';
-        } else if (startHour == -1 || endHour == -1) {
+        } else if (startHour === -1 || endHour === -1) {
             return 'Closed'
         }
 
         //really dumb workaround, date could be any date, not just 2000
-        let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00' + 'Z');
-        let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00' + 'Z');
+        let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00Z');
+        let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00Z');
         startHour = startHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
         endHour = endHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
         return startHour + ' - ' + endHour;
@@ -96,11 +96,6 @@ const CoffeeShops = () => {
 
     const Entries = coffeeShops["results"].map(
         (info) => {
-            var name = info.name;
-            var open = "Open";
-            if(info.is_closed){
-                open = "Closed";
-            }
             return(
                 <tr onClick={() => window.location.href = `/CoffeeShops/${info.id}`}>
                     <td title={info.name}>{
