@@ -166,12 +166,8 @@ const UniversitySortOptions = [
     db_label: "outstate_tuition",
   },
   {
-    label: "SAT Median Math",
-    db_label: "sat_median_math",
-  },
-  {
-    label: "SAT Median Reading",
-    db_label: "sat_median_reading",
+    label: "SAT Average",
+    db_label: "sat_average",
   },
   {
     label: "Acceptance Rate",

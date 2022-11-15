@@ -3,17 +3,11 @@ import {
   ArrowDownward as DescendingIcon,
 } from "@mui/icons-material";
 import {
-  Box,
-  Button,
-  Card,
-  CardContent,
   IconButton,
-  InputAdornment,
   Container,
   MenuItem,
   Typography,
   Select,
-  TextField,
   Tooltip,
 } from "@mui/material";
 import React, { useEffect } from "react";
@@ -35,36 +29,13 @@ function Sorter(props) {
   var sortOptions = props.sortOptions;
 
   const handleSortChange = (option) => {
-    // console.log(sortAscending)
-    // let searchParamsString = searchParams.toString();
-    // let sortFilter = searchParams.get("sortBy");
-    // if (sortFilter !== null) {
-    //   setSortOption(
-    //     sortOptions.find((o) => o.field === sortFilter) ??
-    //       sortOptions[0]
-    //   );
-    // } else {
-    //   setSortOption(sortOptions[0]);
-    // }
     let newParams = searchParams;
+    newParams.set("ascending", "true"); 
+    setSortAscending("true");
     newParams.set("sortBy", option);
-    setSortAscending("true"); 
     newParams.delete("page");
     setSearchParams(newParams);
   };
-
-//   const submitSearch = (newSearchQuery) => {
-//     console.log(searchParams)
-//     let newParams = searchParams;
-//     if (newSearchQuery.length === 0) {
-//         newParams.delete("search")
-//     } else {
-//         newParams.set("search", newSearchQuery);
-//     }
-//     newParams.set("page", 1);
-//     setSearchParams(newParams);
-//     submitSearch(searchQuery);
-// };
 
   const handleSortDirectionChange = (sortAscending) => {
     let newParams = searchParams;
@@ -107,11 +78,6 @@ function Sorter(props) {
           >
           {option.label}</MenuItem>
       ))}
-    // onKeyDown={(event) => {
-    //   if (event.key === "Enter") {
-    //     submitSearch(searchQuery);
-    //   }
-    // }}
     onChange={(event) => handleSortChange(event.target.value)}
 	  />
 	</Container>
