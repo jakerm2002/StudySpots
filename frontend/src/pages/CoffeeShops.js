@@ -82,7 +82,7 @@ const CoffeeShops = () => {
 
         if (startHour === 'N/A' || endHour === 'N/A') {
             return 'Hours unavailable';
-        } else if (startHour === -1 || endHour === -1) {
+        } else if (startHour === '-1' || endHour === '-1') {
             return 'Closed'
         }
 
