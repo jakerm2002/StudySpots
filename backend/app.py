@@ -231,19 +231,19 @@ def add_time_filters(existing_query, filters):
     ignore_query = []
     new_query = []
     for field in filters:
-        print('type is', type(field))
         openUntil = filters[field]
-        # openUntilInt = 0
         if (openUntil == 'N/A'):
             openUntilInt = -1
         else:
             openUntilInt = int(openUntil)
         
+        ignore_query.append(field != '-1')
+        ignore_query.append(field != 'N/A')
 
         # if the time is past midnight, we need to include
         # all results before midnight
         # so we are going to say that the closing time must be
-        # after 10:00 or before the input time
+        # after 10:00am or before the input time
 
         # SELECT name, hours_day_0_open, hours_day_0_closed 
         # FROM public.coffee_shop 
@@ -252,11 +252,6 @@ def add_time_filters(existing_query, filters):
         #   and 
         #   (hours_day_0_closed > '1000' or '0200' >= hours_day_0_closed)) 
         # ORDER BY hours_day_0_closed ASC 
-
-        ignore_query.append(field != '-1')
-        ignore_query.append(field != 'N/A')
-
-        # times past midnight
         if openUntilInt < 1000:
             new_query.append(field > '1000')
             new_query.append(openUntil >= field)
