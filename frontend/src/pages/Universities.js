@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import SearchBar from '../general_components/SearchBar';
+import Sorter from '../general_components/Sort';
 import FilterContainer from '../general_components/FilterContainer';
 import getModel from '../general_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters } from '../general_components/UniversityOptions';
+import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions } from '../general_components/UniversityOptions';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -94,6 +95,7 @@ const Universities = () => {
     return [
         <SearchBar/>,
         <FilterContainer api_name={UniversityEndpointName} exactFilters={UniversityExactFilters} rangeFilters={UniversityRangeFilters}/>,
+        <Sorter api_name={UniversityEndpointName} sortOptions={UniversitySortOptions}/>,
         getModel(payload)
     ];
 }
