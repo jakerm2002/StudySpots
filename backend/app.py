@@ -216,7 +216,8 @@ def add_range_filters(existing_query, filters):
 def get_time_filters(request_args, time_filter_fields):
     time_filters = {}
     for field in time_filter_fields:
-        filter_name = field.name + 'OpenUntil'
+        # index 10 of field name contains the day number
+        filter_name = 'day' + field.name[10] + 'OpenUntil'
         openUntil = get_range_param(request_args, filter_name)
 
         # if we didn't filter by a field, we don't need to add it to the

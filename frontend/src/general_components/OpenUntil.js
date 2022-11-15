@@ -18,7 +18,7 @@ function OpenUntil(props) {
         const d = new Date();
         let day = d.getDay();
         let newParams = searchParams;
-        newParams.set("hours_day_" + day + "_closed" + "OpenUntil", option.value);
+        newParams.set("day" + day + "OpenUntil", option.value);
         newParams.delete("page");
         setOptions(option);
         setSearchParams(newParams);
