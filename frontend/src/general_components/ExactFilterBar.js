@@ -115,6 +115,7 @@ function ExactFilterBar(props) {
             placeholder={props.label}
             InputProps={{
               ...params.InputProps,
+              className: "text",
               style: { borderRadius: "8px" },
               endAdornment: (
                 <>

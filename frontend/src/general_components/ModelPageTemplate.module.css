@@ -63,3 +63,11 @@ tr {
 #dark .text{
     color: #e2b78c;
 }
+
+#light .textField_Label{
+    color: #662716 !important;
+}
+
+#dark .textField_Label{
+    color: #e2b78c !important;
+}
