@@ -19,13 +19,15 @@ function FilterContainer(props) {
 
   return (
     <>
-      <Stack direction="row" gap={2} flexWrap="wrap" ml="50px" mr="50px" mt="20px" mb="20px">
+      <Stack className="text" direction="row" gap={2} flexWrap="wrap" ml="50px" mr="50px" mt="20px" mb="20px">
         {props.exactFilters.map((f) => (
-          <Box sx={{ flexGrow: 1 }}>
+          <Box className="text" sx={{ flexGrow: 1 }}>
             <ExactFilterBar
+              color={"text"}
               api_name={props.api_name}
               value={getFilterFieldValue(f.field)}
               label={f.label}
+              InputLabelProps={{className: "textField_Label"}}
               field={f.field}
               options={f.options}
               api={f.api}
@@ -43,7 +45,7 @@ function FilterContainer(props) {
           </Box>
         ))}
       </Stack>
-      <Stack direction="row" gap={2} flexWrap="wrap" ml="50px" mr="50px">
+      <Stack className="text" direction="row" gap={2} flexWrap="wrap" ml="50px" mr="50px">
         {props.timeOptions && <OpenUntil options={props.timeOptions}></OpenUntil>}
         {props.rangeFilters.map((f) => (
           <Box sx={{ flexBasis: "400px", flexGrow: 1 }}>

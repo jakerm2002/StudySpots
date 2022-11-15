@@ -11,16 +11,16 @@ export default function getModel(model_info) {
 export const RenderPageTable = ({entries, page_name, fields}) => {
     return (
         <div>
-            <h1 className={styles.pageName}>{page_name}</h1>
-            <Table striped bordered hover id={styles.entries}>
+            <h1 className={`text ${styles.pageName}`}>{page_name}</h1>
+            <Table bordered hover id={styles.entries}>
                 <thead>
-                    <tr>
+                    <tr className='text' >
                         {fields.map((info) => (
                             <th>{info}</th>
                         ))}
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='text'>
                     {entries}
                 </tbody>
             </Table>
