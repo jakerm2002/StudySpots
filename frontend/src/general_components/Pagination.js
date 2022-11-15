@@ -54,7 +54,6 @@ const Paginate = ({ num_items_per_page, num_total_items }) => {
     // Layout used when active page is not near edge
     // Ex.  "1 ... 4 5 '6' 7 8 ... 10"
     const activeInMiddle = () => {
-        console.log("activeInMiddle sees page as " + currentPage);
         let items = [];
         items.push(
             <Pagination.Item
