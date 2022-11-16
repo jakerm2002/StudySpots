@@ -151,8 +151,8 @@ const Search = () => {
         }
     );
 
-    const coffeeShopFields = ["Name", "City", "Price", "Rating", "Open/Closed"];
-    const libraryFields = ["Name", "Location", "Rating", "Telephone", "Status"];
+    const coffeeShopFields = ["Name", "City", "Price", "Rating", "Hours today"];
+    const libraryFields = ["Name", "Location", "Rating", "Phone #", "Hours today"];
     const universityFields = ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"];
 
     return [
