@@ -18,23 +18,6 @@ const Libraries = () => {
         });
     }, [searchParams]);
 
-    const get_todays_hours = (info) => {
-        const d = new Date();
-        let day = d.getDay();
-        if (info.formatted_hours === 'Hours unavailable') {
-            return 'Hours unavailable';
-        } 
-        let hoursArr = info.formatted_hours.split("\n");
-        //sunday is day 0 in javascript date objects,
-        //however our formatted_hours field lists monday first
-        //we want to access hoursArr[day] with the expected behaviour
-        day -= 1;
-        if (day < 0) {
-            day = 6;
-        }
-        return hoursArr[day];
-    }
-
     const Entries = libraries["results"].map(
         (info) => {
             return(
@@ -83,6 +66,24 @@ const Libraries = () => {
         <Sorter api_name={LibraryEndpointName} sortOptions={LibrarySortOptions}/>,
         getModel(payload)
     ];
+}
+
+
+export const get_todays_hours = (info) => {
+    const d = new Date();
+    let day = d.getDay();
+    if (info.formatted_hours === 'Hours unavailable') {
+        return 'Hours unavailable';
+    } 
+    let hoursArr = info.formatted_hours.split("\n");
+    //sunday is day 0 in javascript date objects,
+    //however our formatted_hours field lists monday first
+    //we want to access hoursArr[day] with the expected behaviour
+    day -= 1;
+    if (day < 0) {
+        day = 6;
+    }
+    return hoursArr[day];
 }
 
 export default Libraries;

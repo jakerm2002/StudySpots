@@ -21,58 +21,6 @@ const CoffeeShops = () => {
         });
     }, [searchParams]);
 
-    const get_todays_hours = (info) => {
-        const d = new Date();
-        let day = d.getDay();
-        let startHour;
-        let endHour;
-        switch(day) {
-            case 0:
-                startHour = info.hours_day_0_open;
-                endHour = info.hours_day_0_closed;
-                break;
-            case 1:
-                startHour = info.hours_day_1_open;
-                endHour = info.hours_day_1_closed;
-                break;
-            case 2:
-                startHour = info.hours_day_2_open;
-                endHour = info.hours_day_2_closed;
-                break;
-            case 3:
-                startHour = info.hours_day_3_open;
-                endHour = info.hours_day_3_closed;
-                break;
-            case 4:
-                startHour = info.hours_day_4_open;
-                endHour = info.hours_day_4_closed;
-                break;
-            case 5:
-                startHour = info.hours_day_5_open;
-                endHour = info.hours_day_5_closed;
-                break;
-            case 6:
-                startHour = info.hours_day_6_open;
-                endHour = info.hours_day_6_closed;
-                break;
-            default:
-                break;
-        }
-
-        if (startHour === 'N/A' || endHour === 'N/A') {
-            return 'Hours unavailable';
-        } else if (startHour === '-1' || endHour === '-1') {
-            return 'Closed'
-        }
-
-        //really dumb workaround, date could be any date, not just 2000
-        let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00Z');
-        let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00Z');
-        startHour = startHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
-        endHour = endHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
-        return startHour + ' - ' + endHour;
-    }
-
     const Entries = coffeeShops["results"].map(
         (info) => {
             return(
@@ -123,6 +71,58 @@ const CoffeeShops = () => {
         <Sorter api_name={CoffeeShopEndpointName} sortOptions={CoffeeShopSortOptions}/>,
         getModel(payload)
     ];
+}
+
+export const get_todays_hours = (info) => {
+    const d = new Date();
+    let day = d.getDay();
+    let startHour;
+    let endHour;
+    switch(day) {
+        case 0:
+            startHour = info.hours_day_0_open;
+            endHour = info.hours_day_0_closed;
+            break;
+        case 1:
+            startHour = info.hours_day_1_open;
+            endHour = info.hours_day_1_closed;
+            break;
+        case 2:
+            startHour = info.hours_day_2_open;
+            endHour = info.hours_day_2_closed;
+            break;
+        case 3:
+            startHour = info.hours_day_3_open;
+            endHour = info.hours_day_3_closed;
+            break;
+        case 4:
+            startHour = info.hours_day_4_open;
+            endHour = info.hours_day_4_closed;
+            break;
+        case 5:
+            startHour = info.hours_day_5_open;
+            endHour = info.hours_day_5_closed;
+            break;
+        case 6:
+            startHour = info.hours_day_6_open;
+            endHour = info.hours_day_6_closed;
+            break;
+        default:
+            break;
+    }
+
+    if (startHour === 'N/A' || endHour === 'N/A') {
+        return 'Hours unavailable';
+    } else if (startHour === '-1' || endHour === '-1') {
+        return 'Closed'
+    }
+
+    //really dumb workaround, date could be any date, not just 2000
+    let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00Z');
+    let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00Z');
+    startHour = startHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
+    endHour = endHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
+    return startHour + ' - ' + endHour;
 }
 
 export default CoffeeShops;
