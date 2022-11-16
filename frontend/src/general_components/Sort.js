@@ -49,7 +49,7 @@ function Sorter(props) {
   return (
     <>
       <Stack className="text" direction="row" gap={1} flexWrap="wrap" ml="50px" mr="50px" mt="20px" mb="20px" justifyContent="center">
-        <Box className="text" sx={{ minWidth: 140 }}>
+        <Box className="text">
           <FormControl fullWidth>
             <InputLabel className="text">Sort by</InputLabel>
             <Select
@@ -69,7 +69,7 @@ function Sorter(props) {
                   },
                   sx: {
                     flexGrow: 1,
-                    maxWidth: "120px",
+                    minWidth: "120px",
                     display: "flex",
                   }
                 }
