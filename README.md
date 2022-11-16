@@ -8,7 +8,7 @@
 - Git SHA:
     - Phase 1: 23c9ba97666ba4f6fb69548ce5b46e73723ba88e
     - Phase 2: c0f8e6c565b1d4695224a96c119a0d23f4dedf17
-    - Phase 3: 2aab7bd9e7fef8ff5839f478234780506ef375bf
+    - Phase 3: 8603468206f5b05e5255351c2478c62e4b0f5052
 
 - Project Leaders:
     - Phase 1: Joanne Chen
