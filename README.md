@@ -66,6 +66,7 @@
         - Bianca Alvarado: 21
 
 - Comments:
+    - Frontend filtering and sorting components based off of UniverCity: https://gitlab.com/coleweinman/swe-college-project
     - Inspiration on database structure from: https://gitlab.com/giveandlive/giveandlive/
     - Used https://gitlab.com/giveandlive/giveandlive/-/tree/260215fb5f072e5af9e076c5f296f2cf01db9476/back-end to be able to deploy on aws elastic beanstalk
     - Inspiration on how to implement searching/sorting/filtering ui toolbar from: https://gitlab.com/coleweinman/swe-college-project/-/blob/main/frontend/src/components/toolbar/ModelToolbar.tsx
