@@ -4,14 +4,15 @@ import {
 } from "@mui/icons-material";
 import {
   IconButton,
-  Container,
   MenuItem,
-  Typography,
   Select,
   Tooltip,
+  InputLabel,
+  FormControl,
+  Box,
+  Stack
 } from "@mui/material";
 import React, { useEffect } from "react";
-// import {submitSearch} from '../general_components/SearchBar';
 import { useSearchParams } from "react-router-dom";
 
 
@@ -30,7 +31,7 @@ function Sorter(props) {
 
   const handleSortChange = (option) => {
     let newParams = searchParams;
-    newParams.set("ascending", "true"); 
+    newParams.set("ascending", "true");
     setSortAscending("true");
     newParams.set("sortBy", option);
     newParams.delete("page");
@@ -45,45 +46,52 @@ function Sorter(props) {
     setSearchParams(newParams);
   };
 
-	return (
-	<Container
-	  className="page-container"
-	  sx={{
-	    display: "flex",
-	    flexDirection: "column",
-	  }}
-	>
-    <Tooltip title={sortAscending ? "Ascending" : "Descending"}>
-      <IconButton
-        className="text"
-        onClick={() => handleSortDirectionChange(!sortAscending)}
-      >
-        {sortAscending && <AscendingIcon />}
-        {!sortAscending && <DescendingIcon />}
-      </IconButton>
-    </Tooltip>
-
-	  <Typography
-	    gutterBottom
-	    className="text"
-	    variant="h2"
-	    sx={{ textAlign: "center" }}
-	  >
-	    Sort
-	  </Typography>
-	  <Select
-    className="text border"
-    defaultValue = "Sort By"
-		children={sortOptions.map((option) => (
-        <MenuItem
-          value={option.db_label}
-          >
-          {option.label}</MenuItem>
-      ))}
-    onChange={(event) => handleSortChange(event.target.value)}
-	  />
-	</Container>
-	);
+  return (
+    <>
+      <Stack className="text" direction="row" gap={1} flexWrap="wrap" ml="50px" mr="50px" mt="20px" mb="20px" justifyContent="center">
+        <Box className="text" sx={{ minWidth: 140 }}>
+          <FormControl fullWidth>
+            <InputLabel className="text">Sort by</InputLabel>
+            <Select
+              className="text"
+              label="Sort by"
+              children={sortOptions.map((option) => (
+                <MenuItem
+                  value={option.db_label}
+                >
+                  {option.label}</MenuItem>
+              ))}
+              onChange={(event) => handleSortChange(event.target.value)}
+              inputProps={
+                {
+                  classes: {
+                    notchedOutline: "border",
+                  },
+                  sx: {
+                    flexGrow: 1,
+                    maxWidth: "120px",
+                    display: "flex",
+                  }
+                }
+              }
+            />
+          </FormControl>
+        </Box>
+        <Box
+          className="text" sx={{ marginTop: 1, maxwidth: 200 }}
+        >
+          <Tooltip title={sortAscending ? "Ascending" : "Descending"}>
+            <IconButton
+              className="text"
+              onClick={() => handleSortDirectionChange(!sortAscending)}
+            >
+              {sortAscending && <AscendingIcon />}
+              {!sortAscending && <DescendingIcon />}
+            </IconButton>
+          </Tooltip>
+        </Box>
+      </Stack>
+    </>
+  );
 };
 export default Sorter;
-    
