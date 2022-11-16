@@ -40,6 +40,7 @@
         - Jake Medina: 17
         - Vincent Chen: 14
         - Ami Iyer: 15
+        - Joanne Chen: 17
         - Bianca Alvarado: 16
 
 - Actual Completion Time
