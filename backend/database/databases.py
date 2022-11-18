@@ -1,12 +1,10 @@
-from dataclasses import replace
-from operator import index
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from sqlalchemy import create_engine, Column, String, Integer, literal_column, text
-from sqlalchemy import and_, or_, func
-from sqlalchemy import cast, String
 from flask_cors import CORS
+from database.University import populate_universities
+from database.CoffeeShop import populate_coffee_shops
+from database.Library import populate_libraries
 
 
 app = Flask(__name__)
