@@ -1,14 +1,9 @@
 import json
 from database.databases import *
 from unittest import main, TestCase
-from app import (
-    universities_by_id,
-    coffeeshops_by_id,
-    libraries_by_id,
-    libraries,
-    coffeeshops,
-    universities,
-)
+from endpoints.coffeeshops import get_coffeeshops, coffeeshops_by_id
+from endpoints.libraries import get_libraries, libraries_by_id
+from endpoints.universities import get_universities, universities_by_id
 
 
 class APITest(TestCase):
@@ -149,7 +144,7 @@ class APITest(TestCase):
 
     def test_universities(self):
         with app.test_request_context():
-            res = universities()
+            res = get_universities()
             res = json.loads(res)
             self.assertEqual(len(res), 10)
             for uni in res:
@@ -182,7 +177,7 @@ class APITest(TestCase):
 
     def test_coffeeshops(self):
         with app.test_request_context():
-            res = coffeeshops()
+            res = get_coffeeshops()
             res = json.loads(res)
             self.assertEqual(len(res), 10)
             for cs in res:
@@ -224,7 +219,7 @@ class APITest(TestCase):
 
     def test_libraries(self):
         with app.test_request_context():
-            res = libraries()
+            res = get_libraries()
             res = json.loads(res)
             self.assertEqual(len(res), 10)
             for lib in res:
