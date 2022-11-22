@@ -1,7 +1,10 @@
 import React from 'react';
+import Athletes from '../visualizations/Athletes';
 
 const ProviderVisualizations = () => {
-    return <></>
+    return <>
+        <Athletes/>
+    </>
 }
 
 export default ProviderVisualizations;
