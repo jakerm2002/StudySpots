@@ -11,6 +11,8 @@ import CoffeeShops from './pages/CoffeeShops'
 import Libraries from './pages/Libraries'
 import Splash from './pages/Splash'
 import Universities from './pages/Universities'
+import Visualizations from './pages/Visualizations'
+import ProviderVisualizations from './pages/ProviderVisualizations';
 import InstanceCoffee from './general_components/InstanceCoffee'
 import InstanceUniversity from './general_components/InstanceUniversity'
 import InstanceLibrary from "./general_components/InstanceLibrary"
@@ -49,6 +51,8 @@ function App() {
           <Route path='/CoffeeShops' element={<CoffeeShops/>}/>
           <Route path='/Libraries' element={<Libraries/>}/>
           <Route path='/Universities' element={<Universities/>}/>
+          <Route path="/Visualizations" element={<Visualizations/>}/>
+          <Route path="/ProviderVisualizations" element={<ProviderVisualizations/>}/>
           <Route path='/About' element={<About/>}/>
           <Route path='/CoffeeShops/:businessID' element={<InstanceCoffee/>}/>
           <Route path='/Universities/:universityID' element={<InstanceUniversity/>}/>

@@ -4,16 +4,21 @@ import './Navigation.css';
 const Navigation = () => {
     return (
         <>
-            <Navbar className="navBar">
+            <Navbar collapseOnSelect expand='lg' className="navBar">
                 <Container>
-                    <Nav >
-                        <Nav.Link className="Nav-link" href='/'>Home</Nav.Link>
-                        <Nav.Link className="Nav-link" href="/Search">Search</Nav.Link>
-                        <Nav.Link className="Nav-link" href='/CoffeeShops'>Coffee Shops</Nav.Link>
-                        <Nav.Link className="Nav-link" href='/Libraries'>Libraries</Nav.Link>
-                        <Nav.Link className="Nav-link" href='/Universities'>Universities</Nav.Link>
-                        <Nav.Link className="Nav-link" href='/About'>About</Nav.Link>
-                    </Nav>
+                    <Navbar.Toggle/>
+                    <Navbar.Collapse>
+                        <Nav>
+                            <Nav.Link className="Nav-link" href='/'>Home</Nav.Link>
+                            <Nav.Link className="Nav-link" href="/Search">Search</Nav.Link>
+                            <Nav.Link className="Nav-link" href='/CoffeeShops'>Coffee Shops</Nav.Link>
+                            <Nav.Link className="Nav-link" href='/Libraries'>Libraries</Nav.Link>
+                            <Nav.Link className="Nav-link" href='/Universities'>Universities</Nav.Link>
+                            <Nav.Link className="Nav-link" href="/Visualizations">Visualizations</Nav.Link>
+                            <Nav.Link className="Nav-link" href="/ProviderVisualizations">Provider Visualizations</Nav.Link>
+                            <Nav.Link className="Nav-link" href='/About'>About</Nav.Link>
+                        </Nav>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
         </>
