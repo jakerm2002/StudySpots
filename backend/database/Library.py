@@ -7,6 +7,7 @@ import json
 import os
 from collections import Counter
 
+
 class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
@@ -172,7 +173,7 @@ def populate_libraries():
             else "N/A",
             website=library["website"] if "website" in library else "N/A",
             rating_string=str(library["rating"]) if "rating" in library else "N/A",
-            state = library["address_components"][index_of_state]["short_name"],
+            state=library["address_components"][index_of_state]["short_name"],
             city=library["address_components"][index_of_city]["long_name"],
             zipcode=library["address_components"][index_of_zip_code]["long_name"],
             review_1_available=True

@@ -5,13 +5,10 @@ from model_functions import get_nearby_coffeeshops, get_model_cities, get_model_
 
 coffeeshops = Blueprint("coffeeshops", __name__)
 
+
 @coffeeshops.route("/coffeeshops")
 def get_coffeeshops():
-    exact_filter_fields = [
-        CoffeeShop.state,
-        CoffeeShop.city,
-        CoffeeShop.zipcode
-    ]
+    exact_filter_fields = [CoffeeShop.state, CoffeeShop.city, CoffeeShop.zipcode]
 
     range_filter_fields = [
         CoffeeShop.price_integer,
@@ -25,7 +22,7 @@ def get_coffeeshops():
         CoffeeShop.hours_day_3_closed,
         CoffeeShop.hours_day_4_closed,
         CoffeeShop.hours_day_5_closed,
-        CoffeeShop.hours_day_6_closed
+        CoffeeShop.hours_day_6_closed,
     ]
 
     sort_filter_fields = [
@@ -33,7 +30,7 @@ def get_coffeeshops():
         CoffeeShop.name,
         CoffeeShop.review_count,
         CoffeeShop.rating,
-        CoffeeShop.price_integer
+        CoffeeShop.price_integer,
     ]
 
     search_fields = [
@@ -71,14 +68,24 @@ def get_coffeeshops():
     time_filters = get_time_filters(request.args, time_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, CoffeeShop)
 
-    all_coffee_shops = generate_query(CoffeeShop, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters=time_filters)
+    all_coffee_shops = generate_query(
+        CoffeeShop,
+        page,
+        per_page,
+        exact_filters,
+        range_filters,
+        sort_attributes,
+        search_fields,
+        search_query,
+        time_filters=time_filters,
+    )
 
     coffee_shop_info = json.loads(coffeeshops_schema.dumps(all_coffee_shops.items))
     metadata = {
         "page": page,
         "per_page": per_page,
         "num_results": len(coffee_shop_info),
-        "num_total_results": all_coffee_shops.query.count()
+        "num_total_results": all_coffee_shops.query.count(),
     }
     return {"metadata": metadata, "results": coffee_shop_info}
 
@@ -88,11 +95,13 @@ def coffeeshops_by_id(id):
     coffeeshop = CoffeeShop.query.filter_by(id=id).first()
     return coffeeshop_schema.dumps(coffeeshop)
 
+
 # support for autocomplete in frontend filter fields
 @coffeeshops.route("/coffeeshops/cities")
 def coffeeshops_list_cities():
     cities = get_model_cities(CoffeeShop)
     return coffeeshops_schema.dumps(cities)
+
 
 @coffeeshops.route("/coffeeshops/zipcodes")
 def coffeeshops_list_zipcodes():

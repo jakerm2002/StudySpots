@@ -1,19 +1,20 @@
 from flask import Blueprint, request
 from query import *
 from database.University import *
-from model_functions import get_nearby_universities, get_model_cities, get_model_zipcodes
+from model_functions import (
+    get_nearby_universities,
+    get_model_cities,
+    get_model_zipcodes,
+)
 
 universities = Blueprint("universities", __name__)
+
 
 @universities.route("/universities")
 def get_universities():
     # this should be the names of the fields we want exact filters for
     # and this should be the DATABASE name of the field.
-    exact_filter_fields = [
-        University.state,
-        University.city,
-        University.zipcode
-    ]
+    exact_filter_fields = [University.state, University.city, University.zipcode]
 
     range_filter_fields = [
         University.enrollment_ugr_12m,
@@ -22,7 +23,7 @@ def get_universities():
         University.sat_median_math,
         University.sat_median_reading,
         University.acceptance_rate,
-        University.sat_average
+        University.sat_average,
     ]
 
     sort_filter_fields = [
@@ -32,7 +33,7 @@ def get_universities():
         University.instate_tuition,
         University.outstate_tuition,
         University.acceptance_rate,
-        University.sat_average
+        University.sat_average,
     ]
 
     # TODO: search fields can only be for Strings -- provide support for other fields?
@@ -56,7 +57,7 @@ def get_universities():
 
     # Exact filters will be based on certain columns in the DB:
     # for example, City, State, Zip Code are all exactly filterable.
-    # 
+    #
     # If we wanted to filter by state, we will need a stateFilter
     # parameter that takes in a list of one or more states to filter by.
     # For example, if we wanted universities in Texas and California,
@@ -99,20 +100,29 @@ def get_universities():
 
     if latitude and longitude:
         return get_nearby_universities(latitude, longitude)
-    
+
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
     range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, University)
-    
-    all_universities = generate_query(University, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
+
+    all_universities = generate_query(
+        University,
+        page,
+        per_page,
+        exact_filters,
+        range_filters,
+        sort_attributes,
+        search_fields,
+        search_query,
+    )
     print(all_universities.query.count())
 
     # Filtering by an exact filter will reduce the number of results
     # returned by the API. We will no longer be returning ALL universities
     # every time. This means there will no longer be a fixed number of pages
     # if we start filtering things.
-    # 
+    #
     # For example, there are 22 universities in the database that are in TX.
     # A call to the universities API with parameter stateFilter=TX will
     # will display 10 of them, because our default per_page value is 10.
@@ -126,7 +136,7 @@ def get_universities():
     #   "page": the current page, probably optional but let's include it
     #   "per_page": number of results per page, let's include this too
     #   "num_results": number of results on this page
-    #   "num_total_results": number of total results without pagination, 
+    #   "num_total_results": number of total results without pagination,
     #       we definitely need this one
     #   "results": [ data for the universities goes here ]
     # }
@@ -149,7 +159,7 @@ def get_universities():
         "page": page,
         "per_page": per_page,
         "num_results": len(university_info),
-        "num_total_results": all_universities.query.count()
+        "num_total_results": all_universities.query.count(),
     }
     return {"metadata": metadata, "results": university_info}
 
@@ -159,11 +169,13 @@ def universities_by_id(id):
     university = University.query.filter_by(id=id).first()
     return university_schema.dumps(university)
 
+
 # support for autocomplete in frontend filter fields
 @universities.route("/universities/cities")
 def universities_list_cities():
     cities = get_model_cities(University)
     return universities_schema.dumps(cities)
+
 
 @universities.route("/universities/zipcodes")
 def universities_list_zipcodes():

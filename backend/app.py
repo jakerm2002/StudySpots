@@ -10,9 +10,11 @@ app.register_blueprint(coffeeshops)
 app.register_blueprint(libraries)
 app.register_blueprint(search)
 
+
 @app.route("/")
 def home():
     return "Welcome to the Study Spots API!"
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")

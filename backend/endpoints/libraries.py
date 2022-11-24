@@ -5,17 +5,12 @@ from model_functions import get_nearby_libraries, get_model_cities, get_model_zi
 
 libraries = Blueprint("libraries", __name__)
 
+
 @libraries.route("/libraries")
 def get_libraries():
-    exact_filter_fields = [
-        Library.state,
-        Library.city,
-        Library.zipcode
-    ]
+    exact_filter_fields = [Library.state, Library.city, Library.zipcode]
 
-    range_filter_fields = [
-        Library.rating
-    ]
+    range_filter_fields = [Library.rating]
 
     sort_filter_fields = [
         Library.id,
@@ -55,14 +50,23 @@ def get_libraries():
     range_filters = get_range_filters(request.args, range_filter_fields)
     sort_attributes = get_sort_attributes(request.args, sort_filter_fields, Library)
 
-    all_libraries = generate_query(Library, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query)
+    all_libraries = generate_query(
+        Library,
+        page,
+        per_page,
+        exact_filters,
+        range_filters,
+        sort_attributes,
+        search_fields,
+        search_query,
+    )
 
     library_info = json.loads(libraries_schema.dumps(all_libraries.items))
     metadata = {
         "page": page,
         "per_page": per_page,
         "num_results": len(library_info),
-        "num_total_results": all_libraries.query.count()
+        "num_total_results": all_libraries.query.count(),
     }
     return {"metadata": metadata, "results": library_info}
 
@@ -72,11 +76,13 @@ def libraries_by_id(id):
     library = Library.query.filter_by(id=id).first()
     return library_schema.dumps(library)
 
+
 # support for autocomplete in frontend filter fields
 @libraries.route("/libraries/cities")
 def libraries_list_cities():
     cities = get_model_cities(Library)
     return libraries_schema.dumps(cities)
+
 
 @libraries.route("/libraries/zipcodes")
 def libraries_list_zipcodes():

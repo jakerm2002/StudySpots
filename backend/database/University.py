@@ -7,6 +7,7 @@ import json
 import os
 from collections import Counter
 
+
 class University(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())

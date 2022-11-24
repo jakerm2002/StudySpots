@@ -10,6 +10,7 @@ from collections import Counter
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
+
 class CoffeeShop(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
@@ -237,8 +238,12 @@ def populate_coffee_shops():
             id=replace_id,
             name=coffee_shop["name"],
             image_url=coffee_shop["image_url"],
-            image_2_url=coffee_shop["photos"][1] if len(coffee_shop["photos"]) > 1 else "",
-            image_3_url=coffee_shop["photos"][2] if len(coffee_shop["photos"]) > 2 else "",
+            image_2_url=coffee_shop["photos"][1]
+            if len(coffee_shop["photos"]) > 1
+            else "",
+            image_3_url=coffee_shop["photos"][2]
+            if len(coffee_shop["photos"]) > 2
+            else "",
             zipcode=coffee_shop["location"]["zip_code"],
             city=coffee_shop["location"]["city"],
             latitude=coffee_shop["coordinates"]["latitude"],
