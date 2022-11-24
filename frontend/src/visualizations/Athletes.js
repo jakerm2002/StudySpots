@@ -2,8 +2,8 @@
 // https://www.tutorialspoint.com/reactjs-how-to-create-a-pie-chart-using-recharts
 
 import { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
-import { Cell, PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
+import { Box, Stack, Typography } from "@mui/material";
+import { PieChart, Pie, Tooltip, ResponsiveContainer } from "recharts";
 import randomColor from "randomcolor";
 import axios from "axios";
 
@@ -44,32 +44,32 @@ const Athletes = () => {
                     }
                 }
             })
-            console.log(temp);
             setData(temp);
         })
     }, []);
 
-    const CustomTooltip = ({ active, payload, label }) => {
+    const CustomTooltip = ({ active, payload }) => {
         if (active) {
             return (
-                <div
-                    style={{
-                        backgroundColor: "#ffff",
-                        padding: "5px",
-                        border: "1px solid #cccc"
+                <Box
+                    sx={{
+                        backgroundColor: "white",
+                        padding: "8px",
+                        border: "1px solid black",
                     }}
                 >
-                    <label>{`${payload[0].name} : ${payload[0].value} players`}</label>
-                </div>
+                    <Typography>{"Country: " + payload[0].name}</Typography>
+                    <Typography>{"Number of Players: " + payload[0].value}</Typography>
+                </Box>
             )
         }
     }
 
     return <>
     <Stack justifyContent="center">
-        <h3>Players per Country</h3>
+        <h3>Number of Players per Country</h3>
         <ResponsiveContainer width="100%" height={400}>
-            <PieChart width={750} height={300}>
+            <PieChart>
                 <Pie
                     data={data}
                     dataKey="value"
