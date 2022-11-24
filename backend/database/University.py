@@ -1,8 +1,6 @@
 from database.databases import db, ma
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import functools
-import copy
 import json
 import os
 from collections import Counter

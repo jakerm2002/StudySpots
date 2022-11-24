@@ -1,8 +1,6 @@
 from database.databases import db, ma
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import functools
-import copy
 import json
 import os
 import time
@@ -170,14 +168,18 @@ def populate_coffee_shops():
     def generate_hours(coffee_shop):
         hours = [None for d in range(7)]
         if "hours" in coffee_shop and "open" in coffee_shop["hours"][0]:
-            hours = [{"is_overnight": False,
-                            "start": "-1",
-                            "end": "-1",
-                            "day": d,
-                        } for d in range(7)]
+            hours = [
+                {
+                    "is_overnight": False,
+                    "start": "-1",
+                    "end": "-1",
+                    "day": d,
+                }
+                for d in range(7)
+            ]
             for element in coffee_shop["hours"][0]["open"]:
-                day = element["day"] # the current element will have a day number
-                hours[day] = element # set the index of our array to this entry
+                day = element["day"]  # the current element will have a day number
+                hours[day] = element  # set the index of our array to this entry
 
             # NOTE: if a day has more than
             # one set of hours (for example 7-11am then 6-8pm) (rare),

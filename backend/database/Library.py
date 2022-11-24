@@ -1,8 +1,6 @@
 from database.databases import db, ma
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-import functools
-import copy
 import json
 import os
 from collections import Counter
@@ -103,7 +101,7 @@ def populate_libraries():
     db.create_all()
     libraries_json = json.load(file)
 
-    # info for getting photos from photo_reference field
+    # info for getting photo from photo_reference field
     api_key = "AIzaSyDzolF8UfW4i-_ATJ04UskWuJGVgVjTNOQ"
     photos_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photo_reference="
 
@@ -132,9 +130,12 @@ def populate_libraries():
 
         formatted_hours = generate_formatted_hours()
 
-        count = 0
+        # the google maps API returns city, state, and zipcode
+        # in possibly the worst way ever. this code is for parsing it.
+        #
         # search through address_components array to find
         # the indices of the city, zip code, and state fields in that array
+        count = 0
         for component in library["address_components"]:
             # the 'types' field of each component denotes which part of the address this is
             if "locality" in component["types"]:
@@ -226,7 +227,7 @@ def populate_libraries():
         libraries_list.append(new_library)
 
     libraries_list = reassign_ids(libraries_list)
-    
+
     db.session.add_all(libraries_list)
     db.session.commit()
 
