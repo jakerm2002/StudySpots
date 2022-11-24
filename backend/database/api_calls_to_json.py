@@ -1,3 +1,7 @@
+# - program to scrape all three APIs and put data into three separate JSONs
+# - scrapes the College Scorecard API and gets coordinates for every college
+# - calls Yelp and Google Maps API looking for coffeeshops and libraries
+#       near every college's coordinates
 from serpapi import GoogleSearch
 import json
 import math

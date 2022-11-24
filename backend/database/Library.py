@@ -6,6 +6,7 @@ import copy
 import json
 import os
 from collections import Counter
+from databases import reassign_ids
 
 
 class Library(db.Model):
@@ -224,33 +225,8 @@ def populate_libraries():
         )
         libraries_list.append(new_library)
 
-    def sort_by_num_null_values(item1, item2):
-        item_1_vals = [
-            item for item in item1.__dict__.values() if type(item) is not list
-        ]
-        item_2_vals = [
-            item for item in item2.__dict__.values() if type(item) is not list
-        ]
-
-        counter_1 = Counter(item_1_vals)
-        counter_2 = Counter(item_2_vals)
-        num_null_values1 = counter_1[None] + counter_1["N/A"]
-        num_null_values2 = counter_2[None] + counter_2["N/A"]
-        return num_null_values1 - num_null_values2
-
-    num_items = len(libraries_list)
-    sorted_list = copy.deepcopy(libraries_list)
-    sorted_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
-
-    for num in range(num_items):
-        new_id = num - num_items
-        index = sorted_list[num].__dict__["id"]
-        libraries_list[index].id = new_id
-
-    for num in range(-num_items, 0):
-        new_id = libraries_list[num].id + num_items
-        libraries_list[num].id = new_id
-
+    libraries_list = reassign_ids(libraries_list)
+    
     db.session.add_all(libraries_list)
     db.session.commit()
 

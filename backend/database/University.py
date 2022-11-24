@@ -6,6 +6,7 @@ import copy
 import json
 import os
 from collections import Counter
+from databases import reassign_ids
 
 
 class University(db.Model):
@@ -179,32 +180,7 @@ def populate_universities():
         )
         universities_list.append(new_university)
 
-    def sort_by_num_null_values(item1, item2):
-        # print("comparing", item1.__dict__["name"], "with", item2.__dict__["name"])
-        counter_1 = Counter(item1.__dict__.values())
-        counter_2 = Counter(item2.__dict__.values())
-        return counter_1[None] - counter_2[None]
-
-    num_unis = len(universities_list)
-    new_unis_list = copy.deepcopy(universities_list)
-    new_unis_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
-
-    # for uni in new_unis_list:
-    #     print(str(uni.__dict__["id"]) + " " + uni.__dict__["name"])
-
-    # change the id of all universities
-    for num in range(num_unis):
-        new_id = num - num_unis
-        index = new_unis_list[num].__dict__["id"]
-        # print("changing id from", universities_list[index].id, "to", new_id)
-        universities_list[index].id = new_id
-
-    # print("len", num_unis)
-
-    for num in range(-num_unis, 0):
-        new_id = universities_list[num].id + num_unis
-        # print("changing id from", universities_list[num].id, "to", new_id)
-        universities_list[num].id = new_id
+    universities_list = reassign_ids(universities_list)
 
     db.session.add_all(universities_list)
     db.session.commit()

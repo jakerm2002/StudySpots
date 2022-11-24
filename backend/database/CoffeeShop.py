@@ -7,6 +7,7 @@ import json
 import os
 import time
 from collections import Counter
+from databases import reassign_ids
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
@@ -151,46 +152,40 @@ def populate_coffee_shops():
     coffeeshops_json = json.load(file)
     coffeeshops_list = []
 
+    # creates an array for the current coffee shop containing hours information
+    # index 0 is monday
+    # the format of each index will look like (-1 means closed):
+    # hours[<day>] = {
+    #   "is_overnight": <True/False>
+    #   "start": <0-2359 / -1>
+    #   "end": <0-2359 / -1>
+    #   "day": <day>
+    # }
+    #
+    # i made this stupid method because the Yelp API returns an array containing
+    # hours but only for the days the shop is open. This means that if a coffee
+    # shop was open 7 days the array would have 7 elements, but if it was
+    # open 5 days then the array would only have 5 elements.
+    # I wanted each shop to have an array for all 7 days to normalize the info.
     def generate_hours(coffee_shop):
-        hours = [None for x in range(7)]
+        hours = [None for d in range(7)]
         if "hours" in coffee_shop and "open" in coffee_shop["hours"][0]:
-            day_count = 0
-            index = 0
-            while day_count < 7:
-                if index < len(coffee_shop["hours"][0]["open"]):
-                    day = coffee_shop["hours"][0]["open"][index]
-                    day_number = day["day"]
-                    if day_count == day_number:
-                        hours[day_count] = day
-                        day_count += 1
-                        index += 1
-                    # handles the case where a day has more than
-                    # one set of hours (for example 7-11am then 6-8pm).
-                    # in this case, we'll take only the first set of hours from that day
-                    # this is an extremely rare case that only happens like once in the database
-                    elif day_count > day_number:
-                        index += 1
-                    # this day does not have hours, which means it's closed.
-                    # create a new entry with hours as '-1', signifying closed
-                    else:
-                        hours[day_count] = {
-                            "is_overnight": False,
+            hours = [{"is_overnight": False,
                             "start": "-1",
                             "end": "-1",
-                            "day": day_count,
-                        }
-                        day_count += 1
-                # set any remaining days without an entry to 'closed'
-                else:
-                    hours[day_count] = {
-                        "is_overnight": False,
-                        "start": "-1",
-                        "end": "-1",
-                        "day": day_count,
-                    }
-                    day_count += 1
+                            "day": d,
+                        } for d in range(7)]
+            for element in coffee_shop["hours"][0]["open"]:
+                day = element["day"] # the current element will have a day number
+                hours[day] = element # set the index of our array to this entry
+
+            # NOTE: if a day has more than
+            # one set of hours (for example 7-11am then 6-8pm) (rare),
+            # this will take the last provided set of hours from that day.
         return hours
 
+    # returns a list where each index is a day (0 is Monday)
+    # and each element is a string containing the hours for that day.
     def generate_hours_arr(hours):
         hours_arr = [None for x in range(7)]
 
@@ -200,29 +195,26 @@ def populate_coffee_shops():
                 hours_string = days[index] + ": Not available"
             elif day["start"] == "-1":
                 hours_string = days[index] + ": Closed"
-                day["formatted"] = hours_string
             else:
+                # transform 24 hour time (xxxx) into formatted time"
                 start_time_obj = time.strptime(day["start"], "%H%M")
                 start_time = time.strftime("%I:%M %p", start_time_obj)
 
                 end_time_obj = time.strptime(day["end"], "%H%M")
                 end_time = time.strftime("%I:%M %p", end_time_obj)
                 hours_string = days[index] + ": " + start_time + " - " + end_time
-                day["formatted"] = hours_string
             hours_arr[index] = hours_string
             index += 1
         return hours_arr
 
+    # returns a stringified version of the hours_arr parameter
     def generate_formatted_hours(hours_arr):
         if not hours_arr:
             return "N/A"
 
-        chars_to_replace_with_blank = "{[']}"
-        orig_str = str(hours_arr)
-        for c in chars_to_replace_with_blank:
-            if c in orig_str:
-                orig_str = orig_str.replace(c, "")
-        formatted_hours = orig_str.replace(",", "\n")
+        formatted_hours = ""
+        for day_string in hours_arr:
+            formatted_hours += day_string + "\n"
         return formatted_hours
 
     dynamic_id_coffeeshop = 0
@@ -325,32 +317,7 @@ def populate_coffee_shops():
         )
         coffeeshops_list.append(new_coffeeshop)
 
-    def sort_by_num_null_values(item1, item2):
-        item_1_vals = [
-            item for item in item1.__dict__.values() if type(item) is not list
-        ]
-        item_2_vals = [
-            item for item in item2.__dict__.values() if type(item) is not list
-        ]
-
-        counter_1 = Counter(item_1_vals)
-        counter_2 = Counter(item_2_vals)
-        num_null_values1 = counter_1[None] + counter_1["N/A"]
-        num_null_values2 = counter_2[None] + counter_2["N/A"]
-        return num_null_values1 - num_null_values2
-
-    num_items = len(coffeeshops_list)
-    sorted_list = copy.deepcopy(coffeeshops_list)
-    sorted_list.sort(key=functools.cmp_to_key(sort_by_num_null_values))
-
-    for num in range(num_items):
-        new_id = num - num_items
-        index = sorted_list[num].__dict__["id"]
-        coffeeshops_list[index].id = new_id
-
-    for num in range(-num_items, 0):
-        new_id = coffeeshops_list[num].id + num_items
-        coffeeshops_list[num].id = new_id
+    coffeeshops_list = reassign_ids(coffeeshops_list)
 
     db.session.add_all(coffeeshops_list)
     db.session.commit()
