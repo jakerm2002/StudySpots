@@ -5,6 +5,23 @@ from model_functions import get_nearby_libraries, get_model_cities, get_model_zi
 
 libraries = Blueprint("libraries", __name__)
 
+search_fields = [
+    Library.name,
+    Library.address,
+    Library.state,
+    Library.city,
+    Library.zipcode,
+    Library.phone,
+    Library.rating_string,
+    Library.website,
+    Library.review_1_text,
+    Library.review_2_text,
+    Library.review_3_text,
+    Library.review_1_author,
+    Library.review_2_author,
+    Library.review_3_author,
+]
+
 
 @libraries.route("/libraries")
 def get_libraries():
@@ -16,23 +33,6 @@ def get_libraries():
         Library.id,
         Library.name,
         Library.rating,
-    ]
-
-    search_fields = [
-        Library.name,
-        Library.address,
-        Library.state,
-        Library.city,
-        Library.zipcode,
-        Library.phone,
-        Library.rating_string,
-        Library.website,
-        Library.review_1_text,
-        Library.review_2_text,
-        Library.review_3_text,
-        Library.review_1_author,
-        Library.review_2_author,
-        Library.review_3_author,
     ]
 
     # Possible arguments that can be added to request

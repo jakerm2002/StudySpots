@@ -1,8 +1,11 @@
 from flask import Blueprint, request
 from query import *
-from database.CoffeeShop import *
-from database.University import *
-from database.Library import *
+from database.CoffeeShop import CoffeeShop, coffeeshops_schema
+from database.University import University, universities_schema
+from database.Library import Library, libraries_schema
+from coffeeshops import search_fields as coffeeshop_search_fields
+from universities import search_fields as university_search_fields
+from libraries import search_fields as library_search_fields
 import json
 
 search = Blueprint("search", __name__)
@@ -13,52 +16,6 @@ def search_entire_site():
     search_query = request.args.get("search") if request.args.get("search") else ""
     page = int(request.args.get("page")) if request.args.get("page") else 1
     per_page = int(request.args.get("per_page")) if request.args.get("per_page") else 10
-
-    # TODO: can probably organize this better to avoid this repetition:
-    university_search_fields = [
-        University.name,
-        University.alias,
-        University.zipcode,
-        University.city,
-        University.state,
-        University.url,
-        University.description,
-        University.photo,
-    ]
-    coffeeshop_search_fields = [
-        CoffeeShop.name,
-        CoffeeShop.image_url,
-        CoffeeShop.zipcode,
-        CoffeeShop.city,
-        CoffeeShop.price,
-        CoffeeShop.phone,
-        CoffeeShop.address1,
-        CoffeeShop.state,
-        CoffeeShop.display_address,
-        CoffeeShop.photo,
-        CoffeeShop.review_1_text,
-        CoffeeShop.review_2_text,
-        CoffeeShop.review_3_text,
-        CoffeeShop.review_1_author,
-        CoffeeShop.review_2_author,
-        CoffeeShop.review_3_author,
-    ]
-    library_search_fields = [
-        Library.name,
-        Library.address,
-        Library.state,
-        Library.city,
-        Library.zipcode,
-        Library.phone,
-        Library.rating_string,
-        Library.website,
-        Library.review_1_text,
-        Library.review_2_text,
-        Library.review_3_text,
-        Library.review_1_author,
-        Library.review_2_author,
-        Library.review_3_author,
-    ]
 
     matching_universities = generate_query(
         University,

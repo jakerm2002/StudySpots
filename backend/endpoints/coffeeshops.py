@@ -5,6 +5,25 @@ from model_functions import get_nearby_coffeeshops, get_model_cities, get_model_
 
 coffeeshops = Blueprint("coffeeshops", __name__)
 
+search_fields = [
+    CoffeeShop.name,
+    CoffeeShop.image_url,
+    CoffeeShop.zipcode,
+    CoffeeShop.city,
+    CoffeeShop.price,
+    CoffeeShop.phone,
+    CoffeeShop.address1,
+    CoffeeShop.state,
+    CoffeeShop.display_address,
+    CoffeeShop.photo,
+    CoffeeShop.review_1_text,
+    CoffeeShop.review_2_text,
+    CoffeeShop.review_3_text,
+    CoffeeShop.review_1_author,
+    CoffeeShop.review_2_author,
+    CoffeeShop.review_3_author,
+]
+
 
 @coffeeshops.route("/coffeeshops")
 def get_coffeeshops():
@@ -31,25 +50,6 @@ def get_coffeeshops():
         CoffeeShop.review_count,
         CoffeeShop.rating,
         CoffeeShop.price_integer,
-    ]
-
-    search_fields = [
-        CoffeeShop.name,
-        CoffeeShop.image_url,
-        CoffeeShop.zipcode,
-        CoffeeShop.city,
-        CoffeeShop.price,
-        CoffeeShop.phone,
-        CoffeeShop.address1,
-        CoffeeShop.state,
-        CoffeeShop.display_address,
-        CoffeeShop.photo,
-        CoffeeShop.review_1_text,
-        CoffeeShop.review_2_text,
-        CoffeeShop.review_3_text,
-        CoffeeShop.review_1_author,
-        CoffeeShop.review_2_author,
-        CoffeeShop.review_3_author,
     ]
 
     # Possible arguments that can be added to request

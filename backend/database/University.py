@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import json
 import os
-from collections import Counter
 from databases import reassign_ids
 
 

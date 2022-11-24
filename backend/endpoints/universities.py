@@ -9,6 +9,17 @@ from model_functions import (
 
 universities = Blueprint("universities", __name__)
 
+search_fields = [
+    University.name,
+    University.alias,
+    University.zipcode,
+    University.city,
+    University.state,
+    University.url,
+    University.description,
+    University.photo,
+]
+
 
 @universities.route("/universities")
 def get_universities():
@@ -34,18 +45,6 @@ def get_universities():
         University.outstate_tuition,
         University.acceptance_rate,
         University.sat_average,
-    ]
-
-    # TODO: search fields can only be for Strings -- provide support for other fields?
-    search_fields = [
-        University.name,
-        University.alias,
-        University.zipcode,
-        University.city,
-        University.state,
-        University.url,
-        University.description,
-        University.photo,
     ]
 
     # Possible arguments that can be added to request

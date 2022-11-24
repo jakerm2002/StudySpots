@@ -4,7 +4,6 @@ from flask_marshmallow import Marshmallow
 import json
 import os
 import time
-from collections import Counter
 from databases import reassign_ids
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
