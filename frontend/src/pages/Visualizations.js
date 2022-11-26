@@ -1,7 +1,10 @@
 import React from 'react';
+import Universities from '../visualizations/Universities';
 
 const Visualizations = () => {
-    return <></>
+    return <>
+        <Universities/>
+    </>
 }
 
 export default Visualizations;
