@@ -3,14 +3,12 @@ import { Box, Typography, Stack } from '@mui/material';
 import { CartesianGrid, Label, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
 import axios from "axios";
 
-const Countries = () => {
+const Universities = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         let urls = [];
-        for (let page = 1; page <= 10; page++) {
-            urls.push("https://api.studyspots.me/countries?page=" + page);
-        }
+        urls.push("https://api.studyspots.me/universities?per_page=300");
 
         let promises = []
         urls.forEach((url) => {
@@ -20,15 +18,16 @@ const Countries = () => {
         Promise.all(promises).then((results) => {
             let temp = [];
             results.forEach((response) => {
-                let countryList = response.data["data"];
-                for (let i = 0; i < countryList.length; i++) {
-                    let country = countryList[i]["name"];
-                    let area = countryList[i]["area"];
-                    let population = countryList[i]["population"];
+                console.log(response.data["results"]);
+                let universityList = response.data["results"];
+                for (let i = 0; i < universityList.length; i++) {
+                    let university = universityList[i]["name"];
+                    let average_sat = universityList[i]["sat_average"];
+                    let acceptance_rate = universityList[i]["acceptance_rate"];
                     temp.push({
-                        "country": country,
-                        "area": area/1000,
-                        "population": population/1000000,
+                        "university": university,
+                        "average_sat": average_sat,
+                        "acceptance_rate": acceptance_rate,
                     })
                 }
             });
@@ -46,9 +45,9 @@ const Countries = () => {
                         border: "1px solid black",
                     }}
                 >
-                    <Typography>{"Country: " + payload[0].payload.country}</Typography>
-                    <Typography>{"Area: " + payload[0].payload.area}</Typography>
-                    <Typography>{"Population: " + payload[0].payload.population}</Typography>
+                    <Typography>{"University: " + payload[0].payload.university}</Typography>
+                    <Typography>{"Average SAT: " + payload[0].payload.average_sat}</Typography>
+                    <Typography>{"Acceptance Rate: " + payload[0].payload.acceptance_rate}</Typography>
                 </Box>
             )
         }
@@ -62,14 +61,14 @@ const Countries = () => {
                 right: 50, left: 50
             }}>
                 <CartesianGrid/>
-                <XAxis type="number" dataKey="area" height={40}>
+                <XAxis type="number" dataKey="average_sat" height={40} domain={[800, 1600]}>
                     <Label
                         value="Average SAT Score"
                         position="insideBottom"
                         style={{textAnchor: "middle"}}
                     />
                 </XAxis>
-                <YAxis type="number" dataKey="population" domain={[0, 1]}>
+                <YAxis type="number" dataKey="acceptance_rate" domain={[0, 1]}>
                     <Label
                         value="Acceptance Rate"
                         angle={-90}
@@ -85,4 +84,4 @@ const Countries = () => {
     </>
 }
 
-export default Countries;
+export default Universities;
