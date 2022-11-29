@@ -45,7 +45,7 @@ const Universities = () => {
                         border: "1px solid black",
                     }}
                 >
-                    <Typography>{"University: " + payload[0].payload.university}</Typography>
+                    <Typography>{payload[0].payload.university}</Typography>
                     <Typography>{"Average SAT: " + payload[0].payload.average_sat}</Typography>
                     <Typography>{"Acceptance Rate: " + payload[0].payload.acceptance_rate}</Typography>
                 </Box>

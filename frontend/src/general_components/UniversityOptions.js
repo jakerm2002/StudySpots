@@ -175,4 +175,12 @@ const UniversitySortOptions = [
   }
 ];
 
-export { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions };
+const UniversityDropdown = 
+  {
+    label: "University",
+    field: "name",
+    api: "locations"
+  }
+;
+
+export { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions, UniversityDropdown };

@@ -2,6 +2,7 @@ from database.databases import *
 from flask import Flask, request
 import os
 import json
+from sqlalchemy import func
 
 NEARBY_RADIUS = 25
 
@@ -462,6 +463,17 @@ def universities_list_cities():
 def universities_list_zipcodes():
     zipcodes = get_model_zipcodes(University)
     return universities_schema.dumps(zipcodes)
+
+@app.route("/universities/locations")
+def universities_list_locations():
+    def get_model_locations(model):
+        q = request.args.get("query", "")
+        locations = db.session.query(model.name, model.latitude, model.longitude)\
+            .filter(cast( func.lower(model.name), String ).contains( func.lower(q) ))\
+            .order_by(model.name).distinct().paginate(page=1, per_page=10)
+        return locations.items
+    locations = get_model_locations(University)
+    return universities_schema.dumps(locations)
 
 
 @app.route("/coffeeshops")
