@@ -86,10 +86,13 @@ const Countries = () => {
     return <>
     <Stack justifyContent="center">
         <h3>Area vs Population of a Country</h3>
-        <Box>
+        <Box
+            justifyContent="center"
+            alignItems="center"
+        >
             <h6>Area Range</h6>
             <Slider
-                sx={{width: '50%'}}
+                sx={{width: '75%'}}
                 getAriaLabel={() => "Area Range"}
                 value={areaRange}
                 onChange={handleAreaChange}
@@ -99,7 +102,7 @@ const Countries = () => {
             />
             <h6>Population Range</h6>
             <Slider
-                sx={{width: '50%'}}
+                sx={{width: '75%'}}
                 getAriaLabel={() => "Population Range"}
                 value={populationRange}
                 onChange={handlePopulationChange}
