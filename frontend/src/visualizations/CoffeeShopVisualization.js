@@ -35,26 +35,18 @@ const CoffeeShops = () => {
     const loading = open && options.length === 0;
 
     useEffect(() => {
-        console.log("detecting input value change");
         let active = true;
-    
-        // if (!loading) {
-        //   return undefined;
-        // }
-
-        console.log("calling fetchOptions()");
         fetchOptions();
-    
         return () => {
-          active = false;
+            active = false;
         };
-      }, [inputValue]);
-    
-      useEffect(() => {
+    }, [inputValue]);
+
+    useEffect(() => {
         if (!open) {
-          setoptions([]);
+            setoptions([]);
         }
-      }, [open]);
+    }, [open]);
 
     const fetchOptions = useMemo(() =>
         throttle(async () => {
@@ -64,12 +56,9 @@ const CoffeeShops = () => {
                 `http://localhost:5000/${UniversityEndpointName}/${UniversityDropdown.api}?query=` + inputValue
             );
             let data = response.data;
-            // console.log(data);
-
             let names = [];
             data.forEach(element => {
-                // names.push(element["name"]);
-                names.push({"label": element["name"], "latitude": element["latitude"], "longitude": element["longitude"]});
+                names.push({ "label": element["name"], "latitude": element["latitude"], "longitude": element["longitude"] });
 
             });
             setoptions(names);
@@ -78,32 +67,22 @@ const CoffeeShops = () => {
         [inputValue]
     );
 
-    // useEffect(() => {
-    //     if (inputValue === "") {
-    //         return undefined;
-    //     }
-
-
-    //     fetchOptions();
-    // }, [inputValue]);
-
     return <>
         <Box className="text" display="flex" alignItems="center" justifyContent="center">
             <Autocomplete
                 disablePortal
-                // value={inputValue}
                 options={options}
                 sx={{ width: '50%' }}
                 renderInput={(params) => <TextField {...params} label="University" InputProps={{
                     ...params.InputProps,
                     endAdornment: (
-                      <Fragment>
-                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                        {params.InputProps.endAdornment}
-                      </Fragment>
+                        <Fragment>
+                            {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                            {params.InputProps.endAdornment}
+                        </Fragment>
                     ),
-                  }}/>}
-                
+                }} />}
+
                 onChange={(event, value) => {
                     console.log("new change value is ");
                     console.log(value);
@@ -113,10 +92,10 @@ const CoffeeShops = () => {
                     console.log("new input value is " + value);
                     setInputValue(value);
                 }}
-                open = {open}
+                open={open}
                 onOpen={() => {
                     setOpen(true);
-                  }}
+                }}
                 onClose={() => {
                     setOpen(false);
                 }}
@@ -125,6 +104,7 @@ const CoffeeShops = () => {
                 isOptionEqualToValue={(option, value) => option.name === value.name}
             />
         </Box>
+        
 
     </>
 }
