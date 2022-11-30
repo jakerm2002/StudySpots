@@ -13,12 +13,13 @@
 
 //add autocomplete for university names
 
-import { useEffect, useState } from "react";
-import { Box, Typography, Stack } from '@mui/material';
+import { useEffect, useState, useMemo, Fragment } from "react";
+import { Box, Typography, Stack, Autocomplete, TextField, CircularProgress } from '@mui/material';
 import { CartesianGrid, Label, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
 import axios from "axios";
 import { useSearchParams } from 'react-router-dom';
 import { UniversityEndpointName, UniversityDropdown } from '../general_components/UniversityOptions';
+import throttle from "lodash/throttle";
 
 
 import AutocompleteDropdown from "../general_components/AutocompleteDropdown";
@@ -27,82 +28,104 @@ const CoffeeShops = () => {
     const [data, setData] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const [options, setoptions] = useState([]);
+    const [currentUniversity, setCurrentUniversity] = useState("");
+    const [inputValue, setInputValue] = useState("");
+    const [open, setOpen] = useState(false);
+    const loading = open && options.length === 0;
+
+    useEffect(() => {
+        console.log("detecting input value change");
+        let active = true;
+    
+        // if (!loading) {
+        //   return undefined;
+        // }
+
+        console.log("calling fetchOptions()");
+        fetchOptions();
+    
+        return () => {
+          active = false;
+        };
+      }, [inputValue]);
+    
+      useEffect(() => {
+        if (!open) {
+          setoptions([]);
+        }
+      }, [open]);
+
+    const fetchOptions = useMemo(() =>
+        throttle(async () => {
+            setoptions([]);
+
+            let response = await axios.get(
+                `http://localhost:5000/${UniversityEndpointName}/${UniversityDropdown.api}?query=` + inputValue
+            );
+            let data = response.data;
+            // console.log(data);
+
+            let names = [];
+            data.forEach(element => {
+                // names.push(element["name"]);
+                names.push({"label": element["name"], "latitude": element["latitude"], "longitude": element["longitude"]});
+
+            });
+            setoptions(names);
+
+        }, 200),
+        [inputValue]
+    );
+
     // useEffect(() => {
-    //     let urls = [];
-    //     urls.push("https://api.studyspots.me/universities?per_page=300");
-
-    //     let promises = []
-    //     urls.forEach((url) => {
-    //         promises.push(axios.get(url));
-    //     });
-
-    //     Promise.all(promises).then((results) => {
-    //         let temp = [];
-    //         results.forEach((response) => {
-    //             console.log(response.data["results"]);
-    //             let universityList = response.data["results"];
-    //             for (let i = 0; i < universityList.length; i++) {
-    //                 let university = universityList[i]["name"];
-    //                 let average_sat = universityList[i]["sat_average"];
-    //                 let acceptance_rate = universityList[i]["acceptance_rate"];
-    //                 temp.push({
-    //                     "university": university,
-    //                     "average_sat": average_sat,
-    //                     "acceptance_rate": acceptance_rate,
-    //                 })
-    //             }
-    //         });
-    //         setData(temp);
-    //     });
-    // }, []);
-
-    // const CustomTooltip = ({active, payload }) => {
-    //     if (active) {
-    //         return (
-    //             <Box
-    //                 sx={{
-    //                     backgroundColor: "white",
-    //                     padding: "8px",
-    //                     border: "1px solid black",
-    //                 }}
-    //             >
-    //                 <Typography>{payload[0].payload.university}</Typography>
-    //                 <Typography>{"Average SAT: " + payload[0].payload.average_sat}</Typography>
-    //                 <Typography>{"Acceptance Rate: " + payload[0].payload.acceptance_rate}</Typography>
-    //             </Box>
-    //         )
+    //     if (inputValue === "") {
+    //         return undefined;
     //     }
-    // }
 
-    const getFilterFieldValue = (field) => {
-        let param = searchParams.get(field + "Filter") ?? "";
-        let paramValues = param === "" ? [] : param.split(",");
-        return paramValues;
-      };
+
+    //     fetchOptions();
+    // }, [inputValue]);
 
     return <>
-        <Box className="text" sx={{ flexGrow: 1 }}>
-        <AutocompleteDropdown
-            color={"text"}
-            api_name={UniversityEndpointName}
-            value={getFilterFieldValue(UniversityDropdown.field)}
-            label={UniversityDropdown.label}
-            InputLabelProps={{className: "textField_Label"}}
-            field={UniversityDropdown.field}
-            options={UniversityDropdown.options}
-            api={UniversityDropdown.api}
-            onChange={(value) => {
-            let newParams = searchParams;
-            // if (value.length === 0) {
-            //     newParams.delete(f.field + "Filter");
-            // } else {
-            //     newParams.set(f.field + "Filter", value.join(","));
-            // }
-            newParams.delete("page");
-            setSearchParams(newParams);
-            }}
-        />
+        <Box className="text" display="flex" alignItems="center" justifyContent="center">
+            <Autocomplete
+                disablePortal
+                // value={inputValue}
+                options={options}
+                sx={{ width: '50%' }}
+                renderInput={(params) => <TextField {...params} label="University" InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      <Fragment>
+                        {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                        {params.InputProps.endAdornment}
+                      </Fragment>
+                    ),
+                  }}/>}
+                
+                onChange={(event, value) => {
+                    console.log("new change value is ");
+                    console.log(value);
+                    setCurrentUniversity(value);
+                }}
+                onInputChange={(event, value) => {
+                    console.log("new input value is " + value);
+                    setInputValue(value);
+                }}
+                open = {open}
+                onOpen={() => {
+                    setOpen(true);
+                  }}
+                onClose={() => {
+                    setOpen(false);
+                }}
+                filterOptions={(x) => x}
+                loading={loading}
+                isOptionEqualToValue={(option, value) => option.name === value.name}
+            />
         </Box>
+
     </>
 }
 

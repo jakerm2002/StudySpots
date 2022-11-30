@@ -178,7 +178,7 @@ const UniversitySortOptions = [
 const UniversityDropdown = 
   {
     label: "University",
-    field: "name",
+    name: "name",
     api: "locations"
   }
 ;
