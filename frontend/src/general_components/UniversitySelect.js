@@ -30,11 +30,16 @@ const UniversitySelect = (props) => {
 
     useEffect(() => {
         let active = true;
+        if (!loading) {
+            return undefined;
+        }
+
         fetchOptions();
+
         return () => {
             active = false;
         };
-    }, [inputValue]);
+    }, [loading]);
 
     useEffect(() => {
         if (!open) {
@@ -65,9 +70,10 @@ const UniversitySelect = (props) => {
         <Box className="text" display="flex" alignItems="center" justifyContent="center">
             <Autocomplete
                 disablePortal
+                value={props.currentUniversity ? props.currentUniversity.label : ""}
                 options={options}
-                sx={{ width: '50%' }}
-                renderInput={(params) => <TextField {...params} label="University" InputProps={{
+                sx={{ width: '500px' }}
+                renderInput={(params) => <TextField {...params} label="Select university" InputProps={{
                     ...params.InputProps,
                     endAdornment: (
                         <Fragment>
@@ -93,7 +99,7 @@ const UniversitySelect = (props) => {
                 onClose={() => {
                     setOpen(false);
                 }}
-                filterOptions={(x) => x}
+                // filterOptions={(x) => x}
                 loading={loading}
                 isOptionEqualToValue={(option, value) => option.name === value.name}
             />

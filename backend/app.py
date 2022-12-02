@@ -32,13 +32,14 @@ def get_nearby_universities(latitude, longitude):
     )
     return universities_schema.dumps(universities_nearby)
 
-def get_nearby_coffeeshops(latitude, longitude):
+def get_nearby_coffeeshops(latitude, longitude, limit):
     sub = (
     db.session.query(
         CoffeeShop.name,
         CoffeeShop.id,
         CoffeeShop.latitude,
         CoffeeShop.longitude,
+        CoffeeShop.rating,
         literal_column(
             "SQRT(POW(69.1 * (latitude - "
             + latitude
@@ -53,9 +54,10 @@ def get_nearby_coffeeshops(latitude, longitude):
     coffeeshops_nearby = (
         db.session.query(sub)
         .filter(text("distance<" + str(NEARBY_RADIUS)))
-        .limit(6)
         .all()
     )
+    if limit:
+        coffeeshops_nearby = coffeeshops_nearby.limit(limit);
     return coffeeshops_schema.dumps(coffeeshops_nearby)
 
 def get_nearby_libraries(latitude, longitude):
@@ -470,7 +472,7 @@ def universities_list_locations():
         q = request.args.get("query", "")
         locations = db.session.query(model.name, model.latitude, model.longitude)\
             .filter(cast( func.lower(model.name), String ).contains( func.lower(q) ))\
-            .order_by(model.name).distinct().paginate(page=1, per_page=10)
+            .order_by(model.name).distinct().paginate(page=1, per_page=300)
         return locations.items
     locations = get_model_locations(University)
     return universities_schema.dumps(locations)
@@ -532,9 +534,10 @@ def coffeeshops():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
+    limit = request.args.get("limit") if request.args.get("limit") else None
 
     if latitude and longitude:
-        return get_nearby_coffeeshops(latitude, longitude)
+        return get_nearby_coffeeshops(latitude, longitude, limit)
 
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
