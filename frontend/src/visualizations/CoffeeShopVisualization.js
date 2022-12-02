@@ -1,22 +1,6 @@
-//average coffee shop rating by state
-//OR
-//distribution of coffee shop ratings
-
-
-//pick nearby university and get bar chart of coffee shop star ratings
-
-
-//most reviewed coffee shops per university
-
-//make the nearby api return all coffee shops within 25 miles of LAT and LONG
-//with no limit to the number of results
-
-//add autocomplete for university names
-
-import { useEffect, useState, useMemo, Fragment } from "react";
+import { useEffect, useState } from "react";
 import { Box, Stack } from '@mui/material';
-import { ResponsiveContainer, PieChart, Pie, Cell, Label, LabelList } from "recharts";
-import { useSearchParams } from 'react-router-dom';
+import { ResponsiveContainer, PieChart, Pie, Cell, LabelList } from "recharts";
 import UniversitySelect from "../general_components/UniversitySelect";
 import axios from "axios";
 
@@ -35,20 +19,12 @@ const temp = [
     }
 ]
 
-
 const CoffeeShopVisualization = () => {
     const [data, setData] = useState(temp);
 
     const [currentUniversity, setCurrentUniversity] = useState({ label: 'The University of Texas at Austin', latitude: 30.282825, longitude: -97.738273 });
 
     useEffect(() => {
-        console.log("change to currentUniversity");
-        console.log(currentUniversity)
-
-        if (currentUniversity == null) {
-            setData([])
-        }
-
         if (currentUniversity != null) {
             let urls = [];
             urls.push(`http://localhost:5000/coffeeshops?latitude=${currentUniversity.latitude}&longitude=${currentUniversity.longitude}`);
@@ -61,9 +37,6 @@ const CoffeeShopVisualization = () => {
             Promise.all(promises).then((results) => {
                 let tempData = JSON.parse(JSON.stringify(temp));
                 results.forEach((response) => {
-                    console.log(response.data);
-
-                    console.log(tempData);
                     let list = response.data;
                     for (let i = 0; i < list.length; i++) {
                         let current = list[i];
@@ -75,17 +48,16 @@ const CoffeeShopVisualization = () => {
                             tempData[0]["count"]++;
                         }
                     }
-
                 });
                 setData(tempData);
             });
+        } else {
+            setData([]);
         }
     }, [currentUniversity]);
 
 
-
     const COLORS = ['#757575', '#2fab02', '#ff5500'];
-
 
     let renderLabel = function (entry) {
         if (entry["count"] > 0)
@@ -105,25 +77,20 @@ const CoffeeShopVisualization = () => {
                 >
                     {data.map((entry, index) => (
                         <Cell
-                            // key={`cell-${index}`}
                             fill={COLORS[index % COLORS.length]}
                         />
                     ))}
                     <LabelList
                         dataKey="count"
-
                         formatter={label => {
                             return label > 0 ? label : null;
                         }}
                     />
-
-
                 </Pie>
-
             </PieChart>
         </ResponsiveContainer>
     } else {
-        results = <Box sx={{ border: 1 }} margin="10px" padding="200px"><h3>Select a university</h3></Box>
+        results = <><Box marginTop="10px"><h3>Select a university</h3><Box sx={{ border: 1, borderRadius: "50%" }} margin="10px" padding="160px"></Box></Box></>
     }
 
     return <>

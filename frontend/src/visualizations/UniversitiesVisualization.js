@@ -18,7 +18,6 @@ const UniversitiesVisualization = () => {
         Promise.all(promises).then((results) => {
             let temp = [];
             results.forEach((response) => {
-                console.log(response.data["results"]);
                 let universityList = response.data["results"];
                 for (let i = 0; i < universityList.length; i++) {
                     let university = universityList[i]["name"];
