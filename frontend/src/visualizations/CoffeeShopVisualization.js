@@ -46,7 +46,7 @@ const temp = [
 ]
 
 
-const CoffeeShops = () => {
+const CoffeeShopVisualization = () => {
     const [data, setData] = useState(temp);
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -124,4 +124,4 @@ const CoffeeShops = () => {
     </>
 }
 
-export default CoffeeShops;
+export default CoffeeShopVisualization;

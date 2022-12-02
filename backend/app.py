@@ -60,13 +60,14 @@ def get_nearby_coffeeshops(latitude, longitude, limit):
         coffeeshops_nearby = coffeeshops_nearby.limit(limit);
     return coffeeshops_schema.dumps(coffeeshops_nearby)
 
-def get_nearby_libraries(latitude, longitude):
+def get_nearby_libraries(latitude, longitude, limit):
     sub = (
     db.session.query(
         Library.name,
         Library.id,
         Library.latitude,
         Library.longitude,
+        Library.rating,
         literal_column(
             "SQRT(POW(69.1 * (latitude - "
             + latitude
@@ -81,9 +82,10 @@ def get_nearby_libraries(latitude, longitude):
     libraries_nearby = (
         db.session.query(sub)
         .filter(text("distance<" + str(NEARBY_RADIUS)))
-        .limit(6)
         .all()
     )
+    if limit:
+        libraries_nearby = libraries_nearby.limit(limit);
     return libraries_schema.dumps(libraries_nearby)
 
 def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters = None
@@ -615,9 +617,10 @@ def libraries():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
+    limit = request.args.get("limit") if request.args.get("limit") else None
 
     if latitude and longitude:
-        return get_nearby_libraries(latitude, longitude)
+        return get_nearby_libraries(latitude, longitude, limit)
 
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)

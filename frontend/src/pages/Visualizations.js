@@ -1,11 +1,13 @@
 import React from 'react';
-import Universities from '../visualizations/UniversitiesVisualization';
-import CoffeeShops from '../visualizations/CoffeeShopVisualization';
+import UniversitiesVisualization from '../visualizations/UniversitiesVisualization';
+import CoffeeShopVisualization from '../visualizations/CoffeeShopVisualization';
+import LibraryVisualization from '../visualizations/LibrariesVisualization';
 
 const Visualizations = () => {
     return <>
-        <Universities/>
-        <CoffeeShops/>
+        <UniversitiesVisualization/>
+        <CoffeeShopVisualization/>
+        <LibraryVisualization/>
     </>
 }
 

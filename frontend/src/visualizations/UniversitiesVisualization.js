@@ -3,7 +3,7 @@ import { Box, Typography, Stack } from '@mui/material';
 import { CartesianGrid, Label, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
 import axios from "axios";
 
-const Universities = () => {
+const UniversitiesVisualization = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -84,4 +84,4 @@ const Universities = () => {
     </>
 }
 
-export default Universities;
+export default UniversitiesVisualization;
