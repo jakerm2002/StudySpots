@@ -24,7 +24,11 @@ import axios from "axios";
 // import UniversityDropdown from "../general_components/UniversityDropdown";
 const temp = [
     {
-        "rating": "&#9733;",
+        "rating": "N/A",
+        "count": 0
+    },
+    {
+        "rating": "3 or less",
         "count": 0
     },
     {
@@ -77,20 +81,26 @@ const Libraries = () => {
                     console.log(tempData);
                     let list = response.data;
                     for (let i = 0; i < list.length; i++) {
-                        let current = list[i];
-                        console.log(current.rating);
-                        if (current.rating >= 3.5) {
-                            for (let j = 0; j < tempData.length; j++) {
-                                if (current.rating === tempData[j]["rating"]) {
+                        let currentRating = list[i].rating;
+                        //round to nearest 0.5
+                        currentRating = Math.round(currentRating*2)/2;
+                        console.log(currentRating);
+                        if (currentRating >= 3.5) {
+                            for (let j = 2; j < tempData.length; j++) {
+                                if (currentRating === tempData[j]["rating"]) {
                                     tempData[j]["count"]++;
                                 }
                             }
-                        } else {
+                        } else if (currentRating == -1) {
                             tempData[0]["count"]++;
+                        }
+                        else {
+                            tempData[1]["count"]++;
                         }
                     }
 
                 });
+                tempData.reverse(); //so 5 star ratings show up at the top of the chart
                 setData(tempData);
             });
         }
@@ -111,7 +121,7 @@ const Libraries = () => {
             </BarChart>
         </ResponsiveContainer>
     } else {
-        results = <Box margin="50px"><h3>Select a university</h3></Box>
+        results = <Box sx={{ border: 1 }} margin="10px" padding="200px"><h3>Select a university</h3></Box>
     }
 
     return <>

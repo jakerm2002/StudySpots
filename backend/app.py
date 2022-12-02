@@ -40,6 +40,7 @@ def get_nearby_coffeeshops(latitude, longitude, limit):
         CoffeeShop.latitude,
         CoffeeShop.longitude,
         CoffeeShop.rating,
+        CoffeeShop.price,
         literal_column(
             "SQRT(POW(69.1 * (latitude - "
             + latitude
