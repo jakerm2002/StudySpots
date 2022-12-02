@@ -83,7 +83,7 @@ const Libraries = () => {
                     for (let i = 0; i < list.length; i++) {
                         let currentRating = list[i].rating;
                         //round to nearest 0.5
-                        currentRating = Math.round(currentRating*2)/2;
+                        currentRating = Math.round(currentRating * 2) / 2;
                         console.log(currentRating);
                         if (currentRating >= 3.5) {
                             for (let j = 2; j < tempData.length; j++) {
@@ -112,10 +112,24 @@ const Libraries = () => {
     let results;
     if (currentUniversity) {
         results = <ResponsiveContainer width="50%" height={450}>
-            <BarChart layout="vertical" data={data} >
+            <BarChart layout="vertical" data={data} margin={{bottom: 10}}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis type="number" />
-                <YAxis type="category" dataKey="rating" />
+                <XAxis type="number">
+                    <Label
+                        value="Amount of reviews"
+                        position="insideBottom"
+                        style={{ textAnchor: "middle" }}
+                        offset={-10}
+                    />
+                </XAxis>
+                <YAxis type="category" dataKey="rating">
+                    <Label
+                        value="Rating (number of stars)"
+                        angle={-90}
+                        position="insideLeft"
+                        style={{ textAnchor: "middle" }}
+                    />
+                </YAxis>
                 <Tooltip />
                 <Bar dataKey="count" fill="green" />
             </BarChart>
@@ -125,10 +139,10 @@ const Libraries = () => {
     }
 
     return <>
-        <Stack justifyContent="center" alignItems="center" marginTop="20px">
-            <h3>Nearby Library</h3>
+        <Stack justifyContent="center" alignItems="center" marginTop="20px" marginBottom="50px" paddingBottom="50px">
+            <h3>Nearby Library Ratings</h3>
             <h6>Distribution of ratings for libraries within 25 miles of the selected university</h6>
-            <br/>
+            <br />
             <UniversitySelect currentUniversity={currentUniversity} setCurrentUniversity={setCurrentUniversity} />
             {results}
         </Stack>

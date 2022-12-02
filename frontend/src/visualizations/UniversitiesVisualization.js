@@ -61,7 +61,7 @@ const UniversitiesVisualization = () => {
                 right: 50, left: 50
             }}>
                 <CartesianGrid/>
-                <XAxis type="number" dataKey="average_sat" height={40} domain={[800, 1600]}>
+                <XAxis type="number" dataKey="average_sat" height={40} domain={[900, 1600]}>
                     <Label
                         value="Average SAT Score"
                         position="insideBottom"

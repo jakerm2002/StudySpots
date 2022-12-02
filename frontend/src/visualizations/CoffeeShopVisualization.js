@@ -19,10 +19,7 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Label, LabelList } from "rech
 import { useSearchParams } from 'react-router-dom';
 import UniversitySelect from "../general_components/UniversitySelect";
 import axios from "axios";
-import { amber } from "@mui/material/colors";
 
-
-// import UniversityDropdown from "../general_components/UniversityDropdown";
 const temp = [
     {
         "rating": "N/A",
@@ -41,7 +38,6 @@ const temp = [
 
 const CoffeeShopVisualization = () => {
     const [data, setData] = useState(temp);
-    const [searchParams, setSearchParams] = useSearchParams();
 
     const [currentUniversity, setCurrentUniversity] = useState({ label: 'The University of Texas at Austin', latitude: 30.282825, longitude: -97.738273 });
 
@@ -87,34 +83,9 @@ const CoffeeShopVisualization = () => {
     }, [currentUniversity]);
 
 
-    console.log(data);
 
-    const COLORS = ['#8f8f8f', '#2fab02', '#ff5500'];
+    const COLORS = ['#757575', '#2fab02', '#ff5500'];
 
-    const RADIAN = Math.PI / 180;
-    // const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
-    //     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    //     const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    //     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    //     return (
-    //         <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-    //             {`${(percent * 100).toFixed(0) != 0 ? (percent * 100).toFixed(0) + '%' : ""}`}
-    //         </text>
-    //     );
-    // };
-
-    // const renderCustomizedLabel = ({ active, payload, label }) => {
-    //     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    //     const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    //     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    //     return (
-    //         <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-    //             {`${(percent * 100).toFixed(0) != 0 ? (percent * 100).toFixed(0) + '%' : ""}`}
-    //         </text>
-    //     );
-    // };
 
     let renderLabel = function (entry) {
         if (entry["count"] > 0)
@@ -124,50 +95,14 @@ const CoffeeShopVisualization = () => {
 
     let results;
     if (currentUniversity) {
-        results = <ResponsiveContainer width="50%" height={450}>
-            <PieChart width={400} height={400}>
+        results = <ResponsiveContainer width="50%" height={400}>
+            <PieChart>
                 <Pie
-                    // activeIndex={this.state.activeIndex}
-                    // activeShape={renderActiveShape}
                     data={data}
                     dataKey="count"
                     label={renderLabel ?? undefined}
-                    // nameKey="rating"
-                    // label
-                    // label={renderLabel ?? undefined}
-                    // cx={100}
-                    // cy={125}
-                    // innerRadius={60}
-                    // outerRadius={80}
-                    // fill="#8884d8"
-                    // paddingAngle={5}
-                    // dataKey="value"
-                    // label={
-                    //     <CustomLabel
-                    //         value1={this.props.avgCal}
-                    //         value2={"Avg Calories"}
-                    //         value3={this.props.label}
-                    //     />
-                    // }
-                    // labelLine={false}
-                    // onMouseEnter={onPieEnter}
-                    // onMouseLeave={onPieLeave}
-                    cx="50%"
-                    cy="50%"
-                    // labelLine={false}
-                    // label="rating"
-                    outerRadius={80}
                     fill="#8884d8"
                 >
-                    {/* <LabelList
-                        dataKey="rating"
-                        // fill={fill}
-                        position="outside"
-                        formatter={label => {                  
-                            console.log(label);                            
-                            return label > 0 ? label : null;
-                        }}
-                    /> */}
                     {data.map((entry, index) => (
                         <Cell
                             // key={`cell-${index}`}
@@ -176,8 +111,7 @@ const CoffeeShopVisualization = () => {
                     ))}
                     <LabelList
                         dataKey="count"
-                        // fill={fill}
-                        // position="top"
+
                         formatter={label => {
                             return label > 0 ? label : null;
                         }}
