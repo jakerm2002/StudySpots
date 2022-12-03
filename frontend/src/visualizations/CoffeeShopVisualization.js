@@ -27,7 +27,7 @@ const CoffeeShopVisualization = () => {
     useEffect(() => {
         if (currentUniversity != null) {
             let urls = [];
-            urls.push(`http://localhost:5000/coffeeshops?latitude=${currentUniversity.latitude}&longitude=${currentUniversity.longitude}`);
+            urls.push(`https://api.studyspots.me/coffeeshops?latitude=${currentUniversity.latitude}&longitude=${currentUniversity.longitude}`);
 
             let promises = []
             urls.forEach((url) => {

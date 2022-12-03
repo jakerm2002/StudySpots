@@ -52,7 +52,7 @@ const UniversitySelect = (props) => {
             setoptions([]);
 
             let response = await axios.get(
-                `http://localhost:5000/${UniversityEndpointName}/${UniversityDropdown.api}?query=` + inputValue
+                `https://api.studyspots.me/${UniversityEndpointName}/${UniversityDropdown.api}?query=` + inputValue
             );
             let data = response.data;
             let names = [];
@@ -84,12 +84,9 @@ const UniversitySelect = (props) => {
                 }} />}
 
                 onChange={(event, value) => {
-                    // console.log("new change value is ");
-                    // console.log(value);
                     props.setCurrentUniversity(value);
                 }}
                 onInputChange={(event, value) => {
-                    // console.log("new input value is " + value);
                     setInputValue(value);
                 }}
                 open={open}
@@ -99,7 +96,6 @@ const UniversitySelect = (props) => {
                 onClose={() => {
                     setOpen(false);
                 }}
-                // filterOptions={(x) => x}
                 loading={loading}
                 isOptionEqualToValue={(option, value) => option.name === value.name}
             />

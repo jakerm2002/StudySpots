@@ -38,7 +38,7 @@ const Libraries = () => {
     useEffect(() => {
         if (currentUniversity != null) {
             let urls = [];
-            urls.push(`http://localhost:5000/libraries?latitude=${currentUniversity.latitude}&longitude=${currentUniversity.longitude}`);
+            urls.push(`https://api.studyspots.me/libraries?latitude=${currentUniversity.latitude}&longitude=${currentUniversity.longitude}`);
 
             let promises = []
             urls.forEach((url) => {
