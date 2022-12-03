@@ -6,7 +6,7 @@ from sqlalchemy import func
 
 NEARBY_RADIUS = 25
 
-def get_nearby_universities(latitude, longitude):
+def get_nearby_universities(latitude, longitude, limit):
     sub = (
             db.session.query(
                 University.name,
@@ -27,9 +27,10 @@ def get_nearby_universities(latitude, longitude):
     universities_nearby = (
         db.session.query(sub)
         .filter(text("distance<" + str(NEARBY_RADIUS)))
-        .limit(6)
         .all()
     )
+    if limit:
+        universities_nearby = universities_nearby.limit(limit);
     return universities_schema.dumps(universities_nearby)
 
 def get_nearby_coffeeshops(latitude, longitude, limit):
@@ -352,6 +353,7 @@ def universities():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
+    limit = request.args.get("limit") if request.args.get("limit") else None
 
     # Exact filters will be based on certain columns in the DB:
     # for example, City, State, Zip Code are all exactly filterable.
@@ -397,7 +399,7 @@ def universities():
     #   - Out-of-State Tuition
 
     if latitude and longitude:
-        return get_nearby_universities(latitude, longitude)
+        return get_nearby_universities(latitude, longitude, limit)
     
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
