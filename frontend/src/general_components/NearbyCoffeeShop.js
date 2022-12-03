@@ -7,7 +7,7 @@ const NearbyCoffeeShop = ({latitude, longitude}) => {
     const [data, setData] = useState();
 
     useEffect(() => {
-    axios.get('https://api.studyspots.me/coffeeshops?latitude=' + latitude + '&longitude=' + longitude).then(response => {
+    axios.get('https://api.studyspots.me/coffeeshops?latitude=' + latitude + '&longitude=' + longitude + '&limit=6').then(response => {
         setData(response.data);
         setIsLoading(false);
     });
