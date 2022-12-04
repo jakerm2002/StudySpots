@@ -161,7 +161,7 @@ def test_search_page_coffeeshops():
     driver.implicitly_wait(5)
     buttons = driver.find_elements(By.TAG_NAME, "button")
     buttons[2].click()
-    assert driver.current_url == url + "/CoffeeShops"
+    assert driver.current_url == url + "CoffeeShops"
 
 def test_search_page_libraries():
     print("starting test_search_page_libraries")
@@ -169,7 +169,7 @@ def test_search_page_libraries():
     driver.implicitly_wait(5)
     buttons = driver.find_elements(By.TAG_NAME, "button")
     buttons[3].click()
-    assert driver.current_url == url + "/Libraries"
+    assert driver.current_url == url + "Libraries"
 
 def test_search_page_universities():
     print("starting test_search_page_universities")
@@ -177,7 +177,7 @@ def test_search_page_universities():
     driver.implicitly_wait(5)
     buttons = driver.find_elements(By.TAG_NAME, "button")
     buttons[4].click()
-    assert driver.current_url == url + "/Universities"
+    assert driver.current_url == url + "Universities"
 
 '''
 Coffee Shops Page Tests
@@ -210,10 +210,11 @@ def test_coffeeshops_search_sort_filter():
 def test_coffeeshops_sort():
     print("starting test_coffeeshops_sort")
     driver.get(url + 'CoffeeShops')
-    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div[1]/div")
+    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div[1]/div/div")
     sort.click()
 
     options = driver.find_elements(By.CLASS_NAME, "MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1km1ehz")
+    print(options)
     assert options[0].text == "Name"
     options[0].click()
     assert driver.current_url == url + "CoffeeShops?ascending=true&sortBy=name"
@@ -247,7 +248,7 @@ def test_libraries_search_sort_filter():
 def test_libraries_sort():
     print("starting test_libraries_sort")
     driver.get(url + 'Libraries')
-    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div[1]/div")
+    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div[1]/div/div")
     sort.click()
 
     options = driver.find_elements(By.CLASS_NAME, "MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1km1ehz")
@@ -287,7 +288,7 @@ def test_universities_search_sort_filter():
 def test_universities_sort():
     print("starting test_universities_sort")
     driver.get(url + 'Universities')
-    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div[1]/div")
+    sort = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/div[1]/div/div")
     sort.click()
 
     options = driver.find_elements(By.CLASS_NAME, "MuiButtonBase-root MuiMenuItem-root MuiMenuItem-gutters MuiMenuItem-root MuiMenuItem-gutters css-1km1ehz")
