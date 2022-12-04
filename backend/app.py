@@ -30,7 +30,7 @@ def get_nearby_universities(latitude, longitude, limit):
         .all()
     )
     if limit:
-        universities_nearby = universities_nearby.limit(limit);
+        universities_nearby = universities_nearby[:limit]
     return universities_schema.dumps(universities_nearby)
 
 def get_nearby_coffeeshops(latitude, longitude, limit):
@@ -59,7 +59,7 @@ def get_nearby_coffeeshops(latitude, longitude, limit):
         .all()
     )
     if limit:
-        coffeeshops_nearby = coffeeshops_nearby.limit(limit);
+        coffeeshops_nearby = coffeeshops_nearby[:limit]
     return coffeeshops_schema.dumps(coffeeshops_nearby)
 
 def get_nearby_libraries(latitude, longitude, limit):
@@ -87,7 +87,7 @@ def get_nearby_libraries(latitude, longitude, limit):
         .all()
     )
     if limit:
-        libraries_nearby = libraries_nearby.limit(limit);
+        libraries_nearby = libraries_nearby[:limit]
     return libraries_schema.dumps(libraries_nearby)
 
 def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters = None
@@ -353,7 +353,7 @@ def universities():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
-    limit = request.args.get("limit") if request.args.get("limit") else None
+    limit = int(request.args.get("limit")) if request.args.get("limit") else None
 
     # Exact filters will be based on certain columns in the DB:
     # for example, City, State, Zip Code are all exactly filterable.
@@ -539,7 +539,7 @@ def coffeeshops():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
-    limit = request.args.get("limit") if request.args.get("limit") else None
+    limit = int(request.args.get("limit")) if request.args.get("limit") else None
 
     if latitude and longitude:
         return get_nearby_coffeeshops(latitude, longitude, limit)
@@ -620,7 +620,7 @@ def libraries():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
-    limit = request.args.get("limit") if request.args.get("limit") else None
+    limit = int(request.args.get("limit")) if request.args.get("limit") else None
 
     if latitude and longitude:
         return get_nearby_libraries(latitude, longitude, limit)
