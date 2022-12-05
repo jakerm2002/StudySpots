@@ -26,6 +26,7 @@ const SearchBar = () => {
     }, []);
 
     return [
+        <div className="topSpacing"></div>,
         <h1 className='text'>Search</h1>,
         <TextField
         InputProps={{

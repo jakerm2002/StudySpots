@@ -66,7 +66,7 @@ const Athletes = () => {
     }
 
     return <>
-    <Stack justifyContent="center">
+    <Stack justifyContent="center" className="topSpacing">
         <h3>Number of Players per Country</h3>
         <ResponsiveContainer width="100%" height={400}>
             <PieChart>
