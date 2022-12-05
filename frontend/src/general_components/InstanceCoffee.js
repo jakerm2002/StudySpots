@@ -28,7 +28,7 @@ const InstanceCoffee = () => {
     return (
         <>
           {!isLoading && (
-            <div className={`text ${styles.general}`}>
+            <div className={`text ${styles.general} topSpacing`}>
               <h1>{data.name}</h1>
               <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
               <Divider className={styles.divider}>☕</Divider>

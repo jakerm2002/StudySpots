@@ -1,5 +1,6 @@
 .general {
 	font-family: "Patrick Hand";
+	font-size: 20px;
 }
 
 #light .general {
@@ -53,5 +54,3 @@
 	font-size: xx-small;
 	padding-top: 10px;
 }
-
-
