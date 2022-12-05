@@ -53,6 +53,8 @@ const Universities = () => {
                     <td title={info.enrollment_ugr_12m}>{info.enrollment_ugr_12m.toLocaleString("en-US", populationFormat)}</td>
                     <td title={info.instate_tuition}>{info.instate_tuition.toLocaleString("en-US", currencyFormat)}</td>
                     <td title={info.outstate_tuition}>{info.outstate_tuition.toLocaleString("en-US", currencyFormat)}</td> 
+                    <td>{info.sat_average}</td>
+                    <td>{(info.acceptance_rate* 100).toFixed(1)+'%'}</td> 
                 </tr>
             )
         }
@@ -61,7 +63,7 @@ const Universities = () => {
     var payload = {
         entries : Entries,
         pageName : "Universities",
-        fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"],
+        fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition", "Average SAT", "Acceptance Rate"],
         num_items_per_page : universities["metadata"]["per_page"],
         num_total_items : universities["metadata"]["num_total_results"]
     }

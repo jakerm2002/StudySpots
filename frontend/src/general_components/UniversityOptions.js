@@ -42,6 +42,10 @@ const UniversityRangeFilters = [
         value: 10_000,
       },
       {
+        label: "20K",
+        value: 20_000,
+      },
+      {
         label: "40K",
         value: 40_000,
       },
