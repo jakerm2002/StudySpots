@@ -78,6 +78,13 @@ export const get_todays_hours = (info) => {
     let day = d.getDay();
     let startHour;
     let endHour;
+    //sunday is day 0 in javascript date objects,
+    //however our hours_day_0 fields represent monday's hours
+    //we want the expected behaviour
+    day -= 1;
+    if (day < 0) {
+        day = 6;
+    }
     switch(day) {
         case 0:
             startHour = info.hours_day_0_open;
