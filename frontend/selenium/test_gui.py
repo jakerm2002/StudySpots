@@ -56,50 +56,50 @@ Navbar Tests
 '''
 def test_navbar_home():
     print("starting test_navbar_home")
-    home = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[1]")
+    home = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[1]")
     print(home)
     home.click()
     assert driver.current_url == url
 
 def test_navbar_search():
     print("starting test_navbar_search")
-    search = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[2]")
+    search = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[2]")
     search.click()
     assert driver.current_url == url + "Search"
 
 def test_navbar_coffeeshops():
     print("starting test_navbar_coffeeshops")
-    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[3]")
+    coffeeshops = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[3]")
     coffeeshops.click()
     assert driver.current_url == url + "CoffeeShops"
 
 def test_navbar_libraries():
     print("starting test_navbar_libraries")
-    libraries = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[4]")
+    libraries = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[4]")
     libraries.click()
     assert driver.current_url == url + "Libraries"
 
 def test_navbar_universities():
     print("starting test_navbar_universities")
-    universities = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[5]")
+    universities = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[5]")
     universities.click()
     assert driver.current_url == url + "Universities"
 
 def test_navbar_visualizations():
     print("starting test_navbar_visualizations")
-    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[6]")
+    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[6]")
     about.click()
     assert driver.current_url == url + "Visualizations"
 
 def test_navbar_provider_visualizations():
     print("starting test_navbar_provider_visualizations")
-    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[7]")
+    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[7]")
     about.click()
     assert driver.current_url == url + "ProviderVisualizations"
 
 def test_navbar_about():
     print("starting test_navbar_about")
-    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div/a[8]")
+    about = driver.find_element(By.XPATH, "/html/body/div/div/nav/div/div/div[1]/a[8]")
     about.click()
     assert driver.current_url == url + "About"
 
@@ -109,39 +109,37 @@ About Page Tests
 def test_about_info():
     print("starting test_about_info")
     driver.get(url + 'About')
-    title = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h1")
-    assert title.text == "StudySpots"
-    mission = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h3[1]")
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h1")
+    assert title.text == "About StudySpots"
+    mission = driver.find_element(By.XPATH, "/html/body/div/div/div[1]/h3[1]")
     assert mission.text == "Mission"
-    discovery = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h3[2]")
-    assert discovery.text == "Discovery"
 
 def test_about_team_info():
     print("starting test_about_team_info")
     driver.get(url + 'About')
-    title = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h1")
+    title = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h1")
     assert title.text == "Meet the Team"
-    members = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h3")
+    members = driver.find_element(By.XPATH, "/html/body/div/div/div[2]/h3")
     assert members.text == "Members"
 
 def test_about_tech_info():
     print("starting test_about_tech_info")
     driver.get(url + 'About')
-    tech = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/h1")
+    tech = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h1")
     assert tech.text == "Technology Used"
-    tools = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/h3[1]")
+    tools = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h3[1]")
     assert tools.text == "Tools"
-    apis = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/h3[2]")
+    apis = driver.find_element(By.XPATH, "/html/body/div/div/div[3]/h3[2]")
     assert apis.text == "APIs Scraped"
 
 def test_about_project_info():
     print("starting test_about_project_info")
     driver.get(url + 'About')
-    project = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/h3")
+    project = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/h3")
     assert project.text == "Project Links"
-    gitlab = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/a[1]")
+    gitlab = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/a[1]")
     assert gitlab.text == "GitLab Project Repository"
-    postman = driver.find_element(By.XPATH, "/html/body/div/div/div[5]/a[2]")
+    postman = driver.find_element(By.XPATH, "/html/body/div/div/div[4]/a[2]")
     assert postman.text == "Postman API Documentation"
 
 '''
