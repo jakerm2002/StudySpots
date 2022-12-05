@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from sqlalchemy import cast, String
 from query import *
 from database.University import *
 from model_functions import (
