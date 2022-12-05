@@ -17,7 +17,6 @@ import InstanceCoffee from './general_components/InstanceCoffee'
 import InstanceUniversity from './general_components/InstanceUniversity'
 import InstanceLibrary from "./general_components/InstanceLibrary"
 import { createContext, useEffect, useState} from 'react';
-import Button from 'react-bootstrap/Button';
 
 export const ThemeContext = createContext(null);
 
@@ -40,11 +39,7 @@ function App() {
   return(
     <ThemeContext.Provider value={{ theme, toggleTheme}}>
       <div className="App" id={theme}>
-        <Navigation id={theme}/>
-        <div className='switchButton'>
-          <label>{theme === "light" ? "Light Mode" : "Dark Mode"} </label>
-          <Button onClick={toggleTheme}/>
-        </div> 
+        <Navigation id={theme} theme={theme} toggleTheme={toggleTheme}/>
         <Routes>
           <Route path='/' element={<Splash/>}/>
           <Route path="/Search" element={<Search/>}/>

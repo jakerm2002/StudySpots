@@ -1,17 +1,18 @@
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import './Navigation.css';
+import Button from 'react-bootstrap/Button';
 
-const Navigation = () => {
+const Navigation = (props) => {
     return (
         <>
             <Navbar collapseOnSelect expand='lg' className="navBar">
                 <Container>
-                    <Navbar.Brand className="Title-text" href="/" style={{ color: 'white', fontWeight:600 }}>
+                    <Navbar.Brand className="Nav-link" href="/" style={{ fontWeight: 600 }}>
                         StudySpots
                     </Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse>
-                        <Nav>
+                        <Nav className="me-auto">
                             <Nav.Link className="Nav-link" href='/'>Home</Nav.Link>
                             <Nav.Link className="Nav-link" href="/Search">Search</Nav.Link>
                             <Nav.Link className="Nav-link" href='/CoffeeShops'>Coffee Shops</Nav.Link>
@@ -20,6 +21,12 @@ const Navigation = () => {
                             <Nav.Link className="Nav-link" href="/Visualizations">Visualizations</Nav.Link>
                             <Nav.Link className="Nav-link" href="/ProviderVisualizations">Provider Visualizations</Nav.Link>
                             <Nav.Link className="Nav-link" href='/About'>About</Nav.Link>
+                        </Nav>
+                        <Nav>
+                            <div className='switchButton'>
+                                <label>{props.theme === "light" ? "Light Mode" : "Dark Mode"} </label>
+                                <Button onClick={props.toggleTheme} />
+                            </div>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
