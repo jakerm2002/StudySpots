@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
-import SearchBar from "../general_components/SearchBar";
-import Sorter from '../general_components/Sort';
-import FilterContainer from '../general_components/FilterContainer';
-import getModel from '../general_components/ModelPageTemplate';
-import styles from '../general_components/ModelPageTemplate.module.css'
+import SearchBar from "../components/search-sort-filter/SearchBar";
+import Sorter from '../components/search-sort-filter/Sort';
+import FilterContainer from '../components/search-sort-filter/FilterContainer';
+import getModel from '../components/model_components/ModelPageTemplate';
+import styles from '../components/model_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions } from '../general_components/CoffeeShopOptions';
-import TimeOptions from '../general_components/TimeOptions';
+import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions } from '../components/search-sort-filter/CoffeeShopOptions';
+import TimeOptions from '../components/search-sort-filter/TimeOptions';
 
 
 const CoffeeShops = () => {

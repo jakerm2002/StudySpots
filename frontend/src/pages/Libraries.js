@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
-import SearchBar from "../general_components/SearchBar";
-import Sorter from "../general_components/Sort";
-import FilterContainer from '../general_components/FilterContainer';
-import getModel from '../general_components/ModelPageTemplate';
+import SearchBar from "../components/search-sort-filter/SearchBar";
+import Sorter from "../components/search-sort-filter/Sort";
+import FilterContainer from '../components/search-sort-filter/FilterContainer';
+import getModel from '../components/model_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters, LibrarySortOptions } from '../general_components/LibraryOptions';
+import { LibraryEndpointName, LibraryExactFilters, LibraryRangeFilters, LibrarySortOptions } from '../components/search-sort-filter/LibraryOptions';
 
 const Libraries = () => {
     const [libraries, setLibraries] = useState({'metadata': {}, 'results': []});

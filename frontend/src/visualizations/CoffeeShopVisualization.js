@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Stack } from '@mui/material';
 import { ResponsiveContainer, PieChart, Pie, Cell, LabelList } from "recharts";
-import UniversitySelect from "../general_components/UniversitySelect";
+import UniversitySelect from "../components/visualizations/UniversitySelect";
 import axios from "axios";
 
 const temp = [

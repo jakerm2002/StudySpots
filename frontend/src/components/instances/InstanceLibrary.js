@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import styles from './InstanceTemplate.module.css';
-import MapComponent from "./MapComponent";
-import NearbyUniversity from './NearbyUniversity.js';
-import NearbyCoffeeShop from './NearbyCoffeeShop.js';
+import styles from '../instance_components/InstanceTemplate.module.css';
+import MapComponent from "../instance_components/MapComponent";
+import NearbyUniversity from '../nearby/NearbyUniversity.js';
+import NearbyCoffeeShop from '../nearby/NearbyCoffeeShop.js';
 import { Accordion, Button, Carousel, Container, Col, Figure, Row, Card } from "react-bootstrap";
 import Divider from "@mui/material/Divider";
-import WeatherWidget from "./WeatherWidget";
-import TravelTime from "./TravelTime";
+import WeatherWidget from "../instance_components/WeatherWidget";
+import TravelTime from "../instance_components/TravelTime";
 
 const InstanceLibrary = () => {
 	const { businessID } = useParams();

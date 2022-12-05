@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Stack } from '@mui/material';
 import { CartesianGrid, Label, ResponsiveContainer, Tooltip, XAxis, YAxis, BarChart, Bar } from "recharts";
-import UniversitySelect from "../general_components/UniversitySelect";
+import UniversitySelect from "../components/visualizations/UniversitySelect";
 import axios from "axios";
 
 const temp = [

@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo, Fragment } from "react";
 import { Box, Autocomplete, TextField, CircularProgress } from '@mui/material';
 import axios from "axios";
-import { UniversityEndpointName, UniversityDropdown } from './UniversityOptions';
+import { UniversityEndpointName, UniversityDropdown } from '../search-sort-filter/UniversityOptions';
 import throttle from "lodash/throttle";
 
 const UniversitySelect = (props) => {
