@@ -67,8 +67,16 @@ const UniversityRangeFilters = [
         value: 800,
       },
       {
+        label: "1000",
+        value: 1000,
+      },
+      {
         label: "1200",
         value: 1200,
+      },
+      {
+        label: "1400",
+        value: 1400,
       },
       {
         label: "1600",
