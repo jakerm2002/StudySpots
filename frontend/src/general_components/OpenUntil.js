@@ -43,10 +43,10 @@ function OpenUntil(props) {
         <>
             <Box sx={{ minWidth: 120 }}>
                 <FormControl fullWidth>
-                    <InputLabel className="text">Open until:</InputLabel>
+                    <InputLabel className="text">Open at:</InputLabel>
                     <Select
                         className="text"
-                        label="Open until:"
+                        label="Open at:"
                         value={options}
                         onChange={(event) =>
                             // frontend label of the selected dropdown option

@@ -118,8 +118,8 @@ export const get_todays_hours = (info) => {
     }
 
     //really dumb workaround, date could be any date, not just 2000
-    let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00Z');
-    let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00Z');
+    let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':' + startHour.slice(2,4)+ ':00Z');
+    let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':' + endHour.slice(2,4)+ ':00Z');
     startHour = startHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
     endHour = endHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
     return startHour + ' - ' + endHour;
