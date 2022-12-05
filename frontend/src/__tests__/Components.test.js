@@ -3,7 +3,6 @@ import { render, screen, cleanup } from '@testing-library/react'
 import ExactFilterBar from "../components/search-sort-filter/ExactFilterBar"
 import TravelTime from "../components/instance_components/TravelTime"
 import SearchBar from "../components/search-sort-filter/SearchBar"
-import {RangeFilterBar} from "../components/search-sort-filter/RangeFilterBar"
 import { BrowserRouter } from "react-router-dom"
 
 afterEach(cleanup);
