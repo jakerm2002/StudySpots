@@ -1,14 +1,14 @@
 import axios from "axios";
-import styles from './InstanceTemplate.module.css'
+import styles from '../instance_components/InstanceTemplate.module.css'
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import MapComponent from "./MapComponent";
-import NearbyLibrary from './NearbyLibrary.js';
-import NearbyUniversity from './NearbyUniversity.js';
-import WeatherWidget from "./WeatherWidget";
+import MapComponent from "../instance_components/MapComponent";
+import NearbyLibrary from '../nearby/NearbyLibrary.js';
+import NearbyUniversity from '../nearby/NearbyUniversity.js';
+import WeatherWidget from "../instance_components/WeatherWidget";
 import { Divider } from "@mui/material";
 import { Button, Carousel, Container, Figure, Row, Col, Accordion, Card } from "react-bootstrap";
-import TravelTime from "./TravelTime";
+import TravelTime from "../instance_components/TravelTime";
 
 
 const InstanceCoffee = () => {

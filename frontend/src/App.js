@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 // eslint-disable-next-line
 import { Route, Routes, Router} from 'react-router-dom'
 
-import Navigation from './general_components/Navigation'
+import Navigation from './components/nav/Navigation'
 
 import './App.css';
 import About from './pages/About';
@@ -13,9 +13,9 @@ import Splash from './pages/Splash'
 import Universities from './pages/Universities'
 import Visualizations from './pages/Visualizations'
 import ProviderVisualizations from './pages/ProviderVisualizations';
-import InstanceCoffee from './general_components/InstanceCoffee'
-import InstanceUniversity from './general_components/InstanceUniversity'
-import InstanceLibrary from "./general_components/InstanceLibrary"
+import InstanceCoffee from './components/instances/InstanceCoffee'
+import InstanceUniversity from './components/instances/InstanceUniversity'
+import InstanceLibrary from "./components/instances/InstanceLibrary"
 import { createContext, useEffect, useState} from 'react';
 
 export const ThemeContext = createContext(null);

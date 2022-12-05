@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import styles from './InstanceTemplate.module.css'
-import MapComponent from "./MapComponent";
-import NearbyCoffeeShop from './NearbyCoffeeShop.js';
-import NearbyLibrary from './NearbyLibrary.js';
+import styles from '../instance_components/InstanceTemplate.module.css'
+import MapComponent from "../instance_components/MapComponent";
+import NearbyCoffeeShop from '../nearby/NearbyCoffeeShop.js';
+import NearbyLibrary from '../nearby/NearbyLibrary.js';
 import { Button, Carousel, Col, Container, Figure, Row } from "react-bootstrap";
 import { Divider } from "@mui/material";
-import WeatherWidget from "./WeatherWidget";
-import TravelTime from "./TravelTime";
+import WeatherWidget from "../instance_components/WeatherWidget";
+import TravelTime from "../instance_components/TravelTime";
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}

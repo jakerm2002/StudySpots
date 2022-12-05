@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button'
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import SearchBar from "../general_components/SearchBar";
-import { RenderPageTable } from '../general_components/ModelPageTemplate';
-import styles from "../general_components/ModelPageTemplate.module.css";
+import SearchBar from "../components/search-sort-filter/SearchBar";
+import { RenderPageTable } from '../components/model_components/ModelPageTemplate';
+import styles from "../components/model_components/ModelPageTemplate.module.css";
 import axios from "axios";
 import Highlighter from "react-highlight-words";
 import { get_todays_hours as get_coffee_hours } from './CoffeeShops';
