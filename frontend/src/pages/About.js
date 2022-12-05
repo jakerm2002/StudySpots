@@ -120,18 +120,6 @@ const tools = [
         "description": "We used Flask to create the backend API application that runs on our web server.",
     },
     {
-        "name": "Flask-SQLAlchemy",
-        "image": FlaskSQLAlchemyImg,
-        "link": "https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/",
-        "description": "We used Flask-SQLAlchemy to link our Flask application with SQLAlchemy.",
-    },
-    {
-        "name": "SQLAlchemy",
-        "image": SQLAlchemyImg,
-        "link": "https://www.sqlalchemy.org/",
-        "description": "We used SQLAlchemy as an ORM to query our PostgreSQL database.",
-    },
-    {
         "name": "Namecheap",
         "image": NamecheapImg,
         "link": "https://www.namecheap.com/",
@@ -301,10 +289,6 @@ const About = () => {
             <h3 className="text">Mission</h3>
             <div className={styles.center}>
                 <p className="text">StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
-            </div>
-            <h3 className="text">Discovery</h3>
-            <div className={styles.center}>
-                <p className="text">When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
             </div>
         </div>,
         <div className={styles.teamInfo}>
