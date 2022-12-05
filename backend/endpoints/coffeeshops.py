@@ -58,9 +58,10 @@ def get_coffeeshops():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
+    limit = int(request.args.get("limit")) if request.args.get("limit") else None
 
     if latitude and longitude:
-        return get_nearby_coffeeshops(latitude, longitude)
+        return get_nearby_coffeeshops(latitude, longitude, limit)
 
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)

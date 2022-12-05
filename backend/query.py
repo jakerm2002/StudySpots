@@ -159,32 +159,14 @@ def add_time_filters(existing_query, filters):
         ignore_query.append(field != '-1')
         ignore_query.append(field != 'N/A')
 
-        # if the time is past midnight, we need to include
-        # all results before midnight
-        # so we are going to say that the closing time must be
-        # after 10:00am or before the input time
-
-        # SELECT name, hours_day_0_open, hours_day_0_closed 
-        # FROM public.coffee_shop 
-        # WHERE
-        #   (hours_day_0_closed != '-1' and hours_day_0_closed != 'N/A' 
-        #   and 
-        #   (hours_day_0_closed > '1000' or '0200' >= hours_day_0_closed)) 
-        # ORDER BY hours_day_0_closed ASC 
         if openUntilInt < 1000:
-            new_query.append(field > '1000')
-            new_query.append(openUntil >= field)
-            return existing_query.filter(and_(*ignore_query)).filter(or_(*new_query))
-        # times before midnight
-        # SELECT name, hours_day_0_open, hours_day_0_closed
-        # FROM public.coffee_shop WHERE
-        #   (hours_day_0_closed != '-1' and hours_day_0_closed != 'N/A'
-        #   and
-        #   (hours_day_0_closed > '1000' and hours_day_0_closed <= '2200'))
-        # ORDER BY hours_day_0_closed ASC
-        new_query.append(field > '1000')
-        new_query.append(field <= openUntil)
-        return existing_query.filter(and_(*ignore_query)).filter(and_(*new_query))
+            new_query.append(field < '1000')
+            new_query.append(field >= openUntil)
+            return existing_query.filter(and_(*ignore_query)).filter(and_(*new_query))
+
+        new_query.append(field < '1000')
+        new_query.append(field >= openUntil)
+        return existing_query.filter(and_(*ignore_query)).filter(or_(*new_query))
 
     return existing_query.filter(and_(*new_query))
 

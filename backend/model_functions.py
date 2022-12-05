@@ -8,7 +8,7 @@ from database.Library import *
 
 NEARBY_RADIUS = 25
 
-def get_nearby_universities(latitude, longitude):
+def get_nearby_universities(latitude, longitude, limit):
     sub = (
             db.session.query(
                 University.name,
@@ -29,18 +29,21 @@ def get_nearby_universities(latitude, longitude):
     universities_nearby = (
         db.session.query(sub)
         .filter(text("distance<" + str(NEARBY_RADIUS)))
-        .limit(6)
         .all()
     )
+    if limit:
+        universities_nearby = universities_nearby[:limit]
     return universities_schema.dumps(universities_nearby)
 
-def get_nearby_coffeeshops(latitude, longitude):
+def get_nearby_coffeeshops(latitude, longitude, limit):
     sub = (
     db.session.query(
         CoffeeShop.name,
         CoffeeShop.id,
         CoffeeShop.latitude,
         CoffeeShop.longitude,
+        CoffeeShop.rating,
+        CoffeeShop.price,
         literal_column(
             "SQRT(POW(69.1 * (latitude - "
             + latitude
@@ -55,18 +58,20 @@ def get_nearby_coffeeshops(latitude, longitude):
     coffeeshops_nearby = (
         db.session.query(sub)
         .filter(text("distance<" + str(NEARBY_RADIUS)))
-        .limit(6)
         .all()
     )
+    if limit:
+        coffeeshops_nearby = coffeeshops_nearby[:limit]
     return coffeeshops_schema.dumps(coffeeshops_nearby)
 
-def get_nearby_libraries(latitude, longitude):
+def get_nearby_libraries(latitude, longitude, limit):
     sub = (
     db.session.query(
         Library.name,
         Library.id,
         Library.latitude,
         Library.longitude,
+        Library.rating,
         literal_column(
             "SQRT(POW(69.1 * (latitude - "
             + latitude
@@ -81,9 +86,10 @@ def get_nearby_libraries(latitude, longitude):
     libraries_nearby = (
         db.session.query(sub)
         .filter(text("distance<" + str(NEARBY_RADIUS)))
-        .limit(6)
         .all()
     )
+    if limit:
+        libraries_nearby = libraries_nearby[:limit]
     return libraries_schema.dumps(libraries_nearby)
 
 def get_model_cities(model):

@@ -53,6 +53,7 @@ def get_universities():
 
     latitude = request.args.get("latitude") if request.args.get("latitude") else None
     longitude = request.args.get("longitude") if request.args.get("longitude") else None
+    limit = int(request.args.get("limit")) if request.args.get("limit") else None
 
     # Exact filters will be based on certain columns in the DB:
     # for example, City, State, Zip Code are all exactly filterable.
@@ -98,7 +99,7 @@ def get_universities():
     #   - Out-of-State Tuition
 
     if latitude and longitude:
-        return get_nearby_universities(latitude, longitude)
+        return get_nearby_universities(latitude, longitude, limit)
 
     search_query = request.args.get("search") if request.args.get("search") else ""
     exact_filters = get_exact_filters(request.args, exact_filter_fields)
@@ -180,3 +181,15 @@ def universities_list_cities():
 def universities_list_zipcodes():
     zipcodes = get_model_zipcodes(University)
     return universities_schema.dumps(zipcodes)
+
+@universities.route("/universities/locations")
+def universities_list_locations():
+    def get_model_locations(model):
+        q = request.args.get("query", "")
+        locations = db.session.query(model.name, model.latitude, model.longitude)\
+            .filter(cast( func.lower(model.name), String ).contains( func.lower(q) ))\
+            .order_by(model.name).distinct().paginate(page=1, per_page=300)
+        return locations.items
+    locations = get_model_locations(University)
+    return universities_schema.dumps(locations)
+
