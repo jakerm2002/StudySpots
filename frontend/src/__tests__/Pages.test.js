@@ -38,9 +38,8 @@ describe("Test About Page", () => {
         render(<About/>);
 
         // Make sure all the parts of the About page is included
-        expect(screen.getByText("StudySpots")).toBeInTheDocument();
+        expect(screen.getByText("About StudySpots")).toBeInTheDocument();
         expect(screen.getByText("Mission")).toBeInTheDocument();
-        expect(screen.getByText("Discovery")).toBeInTheDocument();
         expect(screen.getByText("Meet the Team")).toBeInTheDocument();
         expect(screen.getByText("Technology Used")).toBeInTheDocument();
         expect(screen.getByText("APIs Scraped")).toBeInTheDocument();
