@@ -260,7 +260,7 @@ const Profile = (props) => {
 
 const Tool = (props) => {
     return (
-        <Card style = {{width: '15rem', height: '20rem'}}>
+        <Card className={`cards`} style = {{width: '15rem', height: '20rem'}}>
             <Card.Img className={styles.toolCard} variant="top" src={props.tool["image"]}/>
             <Card.Body className="text">
                 <a href={props.tool["link"]}>
@@ -335,7 +335,7 @@ const About = () => {
             <h3 className="text">Tools</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody className='cards'>
+                    <tbody className='cardsBackground'>
                         <tr>
                         {tools.map(tool => (
                             <td key={tool.name}><Tool tool={tool}/></td>
@@ -347,7 +347,7 @@ const About = () => {
             <h3 className="text">APIs Scraped</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody className='cards'>
+                    <tbody className='cardsBackground'>
                         <tr>
                             {apis.map(api => (
                                 <td key={api.name}><Tool tool={api}/></td>
