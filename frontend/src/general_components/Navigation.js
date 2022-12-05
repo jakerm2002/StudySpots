@@ -6,7 +6,10 @@ const Navigation = () => {
         <>
             <Navbar collapseOnSelect expand='lg' className="navBar">
                 <Container>
-                    <Navbar.Toggle/>
+                    <Navbar.Brand className="Title-text" href="/" style={{ color: 'white', fontWeight:600 }}>
+                        StudySpots
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
                     <Navbar.Collapse>
                         <Nav>
                             <Nav.Link className="Nav-link" href='/'>Home</Nav.Link>
