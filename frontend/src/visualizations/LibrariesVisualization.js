@@ -59,7 +59,7 @@ const Libraries = () => {
                                     tempData[j]["count"]++;
                                 }
                             }
-                        } else if (currentRating == -1) {
+                        } else if (currentRating === -1) {
                             tempData[0]["count"]++;
                         }
                         else {
@@ -107,8 +107,8 @@ const Libraries = () => {
 
     return <>
         <Stack justifyContent="center" alignItems="center" marginTop="20px" marginBottom="50px" paddingBottom="50px">
-            <h3>Nearby Library Ratings</h3>
-            <h6>Distribution of ratings for libraries within 25 miles of the selected university</h6>
+            <h3 className="text">Nearby Library Ratings</h3>
+            <h6 className="text">Distribution of ratings for libraries within 25 miles of the selected university</h6>
             <br />
             <UniversitySelect currentUniversity={currentUniversity} setCurrentUniversity={setCurrentUniversity} />
             {results}

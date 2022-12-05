@@ -54,7 +54,7 @@ const UniversitiesVisualization = () => {
 
     return <>
     <Stack justifyContent="center" className="topSpacing">
-        <h3>Average SAT Score vs Acceptance Rate</h3>
+        <h3 className="text">Average SAT Score vs Acceptance Rate</h3>
         <ResponsiveContainer width="100%" height={450}>
             <ScatterChart margin={{
                 right: 50, left: 50

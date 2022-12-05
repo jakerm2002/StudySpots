@@ -75,7 +75,7 @@ const Teams = () => {
 
     return <>
     <Stack justifyContent="center" marginTop="20px">
-        <h3>Teams</h3>
+        <h3 className="text">Teams</h3>
         <Box display="flex" alignItems="center" justifyContent="center">
             <Autocomplete
                 disablePortal

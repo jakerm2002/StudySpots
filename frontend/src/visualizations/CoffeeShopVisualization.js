@@ -40,9 +40,9 @@ const CoffeeShopVisualization = () => {
                     let list = response.data;
                     for (let i = 0; i < list.length; i++) {
                         let current = list[i];
-                        if (current.price == "$") {
+                        if (current.price === "$") {
                             tempData[1]["count"]++;
-                        } else if (current.price == "$$") {
+                        } else if (current.price === "$$") {
                             tempData[2]["count"]++;
                         } else {
                             tempData[0]["count"]++;
@@ -95,8 +95,8 @@ const CoffeeShopVisualization = () => {
 
     return <>
         <Stack justifyContent="center" alignItems="center" marginTop="20px">
-            <h3>Nearby Coffee Shop Prices</h3>
-            <h6>Prices of coffee shops within 25 miles of the selected university</h6>
+            <h3 className="text">Nearby Coffee Shop Prices</h3>
+            <h6 className="text">Prices of coffee shops within 25 miles of the selected university</h6>
             <br />
             <UniversitySelect currentUniversity={currentUniversity} setCurrentUniversity={setCurrentUniversity} />
             {results}

@@ -88,3 +88,11 @@
 body {
   padding-bottom: 10px;
 }
+
+#light .text {
+  color: #78330c;
+}
+
+#dark .text {
+  color: white;
+}
