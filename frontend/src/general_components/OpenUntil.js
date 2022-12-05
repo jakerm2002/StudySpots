@@ -15,6 +15,13 @@ function OpenUntil(props) {
     const [options, setOptions] = useState(props.options[0]);
 
     let day = new Date().getDay();
+    //sunday is day 0 in javascript date objects,
+    //however our hours_day_0 fields represent monday's hours
+    //we want the expected behaviour
+    day -= 1;
+    if (day < 0) {
+        day = 6;
+    }
 
     // get and display the current filtering value if it is in the URL
     // but not selected using this OpenUntil component
