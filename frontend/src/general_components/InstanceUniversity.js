@@ -88,6 +88,15 @@ const InstanceUniversity = () => {
                 <div>
                   <b>Acceptance Rate:</b> {(data.acceptance_rate* 100).toFixed(1)+'%'}
                 </div>
+                <div>
+                  <b>Average SAT Score:</b> {(data.sat_average)}
+                </div>
+                <div>
+                  <b>Median SAT Math Score:</b> {(data.sat_median_math)}
+                </div>
+                <div>
+                  <b>Median SAT Reading Score:</b> {(data.sat_median_reading)}
+                </div>
               </Container>
               <Container className={`cards ${styles.spacing} ${styles.styleCard}`}>
                 <h4>Description</h4>
