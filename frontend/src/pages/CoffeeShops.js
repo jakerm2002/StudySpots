@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom';
-import SearchBar from "../general_components/SearchBar";
-import Sorter from '../general_components/Sort';
-import FilterContainer from '../general_components/FilterContainer';
-import getModel from '../general_components/ModelPageTemplate';
-import styles from '../general_components/ModelPageTemplate.module.css'
+import SearchBar from "../components/search-sort-filter/SearchBar";
+import Sorter from '../components/search-sort-filter/Sort';
+import FilterContainer from '../components/search-sort-filter/FilterContainer';
+import getModel from '../components/model_components/ModelPageTemplate';
+import styles from '../components/model_components/ModelPageTemplate.module.css'
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions } from '../general_components/CoffeeShopOptions';
-import TimeOptions from '../general_components/TimeOptions';
+import { CoffeeShopEndpointName ,CoffeeShopExactFilters, CoffeeShopRangeFilters, CoffeeShopSortOptions } from '../components/search-sort-filter/CoffeeShopOptions';
+import TimeOptions from '../components/search-sort-filter/TimeOptions';
 
 
 const CoffeeShops = () => {
@@ -78,6 +78,13 @@ export const get_todays_hours = (info) => {
     let day = d.getDay();
     let startHour;
     let endHour;
+    //sunday is day 0 in javascript date objects,
+    //however our hours_day_0 fields represent monday's hours
+    //we want the expected behaviour
+    day -= 1;
+    if (day < 0) {
+        day = 6;
+    }
     switch(day) {
         case 0:
             startHour = info.hours_day_0_open;
@@ -118,8 +125,8 @@ export const get_todays_hours = (info) => {
     }
 
     //really dumb workaround, date could be any date, not just 2000
-    let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':00:00Z');
-    let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':00:00Z');
+    let startHour12 = new Date('2000-01-01T' + startHour.slice(0,2) + ':' + startHour.slice(2,4)+ ':00Z');
+    let endHour12 = new Date('2000-01-01T' + endHour.slice(0,2) + ':' + endHour.slice(2,4)+ ':00Z');
     startHour = startHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
     endHour = endHour12.toLocaleTimeString('en-US', {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'});
     return startHour + ' - ' + endHour;

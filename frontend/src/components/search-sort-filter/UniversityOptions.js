@@ -42,6 +42,10 @@ const UniversityRangeFilters = [
         value: 10_000,
       },
       {
+        label: "20K",
+        value: 20_000,
+      },
+      {
         label: "40K",
         value: 40_000,
       },
@@ -63,8 +67,16 @@ const UniversityRangeFilters = [
         value: 800,
       },
       {
+        label: "1000",
+        value: 1000,
+      },
+      {
         label: "1200",
         value: 1200,
+      },
+      {
+        label: "1400",
+        value: 1400,
       },
       {
         label: "1600",
@@ -175,4 +187,12 @@ const UniversitySortOptions = [
   }
 ];
 
-export { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions };
+const UniversityDropdown = 
+  {
+    label: "University",
+    name: "name",
+    api: "locations"
+  }
+;
+
+export { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions, UniversityDropdown };

@@ -26,11 +26,11 @@
 }
 
 #light .switchButton label {
-  color: black;
+  color: white;
 }
 
 #dark .switchButton label {
-  color: white;
+  color: #78330c;
 }
 
 .App-header {
@@ -71,4 +71,28 @@
 
 #dark .cards {
   background-color: #00003f;
+}
+
+#light .cardsBackground {
+  background-color: rgba(255, 255, 255, 0.185);
+}
+
+#dark .cardsBackground {
+  background-color: #ffffff31;
+}
+
+.topSpacing {
+  margin-top: 25px;
+}
+
+body {
+  padding-bottom: 10px;
+}
+
+#light .text {
+  color: #78330c;
+}
+
+#dark .text {
+  color: white;
 }

@@ -1,9 +1,8 @@
 import React from "react"
 import { render, screen, cleanup } from '@testing-library/react'
-import ExactFilterBar from "../general_components/ExactFilterBar"
-import TravelTime from "../general_components/TravelTime"
-import SearchBar from "../general_components/SearchBar"
-import {RangeFilterBar} from "../general_components/RangeFilterBar"
+import ExactFilterBar from "../components/search-sort-filter/ExactFilterBar"
+import TravelTime from "../components/instance_components/TravelTime"
+import SearchBar from "../components/search-sort-filter/SearchBar"
 import { BrowserRouter } from "react-router-dom"
 
 afterEach(cleanup);

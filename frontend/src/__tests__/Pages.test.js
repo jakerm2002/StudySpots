@@ -6,8 +6,8 @@ import Universities from "../pages/Universities"
 import Splash from "../pages/Splash"
 import Search from "../pages/Search"
 import { ModelCards, AboutCard, SlideShow } from "../pages/Splash"
-import Navigation from "../general_components/Navigation"
-import Paginate from "../general_components/Pagination"
+import Navigation from "../components/nav/Navigation"
+import Paginate from "../components/model_components/Pagination"
 import { render, screen, cleanup } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { BrowserRouter } from "react-router-dom"
@@ -38,9 +38,8 @@ describe("Test About Page", () => {
         render(<About/>);
 
         // Make sure all the parts of the About page is included
-        expect(screen.getByText("StudySpots")).toBeInTheDocument();
+        expect(screen.getByText("About StudySpots")).toBeInTheDocument();
         expect(screen.getByText("Mission")).toBeInTheDocument();
-        expect(screen.getByText("Discovery")).toBeInTheDocument();
         expect(screen.getByText("Meet the Team")).toBeInTheDocument();
         expect(screen.getByText("Technology Used")).toBeInTheDocument();
         expect(screen.getByText("APIs Scraped")).toBeInTheDocument();

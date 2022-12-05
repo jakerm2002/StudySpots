@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button'
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import SearchBar from "../general_components/SearchBar";
-import { RenderPageTable } from '../general_components/ModelPageTemplate';
-import styles from "../general_components/ModelPageTemplate.module.css";
+import SearchBar from "../components/search-sort-filter/SearchBar";
+import { RenderPageTable } from '../components/model_components/ModelPageTemplate';
+import styles from "../components/model_components/ModelPageTemplate.module.css";
 import axios from "axios";
 import Highlighter from "react-highlight-words";
 import { get_todays_hours as get_coffee_hours } from './CoffeeShops';
@@ -136,6 +136,8 @@ const Search = () => {
                     <td title={info.size}>{info.size.toLocaleString("en-US", populationFormat)}</td>
                     <td title={info.instate_tuition}>{info.instate_tuition.toLocaleString("en-US", currencyFormat)}</td>
                     <td title={info.outstate_tuition}>{info.outstate_tuition.toLocaleString("en-US", currencyFormat)}</td>
+                    <td>{info.sat_average}</td>
+                    <td>{(info.acceptance_rate* 100).toFixed(1)+'%'}</td> 
                 </tr>
             )
         }
@@ -143,7 +145,7 @@ const Search = () => {
 
     const coffeeShopFields = ["Name", "City", "Price", "Rating", "Hours today"];
     const libraryFields = ["Name", "Location", "Rating", "Phone #", "Hours today"];
-    const universityFields = ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"];
+    const universityFields = ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition", "Average SAT", "Acceptance Rate"];
 
     return [
         <SearchBar />,

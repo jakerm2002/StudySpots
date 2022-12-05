@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-import styles from './InstanceTemplate.module.css'
-import MapComponent from "./MapComponent";
-import NearbyCoffeeShop from './NearbyCoffeeShop.js';
-import NearbyLibrary from './NearbyLibrary.js';
+import styles from '../instance_components/InstanceTemplate.module.css'
+import MapComponent from "../instance_components/MapComponent";
+import NearbyCoffeeShop from '../nearby/NearbyCoffeeShop.js';
+import NearbyLibrary from '../nearby/NearbyLibrary.js';
 import { Button, Carousel, Col, Container, Figure, Row } from "react-bootstrap";
 import { Divider } from "@mui/material";
-import WeatherWidget from "./WeatherWidget";
-import TravelTime from "./TravelTime";
+import WeatherWidget from "../instance_components/WeatherWidget";
+import TravelTime from "../instance_components/TravelTime";
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -34,7 +34,7 @@ const InstanceUniversity = () => {
     return (
         <>
           {!isLoading && (
-            <div className={`text ${styles.general}`}>
+            <div className={`text ${styles.general} topSpacing`}>
               <h1>{data.name}</h1>
               <WeatherWidget latitude={data.latitude} longitude={data.longitude}/>
               <Divider className={styles.divider}>🎓</Divider>
@@ -87,6 +87,15 @@ const InstanceUniversity = () => {
                 </div>
                 <div>
                   <b>Acceptance Rate:</b> {(data.acceptance_rate* 100).toFixed(1)+'%'}
+                </div>
+                <div>
+                  <b>Average SAT Score:</b> {(data.sat_average)}
+                </div>
+                <div>
+                  <b>Median SAT Math Score:</b> {(data.sat_median_math)}
+                </div>
+                <div>
+                  <b>Median SAT Reading Score:</b> {(data.sat_median_reading)}
                 </div>
               </Container>
               <Container className={`cards ${styles.spacing} ${styles.styleCard}`}>

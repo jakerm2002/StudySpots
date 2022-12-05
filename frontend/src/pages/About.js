@@ -10,6 +10,13 @@ import AWSImg from '../images/aws.png';
 import CollegeImg from '../images/college_logo.png';
 import DockerImg from '../images/docker.png';
 import GitLabImg from '../images/gitlab_logo.png';
+import FlaskImg from '../images/flask_logo.png'
+import NamecheapImg from '../images/namecheap_logo.svg'
+import PostgreSQLImg from '../images/postgresql_logo.png'
+import MUIImg from '../images/MUI_logo.png'
+import BlackImg from '../images/black_logo.png'
+import FlaskSQLAlchemyImg from '../images/flaskSQLalchemy_logo.webp'
+import SQLAlchemyImg from '../images/SQLalchemy_logo.jpeg'
 import GoogleMapsImg from '../images/google_maps.png';
 import ReactBootstrapImg from '../images/react_bootstrap.png';
 import ReactImg from '../images/react_logo.png';
@@ -51,7 +58,7 @@ const teamMembers = [
         "name" : "Ami Iyer",
         "photo": AmiImg,
         "bio" : "Hello! I'm Ami, a junior majoring in CS and Linguistics with a minor in French. I went to school in Plano, TX and I really enjoy cooking, singing, and decorating my apartment in my free time :)",
-        "responsibility": "Full-Stack, Instance Template and JSON payload management",
+        "responsibility": "Full-Stack + Phase III Leader",
         "possible_names": ["Ami Iyer", "Amritha Iyer", "amrithaiyer02"],
         "commits": 0,
         "issues": 0,
@@ -61,7 +68,7 @@ const teamMembers = [
         "name" : "Jake Medina",
         "photo": JakeImg,
         "bio" : "Hey! I'm Jake and I'm a junior majoring in CS with a minor in business. I grew up here in Austin and I love hiking, photography, and the gym.",
-        "responsibility": "Frontend - Model Pages",
+        "responsibility": "Full-Stack + Phase II Leader",
         "possible_names": ["Jake Medina", "jakem02"],
         "commits": 0,
         "issues": 0,
@@ -105,6 +112,36 @@ const tools = [
         "image": GitLabImg,
         "link": "https://gitlab.com/",
         "description": "We used GitLab for source control, collaboration, and to keep track of issues.",
+    },
+    {
+        "name": "Flask",
+        "image": FlaskImg,
+        "link": "https://flask.palletsprojects.com/en/2.2.x/",
+        "description": "We used Flask to create the backend API application that runs on our web server.",
+    },
+    {
+        "name": "Namecheap",
+        "image": NamecheapImg,
+        "link": "https://www.namecheap.com/",
+        "description": "We used Namecheap to get a free domain for our AWS Amplify frontend.",
+    },
+    {
+        "name": "PostgreSQL",
+        "image": PostgreSQLImg,
+        "link": "https://www.postgresql.org/",
+        "description": "We used PostgreSQL as our backend relational database system.",
+    },
+    {
+        "name": "Material UI",
+        "image": MUIImg,
+        "link": "https://mui.com/",
+        "description": "We used Material UI for frontend components like dropdowns and sliders.",
+    },
+    {
+        "name": "Black",
+        "image": BlackImg,
+        "link": "https://github.com/psf/black",
+        "description": "We used Black to format our Python code.",
     },
 ]
 
@@ -195,9 +232,9 @@ function aggregateTests() {
 const Profile = (props) => {
 
     return (
-        <Card className={`cards ${styles.profileCard}`}>
+        <Card className={`cards ${styles.profileCard}`} style={{ width: '425px' }}>
+            <Card.Img className='mt-3' variant="top" src={props.person["photo"]}/>
             <Card.Body className="text">
-                <Card.Img variant="top" src={props.person["photo"]}/>
                 <Card.Title>{props.person["name"]}</Card.Title>
                 <Card.Text>{props.person["bio"]}</Card.Text>
                 <Card.Text><b>Responsibility: </b>{props.person["responsibility"]}</Card.Text>
@@ -211,9 +248,9 @@ const Profile = (props) => {
 
 const Tool = (props) => {
     return (
-        <Card style = {{ width: '15rem'}}>
+        <Card className={`cards`} style = {{width: '15rem', height: '20rem'}}>
+            <Card.Img className={styles.toolCard} variant="top" src={props.tool["image"]}/>
             <Card.Body className="text">
-                <Card.Img variant="top" src={props.tool["image"]}/>
                 <a href={props.tool["link"]}>
                     <Card.Title>{props.tool["name"]}</Card.Title>
                 </a>
@@ -248,14 +285,10 @@ const About = () => {
 
     return[
         <div className={styles.info}>
-            <h1 className="text">StudySpots</h1>
+            <h1 className="text">About StudySpots</h1>
             <h3 className="text">Mission</h3>
             <div className={styles.center}>
                 <p className="text">StudySpots focuses on helping college students explore the areas around their campus while finding less busy places to work. StudySpots aims at helping college students quickly find locations nearby them and locations that meet all of the requirements for their standards to help them quickly get their work done.</p>
-            </div>
-            <h3 className="text">Discovery</h3>
-            <div className={styles.center}>
-                <p className="text">When creating these connections between different libraries, universities, and coffee shops, we noticed...</p>
             </div>
         </div>,
         <div className={styles.teamInfo}>
@@ -286,7 +319,7 @@ const About = () => {
             <h3 className="text">Tools</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody className='cards'>
+                    <tbody className='cardsBackground'>
                         <tr>
                         {tools.map(tool => (
                             <td key={tool.name}><Tool tool={tool}/></td>
@@ -298,7 +331,7 @@ const About = () => {
             <h3 className="text">APIs Scraped</h3>
             <div className={styles.center}>
                 <Table className={styles.aboutTable}>
-                    <tbody className='cards'>
+                    <tbody className='cardsBackground'>
                         <tr>
                             {apis.map(api => (
                                 <td key={api.name}><Tool tool={api}/></td>

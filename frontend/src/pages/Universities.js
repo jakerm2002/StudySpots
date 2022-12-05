@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import SearchBar from '../general_components/SearchBar';
-import Sorter from '../general_components/Sort';
-import FilterContainer from '../general_components/FilterContainer';
-import getModel from '../general_components/ModelPageTemplate';
+import SearchBar from '../components/search-sort-filter/SearchBar';
+import Sorter from '../components/search-sort-filter/Sort';
+import FilterContainer from '../components/search-sort-filter/FilterContainer';
+import getModel from '../components/model_components/ModelPageTemplate';
 import axios from "axios";
 import Highlighter from "react-highlight-words";
-import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions } from '../general_components/UniversityOptions';
+import { UniversityEndpointName, UniversityExactFilters, UniversityRangeFilters, UniversitySortOptions } from '../components/search-sort-filter/UniversityOptions';
 
 var currencyFormat = {style: 'currency', currency: 'USD', minimumFractionDigits: 0}
 var populationFormat = {style: 'decimal', minimumFractionDigits: 0}
@@ -53,6 +53,8 @@ const Universities = () => {
                     <td title={info.enrollment_ugr_12m}>{info.enrollment_ugr_12m.toLocaleString("en-US", populationFormat)}</td>
                     <td title={info.instate_tuition}>{info.instate_tuition.toLocaleString("en-US", currencyFormat)}</td>
                     <td title={info.outstate_tuition}>{info.outstate_tuition.toLocaleString("en-US", currencyFormat)}</td> 
+                    <td>{info.sat_average}</td>
+                    <td>{(info.acceptance_rate* 100).toFixed(1)+'%'}</td> 
                 </tr>
             )
         }
@@ -61,7 +63,7 @@ const Universities = () => {
     var payload = {
         entries : Entries,
         pageName : "Universities",
-        fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition"],
+        fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition", "Average SAT", "Acceptance Rate"],
         num_items_per_page : universities["metadata"]["per_page"],
         num_total_items : universities["metadata"]["num_total_results"]
     }
