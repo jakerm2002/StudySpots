@@ -1,9 +1,10 @@
-from database.databases import *
+# from database.databases import *
 from flask import Flask, request, Blueprint
 from endpoints.universities import universities
 from endpoints.coffeeshops import coffeeshops
 from endpoints.libraries import libraries
 from endpoints.search import search
+from database.connection import app, db, ma
 
 app.register_blueprint(universities)
 app.register_blueprint(coffeeshops)
@@ -17,5 +18,5 @@ def home():
 
 
 if __name__ == "__main__":
-    # app.run(debug=True, host="0.0.0.0")
-    app.run()
+    app.run(debug=True, host="0.0.0.0")
+    # app.run()

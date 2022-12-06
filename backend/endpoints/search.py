@@ -3,9 +3,9 @@ from query import *
 from database.CoffeeShop import CoffeeShop, coffeeshops_schema
 from database.University import University, universities_schema
 from database.Library import Library, libraries_schema
-from coffeeshops import search_fields as coffeeshop_search_fields
-from universities import search_fields as university_search_fields
-from libraries import search_fields as library_search_fields
+from endpoints.coffeeshops import search_fields as coffeeshop_search_fields
+from endpoints.universities import search_fields as university_search_fields
+from endpoints.libraries import search_fields as library_search_fields
 import json
 
 search = Blueprint("search", __name__)

@@ -1,10 +1,10 @@
-from database.databases import db, ma
+from database.connection import db, ma
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 import json
 import os
 import time
-from databases import reassign_ids
+from database.connection import reassign_ids
 
 days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
