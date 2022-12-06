@@ -150,15 +150,15 @@ const Search = () => {
     return [
         <SearchBar />,
         <div className={styles.list}>
-            <RenderPageTable entries={coffeeShopEntries} page_name="Coffee Shops" fields={coffeeShopFields} />
+            <RenderPageTable entries={coffeeShopEntries} page_name="Coffee Shops" fields={coffeeShopFields} num_results={coffeeShopEntries.length}/>
         </div>,
         <Button className='buttonBackground text' onClick={() => routeChange("/CoffeeShops")}>View all CoffeeShop Results</Button>,
         <div className={styles.list}>
-            <RenderPageTable entries={libraryEntries} page_name="Libraries" fields={libraryFields} />
+            <RenderPageTable entries={libraryEntries} page_name="Libraries" fields={libraryFields} num_results={libraryEntries.length}/>
         </div>,
         <Button className='buttonBackground text' onClick={() => routeChange("/Libraries")}>View all Library Results</Button>,
         <div className={styles.list}>
-            <RenderPageTable entries={universityEntries} page_name="Universities" fields={universityFields} />
+            <RenderPageTable entries={universityEntries} page_name="Universities" fields={universityFields} num_results={universityEntries.length}/>
         </div>,
         <Button className='buttonBackground text' onClick={() => routeChange("/Universities")}>View all University Results</Button>,
     ];
