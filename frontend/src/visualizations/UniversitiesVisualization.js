@@ -1,3 +1,6 @@
+// inspiration for this visualization is credited to UniverCity
+// (https://gitlab.com/coleweinman/swe-college-project)
+
 import { useEffect, useState } from "react";
 import { Box, Typography, Stack } from '@mui/material';
 import { CartesianGrid, Label, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
