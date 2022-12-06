@@ -18,8 +18,8 @@ afterEach(cleanup);
 
 describe("Test Navigation Bar", () => {
     test("Proper Rendering of Navigation Component", () => {
-        render(<Navigation/>);
-        
+        render(<Navigation />);
+
         // Make sure all of the navigation bars are included
         expect(screen.getByText("Home")).toBeInTheDocument();
         expect(screen.getByText("Search")).toBeInTheDocument();
@@ -35,7 +35,7 @@ describe("Test About Page", () => {
     test("Proper Rendering of Search Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<About/>);
+        render(<About />);
 
         // Make sure all the parts of the About page is included
         expect(screen.getByText("About StudySpots")).toBeInTheDocument();
@@ -44,8 +44,8 @@ describe("Test About Page", () => {
         expect(screen.getByText("Technology Used")).toBeInTheDocument();
         expect(screen.getByText("APIs Scraped")).toBeInTheDocument();
         expect(screen.getByText("Project Links")).toBeInTheDocument();
-        expect(screen.getByRole('button', {name: "GitLab Project Repository"}));
-        expect(screen.getByRole('button', {name: "Postman API Documentation"}));
+        expect(screen.getByRole('button', { name: "GitLab Project Repository" }));
+        expect(screen.getByRole('button', { name: "Postman API Documentation" }));
 
         console.error = originalError;
 
@@ -53,19 +53,22 @@ describe("Test About Page", () => {
 });
 
 describe("Test Search Page", () => {
-    test("Proper Rendering of Search Page", () => {
+    test("Proper Rendering of Search Page", async () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Search/>, {wrapper: BrowserRouter});
+        render(<Search />, { wrapper: BrowserRouter });
 
         // Make sure all the parts of the Search page is included
-        expect(screen.getByText("Search")).toBeInTheDocument();
-        expect(screen.getByText("Coffee Shops")).toBeInTheDocument();
-        expect(screen.getByText("Libraries")).toBeInTheDocument();
-        expect(screen.getByText("Universities")).toBeInTheDocument();
-        expect(screen.getByText("View all CoffeeShop Results")).toBeInTheDocument();
-        expect(screen.getByText("View all Library Results")).toBeInTheDocument();
-        expect(screen.getByText("View all University Results")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText("Search")).toBeInTheDocument();
+            expect(screen.getByText("Coffee Shops")).toBeInTheDocument();
+            expect(screen.getByText("Libraries")).toBeInTheDocument();
+            expect(screen.getByText("Universities")).toBeInTheDocument();
+            expect(screen.getByText("View all CoffeeShop Results")).toBeInTheDocument();
+            expect(screen.getByText("View all Library Results")).toBeInTheDocument();
+            expect(screen.getByText("View all University Results")).toBeInTheDocument();
+        });
+
 
         console.error = originalError;
 
@@ -76,8 +79,8 @@ describe("Test Splash Page", () => {
     test("Proper Rendering of Splash Page", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Splash/>, {wrapper: BrowserRouter});
-        
+        render(<Splash />, { wrapper: BrowserRouter });
+
         // Make sure all the parts of the Splash page is included
         expect(screen.getByText("Model Cards")).toBeInTheDocument();
         expect(screen.getByText("Find your university!")).toBeInTheDocument();
@@ -88,10 +91,10 @@ describe("Test Splash Page", () => {
         console.error = originalError;
     });
 
-    test("Proper Rendering of Model Cards", ()=> {
+    test("Proper Rendering of Model Cards", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<ModelCards/>, {wrapper: BrowserRouter});
+        render(<ModelCards />, { wrapper: BrowserRouter });
 
         // Make sure all of the parts of the Model Cards is included
         expect(screen.getByText("Model Cards")).toBeInTheDocument();
@@ -106,23 +109,23 @@ describe("Test Splash Page", () => {
         console.error = originalError;
     });
 
-    test("Proper Rendering of About Card", ()=> {
+    test("Proper Rendering of About Card", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<AboutCard/>, {wrapper: BrowserRouter});
+        render(<AboutCard />, { wrapper: BrowserRouter });
 
         // Make sure all of the parts of the About Card is included
         expect(screen.getByText("Meet Our Team")).toBeInTheDocument();
         expect(screen.getByText("Find out more about our team and our mission.")).toBeInTheDocument();
-        expect(screen.getByRole("button", {name: "Learn more"})).toBeInTheDocument();
+        expect(screen.getByRole("button", { name: "Learn more" })).toBeInTheDocument();
 
         console.error = originalError;
     });
 
-    test("Proper Rendering of SlideShow", ()=> {
+    test("Proper Rendering of SlideShow", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<SlideShow/>, {wrapper: BrowserRouter});
+        render(<SlideShow />, { wrapper: BrowserRouter });
 
         // Make sure all of the parts of the SlideShow is included
         expect(screen.getByText("Previous")).toBeInTheDocument();
@@ -139,19 +142,21 @@ describe("Test Splash Page", () => {
 
 
 describe("Test Coffee Shops Page", () => {
-    test("Proper Rendering of Coffee Shops Page", () => {
+    test("Proper Rendering of Coffee Shops Page", async () => {
         const originalError = console.error;
         const originalWarn = console.warn;
         console.error = jest.fn();
         console.warn = jest.fn();
-        render(<CoffeeShops/>, {wrapper: BrowserRouter})
-        
+        render(<CoffeeShops />, { wrapper: BrowserRouter })
+
         // Make sure all the parts of the Splash page is included
-        expect(screen.getByText("Name")).toBeInTheDocument();
-        expect(screen.getByText("City")).toBeInTheDocument();
-        expect(screen.getAllByText("Price").length !== 0);
-        expect(screen.getAllByText("Rating").length !== 0);
-        expect(screen.getByText("Hours today")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText("Name")).toBeInTheDocument();
+            expect(screen.getByText("City")).toBeInTheDocument();
+            expect(screen.getAllByText("Price").length !== 0);
+            expect(screen.getAllByText("Rating").length !== 0);
+            expect(screen.getByText("Hours today")).toBeInTheDocument();
+        });
 
         expect(screen.getByRole("textbox")).toHaveDisplayValue("");
 
@@ -163,19 +168,22 @@ describe("Test Coffee Shops Page", () => {
 });
 
 describe("Test Libraries Page", () => {
-    test("Proper Rendering of Libraries Page", () => {
+    test("Proper Rendering of Libraries Page", async () => {
         const originalError = console.error;
         const originalWarn = console.warn;
         console.error = jest.fn();
         console.warn = jest.fn();
-        render(<Libraries/>, {wrapper: BrowserRouter})
-        
+        render(<Libraries />, { wrapper: BrowserRouter })
+
         // Make sure all the parts of the Splash page is included
-        expect(screen.getByText("Name")).toBeInTheDocument();
-        expect(screen.getByText("Address")).toBeInTheDocument();
-        expect(screen.getAllByText("Rating").length !== 0);
-        expect(screen.getByText("Phone #")).toBeInTheDocument();
-        expect(screen.getByText("Hours today")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText("Name")).toBeInTheDocument();
+            expect(screen.getByText("Address")).toBeInTheDocument();
+            expect(screen.getAllByText("Rating").length !== 0);
+            expect(screen.getByText("Phone #")).toBeInTheDocument();
+            expect(screen.getByText("Hours today")).toBeInTheDocument();
+        });
+
 
 
         console.error = originalError;
@@ -185,20 +193,22 @@ describe("Test Libraries Page", () => {
 });
 
 describe("Test Universities Page", () => {
-    test("Proper Rendering of Universities Page", () => {
+    test("Proper Rendering of Universities Page", async () => {
         const originalError = console.error;
         const originalWarn = console.warn;
         console.error = jest.fn();
         console.warn = jest.fn();
-        render(<Universities/>, {wrapper: BrowserRouter})
-        
+        render(<Universities />, { wrapper: BrowserRouter })
+
         // Make sure all the parts of the Splash page is included
-        expect(screen.getByText("Name")).toBeInTheDocument();
-        expect(screen.getByText("City")).toBeInTheDocument();
-        expect(screen.getByText("Zip")).toBeInTheDocument();
-        expect(screen.getByText("Undergraduate Population")).toBeInTheDocument();
-        expect(screen.getByText("In State Tuition")).toBeInTheDocument();
-        expect(screen.getByText("Out of State Tuition")).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.getByText("Name")).toBeInTheDocument();
+            expect(screen.getByText("City")).toBeInTheDocument();
+            expect(screen.getByText("Zip")).toBeInTheDocument();
+            expect(screen.getByText("Undergraduate Population")).toBeInTheDocument();
+            expect(screen.getByText("In State Tuition")).toBeInTheDocument();
+            expect(screen.getByText("Out of State Tuition")).toBeInTheDocument();
+        });
 
         console.error = originalError;
         console.warn = originalWarn;
@@ -210,7 +220,7 @@ describe("Test Pagination", () => {
     test("Proper Rendering of Pagination", () => {
         const originalError = console.error;
         console.error = jest.fn();
-        render(<Paginate/>,  {wrapper: BrowserRouter})
+        render(<Paginate />, { wrapper: BrowserRouter })
 
         expect(screen.getByText("Next")).toBeInTheDocument();
         expect(screen.getByText("More")).toBeInTheDocument();

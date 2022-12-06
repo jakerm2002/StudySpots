@@ -12,6 +12,7 @@ export const RenderPageTable = ({ entries, page_name, fields, num_results }) => 
 
     if (num_results == undefined) {
         return <div>
+            <h1 className={`text ${styles.pageName}`}>{page_name}</h1>
             <h2 className={`text ${styles.pageName}`}>Loading....</h2>
         </div>
     } else if (num_results > 0) {
@@ -34,6 +35,7 @@ export const RenderPageTable = ({ entries, page_name, fields, num_results }) => 
         )
     } else {
         return <div>
+            <h1 className={`text ${styles.pageName}`}>{page_name}</h1>
             <h2 className={`text ${styles.pageName}`}>No results found.</h2>
         </div>
     }
