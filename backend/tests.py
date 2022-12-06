@@ -1,5 +1,5 @@
 import json
-from database.make_database import *
+from database.database_object import app
 from unittest import main, TestCase
 from endpoints.coffeeshops import get_coffeeshops, coffeeshops_by_id
 from endpoints.libraries import get_libraries, libraries_by_id
