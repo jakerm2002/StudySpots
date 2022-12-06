@@ -5,7 +5,7 @@ from flask_cors import CORS
 from collections import Counter
 import functools
 import copy
-from database.connection import db,ma
+from database.database_object import db,ma
 from database.University import populate_universities
 from database.CoffeeShop import populate_coffee_shops
 from database.Library import populate_libraries

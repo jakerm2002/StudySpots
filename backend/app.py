@@ -3,7 +3,7 @@ from endpoints.universities import universities
 from endpoints.coffeeshops import coffeeshops
 from endpoints.libraries import libraries
 from endpoints.search import search
-from database.connection import app, db, ma
+from database.database_object import app, db, ma
 
 app.register_blueprint(universities)
 app.register_blueprint(coffeeshops)

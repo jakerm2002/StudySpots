@@ -1,4 +1,4 @@
-from database.connection import db, ma
+from database.database_object import db, ma
 from sqlalchemy import and_, or_, func
 
 def generate_query(model, page, per_page, exact_filters, range_filters, sort_attributes, search_fields, search_query, time_filters = None

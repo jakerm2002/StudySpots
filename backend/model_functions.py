@@ -1,7 +1,7 @@
 from sqlalchemy import literal_column, text
 from flask import request
 from sqlalchemy import cast, String
-from database.connection import db
+from database.database_object import db
 from database.CoffeeShop import *
 from database.University import *
 from database.Library import *
