@@ -57,6 +57,7 @@ const Libraries = () => {
         entries : Entries,
         pageName : "Libraries",
         fields : ["Name", "Address", "Rating", "Phone #", "Hours today"],
+        num_results : libraries["metadata"]["num_results"],
         num_items_per_page : libraries["metadata"]["per_page"],
         num_total_items : libraries["metadata"]["num_total_results"]
     }

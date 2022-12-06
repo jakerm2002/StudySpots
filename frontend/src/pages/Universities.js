@@ -64,6 +64,7 @@ const Universities = () => {
         entries : Entries,
         pageName : "Universities",
         fields : ["Name", "City", "Zip", "Undergraduate Population", "In State Tuition", "Out of State Tuition", "Average SAT", "Acceptance Rate"],
+        num_results : universities["metadata"]["num_results"],
         num_items_per_page : universities["metadata"]["per_page"],
         num_total_items : universities["metadata"]["num_total_results"]
     }

@@ -61,6 +61,7 @@ const CoffeeShops = () => {
         entries : Entries,
         pageName : "Coffee Shops",
         fields : ["Name", "City", "Price", "Rating", "Hours today"],
+        num_results : coffeeShops["metadata"]["num_results"],
         num_items_per_page : coffeeShops["metadata"]["per_page"],
         num_total_items : coffeeShops["metadata"]["num_total_results"]
     }
