@@ -8,7 +8,7 @@ import Search from "../pages/Search"
 import { ModelCards, AboutCard, SlideShow } from "../pages/Splash"
 import Navigation from "../components/nav/Navigation"
 import Paginate from "../components/model_components/Pagination"
-import { render, screen, cleanup } from '@testing-library/react'
+import { render, screen, cleanup, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { BrowserRouter } from "react-router-dom"
 
