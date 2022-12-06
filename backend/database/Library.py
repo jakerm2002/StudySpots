@@ -95,7 +95,7 @@ libraries_schema = LibrarySchema(many=True)
 
 
 def populate_libraries():
-    file_path = os.path.join(os.getcwd(), "api_information/all_libraries.json")
+    file_path = os.path.join(os.getcwd(), "database/api_information/all_libraries.json")
     file = open(file_path, "r")
     db.create_all()
     libraries_json = json.load(file)

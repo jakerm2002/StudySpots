@@ -142,7 +142,7 @@ coffeeshops_schema = CoffeeShopSchema(many=True)
 
 def populate_coffee_shops():
     file_path = os.path.join(
-        os.getcwd(), "api_information/all_coffee_shops_with_reviews.json"
+        os.getcwd(), "database/api_information/all_coffee_shops_with_reviews.json"
     )
     file = open(file_path, "r")
     db.create_all()

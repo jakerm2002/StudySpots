@@ -129,7 +129,7 @@ universities_schema = UniversitySchema(many=True)
 
 
 def populate_universities():
-    file_path = os.path.join(os.getcwd(), "api_information/all_universities.json")
+    file_path = os.path.join(os.getcwd(), "database/api_information/all_universities.json")
     file = open(file_path, "r")
     db.create_all()
     universities_json = json.load(file)

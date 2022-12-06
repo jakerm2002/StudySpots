@@ -1,4 +1,3 @@
-# from database.databases import *
 from flask import Flask, request, Blueprint
 from endpoints.universities import universities
 from endpoints.coffeeshops import coffeeshops
